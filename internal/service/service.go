@@ -9,6 +9,6 @@ import (
 type QuestionService interface {
 	Create(ctx context.Context, newQuestion *model.NewQuestion) (int, error)
 	Get(ctx context.Context, questionId int) (*model.Question, error)
-	Update(ctx context.Context, updatedQuestion *model.UpdatedQuestion) error
+	Update(ctx context.Context, questionId int, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, questionId int) error
 }

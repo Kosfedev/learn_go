@@ -1,0 +1,6 @@
+mode: set
+github.com/Kosfedev/learn_go/internal/service/question/create.go:11.78,13.2 1 1
+github.com/Kosfedev/learn_go/internal/service/question/delete.go:7.56,9.2 1 1
+github.com/Kosfedev/learn_go/internal/service/question/get.go:12.81,38.2 4 1
+github.com/Kosfedev/learn_go/internal/service/question/service.go:9.43,11.2 1 1
+github.com/Kosfedev/learn_go/internal/service/question/update.go:9.82,11.2 1 1
