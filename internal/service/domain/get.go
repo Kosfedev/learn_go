@@ -9,11 +9,11 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qds *serv) Get(_ context.Context, domainId int) (*model.QuestionsDomain, error) {
+func (qds *serv) Get(_ context.Context, domainId int) (*model.Domain, error) {
 	now := time.Now()
 	dayBefore := now.AddDate(0, 0, -1)
 
-	return &model.QuestionsDomain{
+	return &model.Domain{
 		Id:        domainId,
 		Name:      gofakeit.Name(),
 		CreatedAt: dayBefore,

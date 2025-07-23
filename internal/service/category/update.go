@@ -6,6 +6,6 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qcs *serv) Update(_ context.Context, _ int, _ *model.UpdatedQuestionsCategory) error {
+func (qcs *serv) Update(_ context.Context, _ int, _ *model.UpdatedCategory) error {
 	return nil
 }

@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type QuestionsSubcategory struct {
+type Subcategory struct {
 	Id         int
 	Name       string
 	CategoryId int
@@ -10,12 +10,12 @@ type QuestionsSubcategory struct {
 	UpdatedAt  *time.Time
 }
 
-type NewQuestionsSubcategory struct {
+type NewSubcategory struct {
 	Name       string
 	CategoryId int
 }
 
-type UpdatedQuestionsSubcategory struct {
+type UpdatedSubcategory struct {
 	Name       *string
 	CategoryId *int
 }

@@ -2,17 +2,17 @@ package model
 
 import "time"
 
-type QuestionsDomain struct {
-	Id   int
-	Name string
-	CreatedAt       time.Time
-	UpdatedAt       *time.Time
+type Domain struct {
+	Id        int
+	Name      string
+	CreatedAt time.Time
+	UpdatedAt *time.Time
 }
 
-type NewQuestionsDomain struct {
+type NewDomain struct {
 	Name string
 }
 
-type UpdatedQuestionsDomain struct {
+type UpdatedDomain struct {
 	Name *string
 }

@@ -11,14 +11,14 @@ import (
 
 func TestCreate(t *testing.T) {
 	questionService := NewService()
-	newDomain := model.NewQuestionsDomain{
+	newDomain := model.NewDomain{
 		Name: gofakeit.Name(),
 	}
 
 	t.Run("Create placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Create(context.Background(), &newDomain)
 		if err != nil {
-			t.Errorf("QuestionsDomainService.Create() error = %v\n", err)
+			t.Errorf("DomainService.Create() error = %v\n", err)
 		}
 	})
 }
@@ -30,7 +30,7 @@ func TestGet(t *testing.T) {
 	t.Run("Get placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Get(context.Background(), id)
 		if err != nil {
-			t.Errorf("QuestionsDomainService.Create() error = %v\n", err)
+			t.Errorf("DomainService.Create() error = %v\n", err)
 		}
 	})
 }
@@ -39,14 +39,14 @@ func TestUpdate(t *testing.T) {
 	questionService := NewService()
 	text := gofakeit.Question()
 	id := int(gofakeit.Int64())
-	updatedDomain := model.UpdatedQuestionsDomain{
+	updatedDomain := model.UpdatedDomain{
 		Name: &text,
 	}
 
 	t.Run("Update placeholder implementation test", func(t *testing.T) {
 		err := questionService.Update(context.Background(), id, &updatedDomain)
 		if err != nil {
-			t.Errorf("QuestionsDomainService.Update() error = %v\n", err)
+			t.Errorf("DomainService.Update() error = %v\n", err)
 		}
 	})
 }
@@ -58,7 +58,7 @@ func TestDelete(t *testing.T) {
 	t.Run("Delete placeholder implementation test", func(t *testing.T) {
 		err := questionService.Delete(context.Background(), id)
 		if err != nil {
-			t.Errorf("QuestionsDomainService.Delete() error = %v\n", err)
+			t.Errorf("DomainService.Delete() error = %v\n", err)
 		}
 	})
 }

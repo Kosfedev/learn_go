@@ -8,6 +8,6 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qds *serv) Create(_ context.Context, _ *model.NewQuestionsDomain) (int, error) {
+func (qds *serv) Create(_ context.Context, _ *model.NewDomain) (int, error) {
 	return int(gofakeit.Int64()), nil
 }

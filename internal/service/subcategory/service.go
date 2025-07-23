@@ -6,6 +6,6 @@ import (
 
 type serv struct{}
 
-func NewService() service.QuestionsSubcategoryService {
+func NewService() service.SubcategoryService {
 	return &serv{}
 }

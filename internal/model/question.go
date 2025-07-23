@@ -52,27 +52,3 @@ type UpdatedQuestion struct {
 	Options         *[]QuestionOption
 	ReferenceAnswer *string
 }
-
-/*
-Rest of base types
-type QuestionsDomain struct {
-	Id   int
-	Name string
-}
-
-type QuestionsCategory struct {
-	Id       int
-	Name     string
-	DomainId int
-}
-
-type QuestionsSubCategory struct {
-	Id         int
-	Name       string
-	CategoryId int
-}
-
-type QuestionSubcategory struct {
-	QuestionId    int
-	SubcategoryId int
-}*/

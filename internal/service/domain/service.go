@@ -6,6 +6,6 @@ import (
 
 type serv struct{}
 
-func NewService() service.QuestionsDomainService {
+func NewService() service.DomainService {
 	return &serv{}
 }

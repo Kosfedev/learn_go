@@ -2,20 +2,20 @@ package model
 
 import "time"
 
-type QuestionsCategory struct {
-	Id   int
-	Name string
-	DomainId int
-	CreatedAt       time.Time
-	UpdatedAt       *time.Time
+type Category struct {
+	Id        int
+	Name      string
+	DomainId  int
+	CreatedAt time.Time
+	UpdatedAt *time.Time
 }
 
-type NewQuestionsCategory struct {
-	Name string
+type NewCategory struct {
+	Name     string
 	DomainId int
 }
 
-type UpdatedQuestionsCategory struct {
-	Name *string
+type UpdatedCategory struct {
+	Name     *string
 	DomainId *int
 }
