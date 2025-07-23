@@ -72,11 +72,6 @@ type QuestionsSubCategory struct {
 	CategoryId int
 }
 
-type QuestionsSet struct {
-	Id   int
-	Name string
-}
-
 type QuestionsSetItems struct {
 	QuestionId int
 	SetId      int

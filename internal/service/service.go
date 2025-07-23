@@ -12,3 +12,10 @@ type QuestionService interface {
 	Update(ctx context.Context, questionId int, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, questionId int) error
 }
+
+type QuestionSetService interface {
+	Create(ctx context.Context, newQuestionSet *model.NewQuestionSet) (int, error)
+	Get(ctx context.Context, questionSetId int) (*model.QuestionSet, error)
+	Update(ctx context.Context, questionSetId int, updatedQuestionSet *model.UpdatedQuestionSet) error
+	Delete(ctx context.Context, questionSetId int) error
+}

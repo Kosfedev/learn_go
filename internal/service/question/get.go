@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/brianvoe/gofakeit"
+	"github.com/brianvoe/gofakeit/v6"
 
 	"github.com/Kosfedev/learn_go/internal/model"
 )

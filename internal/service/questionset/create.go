@@ -1,4 +1,4 @@
-package question
+package questionset
 
 import (
 	"context"
@@ -8,6 +8,6 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qs *serv) Create(_ context.Context, _ *model.NewQuestion) (int, error) {
+func (qss *serv) Create(_ context.Context, newQuestionSet *model.NewQuestionSet) (int, error) {
 	return int(gofakeit.Int64()), nil
 }
