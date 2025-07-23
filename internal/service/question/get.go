@@ -13,17 +13,17 @@ func (qs *serv) Get(_ context.Context, questionId int) (*model.Question, error) 
 	now := time.Now()
 	dayBefore := now.AddDate(0, 0, -1)
 	options := []model.QuestionOption{{
-		Id:      0,
-		Text:    gofakeit.Quote(),
-		Correct: false,
+		Id:        0,
+		Text:      gofakeit.Quote(),
+		IsCorrect: false,
 	}, {
-		Id:      1,
-		Text:    gofakeit.Quote(),
-		Correct: true,
+		Id:        1,
+		Text:      gofakeit.Quote(),
+		IsCorrect: true,
 	}, {
-		Id:      2,
-		Text:    gofakeit.Quote(),
-		Correct: false,
+		Id:        2,
+		Text:      gofakeit.Quote(),
+		IsCorrect: false,
 	}}
 
 	return &model.Question{
