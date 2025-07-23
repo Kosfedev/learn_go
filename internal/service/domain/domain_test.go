@@ -1,4 +1,4 @@
-package question
+package domain
 
 import (
 	"context"
@@ -11,18 +11,14 @@ import (
 
 func TestCreate(t *testing.T) {
 	questionService := NewService()
-	refAnswer := gofakeit.Quote()
-	newQuestion := model.NewQuestion{
-		Text:            gofakeit.Question(),
-		Type:            3,
-		Options:         nil,
-		ReferenceAnswer: &refAnswer,
+	newDomain := model.NewQuestionsDomain{
+		Name: gofakeit.Name(),
 	}
 
 	t.Run("Create placeholder implementation test", func(t *testing.T) {
-		_, err := questionService.Create(context.Background(), &newQuestion)
+		_, err := questionService.Create(context.Background(), &newDomain)
 		if err != nil {
-			t.Errorf("QuestionService.Create() error = %v\n", err)
+			t.Errorf("QuestionsDomainService.Create() error = %v\n", err)
 		}
 	})
 }
@@ -34,7 +30,7 @@ func TestGet(t *testing.T) {
 	t.Run("Get placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Get(context.Background(), id)
 		if err != nil {
-			t.Errorf("QuestionService.Create() error = %v\n", err)
+			t.Errorf("QuestionsDomainService.Create() error = %v\n", err)
 		}
 	})
 }
@@ -43,14 +39,14 @@ func TestUpdate(t *testing.T) {
 	questionService := NewService()
 	text := gofakeit.Question()
 	id := int(gofakeit.Int64())
-	updatedQuestion := model.UpdatedQuestion{
-		Text: &text,
+	updatedDomain := model.UpdatedQuestionsDomain{
+		Name: &text,
 	}
 
 	t.Run("Update placeholder implementation test", func(t *testing.T) {
-		err := questionService.Update(context.Background(), id, &updatedQuestion)
+		err := questionService.Update(context.Background(), id, &updatedDomain)
 		if err != nil {
-			t.Errorf("QuestionService.Update() error = %v\n", err)
+			t.Errorf("QuestionsDomainService.Update() error = %v\n", err)
 		}
 	})
 }
@@ -62,7 +58,7 @@ func TestDelete(t *testing.T) {
 	t.Run("Delete placeholder implementation test", func(t *testing.T) {
 		err := questionService.Delete(context.Background(), id)
 		if err != nil {
-			t.Errorf("QuestionService.Delete() error = %v\n", err)
+			t.Errorf("QuestionsDomainService.Delete() error = %v\n", err)
 		}
 	})
 }

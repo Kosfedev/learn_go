@@ -19,3 +19,24 @@ type QuestionSetService interface {
 	Update(ctx context.Context, questionSetId int, updatedQuestionSet *model.UpdatedQuestionSet) error
 	Delete(ctx context.Context, questionSetId int) error
 }
+
+type QuestionsDomainService interface {
+	Create(ctx context.Context, newDomain *model.NewQuestionsDomain) (int, error)
+	Get(ctx context.Context, domainId int) (*model.QuestionsDomain, error)
+	Update(ctx context.Context, domainId int, updatedDomain *model.UpdatedQuestionsDomain) error
+	Delete(ctx context.Context, domainId int) error
+}
+
+type QuestionsCategoryService interface {
+	Create(ctx context.Context, newCategory *model.NewQuestionsCategory) (int, error)
+	Get(ctx context.Context, categoryId int) (*model.QuestionsCategory, error)
+	Update(ctx context.Context, categoryId int, updatedCategory *model.UpdatedQuestionsCategory) error
+	Delete(ctx context.Context, categoryId int) error
+}
+
+type QuestionsSubcategoryService interface {
+	Create(ctx context.Context, newSubcategory *model.NewQuestionsSubcategory) (int, error)
+	Get(ctx context.Context, subcategoryId int) (*model.QuestionsSubcategory, error)
+	Update(ctx context.Context, subcategoryId int, updatedSubcategory *model.UpdatedQuestionsSubcategory) error
+	Delete(ctx context.Context, subcategoryId int) error
+}
