@@ -5,3 +5,12 @@ install-golangci-lint:
 
 lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config .golangci.pipeline.yaml
+
+init-folders:
+	mkdir "tests/coverage"
+
+test-service:
+	go test ./internal/service/... -cover -coverprofile=tests/coverage/service.out
+
+test-service-detailed:
+	go test ./internal/service/... -v -cover -coverprofile=tests/coverage/service.out
