@@ -10,7 +10,7 @@ const (
 
 type QuestionType uint8
 
-func (qt QuestionType) isValid() bool {
+func (qt QuestionType) IsValid() bool {
 	if qt == SingleAnswer || qt == MultiAnswer || qt == OpenAnswer {
 		return true
 	}
