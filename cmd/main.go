@@ -12,12 +12,15 @@ import (
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
+	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
 	questionService "github.com/Kosfedev/learn_go/internal/service/question"
-	descCategory "github.com/Kosfedev/learn_go/pkg/category_v1"
-	descDomain "github.com/Kosfedev/learn_go/pkg/domain_v1"
-	descQuestion "github.com/Kosfedev/learn_go/pkg/question_v1"
+	subcategoryService "github.com/Kosfedev/learn_go/internal/service/subcategory"
+	categoryDesc "github.com/Kosfedev/learn_go/pkg/category_v1"
+	domainDesc "github.com/Kosfedev/learn_go/pkg/domain_v1"
+	questionDesc "github.com/Kosfedev/learn_go/pkg/question_v1"
+	subcategoryDesc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
 )
 
 const (
@@ -31,7 +34,9 @@ func main() {
 	domainImpl := domainImplementation.NewImplementation(domainServ)
 	categoryServ := categoryService.NewService()
 	categoryImpl := categoryImplementation.NewImplementation(categoryServ)
-	server := initGRPCServer(questionImpl, domainImpl, categoryImpl)
+	subcategoryServ := subcategoryService.NewService()
+	subcategoryImpl := subcategoryImplementation.NewImplementation(subcategoryServ)
+	server := initGRPCServer(questionImpl, domainImpl, categoryImpl, subcategoryImpl)
 	address := fmt.Sprintf("localhost:%s", grpcPort)
 
 	log.Printf("Starting gRPC server at %s", address)
@@ -47,12 +52,13 @@ func main() {
 }
 
 // TODO: change arguments
-func initGRPCServer(questionImpl *quesionImplementation.Implementation, domainImpl *domainImplementation.Implementation, categoryImpl *categoryImplementation.Implementation) *grpc.Server {
+func initGRPCServer(questionImpl *quesionImplementation.Implementation, domainImpl *domainImplementation.Implementation, categoryImpl *categoryImplementation.Implementation, subcategoryImpl *subcategoryImplementation.Implementation) *grpc.Server {
 	server := grpc.NewServer(grpc.Creds(insecure.NewCredentials()))
 
 	reflection.Register(server)
-	descDomain.RegisterDomainV1Server(server, domainImpl)
-	descQuestion.RegisterQuestionV1Server(server, questionImpl)
-	descCategory.RegisterCategoryV1Server(server, categoryImpl)
+	domainDesc.RegisterDomainV1Server(server, domainImpl)
+	questionDesc.RegisterQuestionV1Server(server, questionImpl)
+	categoryDesc.RegisterCategoryV1Server(server, categoryImpl)
+	subcategoryDesc.RegisterSubcategoryV1Server(server, subcategoryImpl)
 	return server
 }

@@ -37,11 +37,20 @@ generate-category-api:
 	--go-grpc_out=pkg/category_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/category_v1/category.proto
+generate-subcategory-api:
+	mkdir -p pkg/subcategory_v1
+	protoc --proto_path api/subcategory_v1 \
+	--go_out=pkg/subcategory_v1 --go_opt=paths=source_relative \
+	--plugin=protoc-gen-go=bin/protoc-gen-go \
+	--go-grpc_out=pkg/subcategory_v1 --go-grpc_opt=paths=source_relative \
+	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	api/subcategory_v1/subcategory.proto
 
 generate:
 	make generate-question-api
 	make generate-domain-api
 	make generate-category-api
+	make generate-subcategory-api
 
 lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config .golangci.pipeline.yaml
