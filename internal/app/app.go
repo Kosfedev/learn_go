@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net"
 
@@ -10,15 +9,11 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 
+	"github.com/Kosfedev/learn_go/internal/config"
 	categoryDesc "github.com/Kosfedev/learn_go/pkg/category_v1"
 	domainDesc "github.com/Kosfedev/learn_go/pkg/domain_v1"
 	questionDesc "github.com/Kosfedev/learn_go/pkg/question_v1"
 	subcategoryDesc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
-)
-
-// TODO: вынести в конфиг
-const (
-	grpcPort = "50051"
 )
 
 type App struct {
@@ -39,6 +34,7 @@ func NewApp(ctx context.Context) (*App, error) {
 
 func (app *App) initDeps(ctx context.Context) error {
 	inits := []func(ctx2 context.Context) error{
+		app.initConfig,
 		app.initServiceProvider,
 		app.initGRPCServer,
 	}
@@ -47,6 +43,16 @@ func (app *App) initDeps(ctx context.Context) error {
 		if err := init(ctx); err != nil {
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (app *App) initConfig(_ context.Context) error {
+	// TODO: добавить ввод error с консоли
+	err := config.Load(".env")
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -70,9 +76,7 @@ func (app *App) initGRPCServer(ctx context.Context) error {
 }
 
 func (app *App) RunGRPCServer() error {
-	// TODO: вынести в конфиг
-	address := fmt.Sprintf("localhost:%s", grpcPort)
-
+	address := app.serviceProvider.GRPCConfig().Address()
 	log.Printf("Starting gRPC server at %s", address)
 	lis, err := net.Listen("tcp", address)
 	if err != nil {
