@@ -12,7 +12,7 @@ import (
 func (qs *serv) Get(_ context.Context, questionId int) (*model.Question, error) {
 	now := time.Now()
 	dayBefore := now.AddDate(0, 0, -1)
-	options := []model.QuestionOption{{
+	options := []*model.QuestionOption{{
 		Id:        0,
 		Text:      gofakeit.Quote(),
 		IsCorrect: false,
