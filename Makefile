@@ -21,9 +21,18 @@ generate-question-api:
 	--go-grpc_out=pkg/question_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/question_v1/question.proto
+generate-domain-api:
+	mkdir -p pkg/domain_v1
+	protoc --proto_path api/domain_v1 \
+	--go_out=pkg/domain_v1 --go_opt=paths=source_relative \
+	--plugin=protoc-gen-go=bin/protoc-gen-go \
+	--go-grpc_out=pkg/domain_v1 --go-grpc_opt=paths=source_relative \
+	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	api/domain_v1/domain.proto
 
 generate:
 	make generate-question-api
+	make generate-domain-api
 
 lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config .golangci.pipeline.yaml
