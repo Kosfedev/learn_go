@@ -38,7 +38,6 @@ func NewApp(ctx context.Context) (*App, error) {
 }
 
 func (app *App) initDeps(ctx context.Context) error {
-
 	inits := []func(ctx2 context.Context) error{
 		app.initServiceProvider,
 		app.initGRPCServer,
