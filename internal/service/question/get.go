@@ -30,7 +30,7 @@ func (qs *serv) Get(_ context.Context, questionId int) (*model.Question, error) 
 		Id:              questionId,
 		Text:            gofakeit.Question(),
 		Type:            0,
-		Options:         &options,
+		Options:         options,
 		ReferenceAnswer: nil,
 		CreatedAt:       dayBefore,
 		UpdatedAt:       &now,

@@ -33,7 +33,7 @@ type Question struct {
 	Id              int
 	Text            string
 	Type            QuestionType
-	Options         *[]*QuestionOption
+	Options         []*QuestionOption
 	ReferenceAnswer *string
 	CreatedAt       time.Time
 	UpdatedAt       *time.Time
@@ -42,13 +42,11 @@ type Question struct {
 type NewQuestion struct {
 	Text            string
 	Type            QuestionType
-	Options         *[]*NewQuestionOption
 	ReferenceAnswer *string
 }
 
 type UpdatedQuestion struct {
 	Text            *string
 	Type            *QuestionType
-	Options         *[]*NewQuestionOption
 	ReferenceAnswer *string
 }

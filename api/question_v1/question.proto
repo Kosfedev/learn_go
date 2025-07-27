@@ -12,6 +12,8 @@ service QuestionV1 {
   rpc Get(GetRequest) returns (GetResponse);
   rpc Update(UpdateRequest) returns (UpdateResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc AddOptions(AddOptionsRequest) returns (AddOptionsResponse);
+  rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse);
 }
 
 enum QuestionType {
@@ -35,8 +37,7 @@ message NewQuestionOption {
 message CreateRequest {
   string text = 1;
   QuestionType question_type = 2;
-  repeated NewQuestionOption options = 3;
-  google.protobuf.StringValue reference_answer = 4;
+  google.protobuf.StringValue reference_answer = 3;
 }
 
 message CreateResponse {
@@ -61,8 +62,7 @@ message UpdateRequest {
   int64 id = 1;
   string text = 2;
   QuestionType question_type = 3;
-  repeated NewQuestionOption options = 4;
-  google.protobuf.StringValue reference_answer = 5;
+  google.protobuf.StringValue reference_answer = 4;
 }
 
 message UpdateResponse {
@@ -73,4 +73,19 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
+}
+
+message AddOptionsRequest {
+  int64 questionId = 1;
+  repeated NewQuestionOption options = 2;
+}
+
+message AddOptionsResponse{
+}
+
+message DeleteOptionsRequest {
+  repeated int64 ids = 1;
+}
+
+message DeleteOptionsResponse{
 }

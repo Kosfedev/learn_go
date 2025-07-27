@@ -26,6 +26,8 @@ type QuestionV1Client interface {
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	AddOptions(ctx context.Context, in *AddOptionsRequest, opts ...grpc.CallOption) (*AddOptionsResponse, error)
+	DeleteOptions(ctx context.Context, in *DeleteOptionsRequest, opts ...grpc.CallOption) (*DeleteOptionsResponse, error)
 }
 
 type questionV1Client struct {
@@ -72,6 +74,24 @@ func (c *questionV1Client) Delete(ctx context.Context, in *DeleteRequest, opts .
 	return out, nil
 }
 
+func (c *questionV1Client) AddOptions(ctx context.Context, in *AddOptionsRequest, opts ...grpc.CallOption) (*AddOptionsResponse, error) {
+	out := new(AddOptionsResponse)
+	err := c.cc.Invoke(ctx, "/question_v1.QuestionV1/AddOptions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionV1Client) DeleteOptions(ctx context.Context, in *DeleteOptionsRequest, opts ...grpc.CallOption) (*DeleteOptionsResponse, error) {
+	out := new(DeleteOptionsResponse)
+	err := c.cc.Invoke(ctx, "/question_v1.QuestionV1/DeleteOptions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QuestionV1Server is the server API for QuestionV1 service.
 // All implementations must embed UnimplementedQuestionV1Server
 // for forward compatibility
@@ -80,6 +100,8 @@ type QuestionV1Server interface {
 	Get(context.Context, *GetRequest) (*GetResponse, error)
 	Update(context.Context, *UpdateRequest) (*UpdateResponse, error)
 	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	AddOptions(context.Context, *AddOptionsRequest) (*AddOptionsResponse, error)
+	DeleteOptions(context.Context, *DeleteOptionsRequest) (*DeleteOptionsResponse, error)
 	mustEmbedUnimplementedQuestionV1Server()
 }
 
@@ -98,6 +120,12 @@ func (UnimplementedQuestionV1Server) Update(context.Context, *UpdateRequest) (*U
 }
 func (UnimplementedQuestionV1Server) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedQuestionV1Server) AddOptions(context.Context, *AddOptionsRequest) (*AddOptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddOptions not implemented")
+}
+func (UnimplementedQuestionV1Server) DeleteOptions(context.Context, *DeleteOptionsRequest) (*DeleteOptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOptions not implemented")
 }
 func (UnimplementedQuestionV1Server) mustEmbedUnimplementedQuestionV1Server() {}
 
@@ -184,6 +212,42 @@ func _QuestionV1_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QuestionV1_AddOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddOptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionV1Server).AddOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_v1.QuestionV1/AddOptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionV1Server).AddOptions(ctx, req.(*AddOptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionV1_DeleteOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionV1Server).DeleteOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_v1.QuestionV1/DeleteOptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionV1Server).DeleteOptions(ctx, req.(*DeleteOptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QuestionV1_ServiceDesc is the grpc.ServiceDesc for QuestionV1 service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +270,14 @@ var QuestionV1_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _QuestionV1_Delete_Handler,
+		},
+		{
+			MethodName: "AddOptions",
+			Handler:    _QuestionV1_AddOptions_Handler,
+		},
+		{
+			MethodName: "DeleteOptions",
+			Handler:    _QuestionV1_DeleteOptions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

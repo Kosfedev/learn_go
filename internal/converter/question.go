@@ -14,18 +14,6 @@ func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
 		Type: model.QuestionType(req.QuestionType),
 	}
 
-	if len(req.Options) > 0 {
-		options := make([]*model.NewQuestionOption, len(req.Options))
-		for i, option := range req.Options {
-			options[i] = &model.NewQuestionOption{
-				Text:      option.Text,
-				IsCorrect: option.IsCorrect,
-			}
-		}
-
-		newQuestion.Options = &options
-	}
-
 	if req.ReferenceAnswer != nil {
 		refAnswer := req.ReferenceAnswer.GetValue()
 		newQuestion.ReferenceAnswer = &refAnswer
@@ -37,18 +25,6 @@ func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
 func UpdatedQuestionFromGRPC(req *desc.UpdateRequest) *model.UpdatedQuestion {
 	updatedQuestion := &model.UpdatedQuestion{}
 
-	if len(req.Options) > 0 {
-		options := make([]*model.NewQuestionOption, len(req.Options))
-		for i, option := range req.Options {
-			options[i] = &model.NewQuestionOption{
-				Text:      option.Text,
-				IsCorrect: option.IsCorrect,
-			}
-		}
-
-		updatedQuestion.Options = &options
-	}
-
 	if req.ReferenceAnswer != nil {
 		refAnswer := req.ReferenceAnswer.GetValue()
 		updatedQuestion.ReferenceAnswer = &refAnswer
@@ -58,8 +34,8 @@ func UpdatedQuestionFromGRPC(req *desc.UpdateRequest) *model.UpdatedQuestion {
 }
 
 func QuestionToGRPC(question *model.Question) *desc.GetResponse {
-	options := make([]*desc.QuestionOption, len(*question.Options))
-	for i, option := range *question.Options {
+	options := make([]*desc.QuestionOption, len(question.Options))
+	for i, option := range question.Options {
 		options[i] = &desc.QuestionOption{
 			Id:        int64(option.Id),
 			Text:      option.Text,
@@ -85,4 +61,25 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	}
 
 	return res
+}
+
+func NewQuestionOptionsFromGRPC(req *desc.AddOptionsRequest) []*model.NewQuestionOption {
+	newOptions := make([]*model.NewQuestionOption, len(req.Options))
+	for i, option := range req.Options {
+		newOptions[i] = &model.NewQuestionOption{
+			Text:      option.Text,
+			IsCorrect: option.IsCorrect,
+		}
+	}
+
+	return newOptions
+}
+
+func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int {
+	optionIds := make([]int, len(req.Ids))
+	for i, id := range req.Ids {
+		optionIds[i] = int(id)
+	}
+
+	return optionIds
 }

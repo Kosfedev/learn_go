@@ -29,6 +29,7 @@ lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config .golangci.pipeline.yaml
 
 init-folders:
+	mkdir "tests"
 	mkdir "tests/coverage"
 
 test-service:

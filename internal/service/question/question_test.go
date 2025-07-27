@@ -15,7 +15,6 @@ func TestCreate(t *testing.T) {
 	newQuestion := model.NewQuestion{
 		Text:            gofakeit.Question(),
 		Type:            3,
-		Options:         nil,
 		ReferenceAnswer: &refAnswer,
 	}
 
@@ -63,6 +62,41 @@ func TestDelete(t *testing.T) {
 		err := questionService.Delete(context.Background(), id)
 		if err != nil {
 			t.Errorf("QuestionService.Delete() error = %v\n", err)
+		}
+	})
+}
+
+func TestAddOptions(t *testing.T) {
+	questionService := NewService()
+	id := int(gofakeit.Int64())
+	newOptions := []*model.NewQuestionOption{
+		{
+			Text:      gofakeit.Question(),
+			IsCorrect: false,
+		},
+		{
+			Text:      gofakeit.Question(),
+			IsCorrect: true,
+		},
+	}
+
+	t.Run("Add options placeholder implementation test", func(t *testing.T) {
+		err := questionService.AddOptions(context.Background(), id, newOptions)
+		if err != nil {
+			t.Errorf("QuestionService.AddOptions() error = %v\n", err)
+		}
+	})
+}
+
+func TestDeleteOptions(t *testing.T) {
+	questionService := NewService()
+	optionIds := make([]int, 10)
+	gofakeit.Slice(&optionIds)
+
+	t.Run("Delete options placeholder implementation test", func(t *testing.T) {
+		err := questionService.DeleteOptions(context.Background(), optionIds)
+		if err != nil {
+			t.Errorf("QuestionService.DeleteOptions() error = %v\n", err)
 		}
 	})
 }
