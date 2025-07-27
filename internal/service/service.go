@@ -11,6 +11,8 @@ type QuestionService interface {
 	Get(ctx context.Context, id int) (*model.Question, error)
 	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, id int) error
+	AddOptions(ctx context.Context, questionId int, newQuestionOptions []*model.NewQuestionOption) error
+	DeleteOptions(ctx context.Context, ids []int) error
 }
 
 type QuestionSetService interface {

@@ -3,7 +3,7 @@ package model
 import "time"
 
 const (
-	SingleAnswer = iota
+	SingleAnswer = iota + 1
 	MultiAnswer
 	OpenAnswer
 )
@@ -25,15 +25,15 @@ type QuestionOption struct {
 }
 
 type NewQuestionOption struct {
-	Text    string
-	Correct bool
+	Text      string
+	IsCorrect bool
 }
 
 type Question struct {
 	Id              int
 	Text            string
 	Type            QuestionType
-	Options         *[]QuestionOption
+	Options         []*QuestionOption
 	ReferenceAnswer *string
 	CreatedAt       time.Time
 	UpdatedAt       *time.Time
@@ -42,13 +42,11 @@ type Question struct {
 type NewQuestion struct {
 	Text            string
 	Type            QuestionType
-	Options         *[]QuestionOption
 	ReferenceAnswer *string
 }
 
 type UpdatedQuestion struct {
 	Text            *string
 	Type            *QuestionType
-	Options         *[]QuestionOption
 	ReferenceAnswer *string
 }
