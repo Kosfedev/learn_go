@@ -1,4 +1,4 @@
-package category
+package subcategory
 
 import (
 	"github.com/Kosfedev/learn_go/internal/service"
