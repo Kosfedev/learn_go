@@ -2,11 +2,14 @@ package app
 
 import (
 	"context"
+	"log"
 
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
+	"github.com/Kosfedev/learn_go/internal/config"
+	"github.com/Kosfedev/learn_go/internal/config/env"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
@@ -15,6 +18,8 @@ import (
 )
 
 type serviceProvider struct {
+	grpcConfig config.GRPCConfig
+
 	questionServ    service.QuestionService
 	domainServ      service.DomainService
 	categoryServ    service.CategoryService
@@ -28,6 +33,19 @@ type serviceProvider struct {
 
 func newServiceProvider() *serviceProvider {
 	return &serviceProvider{}
+}
+
+func (sp *serviceProvider) GRPCConfig() config.GRPCConfig {
+	if sp.grpcConfig == nil {
+		cfg, err := env.NewGRPCConfig()
+		if err != nil {
+			log.Fatalf("failed to get grpc config: %s", err.Error())
+		}
+
+		sp.grpcConfig = cfg
+	}
+
+	return sp.grpcConfig
 }
 
 func (sp *serviceProvider) QuestionService(_ context.Context) service.QuestionService {
