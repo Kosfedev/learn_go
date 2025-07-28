@@ -1,4 +1,6 @@
+include .env
 LOCAL_BIN:=$(CURDIR)/bin
+
 
 get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
@@ -9,9 +11,12 @@ install-golangci-lint:
 install-grpc:
 	GOBIN=$(LOCAL_BIN) go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1
 	GOBIN=$(LOCAL_BIN) go install -mod=mod google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+install-goose:
+	GOBIN=$(LOCAL_BIN) go install github.com/pressly/goose/v3/cmd/goose@v3.24.3
 install-deps:
 	make install-grpc
 	make install-golangci-lint
+	make install-goose
 
 generate-question-api:
 	mkdir -p pkg/question_v1
@@ -63,3 +68,10 @@ test-service:
 	go test ./internal/service/... -cover -coverprofile=tests/coverage/service.out
 test-service-detailed:
 	go test ./internal/service/... -v -cover -coverprofile=tests/coverage/service.out
+
+local-migration-status:
+	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} status -v
+local-migration-up:
+	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} up -v
+local-migration-down:
+	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} down -v
