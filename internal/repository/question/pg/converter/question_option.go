@@ -15,11 +15,12 @@ func QuestionOptionFromPGSQL(questionOptionRepo *modelRepo.QuestionOption) *mode
 	return questionOptionServ
 }
 
-func NewQuestionOptionToPGSQL(questionOptionServ *model.NewQuestionOption) *modelRepo.NewQuestionOption {
-	questionOptionRepo := &modelRepo.NewQuestionOption{
-		Text:      questionOptionServ.Text,
-		IsCorrect: questionOptionServ.IsCorrect,
+func NewQuestionOptionToPGSQL(questionId int, questionOptionServ *model.NewQuestionOption) *modelRepo.NewQuestionOption {
+	newQuestionOptionRepo := &modelRepo.NewQuestionOption{
+		QuestionId: int32(questionId),
+		Text:       questionOptionServ.Text,
+		IsCorrect:  questionOptionServ.IsCorrect,
 	}
 
-	return questionOptionRepo
+	return newQuestionOptionRepo
 }

@@ -9,9 +9,20 @@ import (
 )
 
 func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
+	newOptions := make([]*model.NewQuestionOption, len(req.Options))
+	for i, optionRepo := range req.Options {
+		optionServ := &model.NewQuestionOption{
+			Text:      optionRepo.Text,
+			IsCorrect: optionRepo.IsCorrect,
+		}
+
+		newOptions[i] = optionServ
+	}
+
 	newQuestion := &model.NewQuestion{
-		Text: req.Text,
-		Type: model.QuestionType(req.QuestionType),
+		Text:    req.Text,
+		Type:    model.QuestionType(req.QuestionType),
+		Options: newOptions,
 	}
 
 	if req.ReferenceAnswer != nil {

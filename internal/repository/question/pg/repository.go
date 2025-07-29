@@ -3,6 +3,7 @@ package pg
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/Kosfedev/learn_go/internal/model"
@@ -21,8 +22,45 @@ func NewRepository(db *sql.DB) repository.QuestionRepository {
 	}
 }
 
-func (r *repo) Create(ctx context.Context, question *model.NewQuestion) (int, error) {
-	return 0, nil
+func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int, error) {
+	newQuestionRepo := converter.NewQuestionToPGSQL(newQuestion)
+	query := `
+		INSERT INTO question (text, type, reference_answer) 
+		VALUES ($1, $2, $3)
+		RETURNING id;`
+
+	var questionId int
+	err := r.db.QueryRow(query, newQuestionRepo.Text, newQuestionRepo.Type, newQuestionRepo.ReferenceAnswer).Scan(&questionId)
+	if err != nil {
+		return 0, err
+	}
+
+	if len(newQuestion.Options) > 0 {
+		var values []interface{}
+		for i, option := range newQuestion.Options {
+			// TODO: вынести вне цикла? может ругаться на диалект
+			if i == 0 {
+				query = `
+				INSERT INTO question_option (question_id, text, is_correct) 
+				VALUES ($1, $2, $3)`
+			} else {
+				nArgs := 3
+				query += fmt.Sprintf(", ($%d, $%d, $%d)", i*nArgs+1, i*nArgs+2, i*nArgs+3)
+			}
+
+			newOptionRepo := converter.NewQuestionOptionToPGSQL(questionId, option)
+			values = append(values, newOptionRepo.QuestionId, newOptionRepo.Text, newOptionRepo.IsCorrect)
+		}
+
+		log.Printf("%s\n", query)
+		log.Printf("%+v\n", values)
+		_, err = r.db.Query(query, values...)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	return questionId, nil
 }
 
 func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {

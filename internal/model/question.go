@@ -43,6 +43,7 @@ type NewQuestion struct {
 	Text            string
 	Type            QuestionType
 	ReferenceAnswer *string
+	Options         []*NewQuestionOption
 }
 
 type UpdatedQuestion struct {

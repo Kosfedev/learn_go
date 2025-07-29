@@ -37,7 +37,8 @@ message NewQuestionOption {
 message CreateRequest {
   string text = 1;
   QuestionType question_type = 2;
-  google.protobuf.StringValue reference_answer = 3;
+  repeated NewQuestionOption options = 3;
+  google.protobuf.StringValue reference_answer = 4;
 }
 
 message CreateResponse {
