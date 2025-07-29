@@ -36,23 +36,20 @@ func (r *repo) Create(_ context.Context, newQuestion *model.NewQuestion) (int, e
 		return 0, err
 	}
 
+	nArgs := 3
+	query = `INSERT INTO question_option (question_id, text, is_correct) VALUES`
 	// TODO: нужна транзакция
 	if len(newQuestion.Options) > 0 {
 		var values []interface{}
-		for i, option := range newQuestion.Options {
-			// TODO: вынести вне цикла? может ругаться на диалект
-			if i == 0 {
-				query = `
-				INSERT INTO question_option (question_id, text, is_correct) 
-				VALUES ($1, $2, $3)`
-			} else {
-				nArgs := 3
-				query += fmt.Sprintf(", ($%d, $%d, $%d)", i*nArgs+1, i*nArgs+2, i*nArgs+3)
-			}
 
+		for i, option := range newQuestion.Options {
+			query += fmt.Sprintf(" ($%d, $%d, $%d),", i*nArgs+1, i*nArgs+2, i*nArgs+3)
 			newOptionRepo := converter.NewQuestionOptionToPGSQL(questionId, option)
 			values = append(values, newOptionRepo.QuestionId, newOptionRepo.Text, newOptionRepo.IsCorrect)
 		}
+
+		query = strings.TrimSuffix(query, ",")
+
 		_, err = r.db.Query(query, values...)
 		if err != nil {
 			return 0, err
@@ -101,7 +98,6 @@ func (r *repo) Get(_ context.Context, id int) (*model.Question, error) {
 
 func (r *repo) Update(_ context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
 	updatedQuestionRepo := converter.UpdatedQuestionToPGSQL(updatedQuestion)
-	// TODO: обновлять только релевантные поля
 	index := 2
 	values := []interface{}{id}
 	query := "UPDATE question SET"
