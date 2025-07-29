@@ -1,11 +1,16 @@
 package question
 
 import (
+	"github.com/Kosfedev/learn_go/internal/repository"
 	"github.com/Kosfedev/learn_go/internal/service"
 )
 
-type serv struct{}
+type serv struct {
+	repo repository.QuestionRepository
+}
 
-func NewService() service.QuestionService {
-	return &serv{}
+func NewService(repo repository.QuestionRepository) service.QuestionService {
+	return &serv{
+		repo: repo,
+	}
 }

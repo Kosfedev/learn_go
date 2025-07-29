@@ -4,24 +4,8 @@ import (
 	"database/sql"
 
 	"github.com/Kosfedev/learn_go/internal/model"
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/pg/model"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
 )
-
-func NewQuestionToPGSQL(questionServ *model.NewQuestion) *modelRepo.NewQuestion {
-	questionRepo := &modelRepo.NewQuestion{
-		Text: questionServ.Text,
-		Type: int32(questionServ.Type),
-	}
-
-	if questionServ.ReferenceAnswer != nil {
-		questionRepo.ReferenceAnswer = sql.NullString{
-			String: *questionServ.ReferenceAnswer,
-			Valid:  true,
-		}
-	}
-
-	return questionRepo
-}
 
 func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
 	questionServ := &model.Question{
@@ -40,6 +24,22 @@ func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
 	}
 
 	return questionServ
+}
+
+func NewQuestionToPGSQL(questionServ *model.NewQuestion) *modelRepo.NewQuestion {
+	questionRepo := &modelRepo.NewQuestion{
+		Text: questionServ.Text,
+		Type: int32(questionServ.Type),
+	}
+
+	if questionServ.ReferenceAnswer != nil {
+		questionRepo.ReferenceAnswer = sql.NullString{
+			String: *questionServ.ReferenceAnswer,
+			Valid:  true,
+		}
+	}
+
+	return questionRepo
 }
 
 func UpdatedQuestionToPGSQL(questionServ *model.UpdatedQuestion) *modelRepo.UpdatedQuestion {

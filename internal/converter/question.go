@@ -49,7 +49,6 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 		QuestionType: desc.QuestionType(question.Type),
 		Options:      options,
 		CreatedAt:    timestamppb.New(question.CreatedAt),
-		UpdatedAt:    timestamppb.New(*question.UpdatedAt),
 	}
 
 	if question.ReferenceAnswer != nil {

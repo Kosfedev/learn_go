@@ -2,7 +2,11 @@ package app
 
 import (
 	"context"
+	"database/sql"
+	"fmt"
 	"log"
+
+	_ "github.com/lib/pq"
 
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
@@ -10,6 +14,8 @@ import (
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
+	"github.com/Kosfedev/learn_go/internal/repository"
+	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
@@ -18,7 +24,10 @@ import (
 )
 
 type serviceProvider struct {
+	pgConfig   config.PGConfig
 	grpcConfig config.GRPCConfig
+
+	questionRepo repository.QuestionRepository
 
 	questionServ    service.QuestionService
 	domainServ      service.DomainService
@@ -35,6 +44,19 @@ func newServiceProvider() *serviceProvider {
 	return &serviceProvider{}
 }
 
+func (sp *serviceProvider) PGConfig() config.PGConfig {
+	if sp.pgConfig == nil {
+		cfg, err := env.NewPgConfig()
+		if err != nil {
+			log.Fatalf("failed to get pg config: %s", err.Error())
+		}
+
+		sp.pgConfig = cfg
+	}
+
+	return sp.pgConfig
+}
+
 func (sp *serviceProvider) GRPCConfig() config.GRPCConfig {
 	if sp.grpcConfig == nil {
 		cfg, err := env.NewGRPCConfig()
@@ -48,9 +70,31 @@ func (sp *serviceProvider) GRPCConfig() config.GRPCConfig {
 	return sp.grpcConfig
 }
 
-func (sp *serviceProvider) QuestionService(_ context.Context) service.QuestionService {
+func (sp *serviceProvider) QuestionRepository(_ context.Context) repository.QuestionRepository {
+	// TODO: ПЕРЕНЕСТИ!
+	db, err := sql.Open("postgres", sp.PGConfig().DSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+	// TODO: defer db.Close()
+
+	// TODO: ПЕРЕНЕСТИ!
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Successfully connected!")
+
+	if sp.questionRepo == nil {
+		sp.questionRepo = questionPGRepository.NewRepository(db)
+	}
+
+	return sp.questionRepo
+}
+
+func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
-		sp.questionServ = questionService.NewService()
+		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx))
 	}
 
 	return sp.questionServ

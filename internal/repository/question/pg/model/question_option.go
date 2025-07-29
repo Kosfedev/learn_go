@@ -6,3 +6,8 @@ type QuestionOption struct {
 	Text       string
 	IsCorrect  bool
 }
+
+type NewQuestionOption struct {
+	Text      string
+	IsCorrect bool
+}

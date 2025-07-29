@@ -5,6 +5,7 @@ go 1.24.5
 require (
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/joho/godotenv v1.5.1
+	github.com/lib/pq v1.10.9
 	google.golang.org/grpc v1.65.0
 	google.golang.org/protobuf v1.36.6
 )
