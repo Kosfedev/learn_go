@@ -61,7 +61,7 @@ func UpdatedQuestionToPGSQL(questionServ *model.UpdatedQuestion) *modelRepo.Upda
 
 	if questionServ.ReferenceAnswer != nil {
 		questionRepo.ReferenceAnswer = sql.NullString{
-			String: *questionServ.Text,
+			String: *questionServ.ReferenceAnswer,
 			Valid:  true,
 		}
 	}

@@ -3,8 +3,9 @@ package pg
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
-	"log"
+	"strings"
 
 	"github.com/Kosfedev/learn_go/internal/model"
 	"github.com/Kosfedev/learn_go/internal/repository"
@@ -22,7 +23,7 @@ func NewRepository(db *sql.DB) repository.QuestionRepository {
 	}
 }
 
-func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int, error) {
+func (r *repo) Create(_ context.Context, newQuestion *model.NewQuestion) (int, error) {
 	newQuestionRepo := converter.NewQuestionToPGSQL(newQuestion)
 	query := `
 		INSERT INTO question (text, type, reference_answer) 
@@ -35,6 +36,7 @@ func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int,
 		return 0, err
 	}
 
+	// TODO: нужна транзакция
 	if len(newQuestion.Options) > 0 {
 		var values []interface{}
 		for i, option := range newQuestion.Options {
@@ -51,9 +53,6 @@ func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int,
 			newOptionRepo := converter.NewQuestionOptionToPGSQL(questionId, option)
 			values = append(values, newOptionRepo.QuestionId, newOptionRepo.Text, newOptionRepo.IsCorrect)
 		}
-
-		log.Printf("%s\n", query)
-		log.Printf("%+v\n", values)
 		_, err = r.db.Query(query, values...)
 		if err != nil {
 			return 0, err
@@ -63,16 +62,17 @@ func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int,
 	return questionId, nil
 }
 
-func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {
+func (r *repo) Get(_ context.Context, id int) (*model.Question, error) {
 	questionRepo := &modelRepo.Question{}
 	query := `SELECT * FROM question WHERE id = $1`
 	row := r.db.QueryRow(query, id)
 	err := row.Scan(&questionRepo.Id, &questionRepo.Text, &questionRepo.Type, &questionRepo.ReferenceAnswer, &questionRepo.CreatedAt, &questionRepo.UpdatedAt)
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
 		}
-		log.Println(err)
+
+		return nil, err
 	}
 
 	questionServ := converter.QuestionFromPGSQL(questionRepo)
@@ -85,10 +85,11 @@ func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {
 		questionOptionRepo := &modelRepo.QuestionOption{}
 		err = rows.Scan(&questionOptionRepo.Id, &questionOptionRepo.QuestionId, &questionOptionRepo.Text, &questionOptionRepo.IsCorrect)
 		if err != nil {
-			if err == sql.ErrNoRows {
+			if errors.Is(err, sql.ErrNoRows) {
 				return nil, nil
 			}
-			log.Println(err)
+
+			return nil, err
 		}
 		questionOptionsServ = append(questionOptionsServ, converter.QuestionOptionFromPGSQL(questionOptionRepo))
 	}
@@ -98,11 +99,43 @@ func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {
 	return questionServ, nil
 }
 
-func (r *repo) Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
+func (r *repo) Update(_ context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
+	updatedQuestionRepo := converter.UpdatedQuestionToPGSQL(updatedQuestion)
+	// TODO: обновлять только релевантные поля
+	index := 2
+	values := []interface{}{id}
+	query := "UPDATE question SET"
+
+	if updatedQuestionRepo.Text.Valid {
+		values = append(values, updatedQuestionRepo.Text)
+		query += fmt.Sprintf(" text = $%d,", index)
+		index++
+	}
+
+	if updatedQuestionRepo.Type.Valid {
+		values = append(values, updatedQuestionRepo.Type)
+		query += fmt.Sprintf(" type = $%d,", index)
+		index++
+	}
+
+	if updatedQuestionRepo.ReferenceAnswer.Valid {
+		values = append(values, updatedQuestionRepo.ReferenceAnswer)
+		query += fmt.Sprintf(" reference_answer = $%d,", index)
+		index++
+	}
+
+	query = strings.TrimSuffix(query, ",")
+	query += " WHERE id = $1"
+
+	_, err := r.db.Exec(query, values...)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
-func (r *repo) Delete(ctx context.Context, id int) error {
+func (r *repo) Delete(_ context.Context, id int) error {
 	query := `DELETE FROM question WHERE id = $1`
 	_, err := r.db.Exec(query, id)
 	if err != nil {
