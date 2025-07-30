@@ -12,7 +12,7 @@ type QuestionRepository interface {
 	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, id int) error
 	AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error
-	DeleteOptions(ctx context.Context, ids int) error
+	DeleteOptions(ctx context.Context, ids []int) error
 }
 
 type DomainRepository interface {
