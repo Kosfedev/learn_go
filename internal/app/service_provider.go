@@ -15,6 +15,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
 	"github.com/Kosfedev/learn_go/internal/repository"
+	categoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/category/pg"
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
@@ -30,6 +31,7 @@ type serviceProvider struct {
 
 	questionRepo repository.QuestionRepository
 	domainRepo   repository.DomainRepository
+	categoryRepo repository.CategoryRepository
 
 	questionServ    service.QuestionService
 	domainServ      service.DomainService
@@ -116,6 +118,28 @@ func (sp *serviceProvider) DomainRepository(_ context.Context) repository.Domain
 	return sp.domainRepo
 }
 
+func (sp *serviceProvider) CategoryRepository(_ context.Context) repository.CategoryRepository {
+	// TODO: ПЕРЕНЕСТИ!
+	db, err := sql.Open("postgres", sp.PGConfig().DSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+	// TODO: defer db.Close()
+
+	// TODO: ПЕРЕНЕСТИ!
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Successfully connected!")
+
+	if sp.categoryRepo == nil {
+		sp.categoryRepo = categoryPGRepository.NewRepository(db)
+	}
+
+	return sp.categoryRepo
+}
+
 func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
 		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx))
@@ -132,9 +156,9 @@ func (sp *serviceProvider) DomainService(ctx context.Context) service.DomainServ
 	return sp.domainServ
 }
 
-func (sp *serviceProvider) CategoryService(_ context.Context) service.CategoryService {
+func (sp *serviceProvider) CategoryService(ctx context.Context) service.CategoryService {
 	if sp.categoryServ == nil {
-		sp.categoryServ = categoryService.NewService()
+		sp.categoryServ = categoryService.NewService(sp.CategoryRepository(ctx))
 	}
 
 	return sp.categoryServ
