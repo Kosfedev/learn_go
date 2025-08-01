@@ -15,6 +15,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
 	"github.com/Kosfedev/learn_go/internal/repository"
+	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
@@ -28,6 +29,7 @@ type serviceProvider struct {
 	grpcConfig config.GRPCConfig
 
 	questionRepo repository.QuestionRepository
+	domainRepo   repository.DomainRepository
 
 	questionServ    service.QuestionService
 	domainServ      service.DomainService
@@ -92,6 +94,28 @@ func (sp *serviceProvider) QuestionRepository(_ context.Context) repository.Ques
 	return sp.questionRepo
 }
 
+func (sp *serviceProvider) DomainRepository(_ context.Context) repository.DomainRepository {
+	// TODO: ПЕРЕНЕСТИ!
+	db, err := sql.Open("postgres", sp.PGConfig().DSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+	// TODO: defer db.Close()
+
+	// TODO: ПЕРЕНЕСТИ!
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Successfully connected!")
+
+	if sp.domainRepo == nil {
+		sp.domainRepo = domainPGRepository.NewRepository(db)
+	}
+
+	return sp.domainRepo
+}
+
 func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
 		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx))
@@ -100,9 +124,9 @@ func (sp *serviceProvider) QuestionService(ctx context.Context) service.Question
 	return sp.questionServ
 }
 
-func (sp *serviceProvider) DomainService(_ context.Context) service.DomainService {
+func (sp *serviceProvider) DomainService(ctx context.Context) service.DomainService {
 	if sp.domainServ == nil {
-		sp.domainServ = domainService.NewService()
+		sp.domainServ = domainService.NewService(sp.DomainRepository(ctx))
 	}
 
 	return sp.domainServ
