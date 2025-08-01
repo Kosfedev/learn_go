@@ -18,6 +18,7 @@ import (
 	categoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/category/pg"
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
+	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
@@ -29,9 +30,10 @@ type serviceProvider struct {
 	pgConfig   config.PGConfig
 	grpcConfig config.GRPCConfig
 
-	questionRepo repository.QuestionRepository
-	domainRepo   repository.DomainRepository
-	categoryRepo repository.CategoryRepository
+	questionRepo    repository.QuestionRepository
+	domainRepo      repository.DomainRepository
+	categoryRepo    repository.CategoryRepository
+	subcategoryRepo repository.SubcategoryRepository
 
 	questionServ    service.QuestionService
 	domainServ      service.DomainService
@@ -140,6 +142,28 @@ func (sp *serviceProvider) CategoryRepository(_ context.Context) repository.Cate
 	return sp.categoryRepo
 }
 
+func (sp *serviceProvider) SubcategoryRepository(_ context.Context) repository.SubcategoryRepository {
+	// TODO: ПЕРЕНЕСТИ!
+	db, err := sql.Open("postgres", sp.PGConfig().DSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+	// TODO: defer db.Close()
+
+	// TODO: ПЕРЕНЕСТИ!
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Successfully connected!")
+
+	if sp.subcategoryRepo == nil {
+		sp.subcategoryRepo = subcategoryPGRepository.NewRepository(db)
+	}
+
+	return sp.subcategoryRepo
+}
+
 func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
 		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx))
@@ -164,9 +188,9 @@ func (sp *serviceProvider) CategoryService(ctx context.Context) service.Category
 	return sp.categoryServ
 }
 
-func (sp *serviceProvider) SubcategoryService(_ context.Context) service.SubcategoryService {
+func (sp *serviceProvider) SubcategoryService(ctx context.Context) service.SubcategoryService {
 	if sp.subcategoryServ == nil {
-		sp.subcategoryServ = subcategoryService.NewService()
+		sp.subcategoryServ = subcategoryService.NewService(sp.SubcategoryRepository(ctx))
 	}
 
 	return sp.subcategoryServ

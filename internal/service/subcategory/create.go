@@ -3,11 +3,14 @@ package Subategory
 import (
 	"context"
 
-	"github.com/brianvoe/gofakeit/v6"
-
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qss *serv) Create(_ context.Context, _ *model.NewSubcategory) (int, error) {
-	return int(gofakeit.Int64()), nil
+func (qss *serv) Create(ctx context.Context, newSubcategory *model.NewSubcategory) (int, error) {
+	id, err := qss.repo.Create(ctx, newSubcategory)
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }
