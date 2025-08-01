@@ -10,11 +10,10 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
 )
 
-func (r *repo) Get(_ context.Context, id int) (*model.Question, error) {
+func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {
 	questionRepo := &modelRepo.Question{}
 	query := `SELECT * FROM question WHERE id = $1`
-	row := r.db.QueryRow(query, id)
-	err := row.Scan(&questionRepo.Id, &questionRepo.Text, &questionRepo.Type, &questionRepo.ReferenceAnswer, &questionRepo.CreatedAt, &questionRepo.UpdatedAt)
+	err := r.db.QueryRowContext(ctx, query, id).Scan(&questionRepo.Id, &questionRepo.Text, &questionRepo.Type, &questionRepo.ReferenceAnswer, &questionRepo.CreatedAt, &questionRepo.UpdatedAt)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil

@@ -9,7 +9,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 )
 
-func (r *repo) AddOptions(_ context.Context, questionId int, options []*model.NewQuestionOption) error {
+func (r *repo) AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error {
 	if len(options) == 0 {
 		return nil
 	}
@@ -27,7 +27,7 @@ func (r *repo) AddOptions(_ context.Context, questionId int, options []*model.Ne
 
 	query = strings.TrimSuffix(query, ",")
 
-	_, err := r.db.Query(query, values...)
+	_, err := r.db.QueryContext(ctx, query, values...)
 	if err != nil {
 		return err
 	}

@@ -9,7 +9,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 )
 
-func (r *repo) Update(_ context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
+func (r *repo) Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
 	updatedQuestionRepo := converter.UpdatedQuestionToPGSQL(updatedQuestion)
 	index := 2
 	values := []interface{}{id}
@@ -36,7 +36,7 @@ func (r *repo) Update(_ context.Context, id int, updatedQuestion *model.UpdatedQ
 	query = strings.TrimSuffix(query, ",")
 	query += " WHERE id = $1"
 
-	_, err := r.db.Exec(query, values...)
+	_, err := r.db.ExecContext(ctx, query, values...)
 	if err != nil {
 		return err
 	}

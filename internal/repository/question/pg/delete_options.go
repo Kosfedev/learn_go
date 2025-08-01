@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (r *repo) DeleteOptions(_ context.Context, ids []int) error {
+func (r *repo) DeleteOptions(ctx context.Context, ids []int) error {
 	if len(ids) == 0 {
 		return nil
 	}
@@ -22,7 +22,7 @@ func (r *repo) DeleteOptions(_ context.Context, ids []int) error {
 		"DELETE FROM question_option WHERE id IN (%s)",
 		strings.Join(placeholders, ", "),
 	)
-	_, err := r.db.Exec(query, idsRepo...)
+	_, err := r.db.ExecContext(ctx, query, idsRepo...)
 	if err != nil {
 		return err
 	}

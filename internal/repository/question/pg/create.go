@@ -9,7 +9,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 )
 
-func (r *repo) Create(_ context.Context, newQuestion *model.NewQuestion) (int, error) {
+func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int, error) {
 	newQuestionRepo := converter.NewQuestionToPGSQL(newQuestion)
 	query := `
 		INSERT INTO question (text, type, reference_answer) 
@@ -17,7 +17,7 @@ func (r *repo) Create(_ context.Context, newQuestion *model.NewQuestion) (int, e
 		RETURNING id;`
 
 	var questionId int
-	err := r.db.QueryRow(query, newQuestionRepo.Text, newQuestionRepo.Type, newQuestionRepo.ReferenceAnswer).Scan(&questionId)
+	err := r.db.QueryRowContext(ctx, query, newQuestionRepo.Text, newQuestionRepo.Type, newQuestionRepo.ReferenceAnswer).Scan(&questionId)
 	if err != nil {
 		return 0, err
 	}
