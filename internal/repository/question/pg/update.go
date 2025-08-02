@@ -30,7 +30,6 @@ func (r *repo) Update(ctx context.Context, id int, updatedQuestion *model.Update
 	if updatedQuestionRepo.ReferenceAnswer.Valid {
 		values = append(values, updatedQuestionRepo.ReferenceAnswer)
 		query += fmt.Sprintf(" reference_answer = $%d,", index)
-		index++
 	}
 
 	query = strings.TrimSuffix(query, ",")

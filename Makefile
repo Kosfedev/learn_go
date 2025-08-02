@@ -66,12 +66,17 @@ init-folders:
 	mkdir "tests"
 	mkdir "tests/coverage"
 
-.PHONY: test
-test:
-	go clean -testcache
+test-service:
 	go test ./internal/service/question/... -covermode count -coverpkg=./internal/service/question... -cover -coverprofile=tests/coverage/service.out -count 5
 	go test ./internal/service/domain/... -covermode count -coverpkg=./internal/service/domain... -cover -coverprofile=tests/coverage/service.out -count 5
 	go test ./internal/service/category/... -covermode count -coverpkg=./internal/service/category... -cover -coverprofile=tests/coverage/service.out -count 5
+	go test ./internal/service/subcategory/... -covermode count -coverpkg=./internal/service/subcategory... -cover -coverprofile=tests/coverage/service.out -count 5
+
+
+.PHONY: test
+test:
+	go clean -testcache
+	make test-service
 
 local-migration-status:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} status -v

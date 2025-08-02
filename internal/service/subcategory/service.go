@@ -1,4 +1,4 @@
-package Subategory
+package subcategory
 
 import (
 	"github.com/Kosfedev/learn_go/internal/repository"

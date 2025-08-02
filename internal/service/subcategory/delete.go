@@ -1,4 +1,4 @@
-package Subategory
+package subcategory
 
 import (
 	"context"

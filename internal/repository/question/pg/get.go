@@ -27,6 +27,9 @@ func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {
 	questionOptionsServ := make([]*model.QuestionOption, 0)
 	query = `SELECT * FROM question_option WHERE question_id = $1`
 	rows, err := r.db.Query(query, id)
+	if err != nil {
+		return nil, err
+	}
 
 	for rows.Next() {
 		questionOptionRepo := &modelRepo.QuestionOption{}
