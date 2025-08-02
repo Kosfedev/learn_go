@@ -70,7 +70,8 @@ init-folders:
 .PHONY: test
 test:
 	go clean -testcache
-	go test ./internal/service/... -coverpkg=./internal/service/... -covermode count -cover -coverprofile=tests/coverage/service.out
+	go test ./internal/service/question/... -covermode count -coverpkg=./internal/service/question... -cover -coverprofile=tests/coverage/service.out -count 5
+	go test ./internal/service/domain/... -covermode count -coverpkg=./internal/service/domain... -cover -coverprofile=tests/coverage/service.out -count 5
 
 local-migration-status:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} status -v
