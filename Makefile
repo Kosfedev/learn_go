@@ -6,16 +6,19 @@ get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
-install-golangci-lint:
-	GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.5
 install-grpc:
 	GOBIN=$(LOCAL_BIN) go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1
 	GOBIN=$(LOCAL_BIN) go install -mod=mod google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+install-golangci-lint:
+	GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.5
+install-minimock:
+	GOBIN=$(LOCAL_BIN) go install github.com/gojuno/minimock/v3/cmd/minimock@v3.4.5
 install-goose:
 	GOBIN=$(LOCAL_BIN) go install github.com/pressly/goose/v3/cmd/goose@v3.24.3
 install-deps:
 	make install-grpc
 	make install-golangci-lint
+	make install-minimock
 	make install-goose
 
 generate-question-api:
@@ -64,10 +67,10 @@ init-folders:
 	mkdir "tests"
 	mkdir "tests/coverage"
 
-test-service:
-	go test ./internal/service/... -cover -coverprofile=tests/coverage/service.out
-test-service-detailed:
-	go test ./internal/service/... -v -cover -coverprofile=tests/coverage/service.out
+.PHONY: test
+test:
+	go clean -testcache
+	go test ./internal/service/... -coverpkg=./internal/service/... -covermode count -cover -coverprofile=tests/coverage/service.out
 
 local-migration-status:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} status -v
