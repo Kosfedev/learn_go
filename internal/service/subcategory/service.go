@@ -1,11 +1,14 @@
-package Subategory
+package subcategory
 
 import (
+	"github.com/Kosfedev/learn_go/internal/repository"
 	"github.com/Kosfedev/learn_go/internal/service"
 )
 
-type serv struct{}
+type serv struct {
+	repo repository.SubcategoryRepository
+}
 
-func NewService() service.SubcategoryService {
-	return &serv{}
+func NewService(repo repository.SubcategoryRepository) service.SubcategoryService {
+	return &serv{repo: repo}
 }

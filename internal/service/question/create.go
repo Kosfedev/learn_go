@@ -4,12 +4,10 @@ import (
 	"context"
 	"errors"
 
-	"github.com/brianvoe/gofakeit/v6"
-
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qs *serv) Create(_ context.Context, newQuestion *model.NewQuestion) (int, error) {
+func (qs *serv) Create(ctx context.Context, newQuestion *model.NewQuestion) (int, error) {
 	if newQuestion == nil {
 		return 0, errors.New("newQuestion cannot be nil")
 	}
@@ -18,5 +16,10 @@ func (qs *serv) Create(_ context.Context, newQuestion *model.NewQuestion) (int, 
 		return 0, errors.New("invalid question type")
 	}
 
-	return int(gofakeit.Int64()), nil
+	id, err := qs.repo.Create(ctx, newQuestion)
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }

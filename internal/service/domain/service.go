@@ -1,11 +1,16 @@
 package domain
 
 import (
+	"github.com/Kosfedev/learn_go/internal/repository"
 	"github.com/Kosfedev/learn_go/internal/service"
 )
 
-type serv struct{}
+type serv struct {
+	repo repository.DomainRepository
+}
 
-func NewService() service.DomainService {
-	return &serv{}
+func NewService(repo repository.DomainRepository) service.DomainService {
+	return &serv{
+		repo: repo,
+	}
 }

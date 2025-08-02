@@ -49,7 +49,7 @@ func (app *App) initDeps(ctx context.Context) error {
 }
 
 func (app *App) initConfig(_ context.Context) error {
-	// TODO: добавить ввод error с консоли
+	// TODO: добавить ввод с консоли
 	err := config.Load(".env")
 	if err != nil {
 		return err
