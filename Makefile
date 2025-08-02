@@ -62,16 +62,12 @@ generate:
 lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config .golangci.pipeline.yaml
 
-init-folders:
-	mkdir "tests"
-	mkdir "tests/coverage"
-
 test-service:
-	go test ./internal/service/question/... -covermode count -coverpkg=./internal/service/question... -cover -coverprofile=tests/coverage/service.out -count 5
-	go test ./internal/service/domain/... -covermode count -coverpkg=./internal/service/domain... -cover -coverprofile=tests/coverage/service.out -count 5
-	go test ./internal/service/category/... -covermode count -coverpkg=./internal/service/category... -cover -coverprofile=tests/coverage/service.out -count 5
-	go test ./internal/service/subcategory/... -covermode count -coverpkg=./internal/service/subcategory... -cover -coverprofile=tests/coverage/service.out -count 5
-
+	go test ./internal/service/question/... -coverpkg=./internal/service/question... -count 5
+	go test ./internal/service/questionset/... -coverpkg=./internal/service/questionset... -count 5
+	go test ./internal/service/domain/... -coverpkg=./internal/service/domain... -count 5
+	go test ./internal/service/category/... -coverpkg=./internal/service/category... -count 5
+	go test ./internal/service/subcategory/... -coverpkg=./internal/service/subcategory... -count 5
 
 .PHONY: test
 test:
