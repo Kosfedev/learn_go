@@ -1,4 +1,4 @@
-package Category
+package category
 
 import (
 	"github.com/Kosfedev/learn_go/internal/repository"

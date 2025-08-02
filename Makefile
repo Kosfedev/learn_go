@@ -1,7 +1,6 @@
 include .env
 LOCAL_BIN:=$(CURDIR)/bin
 
-
 get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
@@ -72,6 +71,7 @@ test:
 	go clean -testcache
 	go test ./internal/service/question/... -covermode count -coverpkg=./internal/service/question... -cover -coverprofile=tests/coverage/service.out -count 5
 	go test ./internal/service/domain/... -covermode count -coverpkg=./internal/service/domain... -cover -coverprofile=tests/coverage/service.out -count 5
+	go test ./internal/service/category/... -covermode count -coverpkg=./internal/service/category... -cover -coverprofile=tests/coverage/service.out -count 5
 
 local-migration-status:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} status -v
