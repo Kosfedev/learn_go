@@ -1,15 +1,14 @@
 package pg
 
 import (
-	"database/sql"
-
+	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/repository"
 )
 
 type repo struct {
-	db *sql.DB
+	db db.Client
 }
 
-func NewRepository(db *sql.DB) repository.DomainRepository {
+func NewRepository(db db.Client) repository.DomainRepository {
 	return &repo{db: db}
 }

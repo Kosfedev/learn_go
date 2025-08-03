@@ -2,8 +2,6 @@ package app
 
 import (
 	"context"
-	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -13,6 +11,8 @@ import (
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
 	quesionSetImplementation "github.com/Kosfedev/learn_go/internal/api/questionset"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
+	"github.com/Kosfedev/learn_go/internal/client/db"
+	"github.com/Kosfedev/learn_go/internal/client/db/pg"
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
 	"github.com/Kosfedev/learn_go/internal/repository"
@@ -32,6 +32,8 @@ import (
 type serviceProvider struct {
 	pgConfig   config.PGConfig
 	grpcConfig config.GRPCConfig
+
+	dbClient db.Client
 
 	questionRepo    repository.QuestionRepository
 	questionSetRepo repository.QuestionSetRepository
@@ -82,111 +84,61 @@ func (sp *serviceProvider) GRPCConfig() config.GRPCConfig {
 	return sp.grpcConfig
 }
 
-func (sp *serviceProvider) QuestionRepository(_ context.Context) repository.QuestionRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
+func (sp *serviceProvider) DBClient(ctx context.Context) db.Client {
+	if sp.dbClient == nil {
+		cl, err := pg.New(ctx, sp.PGConfig().DSN())
+		if err != nil {
+			log.Fatalf("failed to create db client: %v", err)
+		}
 
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
+		err = cl.DB().Ping(ctx)
+		if err != nil {
+			log.Fatalf("ping error: %s", err.Error())
+		}
 
+		sp.dbClient = cl
+
+		// TODO: add closer!!!!
+	}
+
+	return sp.dbClient
+}
+
+func (sp *serviceProvider) QuestionRepository(ctx context.Context) repository.QuestionRepository {
 	if sp.questionRepo == nil {
-		sp.questionRepo = questionPGRepository.NewRepository(db)
+		sp.questionRepo = questionPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.questionRepo
 }
 
-func (sp *serviceProvider) QuestionSetRepository(_ context.Context) repository.QuestionSetRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository.QuestionSetRepository {
 	if sp.questionSetRepo == nil {
-		sp.questionSetRepo = questionSetPGRepository.NewRepository(db)
+		sp.questionSetRepo = questionSetPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.questionSetRepo
 }
 
-func (sp *serviceProvider) DomainRepository(_ context.Context) repository.DomainRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) DomainRepository(ctx context.Context) repository.DomainRepository {
 	if sp.domainRepo == nil {
-		sp.domainRepo = domainPGRepository.NewRepository(db)
+		sp.domainRepo = domainPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.domainRepo
 }
 
-func (sp *serviceProvider) CategoryRepository(_ context.Context) repository.CategoryRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) CategoryRepository(ctx context.Context) repository.CategoryRepository {
 	if sp.categoryRepo == nil {
-		sp.categoryRepo = categoryPGRepository.NewRepository(db)
+		sp.categoryRepo = categoryPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.categoryRepo
 }
 
-func (sp *serviceProvider) SubcategoryRepository(_ context.Context) repository.SubcategoryRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) SubcategoryRepository(ctx context.Context) repository.SubcategoryRepository {
 	if sp.subcategoryRepo == nil {
-		sp.subcategoryRepo = subcategoryPGRepository.NewRepository(db)
+		sp.subcategoryRepo = subcategoryPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.subcategoryRepo

@@ -2,11 +2,16 @@ package pg
 
 import (
 	"context"
+
+	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
 func (r *repo) Delete(ctx context.Context, id int) error {
-	query := `DELETE FROM domain WHERE id = $1;`
-	_, err := r.db.ExecContext(ctx, query, id)
+	query := db.Query{
+		Name:     "domain_repository.delete",
+		QueryRaw: `DELETE FROM domain WHERE id = $1;`,
+	}
+	_, err := r.db.DB().ExecContext(ctx, query, id)
 	if err != nil {
 		return err
 	}
