@@ -11,6 +11,7 @@ import (
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
+	quesionSetImplementation "github.com/Kosfedev/learn_go/internal/api/questionset"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
@@ -45,6 +46,7 @@ type serviceProvider struct {
 	subcategoryServ service.SubcategoryService
 
 	questionImpl    *quesionImplementation.Implementation
+	questionSetImpl *quesionSetImplementation.Implementation
 	domainImpl      *domainImplementation.Implementation
 	categoryImpl    *categoryImplementation.Implementation
 	subcategoryImpl *subcategoryImplementation.Implementation
@@ -236,6 +238,14 @@ func (sp *serviceProvider) QuestionImplementation(ctx context.Context) *quesionI
 	}
 
 	return sp.questionImpl
+}
+
+func (sp *serviceProvider) QuestionSetImplementation(ctx context.Context) *quesionSetImplementation.Implementation {
+	if sp.questionSetImpl == nil {
+		sp.questionSetImpl = quesionSetImplementation.NewImplementation(sp.QuestionSetService(ctx))
+	}
+
+	return sp.questionSetImpl
 }
 
 func (sp *serviceProvider) DomainImplementation(ctx context.Context) *domainImplementation.Implementation {

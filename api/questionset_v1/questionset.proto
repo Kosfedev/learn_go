@@ -14,13 +14,9 @@ service QuestionSetV1 {
   rpc Delete(DeleteRequest) returns (DeleteResponse);
 }
 
-message NewQuestionOption {
-  string text = 1;
-  bool is_correct = 2;
-}
-
 message CreateRequest {
   string name = 1;
+  repeated int64 question_ids = 2;
 }
 
 message CreateResponse {
@@ -34,8 +30,9 @@ message GetRequest {
 message GetResponse {
   int64 id = 1;
   string name = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
+  repeated int64 question_ids = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
 }
 
 message UpdateRequest {

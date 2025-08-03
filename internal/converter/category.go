@@ -7,6 +7,22 @@ import (
 	desc "github.com/Kosfedev/learn_go/pkg/category_v1"
 )
 
+func CategoryToGRPC(category *model.Category) *desc.GetResponse {
+	res := &desc.GetResponse{
+		Id:        int64(category.Id),
+		Name:      category.Name,
+		DomainId:  int64(category.DomainId),
+		CreatedAt: timestamppb.New(category.CreatedAt),
+		UpdatedAt: nil,
+	}
+
+	if category.UpdatedAt != nil {
+		res.UpdatedAt = timestamppb.New(*category.UpdatedAt)
+	}
+
+	return res
+}
+
 func NewCategoryFromGRPC(req *desc.CreateRequest) *model.NewCategory {
 	newCategory := &model.NewCategory{Name: req.Name, DomainId: int(req.DomainId)}
 
@@ -27,20 +43,4 @@ func UpdatedCategoryFromGRPC(req *desc.UpdateRequest) *model.UpdatedCategory {
 	}
 
 	return updatedCategory
-}
-
-func CategoryToGRPC(category *model.Category) *desc.GetResponse {
-	res := &desc.GetResponse{
-		Id:        int64(category.Id),
-		Name:      category.Name,
-		DomainId:  int64(category.DomainId),
-		CreatedAt: timestamppb.New(category.CreatedAt),
-		UpdatedAt: nil,
-	}
-
-	if category.UpdatedAt != nil {
-		res.UpdatedAt = timestamppb.New(*category.UpdatedAt)
-	}
-
-	return res
 }

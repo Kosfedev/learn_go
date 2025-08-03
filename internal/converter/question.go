@@ -39,10 +39,10 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 
 func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
 	newOptions := make([]*model.NewQuestionOption, len(req.Options))
-	for i, optionRepo := range req.Options {
+	for i, optionGRPC := range req.Options {
 		optionServ := &model.NewQuestionOption{
-			Text:      optionRepo.Text,
-			IsCorrect: optionRepo.IsCorrect,
+			Text:      optionGRPC.Text,
+			IsCorrect: optionGRPC.IsCorrect,
 		}
 
 		newOptions[i] = optionServ

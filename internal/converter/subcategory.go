@@ -7,6 +7,22 @@ import (
 	desc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
 )
 
+func SubcategoryToGRPC(subcategory *model.Subcategory) *desc.GetResponse {
+	res := &desc.GetResponse{
+		Id:         int64(subcategory.Id),
+		Name:       subcategory.Name,
+		CategoryId: int64(subcategory.CategoryId),
+		CreatedAt:  timestamppb.New(subcategory.CreatedAt),
+		UpdatedAt:  nil,
+	}
+
+	if subcategory.UpdatedAt != nil {
+		res.UpdatedAt = timestamppb.New(*subcategory.UpdatedAt)
+	}
+
+	return res
+}
+
 func NewSubcategoryFromGRPC(req *desc.CreateRequest) *model.NewSubcategory {
 	newSubcategory := &model.NewSubcategory{Name: req.Name, CategoryId: int(req.CategoryId)}
 
@@ -27,20 +43,4 @@ func UpdatedSubcategoryFromGRPC(req *desc.UpdateRequest) *model.UpdatedSubcatego
 	}
 
 	return updatedSubcategory
-}
-
-func SubcategoryToGRPC(subcategory *model.Subcategory) *desc.GetResponse {
-	res := &desc.GetResponse{
-		Id:         int64(subcategory.Id),
-		Name:       subcategory.Name,
-		CategoryId: int64(subcategory.CategoryId),
-		CreatedAt:  timestamppb.New(subcategory.CreatedAt),
-		UpdatedAt:  nil,
-	}
-
-	if subcategory.UpdatedAt != nil {
-		res.UpdatedAt = timestamppb.New(*subcategory.UpdatedAt)
-	}
-
-	return res
 }

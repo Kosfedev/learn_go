@@ -16,6 +16,5 @@ type NewQuestionSet struct {
 }
 
 type UpdatedQuestionSet struct {
-	Name        *string
-	QuestionIds *[]int
+	Name *string
 }
