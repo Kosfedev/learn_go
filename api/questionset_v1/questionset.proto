@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package questionset_v1;
+
+option go_package = "github.com/Kosfedev/learn_go/questionset_v1;questionset_v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service QuestionSetV1 {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message NewQuestionOption {
+  string text = 1;
+  bool is_correct = 2;
+}
+
+message CreateRequest {
+  string name = 1;
+}
+
+message CreateResponse {
+  int64 id = 1;
+}
+
+message GetRequest {
+  int64 id = 1;
+}
+
+message GetResponse {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message UpdateRequest {
+  int64 id = 1;
+  google.protobuf.StringValue name = 2;
+}
+
+message UpdateResponse {
+}
+
+message DeleteRequest {
+  int64 id = 1;
+}
+
+message DeleteResponse {
+}

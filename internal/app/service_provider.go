@@ -18,6 +18,7 @@ import (
 	categoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/category/pg"
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
+	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
 	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
@@ -31,6 +32,7 @@ type serviceProvider struct {
 	grpcConfig config.GRPCConfig
 
 	questionRepo    repository.QuestionRepository
+	questionSetRepo repository.QuestionSetRepository
 	domainRepo      repository.DomainRepository
 	categoryRepo    repository.CategoryRepository
 	subcategoryRepo repository.SubcategoryRepository
@@ -96,6 +98,28 @@ func (sp *serviceProvider) QuestionRepository(_ context.Context) repository.Ques
 	}
 
 	return sp.questionRepo
+}
+
+func (sp *serviceProvider) QuestionSetRepository(_ context.Context) repository.QuestionSetRepository {
+	// TODO: ПЕРЕНЕСТИ!
+	db, err := sql.Open("postgres", sp.PGConfig().DSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+	// TODO: defer db.Close()
+
+	// TODO: ПЕРЕНЕСТИ!
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Successfully connected!")
+
+	if sp.questionSetRepo == nil {
+		sp.questionSetRepo = questionSetPGRepository.NewRepository(db)
+	}
+
+	return sp.questionSetRepo
 }
 
 func (sp *serviceProvider) DomainRepository(_ context.Context) repository.DomainRepository {

@@ -15,6 +15,15 @@ type QuestionRepository interface {
 	DeleteOptions(ctx context.Context, ids []int) error
 }
 
+type QuestionSetRepository interface {
+	Create(ctx context.Context, question *model.NewQuestionSet) (int, error)
+	Get(ctx context.Context, id int) (*model.QuestionSet, error)
+	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestionSet) error
+	Delete(ctx context.Context, id int) error
+	// AddQuestions(ctx context.Context, questionSetId int, questionIds []int) error
+	// RemoveQuestions(ctx context.Context, ids []int) error
+}
+
 type DomainRepository interface {
 	Create(ctx context.Context, domain *model.NewDomain) (int, error)
 	Get(ctx context.Context, id int) (*model.Domain, error)
