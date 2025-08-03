@@ -106,23 +106,9 @@ func (sp *serviceProvider) DBClient(ctx context.Context) db.Client {
 	return sp.dbClient
 }
 
-func (sp *serviceProvider) QuestionRepository(_ context.Context) repository.QuestionRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) QuestionRepository(ctx context.Context) repository.QuestionRepository {
 	if sp.questionRepo == nil {
-		sp.questionRepo = questionPGRepository.NewRepository(db)
+		sp.questionRepo = questionPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.questionRepo

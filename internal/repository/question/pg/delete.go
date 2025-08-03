@@ -1,10 +1,17 @@
 package pg
 
-import "context"
+import (
+	"context"
+
+	"github.com/Kosfedev/learn_go/internal/client/db"
+)
 
 func (r *repo) Delete(ctx context.Context, id int) error {
-	query := `DELETE FROM question WHERE id = $1`
-	_, err := r.db.ExecContext(ctx, query, id)
+	query := db.Query{
+		Name:     "question_repository.delete",
+		QueryRaw: `DELETE FROM question WHERE id = $1;`,
+	}
+	_, err := r.db.DB().ExecContext(ctx, query, id)
 	if err != nil {
 		return err
 	}

@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"strings"
+
+	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
 func (r *repo) DeleteOptions(ctx context.Context, ids []int) error {
@@ -18,11 +20,14 @@ func (r *repo) DeleteOptions(ctx context.Context, ids []int) error {
 		placeholders[i] = fmt.Sprintf("$%d", i+1)
 	}
 
-	query := fmt.Sprintf(
-		"DELETE FROM question_option WHERE id IN (%s)",
-		strings.Join(placeholders, ", "),
-	)
-	_, err := r.db.ExecContext(ctx, query, idsRepo...)
+	query := db.Query{
+		Name: "question_repository.delete_options",
+		QueryRaw: fmt.Sprintf(
+			"DELETE FROM question_option WHERE id IN (%s)",
+			strings.Join(placeholders, ", "),
+		),
+	}
+	_, err := r.db.DB().ExecContext(ctx, query, idsRepo...)
 	if err != nil {
 		return err
 	}
