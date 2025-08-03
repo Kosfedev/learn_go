@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 
+	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/model"
 	"github.com/Kosfedev/learn_go/internal/repository/questionset/pg/converter"
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/questionset/pg/model"
@@ -12,8 +13,11 @@ import (
 
 func (r *repo) Get(ctx context.Context, id int) (*model.QuestionSet, error) {
 	questionSetRepo := &modelRepo.QuestionSet{}
-	query := `SELECT * FROM question_set WHERE id = $1`
-	err := r.db.QueryRowContext(ctx, query, id).Scan(&questionSetRepo.Id, &questionSetRepo.Name, &questionSetRepo.CreatedAt, &questionSetRepo.UpdatedAt)
+	query := db.Query{
+		Name:     "question_set_repository.get",
+		QueryRaw: `SELECT * FROM question_set WHERE id = $1`,
+	}
+	err := r.db.DB().ScanOne(ctx, questionSetRepo, query, id)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
@@ -23,25 +27,9 @@ func (r *repo) Get(ctx context.Context, id int) (*model.QuestionSet, error) {
 	}
 
 	questionSetServ := converter.QuestionSetFromPGSQL(questionSetRepo)
-
-	questionSetQuestionsServ := make([]int, 0)
-	query = `SELECT * FROM question_set_question WHERE question_set_id = $1`
-	rows, err := r.db.Query(query, id)
+	questionSetQuestionsServ, err := r.getQuestions(ctx, id)
 	if err != nil {
 		return nil, err
-	}
-
-	for rows.Next() {
-		questionSetOptionRepo := &modelRepo.QuestionSetQuestion{}
-		err = rows.Scan(&questionSetOptionRepo.QuestionId, &questionSetOptionRepo.QuestionSetId)
-		if err != nil {
-			if errors.Is(err, sql.ErrNoRows) {
-				return nil, nil
-			}
-
-			return nil, err
-		}
-		questionSetQuestionsServ = append(questionSetQuestionsServ, int(questionSetOptionRepo.QuestionId))
 	}
 
 	questionSetServ.QuestionIds = questionSetQuestionsServ

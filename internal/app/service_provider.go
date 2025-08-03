@@ -2,8 +2,6 @@ package app
 
 import (
 	"context"
-	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -114,23 +112,9 @@ func (sp *serviceProvider) QuestionRepository(ctx context.Context) repository.Qu
 	return sp.questionRepo
 }
 
-func (sp *serviceProvider) QuestionSetRepository(_ context.Context) repository.QuestionSetRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository.QuestionSetRepository {
 	if sp.questionSetRepo == nil {
-		sp.questionSetRepo = questionSetPGRepository.NewRepository(db)
+		sp.questionSetRepo = questionSetPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.questionSetRepo
