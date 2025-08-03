@@ -26,6 +26,9 @@ func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int,
 
 	// TODO: нужна транзакция
 	err = r.AddOptions(ctx, questionId, newQuestion.Options)
+	if err != nil {
+		return 0, err
+	}
 
 	return questionId, nil
 }
