@@ -13,6 +13,8 @@ import (
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
 	quesionSetImplementation "github.com/Kosfedev/learn_go/internal/api/questionset"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
+	"github.com/Kosfedev/learn_go/internal/client/db"
+	"github.com/Kosfedev/learn_go/internal/client/db/pg"
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
 	"github.com/Kosfedev/learn_go/internal/repository"
@@ -32,6 +34,8 @@ import (
 type serviceProvider struct {
 	pgConfig   config.PGConfig
 	grpcConfig config.GRPCConfig
+
+	dbClient db.Client
 
 	questionRepo    repository.QuestionRepository
 	questionSetRepo repository.QuestionSetRepository
@@ -82,6 +86,26 @@ func (sp *serviceProvider) GRPCConfig() config.GRPCConfig {
 	return sp.grpcConfig
 }
 
+func (sp *serviceProvider) DBClient(ctx context.Context) db.Client {
+	if sp.dbClient == nil {
+		cl, err := pg.New(ctx, sp.PGConfig().DSN())
+		if err != nil {
+			log.Fatalf("failed to create db client: %v", err)
+		}
+
+		err = cl.DB().Ping(ctx)
+		if err != nil {
+			log.Fatalf("ping error: %s", err.Error())
+		}
+
+		sp.dbClient = cl
+
+		// TODO: add closer!!!!
+	}
+
+	return sp.dbClient
+}
+
 func (sp *serviceProvider) QuestionRepository(_ context.Context) repository.QuestionRepository {
 	// TODO: ПЕРЕНЕСТИ!
 	db, err := sql.Open("postgres", sp.PGConfig().DSN())
@@ -126,23 +150,9 @@ func (sp *serviceProvider) QuestionSetRepository(_ context.Context) repository.Q
 	return sp.questionSetRepo
 }
 
-func (sp *serviceProvider) DomainRepository(_ context.Context) repository.DomainRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) DomainRepository(ctx context.Context) repository.DomainRepository {
 	if sp.domainRepo == nil {
-		sp.domainRepo = domainPGRepository.NewRepository(db)
+		sp.domainRepo = domainPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.domainRepo
