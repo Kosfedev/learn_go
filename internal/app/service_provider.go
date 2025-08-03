@@ -158,45 +158,17 @@ func (sp *serviceProvider) DomainRepository(ctx context.Context) repository.Doma
 	return sp.domainRepo
 }
 
-func (sp *serviceProvider) CategoryRepository(_ context.Context) repository.CategoryRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) CategoryRepository(ctx context.Context) repository.CategoryRepository {
 	if sp.categoryRepo == nil {
-		sp.categoryRepo = categoryPGRepository.NewRepository(db)
+		sp.categoryRepo = categoryPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.categoryRepo
 }
 
-func (sp *serviceProvider) SubcategoryRepository(_ context.Context) repository.SubcategoryRepository {
-	// TODO: ПЕРЕНЕСТИ!
-	db, err := sql.Open("postgres", sp.PGConfig().DSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-	// TODO: defer db.Close()
-
-	// TODO: ПЕРЕНЕСТИ!
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Successfully connected!")
-
+func (sp *serviceProvider) SubcategoryRepository(ctx context.Context) repository.SubcategoryRepository {
 	if sp.subcategoryRepo == nil {
-		sp.subcategoryRepo = subcategoryPGRepository.NewRepository(db)
+		sp.subcategoryRepo = subcategoryPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
 	return sp.subcategoryRepo
