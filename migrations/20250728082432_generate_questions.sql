@@ -13,7 +13,7 @@ WITH
     data AS (
     SELECT
         (random() * 2 + 1)::int AS type,
-        NOW() - (random() * INTERVAL '365 days') AS created_at
+        now() - (random() * INTERVAL '365 days') AS created_at
     FROM generate_series(1, 200)
 )
 INSERT INTO question (text, type, reference_answer, created_at, updated_at)
