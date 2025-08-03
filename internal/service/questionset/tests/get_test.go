@@ -3,18 +3,33 @@ package tests
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/brianvoe/gofakeit/v6"
+	"github.com/gojuno/minimock/v3"
 
+	"github.com/Kosfedev/learn_go/internal/model"
+	"github.com/Kosfedev/learn_go/internal/repository/mocks"
 	"github.com/Kosfedev/learn_go/internal/service/questionset"
 )
 
 func TestGet(t *testing.T) {
-	questionSetService := questionset.NewService()
+	t.Parallel()
+	ctx := context.Background()
 	id := int(gofakeit.Int64())
+	res := &model.QuestionSet{
+		Id:          id,
+		Name:        gofakeit.Question(),
+		QuestionIds: []int{1, 2, 3, 4, 5},
+		CreatedAt:   time.Time{},
+	}
+	mc := minimock.NewController(t)
+	mockRepo := mocks.NewQuestionSetRepositoryMock(mc)
+	mockRepo.GetMock.Expect(ctx, id).Return(res, nil)
+	questionSetService := questionset.NewService(mockRepo)
 
 	t.Run("Get placeholder implementation test", func(t *testing.T) {
-		_, err := questionSetService.Get(context.Background(), id)
+		_, err := questionSetService.Get(ctx, id)
 		if err != nil {
 			t.Errorf("QuestionSetService.Create() error = %v\n", err)
 		}
