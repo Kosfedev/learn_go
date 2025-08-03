@@ -12,7 +12,7 @@ import (
 func (r *repo) Create(ctx context.Context, domain *model.NewDomain) (int, error) {
 	domainRepo := converter.NewDomainToPGSQL(domain)
 	query := db.Query{
-		Name:     "domain_create",
+		Name:     "domain_repository.create",
 		QueryRaw: `INSERT INTO domain(name) VALUES ($1) RETURNING id`,
 	}
 

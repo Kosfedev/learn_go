@@ -30,7 +30,7 @@ func (r *repo) Update(ctx context.Context, id int, category *model.UpdatedCatego
 	queryRaw = strings.TrimSuffix(queryRaw, ",")
 	queryRaw += " WHERE id = $1"
 	query := db.Query{
-		Name:     "category_update",
+		Name:     "category_repository.update",
 		QueryRaw: queryRaw,
 	}
 	_, err := r.db.DB().ExecContext(ctx, query, values...)

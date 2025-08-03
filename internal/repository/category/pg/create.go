@@ -11,7 +11,7 @@ import (
 func (r *repo) Create(ctx context.Context, category *model.NewCategory) (int, error) {
 	categoryRepo := converter.NewCategoryToPGSQL(category)
 	query := db.Query{
-		Name:     "category_create",
+		Name:     "category_repository.create",
 		QueryRaw: `INSERT INTO category(name, domain_id) VALUES ($1, $2) RETURNING id;`,
 	}
 

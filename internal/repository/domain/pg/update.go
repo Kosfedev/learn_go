@@ -23,7 +23,7 @@ func (r *repo) Update(ctx context.Context, id int, domain *model.UpdatedDomain) 
 	queryRaw = strings.TrimSuffix(queryRaw, ",")
 	queryRaw += " WHERE id = $1"
 	query := db.Query{
-		Name:     "domain_update",
+		Name:     "domain_repository.update",
 		QueryRaw: queryRaw,
 	}
 	_, err := r.db.DB().ExecContext(ctx, query, values...)

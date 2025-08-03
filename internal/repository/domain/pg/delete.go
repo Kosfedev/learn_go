@@ -8,7 +8,7 @@ import (
 
 func (r *repo) Delete(ctx context.Context, id int) error {
 	query := db.Query{
-		Name:     "domain_delete",
+		Name:     "domain_repository.delete",
 		QueryRaw: `DELETE FROM domain WHERE id = $1;`,
 	}
 	_, err := r.db.DB().ExecContext(ctx, query, id)

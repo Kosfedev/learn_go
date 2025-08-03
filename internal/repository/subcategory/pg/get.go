@@ -11,7 +11,7 @@ import (
 
 func (r *repo) Get(ctx context.Context, id int) (*model.Subcategory, error) {
 	query := db.Query{
-		Name:     "subcategory_get",
+		Name:     "subcategory_repository.get",
 		QueryRaw: `SELECT * FROM subcategory WHERE id = $1;`,
 	}
 	subcategoryRepo := &modelRepo.Subcategory{}

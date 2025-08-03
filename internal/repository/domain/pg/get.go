@@ -11,7 +11,7 @@ import (
 
 func (r *repo) Get(ctx context.Context, id int) (*model.Domain, error) {
 	query := db.Query{
-		Name:     "domain_get",
+		Name:     "domain_repository.get",
 		QueryRaw: `SELECT * FROM domain WHERE id = $1`,
 	}
 
