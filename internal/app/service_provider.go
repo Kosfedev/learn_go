@@ -24,6 +24,7 @@ import (
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
 	questionService "github.com/Kosfedev/learn_go/internal/service/question"
+	questionSetService "github.com/Kosfedev/learn_go/internal/service/questionset"
 	subcategoryService "github.com/Kosfedev/learn_go/internal/service/subcategory"
 )
 
@@ -38,6 +39,7 @@ type serviceProvider struct {
 	subcategoryRepo repository.SubcategoryRepository
 
 	questionServ    service.QuestionService
+	questionSetServ service.QuestionSetService
 	domainServ      service.DomainService
 	categoryServ    service.CategoryService
 	subcategoryServ service.SubcategoryService
@@ -194,6 +196,14 @@ func (sp *serviceProvider) QuestionService(ctx context.Context) service.Question
 	}
 
 	return sp.questionServ
+}
+
+func (sp *serviceProvider) QuestionSetService(ctx context.Context) service.QuestionSetService {
+	if sp.questionSetServ == nil {
+		sp.questionSetServ = questionSetService.NewService(sp.QuestionSetRepository(ctx))
+	}
+
+	return sp.questionSetServ
 }
 
 func (sp *serviceProvider) DomainService(ctx context.Context) service.DomainService {
