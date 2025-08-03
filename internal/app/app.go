@@ -13,6 +13,7 @@ import (
 	categoryDesc "github.com/Kosfedev/learn_go/pkg/category_v1"
 	domainDesc "github.com/Kosfedev/learn_go/pkg/domain_v1"
 	questionDesc "github.com/Kosfedev/learn_go/pkg/question_v1"
+	questionSetDesc "github.com/Kosfedev/learn_go/pkg/questionset_v1"
 	subcategoryDesc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
 )
 
@@ -49,7 +50,7 @@ func (app *App) initDeps(ctx context.Context) error {
 }
 
 func (app *App) initConfig(_ context.Context) error {
-	// TODO: добавить ввод error с консоли
+	// TODO: добавить ввод с консоли
 	err := config.Load(".env")
 	if err != nil {
 		return err
@@ -68,6 +69,7 @@ func (app *App) initGRPCServer(ctx context.Context) error {
 
 	reflection.Register(app.grpcServer)
 	questionDesc.RegisterQuestionV1Server(app.grpcServer, app.serviceProvider.QuestionImplementation(ctx))
+	questionSetDesc.RegisterQuestionSetV1Server(app.grpcServer, app.serviceProvider.QuestionSetImplementation(ctx))
 	domainDesc.RegisterDomainV1Server(app.grpcServer, app.serviceProvider.DomainImplementation(ctx))
 	categoryDesc.RegisterCategoryV1Server(app.grpcServer, app.serviceProvider.CategoryImplementation(ctx))
 	subcategoryDesc.RegisterSubcategoryV1Server(app.grpcServer, app.serviceProvider.SubcategoryImplementation(ctx))

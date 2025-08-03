@@ -4,6 +4,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type PGConfig interface {
+	DSN() string
+}
+
 type GRPCConfig interface {
 	Address() string
 }

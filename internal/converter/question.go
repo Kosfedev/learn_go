@@ -8,31 +8,6 @@ import (
 	desc "github.com/Kosfedev/learn_go/pkg/question_v1"
 )
 
-func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
-	newQuestion := &model.NewQuestion{
-		Text: req.Text,
-		Type: model.QuestionType(req.QuestionType),
-	}
-
-	if req.ReferenceAnswer != nil {
-		refAnswer := req.ReferenceAnswer.GetValue()
-		newQuestion.ReferenceAnswer = &refAnswer
-	}
-
-	return newQuestion
-}
-
-func UpdatedQuestionFromGRPC(req *desc.UpdateRequest) *model.UpdatedQuestion {
-	updatedQuestion := &model.UpdatedQuestion{}
-
-	if req.ReferenceAnswer != nil {
-		refAnswer := req.ReferenceAnswer.GetValue()
-		updatedQuestion.ReferenceAnswer = &refAnswer
-	}
-
-	return updatedQuestion
-}
-
 func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	options := make([]*desc.QuestionOption, len(question.Options))
 	for i, option := range question.Options {
@@ -49,7 +24,6 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 		QuestionType: desc.QuestionType(question.Type),
 		Options:      options,
 		CreatedAt:    timestamppb.New(question.CreatedAt),
-		UpdatedAt:    timestamppb.New(*question.UpdatedAt),
 	}
 
 	if question.ReferenceAnswer != nil {
@@ -61,6 +35,52 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	}
 
 	return res
+}
+
+func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
+	newOptions := make([]*model.NewQuestionOption, len(req.Options))
+	for i, optionGRPC := range req.Options {
+		optionServ := &model.NewQuestionOption{
+			Text:      optionGRPC.Text,
+			IsCorrect: optionGRPC.IsCorrect,
+		}
+
+		newOptions[i] = optionServ
+	}
+
+	newQuestion := &model.NewQuestion{
+		Text:    req.Text,
+		Type:    model.QuestionType(req.QuestionType),
+		Options: newOptions,
+	}
+
+	if req.ReferenceAnswer != nil {
+		refAnswer := req.ReferenceAnswer.GetValue()
+		newQuestion.ReferenceAnswer = &refAnswer
+	}
+
+	return newQuestion
+}
+
+func UpdatedQuestionFromGRPC(req *desc.UpdateRequest) *model.UpdatedQuestion {
+	updatedQuestion := &model.UpdatedQuestion{}
+
+	if req.Text != nil {
+		text := req.GetText().GetValue()
+		updatedQuestion.Text = &text
+	}
+
+	if req.QuestionType != nil {
+		questionType := model.QuestionType(*req.QuestionType.Enum())
+		updatedQuestion.Type = &questionType
+	}
+
+	if req.ReferenceAnswer != nil {
+		refAnswer := req.ReferenceAnswer.GetValue()
+		updatedQuestion.ReferenceAnswer = &refAnswer
+	}
+
+	return updatedQuestion
 }
 
 func NewQuestionOptionsFromGRPC(req *desc.AddOptionsRequest) []*model.NewQuestionOption {

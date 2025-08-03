@@ -1,23 +1,16 @@
-package Subategory
+package subcategory
 
 import (
 	"context"
-	"time"
-
-	"github.com/brianvoe/gofakeit/v6"
 
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qss *serv) Get(_ context.Context, categoryId int) (*model.Subcategory, error) {
-	now := time.Now()
-	dayBefore := now.AddDate(0, 0, -1)
+func (qss *serv) Get(ctx context.Context, id int) (*model.Subcategory, error) {
+	category, err := qss.repo.Get(ctx, id)
+	if err != nil {
+		return nil, err
+	}
 
-	return &model.Subcategory{
-		Id:         categoryId,
-		Name:       gofakeit.Name(),
-		CategoryId: int(gofakeit.Int64()),
-		CreatedAt:  dayBefore,
-		UpdatedAt:  &now,
-	}, nil
+	return category, nil
 }
