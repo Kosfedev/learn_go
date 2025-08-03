@@ -17,7 +17,7 @@ func (r *repo) Update(ctx context.Context, id int, updatedQuestionSet *model.Upd
 
 	if updatedQuestionSetRepo.Name.Valid {
 		values = append(values, updatedQuestionSetRepo.Name)
-		query += fmt.Sprintf(" text = $%d,", index)
+		query += fmt.Sprintf(" name = $%d,", index)
 	}
 
 	query = strings.TrimSuffix(query, ",")

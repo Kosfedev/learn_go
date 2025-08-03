@@ -16,12 +16,13 @@ func (r *repo) Create(ctx context.Context, newQuestionSet *model.NewQuestionSet)
 		VALUES ($1)
 		RETURNING id;`
 
-	var questionSetId int
-	err := r.db.QueryRowContext(ctx, query, newQuestionSetRepo.Name).Scan(&questionSetId)
+	var questionSetIdRepo int32
+	err := r.db.QueryRowContext(ctx, query, newQuestionSetRepo.Name).Scan(&questionSetIdRepo)
 	if err != nil {
 		return 0, err
 	}
 
+	questionSetId := int(questionSetIdRepo)
 	// TODO: вынести в общую функцию?
 	// TODO: нужна транзакция
 	if len(newQuestionSet.QuestionIds) > 0 {
@@ -32,7 +33,7 @@ func (r *repo) Create(ctx context.Context, newQuestionSet *model.NewQuestionSet)
 		for i, questionId := range newQuestionSet.QuestionIds {
 			query += fmt.Sprintf(" ($%d, $%d),", i*nArgs+1, i*nArgs+2)
 			questionIdRepo := int32(questionId)
-			values = append(values, questionIdRepo)
+			values = append(values, questionIdRepo, questionSetIdRepo)
 		}
 
 		query = strings.TrimSuffix(query, ",")
