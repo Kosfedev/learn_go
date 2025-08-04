@@ -15,6 +15,7 @@ type QuestionRepository interface {
 	DeleteOptions(ctx context.Context, ids []int) error
 	AddSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
 	RemoveSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
+	ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error)
 }
 
 type QuestionSetRepository interface {
@@ -45,4 +46,5 @@ type SubcategoryRepository interface {
 	Get(ctx context.Context, id int) (*model.Subcategory, error)
 	Update(ctx context.Context, id int, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int) error
+	ListByIds(ctx context.Context, ids []int) ([]*model.Subcategory, error)
 }

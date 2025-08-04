@@ -12,13 +12,17 @@ func (qs *serv) Get(ctx context.Context, questionId int) (*model.Question, error
 		return nil, err
 	}
 
-	// TODO: replace with ListByIds
-	subcategory, err := qs.subcategoryRepo.Get(ctx, questionId)
+	questionSubcategoryIds, err := qs.questionRepo.ListSubcategoriesByQuestionId(ctx, questionId)
 	if err != nil {
 		return nil, err
 	}
 
-	question.Subcategories = []*model.Subcategory{subcategory}
+	subcategories, err := qs.subcategoryRepo.ListByIds(ctx, questionSubcategoryIds)
+	if err != nil {
+		return nil, err
+	}
+
+	question.Subcategories = subcategories
 
 	return question, nil
 }
