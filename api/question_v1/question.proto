@@ -14,6 +14,8 @@ service QuestionV1 {
   rpc Delete(DeleteRequest) returns (DeleteResponse);
   rpc AddOptions(AddOptionsRequest) returns (AddOptionsResponse);
   rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse);
+  rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse);
+  rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse);
 }
 
 enum QuestionType {
@@ -78,7 +80,7 @@ message DeleteResponse {
 }
 
 message AddOptionsRequest {
-  int64 questionId = 1;
+  int64 question_id = 1;
   repeated NewQuestionOption options = 2;
 }
 
@@ -90,4 +92,20 @@ message DeleteOptionsRequest {
 }
 
 message DeleteOptionsResponse{
+}
+
+message AddSubcategoriesRequest {
+  int64 question_id = 1;
+  repeated int64 subcategory_ids = 2;
+}
+
+message AddSubcategoriesResponse{
+}
+
+message RemoveSubcategoriesRequest {
+  int64 question_id = 1;
+  repeated int64 subcategory_ids = 2;
+}
+
+message RemoveSubcategoriesResponse{
 }

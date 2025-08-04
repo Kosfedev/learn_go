@@ -15,7 +15,6 @@ func (r *repo) AddOptions(ctx context.Context, questionId int, options []*model.
 		return nil
 	}
 
-	// TODO: вынести в общую функцию?
 	var values []interface{}
 	nArgs := 3
 	queryRaw := `INSERT INTO question_option (question_id, text, is_correct) VALUES`

@@ -103,3 +103,22 @@ func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int {
 
 	return optionIds
 }
+
+// TODO: refactor to SubcategoryIdsFomrGRPC???
+func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int {
+	subcategoryIds := make([]int, len(req.SubcategoryIds))
+	for i, id := range req.SubcategoryIds {
+		subcategoryIds[i] = int(id)
+	}
+
+	return subcategoryIds
+}
+
+func RemoveSubcategoriesFromGRPC(req *desc.RemoveSubcategoriesRequest) []int {
+	subcategoryIds := make([]int, len(req.SubcategoryIds))
+	for i, id := range req.SubcategoryIds {
+		subcategoryIds[i] = int(id)
+	}
+
+	return subcategoryIds
+}

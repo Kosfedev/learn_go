@@ -13,6 +13,8 @@ type QuestionRepository interface {
 	Delete(ctx context.Context, id int) error
 	AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error
 	DeleteOptions(ctx context.Context, ids []int) error
+	AddSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
+	RemoveSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
 }
 
 type QuestionSetRepository interface {
