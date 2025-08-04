@@ -31,6 +31,15 @@ message QuestionOption {
   bool is_correct = 3;
 }
 
+// TODO: настроить импорт
+message Subcategory {
+  int64 id = 1;
+  string name = 2;
+  int64 categoryId = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
 message NewQuestionOption {
   string text = 1;
   bool is_correct = 2;
@@ -57,8 +66,9 @@ message GetResponse {
   QuestionType question_type = 3;
   repeated QuestionOption options = 4;
   google.protobuf.StringValue reference_answer = 5;
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp updated_at = 7;
+  repeated Subcategory subcategories = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
 }
 
 message UpdateRequest {

@@ -6,11 +6,13 @@ import (
 )
 
 type serv struct {
-	repo repository.QuestionRepository
+	questionRepo    repository.QuestionRepository
+	subcategoryRepo repository.SubcategoryRepository
 }
 
-func NewService(repo repository.QuestionRepository) service.QuestionService {
+func NewService(questionRepo repository.QuestionRepository, subcategoryRepo repository.SubcategoryRepository) service.QuestionService {
 	return &serv{
-		repo: repo,
+		questionRepo:    questionRepo,
+		subcategoryRepo: subcategoryRepo,
 	}
 }

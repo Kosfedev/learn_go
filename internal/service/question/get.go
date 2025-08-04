@@ -7,10 +7,18 @@ import (
 )
 
 func (qs *serv) Get(ctx context.Context, questionId int) (*model.Question, error) {
-	question, err := qs.repo.Get(ctx, questionId)
+	question, err := qs.questionRepo.Get(ctx, questionId)
 	if err != nil {
 		return nil, err
 	}
+
+	// TODO: replace with ListByIds
+	subcategory, err := qs.subcategoryRepo.Get(ctx, questionId)
+	if err != nil {
+		return nil, err
+	}
+
+	question.Subcategories = []*model.Subcategory{subcategory}
 
 	return question, nil
 }

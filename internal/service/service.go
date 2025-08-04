@@ -43,4 +43,5 @@ type SubcategoryService interface {
 	Get(ctx context.Context, id int) (*model.Subcategory, error)
 	Update(ctx context.Context, id int, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int) error
+	// ListByIds(ctx context.Context, ids []int) ([]*model.Subcategory, error)
 }

@@ -146,7 +146,7 @@ func (sp *serviceProvider) SubcategoryRepository(ctx context.Context) repository
 
 func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
-		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx))
+		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx), sp.SubcategoryRepository(ctx))
 	}
 
 	return sp.questionServ

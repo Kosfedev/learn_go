@@ -34,6 +34,7 @@ type Question struct {
 	Text            string
 	Type            QuestionType
 	Options         []*QuestionOption
+	Subcategories   []*Subcategory
 	ReferenceAnswer *string
 	CreatedAt       time.Time
 	UpdatedAt       *time.Time

@@ -5,7 +5,7 @@ import (
 )
 
 func (qs *serv) AddSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error {
-	err := qs.repo.AddSubcategories(ctx, questionId, subcategoryIds)
+	err := qs.questionRepo.AddSubcategories(ctx, questionId, subcategoryIds)
 	if err != nil {
 		return err
 	}

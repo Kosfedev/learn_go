@@ -5,7 +5,7 @@ import (
 )
 
 func (qs *serv) RemoveSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error {
-	err := qs.repo.RemoveSubcategories(ctx, questionId, subcategoryIds)
+	err := qs.questionRepo.RemoveSubcategories(ctx, questionId, subcategoryIds)
 	if err != nil {
 		return err
 	}
