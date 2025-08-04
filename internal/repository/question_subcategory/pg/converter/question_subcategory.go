@@ -1,7 +1,7 @@
 package converter
 
 import (
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg/model"
 )
 
 func QuestionSubcategoriesIdsFromPGSQL(questionSubcategoriesRepo []*modelRepo.QuestionSubcategory) []int {

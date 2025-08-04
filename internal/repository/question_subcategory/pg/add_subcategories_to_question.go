@@ -8,7 +8,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) AddSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error {
+func (r *repo) AddSubcategoriesToQuestion(ctx context.Context, questionId int, subcategoryIds []int) error {
 	if len(subcategoryIds) == 0 {
 		return nil
 	}
@@ -25,7 +25,7 @@ func (r *repo) AddSubcategories(ctx context.Context, questionId int, subcategory
 
 	queryRaw = strings.TrimSuffix(queryRaw, ",")
 	query := db.Query{
-		Name:     "question_repository.add_subcategories",
+		Name:     "question_subcategory_repository.add_subcategories_to_question",
 		QueryRaw: queryRaw,
 	}
 

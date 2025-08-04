@@ -25,8 +25,3 @@ type UpdatedQuestion struct {
 	Type            sql.NullInt32
 	ReferenceAnswer sql.NullString
 }
-
-type QuestionSubcategory struct {
-	QuestionId    int32
-	SubcategoryId int32
-}

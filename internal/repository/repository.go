@@ -13,9 +13,6 @@ type QuestionRepository interface {
 	Delete(ctx context.Context, id int) error
 	AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error
 	DeleteOptions(ctx context.Context, ids []int) error
-	AddSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
-	RemoveSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
-	ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error)
 }
 
 type QuestionSetRepository interface {
@@ -25,6 +22,15 @@ type QuestionSetRepository interface {
 	Delete(ctx context.Context, id int) error
 	// AddQuestions(ctx context.Context, questionSetId int, questionIds []int) error
 	// RemoveQuestions(ctx context.Context, ids []int) error
+}
+
+type QuestionSubcategoryRepository interface {
+	AddSubcategoriesToQuestion(ctx context.Context, questionId int, subcategoryIds []int) error
+	RemoveSubcategoriesFromQuestion(ctx context.Context, questionId int, subcategoryIds []int) error
+	ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error)
+	// AddQuestionsToSubcategory(ctx context.Context, subcategoryId int, questionIds []int) error
+	// RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryId int, questionIds []int) error
+	// ListQuestionsBySubcategoryId(ctx context.Context, subcategoryId int) ([]int, error)
 }
 
 type DomainRepository interface {

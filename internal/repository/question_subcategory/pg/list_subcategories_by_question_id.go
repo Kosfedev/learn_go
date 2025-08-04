@@ -4,14 +4,14 @@ import (
 	"context"
 
 	"github.com/Kosfedev/learn_go/internal/client/db"
-	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
+	"github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg/converter"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg/model"
 )
 
 func (r *repo) ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error) {
 	idRepo := int32(questionId)
 	query := db.Query{
-		Name:     "subcategory_repository.list_by_ids",
+		Name:     "question_subcategory_repository.list_subcategories_by_question_id",
 		QueryRaw: `SELECT * FROM question_subcategory WHERE question_id = $1`,
 	}
 

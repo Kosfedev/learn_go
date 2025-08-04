@@ -12,7 +12,7 @@ func (qs *serv) Get(ctx context.Context, questionId int) (*model.Question, error
 		return nil, err
 	}
 
-	questionSubcategoryIds, err := qs.questionRepo.ListSubcategoriesByQuestionId(ctx, questionId)
+	questionSubcategoryIds, err := qs.questionSubcategoryRepo.ListSubcategoriesByQuestionId(ctx, questionId)
 	if err != nil {
 		return nil, err
 	}

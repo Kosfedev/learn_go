@@ -19,6 +19,7 @@ import (
 	categoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/category/pg"
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
+	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
 	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
 	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
@@ -35,11 +36,12 @@ type serviceProvider struct {
 
 	dbClient db.Client
 
-	questionRepo    repository.QuestionRepository
-	questionSetRepo repository.QuestionSetRepository
-	domainRepo      repository.DomainRepository
-	categoryRepo    repository.CategoryRepository
-	subcategoryRepo repository.SubcategoryRepository
+	questionRepo            repository.QuestionRepository
+	questionSetRepo         repository.QuestionSetRepository
+	questionSubcategoryRepo repository.QuestionSubcategoryRepository
+	domainRepo              repository.DomainRepository
+	categoryRepo            repository.CategoryRepository
+	subcategoryRepo         repository.SubcategoryRepository
 
 	questionServ    service.QuestionService
 	questionSetServ service.QuestionSetService
@@ -120,6 +122,14 @@ func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository
 	return sp.questionSetRepo
 }
 
+func (sp *serviceProvider) QuestionSubcategoryRepository(ctx context.Context) repository.QuestionSubcategoryRepository {
+	if sp.questionSubcategoryRepo == nil {
+		sp.questionSubcategoryRepo = questionSubcategoryPGRepository.NewRepository(sp.DBClient(ctx))
+	}
+
+	return sp.questionSubcategoryRepo
+}
+
 func (sp *serviceProvider) DomainRepository(ctx context.Context) repository.DomainRepository {
 	if sp.domainRepo == nil {
 		sp.domainRepo = domainPGRepository.NewRepository(sp.DBClient(ctx))
@@ -146,7 +156,7 @@ func (sp *serviceProvider) SubcategoryRepository(ctx context.Context) repository
 
 func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
-		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx), sp.SubcategoryRepository(ctx))
+		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx), sp.QuestionSubcategoryRepository(ctx), sp.SubcategoryRepository(ctx))
 	}
 
 	return sp.questionServ
