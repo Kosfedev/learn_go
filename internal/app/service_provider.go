@@ -4,8 +4,6 @@ import (
 	"context"
 	"log"
 
-	_ "github.com/lib/pq"
-
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"

@@ -22,7 +22,7 @@ func (r *repo) getQuestions(ctx context.Context, id int) ([]int, error) {
 
 	for rows.Next() {
 		questionSetOptionRepo := &modelRepo.QuestionSetQuestion{}
-		err = rows.Scan(&questionSetOptionRepo.QuestionId, &questionSetOptionRepo.QuestionSetId)
+		err = rows.Scan(&questionSetOptionRepo.QuestionID, &questionSetOptionRepo.QuestionSetID)
 		if err != nil {
 			if errors.Is(err, sql.ErrNoRows) {
 				return nil, nil
@@ -30,7 +30,7 @@ func (r *repo) getQuestions(ctx context.Context, id int) ([]int, error) {
 
 			return nil, err
 		}
-		questionSetQuestionsServ = append(questionSetQuestionsServ, int(questionSetOptionRepo.QuestionId))
+		questionSetQuestionsServ = append(questionSetQuestionsServ, int(questionSetOptionRepo.QuestionID))
 	}
 
 	return questionSetQuestionsServ, nil

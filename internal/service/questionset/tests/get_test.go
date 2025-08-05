@@ -18,9 +18,9 @@ func TestGet(t *testing.T) {
 	ctx := context.Background()
 	id := int(gofakeit.Int64())
 	res := &model.QuestionSet{
-		Id:          id,
+		ID:          id,
 		Name:        gofakeit.Question(),
-		QuestionIds: []int{1, 2, 3, 4, 5},
+		QuestionIDs: []int{1, 2, 3, 4, 5},
 		CreatedAt:   time.Time{},
 	}
 	mc := minimock.NewController(t)

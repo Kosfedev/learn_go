@@ -14,17 +14,17 @@ import (
 func TestDeleteOptions(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	optionIds := make([]int, 10)
-	gofakeit.Slice(&optionIds)
+	optionIDs := make([]int, 10)
+	gofakeit.Slice(&optionIDs)
 	mc := minimock.NewController(t)
 	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
 	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
 	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
-	mockQuestionRepo.DeleteOptionsMock.Expect(ctx, optionIds).Return(nil)
+	mockQuestionRepo.DeleteOptionsMock.Expect(ctx, optionIDs).Return(nil)
 	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Delete options placeholder implementation test", func(t *testing.T) {
-		err := questionService.DeleteOptions(context.Background(), optionIds)
+		err := questionService.DeleteOptions(context.Background(), optionIDs)
 		if err != nil {
 			t.Errorf("QuestionService.DeleteOptions() error = %v\n", err)
 		}

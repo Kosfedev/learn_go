@@ -1,11 +1,11 @@
 package model
 
 type QuestionSetQuestion struct {
-	QuestionId    int32
-	QuestionSetId int32
+	QuestionID    int32
+	QuestionSetID int32
 }
 
 type NewQuestionSetQuestion struct {
-	QuestionId    int32
-	QuestionSetId int32
+	QuestionID    int32
+	QuestionSetID int32
 }

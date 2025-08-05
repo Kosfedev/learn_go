@@ -40,12 +40,12 @@ type SubcategoryRepositoryMock struct {
 	beforeGetCounter uint64
 	GetMock          mSubcategoryRepositoryMockGet
 
-	funcListByIds          func(ctx context.Context, ids []int) (spa1 []*model.Subcategory, err error)
-	funcListByIdsOrigin    string
-	inspectFuncListByIds   func(ctx context.Context, ids []int)
-	afterListByIdsCounter  uint64
-	beforeListByIdsCounter uint64
-	ListByIdsMock          mSubcategoryRepositoryMockListByIds
+	funcListByIDs          func(ctx context.Context, ids []int) (spa1 []*model.Subcategory, err error)
+	funcListByIDsOrigin    string
+	inspectFuncListByIDs   func(ctx context.Context, ids []int)
+	afterListByIDsCounter  uint64
+	beforeListByIDsCounter uint64
+	ListByIDsMock          mSubcategoryRepositoryMockListByIDs
 
 	funcUpdate          func(ctx context.Context, id int, updatedSubcategory *model.UpdatedSubcategory) (err error)
 	funcUpdateOrigin    string
@@ -72,8 +72,8 @@ func NewSubcategoryRepositoryMock(t minimock.Tester) *SubcategoryRepositoryMock 
 	m.GetMock = mSubcategoryRepositoryMockGet{mock: m}
 	m.GetMock.callArgs = []*SubcategoryRepositoryMockGetParams{}
 
-	m.ListByIdsMock = mSubcategoryRepositoryMockListByIds{mock: m}
-	m.ListByIdsMock.callArgs = []*SubcategoryRepositoryMockListByIdsParams{}
+	m.ListByIDsMock = mSubcategoryRepositoryMockListByIDs{mock: m}
+	m.ListByIDsMock.callArgs = []*SubcategoryRepositoryMockListByIDsParams{}
 
 	m.UpdateMock = mSubcategoryRepositoryMockUpdate{mock: m}
 	m.UpdateMock.callArgs = []*SubcategoryRepositoryMockUpdateParams{}
@@ -471,7 +471,7 @@ type SubcategoryRepositoryMockDeleteResults struct {
 type SubcategoryRepositoryMockDeleteExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -532,8 +532,8 @@ func (mmDelete *mSubcategoryRepositoryMockDelete) ExpectCtxParam1(ctx context.Co
 	return mmDelete
 }
 
-// ExpectIdParam2 sets up expected param id for SubcategoryRepository.Delete
-func (mmDelete *mSubcategoryRepositoryMockDelete) ExpectIdParam2(id int) *mSubcategoryRepositoryMockDelete {
+// ExpectIDParam2 sets up expected param id for SubcategoryRepository.Delete
+func (mmDelete *mSubcategoryRepositoryMockDelete) ExpectIDParam2(id int) *mSubcategoryRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("SubcategoryRepositoryMock.Delete mock is already set by Set")
 	}
@@ -550,7 +550,7 @@ func (mmDelete *mSubcategoryRepositoryMockDelete) ExpectIdParam2(id int) *mSubca
 		mmDelete.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockDeleteParamPtrs{}
 	}
 	mmDelete.defaultExpectation.paramPtrs.id = &id
-	mmDelete.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmDelete.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmDelete
 }
@@ -679,7 +679,7 @@ func (mmDelete *SubcategoryRepositoryMock) Delete(ctx context.Context, id int) (
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmDelete.t.Errorf("SubcategoryRepositoryMock.Delete got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -814,7 +814,7 @@ type SubcategoryRepositoryMockGetResults struct {
 type SubcategoryRepositoryMockGetExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -875,8 +875,8 @@ func (mmGet *mSubcategoryRepositoryMockGet) ExpectCtxParam1(ctx context.Context)
 	return mmGet
 }
 
-// ExpectIdParam2 sets up expected param id for SubcategoryRepository.Get
-func (mmGet *mSubcategoryRepositoryMockGet) ExpectIdParam2(id int) *mSubcategoryRepositoryMockGet {
+// ExpectIDParam2 sets up expected param id for SubcategoryRepository.Get
+func (mmGet *mSubcategoryRepositoryMockGet) ExpectIDParam2(id int) *mSubcategoryRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("SubcategoryRepositoryMock.Get mock is already set by Set")
 	}
@@ -893,7 +893,7 @@ func (mmGet *mSubcategoryRepositoryMockGet) ExpectIdParam2(id int) *mSubcategory
 		mmGet.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockGetParamPtrs{}
 	}
 	mmGet.defaultExpectation.paramPtrs.id = &id
-	mmGet.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmGet.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmGet
 }
@@ -1022,7 +1022,7 @@ func (mmGet *SubcategoryRepositoryMock) Get(ctx context.Context, id int) (sp1 *m
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmGet.t.Errorf("SubcategoryRepositoryMock.Get got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmGet.GetMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmGet.GetMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1111,53 +1111,53 @@ func (m *SubcategoryRepositoryMock) MinimockGetInspect() {
 	}
 }
 
-type mSubcategoryRepositoryMockListByIds struct {
+type mSubcategoryRepositoryMockListByIDs struct {
 	optional           bool
 	mock               *SubcategoryRepositoryMock
-	defaultExpectation *SubcategoryRepositoryMockListByIdsExpectation
-	expectations       []*SubcategoryRepositoryMockListByIdsExpectation
+	defaultExpectation *SubcategoryRepositoryMockListByIDsExpectation
+	expectations       []*SubcategoryRepositoryMockListByIDsExpectation
 
-	callArgs []*SubcategoryRepositoryMockListByIdsParams
+	callArgs []*SubcategoryRepositoryMockListByIDsParams
 	mutex    sync.RWMutex
 
 	expectedInvocations       uint64
 	expectedInvocationsOrigin string
 }
 
-// SubcategoryRepositoryMockListByIdsExpectation specifies expectation struct of the SubcategoryRepository.ListByIds
-type SubcategoryRepositoryMockListByIdsExpectation struct {
+// SubcategoryRepositoryMockListByIDsExpectation specifies expectation struct of the SubcategoryRepository.ListByIDs
+type SubcategoryRepositoryMockListByIDsExpectation struct {
 	mock               *SubcategoryRepositoryMock
-	params             *SubcategoryRepositoryMockListByIdsParams
-	paramPtrs          *SubcategoryRepositoryMockListByIdsParamPtrs
-	expectationOrigins SubcategoryRepositoryMockListByIdsExpectationOrigins
-	results            *SubcategoryRepositoryMockListByIdsResults
+	params             *SubcategoryRepositoryMockListByIDsParams
+	paramPtrs          *SubcategoryRepositoryMockListByIDsParamPtrs
+	expectationOrigins SubcategoryRepositoryMockListByIDsExpectationOrigins
+	results            *SubcategoryRepositoryMockListByIDsResults
 	returnOrigin       string
 	Counter            uint64
 }
 
-// SubcategoryRepositoryMockListByIdsParams contains parameters of the SubcategoryRepository.ListByIds
-type SubcategoryRepositoryMockListByIdsParams struct {
+// SubcategoryRepositoryMockListByIDsParams contains parameters of the SubcategoryRepository.ListByIDs
+type SubcategoryRepositoryMockListByIDsParams struct {
 	ctx context.Context
 	ids []int
 }
 
-// SubcategoryRepositoryMockListByIdsParamPtrs contains pointers to parameters of the SubcategoryRepository.ListByIds
-type SubcategoryRepositoryMockListByIdsParamPtrs struct {
+// SubcategoryRepositoryMockListByIDsParamPtrs contains pointers to parameters of the SubcategoryRepository.ListByIDs
+type SubcategoryRepositoryMockListByIDsParamPtrs struct {
 	ctx *context.Context
 	ids *[]int
 }
 
-// SubcategoryRepositoryMockListByIdsResults contains results of the SubcategoryRepository.ListByIds
-type SubcategoryRepositoryMockListByIdsResults struct {
+// SubcategoryRepositoryMockListByIDsResults contains results of the SubcategoryRepository.ListByIDs
+type SubcategoryRepositoryMockListByIDsResults struct {
 	spa1 []*model.Subcategory
 	err  error
 }
 
-// SubcategoryRepositoryMockListByIdsOrigins contains origins of expectations of the SubcategoryRepository.ListByIds
-type SubcategoryRepositoryMockListByIdsExpectationOrigins struct {
+// SubcategoryRepositoryMockListByIDsOrigins contains origins of expectations of the SubcategoryRepository.ListByIDs
+type SubcategoryRepositoryMockListByIDsExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originIds string
+	originIDs string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -1165,292 +1165,292 @@ type SubcategoryRepositoryMockListByIdsExpectationOrigins struct {
 // Optional() makes method check to work in '0 or more' mode.
 // It is NOT RECOMMENDED to use this option unless you really need it, as default behaviour helps to
 // catch the problems when the expected method call is totally skipped during test run.
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Optional() *mSubcategoryRepositoryMockListByIds {
-	mmListByIds.optional = true
-	return mmListByIds
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Optional() *mSubcategoryRepositoryMockListByIDs {
+	mmListByIDs.optional = true
+	return mmListByIDs
 }
 
-// Expect sets up expected params for SubcategoryRepository.ListByIds
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Expect(ctx context.Context, ids []int) *mSubcategoryRepositoryMockListByIds {
-	if mmListByIds.mock.funcListByIds != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Set")
+// Expect sets up expected params for SubcategoryRepository.ListByIDs
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Expect(ctx context.Context, ids []int) *mSubcategoryRepositoryMockListByIDs {
+	if mmListByIDs.mock.funcListByIDs != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Set")
 	}
 
-	if mmListByIds.defaultExpectation == nil {
-		mmListByIds.defaultExpectation = &SubcategoryRepositoryMockListByIdsExpectation{}
+	if mmListByIDs.defaultExpectation == nil {
+		mmListByIDs.defaultExpectation = &SubcategoryRepositoryMockListByIDsExpectation{}
 	}
 
-	if mmListByIds.defaultExpectation.paramPtrs != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by ExpectParams functions")
+	if mmListByIDs.defaultExpectation.paramPtrs != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by ExpectParams functions")
 	}
 
-	mmListByIds.defaultExpectation.params = &SubcategoryRepositoryMockListByIdsParams{ctx, ids}
-	mmListByIds.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
-	for _, e := range mmListByIds.expectations {
-		if minimock.Equal(e.params, mmListByIds.defaultExpectation.params) {
-			mmListByIds.mock.t.Fatalf("Expectation set by When has same params: %#v", *mmListByIds.defaultExpectation.params)
+	mmListByIDs.defaultExpectation.params = &SubcategoryRepositoryMockListByIDsParams{ctx, ids}
+	mmListByIDs.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
+	for _, e := range mmListByIDs.expectations {
+		if minimock.Equal(e.params, mmListByIDs.defaultExpectation.params) {
+			mmListByIDs.mock.t.Fatalf("Expectation set by When has same params: %#v", *mmListByIDs.defaultExpectation.params)
 		}
 	}
 
-	return mmListByIds
+	return mmListByIDs
 }
 
-// ExpectCtxParam1 sets up expected param ctx for SubcategoryRepository.ListByIds
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) ExpectCtxParam1(ctx context.Context) *mSubcategoryRepositoryMockListByIds {
-	if mmListByIds.mock.funcListByIds != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Set")
+// ExpectCtxParam1 sets up expected param ctx for SubcategoryRepository.ListByIDs
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) ExpectCtxParam1(ctx context.Context) *mSubcategoryRepositoryMockListByIDs {
+	if mmListByIDs.mock.funcListByIDs != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Set")
 	}
 
-	if mmListByIds.defaultExpectation == nil {
-		mmListByIds.defaultExpectation = &SubcategoryRepositoryMockListByIdsExpectation{}
+	if mmListByIDs.defaultExpectation == nil {
+		mmListByIDs.defaultExpectation = &SubcategoryRepositoryMockListByIDsExpectation{}
 	}
 
-	if mmListByIds.defaultExpectation.params != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Expect")
+	if mmListByIDs.defaultExpectation.params != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Expect")
 	}
 
-	if mmListByIds.defaultExpectation.paramPtrs == nil {
-		mmListByIds.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockListByIdsParamPtrs{}
+	if mmListByIDs.defaultExpectation.paramPtrs == nil {
+		mmListByIDs.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockListByIDsParamPtrs{}
 	}
-	mmListByIds.defaultExpectation.paramPtrs.ctx = &ctx
-	mmListByIds.defaultExpectation.expectationOrigins.originCtx = minimock.CallerInfo(1)
+	mmListByIDs.defaultExpectation.paramPtrs.ctx = &ctx
+	mmListByIDs.defaultExpectation.expectationOrigins.originCtx = minimock.CallerInfo(1)
 
-	return mmListByIds
+	return mmListByIDs
 }
 
-// ExpectIdsParam2 sets up expected param ids for SubcategoryRepository.ListByIds
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) ExpectIdsParam2(ids []int) *mSubcategoryRepositoryMockListByIds {
-	if mmListByIds.mock.funcListByIds != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Set")
+// ExpectIDsParam2 sets up expected param ids for SubcategoryRepository.ListByIDs
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) ExpectIDsParam2(ids []int) *mSubcategoryRepositoryMockListByIDs {
+	if mmListByIDs.mock.funcListByIDs != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Set")
 	}
 
-	if mmListByIds.defaultExpectation == nil {
-		mmListByIds.defaultExpectation = &SubcategoryRepositoryMockListByIdsExpectation{}
+	if mmListByIDs.defaultExpectation == nil {
+		mmListByIDs.defaultExpectation = &SubcategoryRepositoryMockListByIDsExpectation{}
 	}
 
-	if mmListByIds.defaultExpectation.params != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Expect")
+	if mmListByIDs.defaultExpectation.params != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Expect")
 	}
 
-	if mmListByIds.defaultExpectation.paramPtrs == nil {
-		mmListByIds.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockListByIdsParamPtrs{}
+	if mmListByIDs.defaultExpectation.paramPtrs == nil {
+		mmListByIDs.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockListByIDsParamPtrs{}
 	}
-	mmListByIds.defaultExpectation.paramPtrs.ids = &ids
-	mmListByIds.defaultExpectation.expectationOrigins.originIds = minimock.CallerInfo(1)
+	mmListByIDs.defaultExpectation.paramPtrs.ids = &ids
+	mmListByIDs.defaultExpectation.expectationOrigins.originIDs = minimock.CallerInfo(1)
 
-	return mmListByIds
+	return mmListByIDs
 }
 
-// Inspect accepts an inspector function that has same arguments as the SubcategoryRepository.ListByIds
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Inspect(f func(ctx context.Context, ids []int)) *mSubcategoryRepositoryMockListByIds {
-	if mmListByIds.mock.inspectFuncListByIds != nil {
-		mmListByIds.mock.t.Fatalf("Inspect function is already set for SubcategoryRepositoryMock.ListByIds")
+// Inspect accepts an inspector function that has same arguments as the SubcategoryRepository.ListByIDs
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Inspect(f func(ctx context.Context, ids []int)) *mSubcategoryRepositoryMockListByIDs {
+	if mmListByIDs.mock.inspectFuncListByIDs != nil {
+		mmListByIDs.mock.t.Fatalf("Inspect function is already set for SubcategoryRepositoryMock.ListByIDs")
 	}
 
-	mmListByIds.mock.inspectFuncListByIds = f
+	mmListByIDs.mock.inspectFuncListByIDs = f
 
-	return mmListByIds
+	return mmListByIDs
 }
 
-// Return sets up results that will be returned by SubcategoryRepository.ListByIds
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Return(spa1 []*model.Subcategory, err error) *SubcategoryRepositoryMock {
-	if mmListByIds.mock.funcListByIds != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Set")
+// Return sets up results that will be returned by SubcategoryRepository.ListByIDs
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Return(spa1 []*model.Subcategory, err error) *SubcategoryRepositoryMock {
+	if mmListByIDs.mock.funcListByIDs != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Set")
 	}
 
-	if mmListByIds.defaultExpectation == nil {
-		mmListByIds.defaultExpectation = &SubcategoryRepositoryMockListByIdsExpectation{mock: mmListByIds.mock}
+	if mmListByIDs.defaultExpectation == nil {
+		mmListByIDs.defaultExpectation = &SubcategoryRepositoryMockListByIDsExpectation{mock: mmListByIDs.mock}
 	}
-	mmListByIds.defaultExpectation.results = &SubcategoryRepositoryMockListByIdsResults{spa1, err}
-	mmListByIds.defaultExpectation.returnOrigin = minimock.CallerInfo(1)
-	return mmListByIds.mock
+	mmListByIDs.defaultExpectation.results = &SubcategoryRepositoryMockListByIDsResults{spa1, err}
+	mmListByIDs.defaultExpectation.returnOrigin = minimock.CallerInfo(1)
+	return mmListByIDs.mock
 }
 
-// Set uses given function f to mock the SubcategoryRepository.ListByIds method
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Set(f func(ctx context.Context, ids []int) (spa1 []*model.Subcategory, err error)) *SubcategoryRepositoryMock {
-	if mmListByIds.defaultExpectation != nil {
-		mmListByIds.mock.t.Fatalf("Default expectation is already set for the SubcategoryRepository.ListByIds method")
+// Set uses given function f to mock the SubcategoryRepository.ListByIDs method
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Set(f func(ctx context.Context, ids []int) (spa1 []*model.Subcategory, err error)) *SubcategoryRepositoryMock {
+	if mmListByIDs.defaultExpectation != nil {
+		mmListByIDs.mock.t.Fatalf("Default expectation is already set for the SubcategoryRepository.ListByIDs method")
 	}
 
-	if len(mmListByIds.expectations) > 0 {
-		mmListByIds.mock.t.Fatalf("Some expectations are already set for the SubcategoryRepository.ListByIds method")
+	if len(mmListByIDs.expectations) > 0 {
+		mmListByIDs.mock.t.Fatalf("Some expectations are already set for the SubcategoryRepository.ListByIDs method")
 	}
 
-	mmListByIds.mock.funcListByIds = f
-	mmListByIds.mock.funcListByIdsOrigin = minimock.CallerInfo(1)
-	return mmListByIds.mock
+	mmListByIDs.mock.funcListByIDs = f
+	mmListByIDs.mock.funcListByIDsOrigin = minimock.CallerInfo(1)
+	return mmListByIDs.mock
 }
 
-// When sets expectation for the SubcategoryRepository.ListByIds which will trigger the result defined by the following
+// When sets expectation for the SubcategoryRepository.ListByIDs which will trigger the result defined by the following
 // Then helper
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) When(ctx context.Context, ids []int) *SubcategoryRepositoryMockListByIdsExpectation {
-	if mmListByIds.mock.funcListByIds != nil {
-		mmListByIds.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIds mock is already set by Set")
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) When(ctx context.Context, ids []int) *SubcategoryRepositoryMockListByIDsExpectation {
+	if mmListByIDs.mock.funcListByIDs != nil {
+		mmListByIDs.mock.t.Fatalf("SubcategoryRepositoryMock.ListByIDs mock is already set by Set")
 	}
 
-	expectation := &SubcategoryRepositoryMockListByIdsExpectation{
-		mock:               mmListByIds.mock,
-		params:             &SubcategoryRepositoryMockListByIdsParams{ctx, ids},
-		expectationOrigins: SubcategoryRepositoryMockListByIdsExpectationOrigins{origin: minimock.CallerInfo(1)},
+	expectation := &SubcategoryRepositoryMockListByIDsExpectation{
+		mock:               mmListByIDs.mock,
+		params:             &SubcategoryRepositoryMockListByIDsParams{ctx, ids},
+		expectationOrigins: SubcategoryRepositoryMockListByIDsExpectationOrigins{origin: minimock.CallerInfo(1)},
 	}
-	mmListByIds.expectations = append(mmListByIds.expectations, expectation)
+	mmListByIDs.expectations = append(mmListByIDs.expectations, expectation)
 	return expectation
 }
 
-// Then sets up SubcategoryRepository.ListByIds return parameters for the expectation previously defined by the When method
-func (e *SubcategoryRepositoryMockListByIdsExpectation) Then(spa1 []*model.Subcategory, err error) *SubcategoryRepositoryMock {
-	e.results = &SubcategoryRepositoryMockListByIdsResults{spa1, err}
+// Then sets up SubcategoryRepository.ListByIDs return parameters for the expectation previously defined by the When method
+func (e *SubcategoryRepositoryMockListByIDsExpectation) Then(spa1 []*model.Subcategory, err error) *SubcategoryRepositoryMock {
+	e.results = &SubcategoryRepositoryMockListByIDsResults{spa1, err}
 	return e.mock
 }
 
-// Times sets number of times SubcategoryRepository.ListByIds should be invoked
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Times(n uint64) *mSubcategoryRepositoryMockListByIds {
+// Times sets number of times SubcategoryRepository.ListByIDs should be invoked
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Times(n uint64) *mSubcategoryRepositoryMockListByIDs {
 	if n == 0 {
-		mmListByIds.mock.t.Fatalf("Times of SubcategoryRepositoryMock.ListByIds mock can not be zero")
+		mmListByIDs.mock.t.Fatalf("Times of SubcategoryRepositoryMock.ListByIDs mock can not be zero")
 	}
-	mm_atomic.StoreUint64(&mmListByIds.expectedInvocations, n)
-	mmListByIds.expectedInvocationsOrigin = minimock.CallerInfo(1)
-	return mmListByIds
+	mm_atomic.StoreUint64(&mmListByIDs.expectedInvocations, n)
+	mmListByIDs.expectedInvocationsOrigin = minimock.CallerInfo(1)
+	return mmListByIDs
 }
 
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) invocationsDone() bool {
-	if len(mmListByIds.expectations) == 0 && mmListByIds.defaultExpectation == nil && mmListByIds.mock.funcListByIds == nil {
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) invocationsDone() bool {
+	if len(mmListByIDs.expectations) == 0 && mmListByIDs.defaultExpectation == nil && mmListByIDs.mock.funcListByIDs == nil {
 		return true
 	}
 
-	totalInvocations := mm_atomic.LoadUint64(&mmListByIds.mock.afterListByIdsCounter)
-	expectedInvocations := mm_atomic.LoadUint64(&mmListByIds.expectedInvocations)
+	totalInvocations := mm_atomic.LoadUint64(&mmListByIDs.mock.afterListByIDsCounter)
+	expectedInvocations := mm_atomic.LoadUint64(&mmListByIDs.expectedInvocations)
 
 	return totalInvocations > 0 && (expectedInvocations == 0 || expectedInvocations == totalInvocations)
 }
 
-// ListByIds implements mm_repository.SubcategoryRepository
-func (mmListByIds *SubcategoryRepositoryMock) ListByIds(ctx context.Context, ids []int) (spa1 []*model.Subcategory, err error) {
-	mm_atomic.AddUint64(&mmListByIds.beforeListByIdsCounter, 1)
-	defer mm_atomic.AddUint64(&mmListByIds.afterListByIdsCounter, 1)
+// ListByIDs implements mm_repository.SubcategoryRepository
+func (mmListByIDs *SubcategoryRepositoryMock) ListByIDs(ctx context.Context, ids []int) (spa1 []*model.Subcategory, err error) {
+	mm_atomic.AddUint64(&mmListByIDs.beforeListByIDsCounter, 1)
+	defer mm_atomic.AddUint64(&mmListByIDs.afterListByIDsCounter, 1)
 
-	mmListByIds.t.Helper()
+	mmListByIDs.t.Helper()
 
-	if mmListByIds.inspectFuncListByIds != nil {
-		mmListByIds.inspectFuncListByIds(ctx, ids)
+	if mmListByIDs.inspectFuncListByIDs != nil {
+		mmListByIDs.inspectFuncListByIDs(ctx, ids)
 	}
 
-	mm_params := SubcategoryRepositoryMockListByIdsParams{ctx, ids}
+	mm_params := SubcategoryRepositoryMockListByIDsParams{ctx, ids}
 
 	// Record call args
-	mmListByIds.ListByIdsMock.mutex.Lock()
-	mmListByIds.ListByIdsMock.callArgs = append(mmListByIds.ListByIdsMock.callArgs, &mm_params)
-	mmListByIds.ListByIdsMock.mutex.Unlock()
+	mmListByIDs.ListByIDsMock.mutex.Lock()
+	mmListByIDs.ListByIDsMock.callArgs = append(mmListByIDs.ListByIDsMock.callArgs, &mm_params)
+	mmListByIDs.ListByIDsMock.mutex.Unlock()
 
-	for _, e := range mmListByIds.ListByIdsMock.expectations {
+	for _, e := range mmListByIDs.ListByIDsMock.expectations {
 		if minimock.Equal(*e.params, mm_params) {
 			mm_atomic.AddUint64(&e.Counter, 1)
 			return e.results.spa1, e.results.err
 		}
 	}
 
-	if mmListByIds.ListByIdsMock.defaultExpectation != nil {
-		mm_atomic.AddUint64(&mmListByIds.ListByIdsMock.defaultExpectation.Counter, 1)
-		mm_want := mmListByIds.ListByIdsMock.defaultExpectation.params
-		mm_want_ptrs := mmListByIds.ListByIdsMock.defaultExpectation.paramPtrs
+	if mmListByIDs.ListByIDsMock.defaultExpectation != nil {
+		mm_atomic.AddUint64(&mmListByIDs.ListByIDsMock.defaultExpectation.Counter, 1)
+		mm_want := mmListByIDs.ListByIDsMock.defaultExpectation.params
+		mm_want_ptrs := mmListByIDs.ListByIDsMock.defaultExpectation.paramPtrs
 
-		mm_got := SubcategoryRepositoryMockListByIdsParams{ctx, ids}
+		mm_got := SubcategoryRepositoryMockListByIDsParams{ctx, ids}
 
 		if mm_want_ptrs != nil {
 
 			if mm_want_ptrs.ctx != nil && !minimock.Equal(*mm_want_ptrs.ctx, mm_got.ctx) {
-				mmListByIds.t.Errorf("SubcategoryRepositoryMock.ListByIds got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmListByIds.ListByIdsMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
+				mmListByIDs.t.Errorf("SubcategoryRepositoryMock.ListByIDs got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmListByIDs.ListByIDsMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
 			if mm_want_ptrs.ids != nil && !minimock.Equal(*mm_want_ptrs.ids, mm_got.ids) {
-				mmListByIds.t.Errorf("SubcategoryRepositoryMock.ListByIds got unexpected parameter ids, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmListByIds.ListByIdsMock.defaultExpectation.expectationOrigins.originIds, *mm_want_ptrs.ids, mm_got.ids, minimock.Diff(*mm_want_ptrs.ids, mm_got.ids))
+				mmListByIDs.t.Errorf("SubcategoryRepositoryMock.ListByIDs got unexpected parameter ids, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmListByIDs.ListByIDsMock.defaultExpectation.expectationOrigins.originIDs, *mm_want_ptrs.ids, mm_got.ids, minimock.Diff(*mm_want_ptrs.ids, mm_got.ids))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
-			mmListByIds.t.Errorf("SubcategoryRepositoryMock.ListByIds got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-				mmListByIds.ListByIdsMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
+			mmListByIDs.t.Errorf("SubcategoryRepositoryMock.ListByIDs got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListByIDs.ListByIDsMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
 		}
 
-		mm_results := mmListByIds.ListByIdsMock.defaultExpectation.results
+		mm_results := mmListByIDs.ListByIDsMock.defaultExpectation.results
 		if mm_results == nil {
-			mmListByIds.t.Fatal("No results are set for the SubcategoryRepositoryMock.ListByIds")
+			mmListByIDs.t.Fatal("No results are set for the SubcategoryRepositoryMock.ListByIDs")
 		}
 		return (*mm_results).spa1, (*mm_results).err
 	}
-	if mmListByIds.funcListByIds != nil {
-		return mmListByIds.funcListByIds(ctx, ids)
+	if mmListByIDs.funcListByIDs != nil {
+		return mmListByIDs.funcListByIDs(ctx, ids)
 	}
-	mmListByIds.t.Fatalf("Unexpected call to SubcategoryRepositoryMock.ListByIds. %v %v", ctx, ids)
+	mmListByIDs.t.Fatalf("Unexpected call to SubcategoryRepositoryMock.ListByIDs. %v %v", ctx, ids)
 	return
 }
 
-// ListByIdsAfterCounter returns a count of finished SubcategoryRepositoryMock.ListByIds invocations
-func (mmListByIds *SubcategoryRepositoryMock) ListByIdsAfterCounter() uint64 {
-	return mm_atomic.LoadUint64(&mmListByIds.afterListByIdsCounter)
+// ListByIDsAfterCounter returns a count of finished SubcategoryRepositoryMock.ListByIDs invocations
+func (mmListByIDs *SubcategoryRepositoryMock) ListByIDsAfterCounter() uint64 {
+	return mm_atomic.LoadUint64(&mmListByIDs.afterListByIDsCounter)
 }
 
-// ListByIdsBeforeCounter returns a count of SubcategoryRepositoryMock.ListByIds invocations
-func (mmListByIds *SubcategoryRepositoryMock) ListByIdsBeforeCounter() uint64 {
-	return mm_atomic.LoadUint64(&mmListByIds.beforeListByIdsCounter)
+// ListByIDsBeforeCounter returns a count of SubcategoryRepositoryMock.ListByIDs invocations
+func (mmListByIDs *SubcategoryRepositoryMock) ListByIDsBeforeCounter() uint64 {
+	return mm_atomic.LoadUint64(&mmListByIDs.beforeListByIDsCounter)
 }
 
-// Calls returns a list of arguments used in each call to SubcategoryRepositoryMock.ListByIds.
+// Calls returns a list of arguments used in each call to SubcategoryRepositoryMock.ListByIDs.
 // The list is in the same order as the calls were made (i.e. recent calls have a higher index)
-func (mmListByIds *mSubcategoryRepositoryMockListByIds) Calls() []*SubcategoryRepositoryMockListByIdsParams {
-	mmListByIds.mutex.RLock()
+func (mmListByIDs *mSubcategoryRepositoryMockListByIDs) Calls() []*SubcategoryRepositoryMockListByIDsParams {
+	mmListByIDs.mutex.RLock()
 
-	argCopy := make([]*SubcategoryRepositoryMockListByIdsParams, len(mmListByIds.callArgs))
-	copy(argCopy, mmListByIds.callArgs)
+	argCopy := make([]*SubcategoryRepositoryMockListByIDsParams, len(mmListByIDs.callArgs))
+	copy(argCopy, mmListByIDs.callArgs)
 
-	mmListByIds.mutex.RUnlock()
+	mmListByIDs.mutex.RUnlock()
 
 	return argCopy
 }
 
-// MinimockListByIdsDone returns true if the count of the ListByIds invocations corresponds
+// MinimockListByIDsDone returns true if the count of the ListByIDs invocations corresponds
 // the number of defined expectations
-func (m *SubcategoryRepositoryMock) MinimockListByIdsDone() bool {
-	if m.ListByIdsMock.optional {
+func (m *SubcategoryRepositoryMock) MinimockListByIDsDone() bool {
+	if m.ListByIDsMock.optional {
 		// Optional methods provide '0 or more' call count restriction.
 		return true
 	}
 
-	for _, e := range m.ListByIdsMock.expectations {
+	for _, e := range m.ListByIDsMock.expectations {
 		if mm_atomic.LoadUint64(&e.Counter) < 1 {
 			return false
 		}
 	}
 
-	return m.ListByIdsMock.invocationsDone()
+	return m.ListByIDsMock.invocationsDone()
 }
 
-// MinimockListByIdsInspect logs each unmet expectation
-func (m *SubcategoryRepositoryMock) MinimockListByIdsInspect() {
-	for _, e := range m.ListByIdsMock.expectations {
+// MinimockListByIDsInspect logs each unmet expectation
+func (m *SubcategoryRepositoryMock) MinimockListByIDsInspect() {
+	for _, e := range m.ListByIDsMock.expectations {
 		if mm_atomic.LoadUint64(&e.Counter) < 1 {
-			m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIds at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
+			m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIDs at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
 		}
 	}
 
-	afterListByIdsCounter := mm_atomic.LoadUint64(&m.afterListByIdsCounter)
+	afterListByIDsCounter := mm_atomic.LoadUint64(&m.afterListByIDsCounter)
 	// if default expectation was set then invocations count should be greater than zero
-	if m.ListByIdsMock.defaultExpectation != nil && afterListByIdsCounter < 1 {
-		if m.ListByIdsMock.defaultExpectation.params == nil {
-			m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIds at\n%s", m.ListByIdsMock.defaultExpectation.returnOrigin)
+	if m.ListByIDsMock.defaultExpectation != nil && afterListByIDsCounter < 1 {
+		if m.ListByIDsMock.defaultExpectation.params == nil {
+			m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIDs at\n%s", m.ListByIDsMock.defaultExpectation.returnOrigin)
 		} else {
-			m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIds at\n%s with params: %#v", m.ListByIdsMock.defaultExpectation.expectationOrigins.origin, *m.ListByIdsMock.defaultExpectation.params)
+			m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIDs at\n%s with params: %#v", m.ListByIDsMock.defaultExpectation.expectationOrigins.origin, *m.ListByIDsMock.defaultExpectation.params)
 		}
 	}
 	// if func was set then invocations count should be greater than zero
-	if m.funcListByIds != nil && afterListByIdsCounter < 1 {
-		m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIds at\n%s", m.funcListByIdsOrigin)
+	if m.funcListByIDs != nil && afterListByIDsCounter < 1 {
+		m.t.Errorf("Expected call to SubcategoryRepositoryMock.ListByIDs at\n%s", m.funcListByIDsOrigin)
 	}
 
-	if !m.ListByIdsMock.invocationsDone() && afterListByIdsCounter > 0 {
-		m.t.Errorf("Expected %d calls to SubcategoryRepositoryMock.ListByIds at\n%s but found %d calls",
-			mm_atomic.LoadUint64(&m.ListByIdsMock.expectedInvocations), m.ListByIdsMock.expectedInvocationsOrigin, afterListByIdsCounter)
+	if !m.ListByIDsMock.invocationsDone() && afterListByIDsCounter > 0 {
+		m.t.Errorf("Expected %d calls to SubcategoryRepositoryMock.ListByIDs at\n%s but found %d calls",
+			mm_atomic.LoadUint64(&m.ListByIDsMock.expectedInvocations), m.ListByIDsMock.expectedInvocationsOrigin, afterListByIDsCounter)
 	}
 }
 
@@ -1501,7 +1501,7 @@ type SubcategoryRepositoryMockUpdateResults struct {
 type SubcategoryRepositoryMockUpdateExpectationOrigins struct {
 	origin                   string
 	originCtx                string
-	originId                 string
+	originID                 string
 	originUpdatedSubcategory string
 }
 
@@ -1563,8 +1563,8 @@ func (mmUpdate *mSubcategoryRepositoryMockUpdate) ExpectCtxParam1(ctx context.Co
 	return mmUpdate
 }
 
-// ExpectIdParam2 sets up expected param id for SubcategoryRepository.Update
-func (mmUpdate *mSubcategoryRepositoryMockUpdate) ExpectIdParam2(id int) *mSubcategoryRepositoryMockUpdate {
+// ExpectIDParam2 sets up expected param id for SubcategoryRepository.Update
+func (mmUpdate *mSubcategoryRepositoryMockUpdate) ExpectIDParam2(id int) *mSubcategoryRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("SubcategoryRepositoryMock.Update mock is already set by Set")
 	}
@@ -1581,7 +1581,7 @@ func (mmUpdate *mSubcategoryRepositoryMockUpdate) ExpectIdParam2(id int) *mSubca
 		mmUpdate.defaultExpectation.paramPtrs = &SubcategoryRepositoryMockUpdateParamPtrs{}
 	}
 	mmUpdate.defaultExpectation.paramPtrs.id = &id
-	mmUpdate.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmUpdate.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmUpdate
 }
@@ -1733,7 +1733,7 @@ func (mmUpdate *SubcategoryRepositoryMock) Update(ctx context.Context, id int, u
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmUpdate.t.Errorf("SubcategoryRepositoryMock.Update got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.updatedSubcategory != nil && !minimock.Equal(*mm_want_ptrs.updatedSubcategory, mm_got.updatedSubcategory) {
@@ -1837,7 +1837,7 @@ func (m *SubcategoryRepositoryMock) MinimockFinish() {
 
 			m.MinimockGetInspect()
 
-			m.MinimockListByIdsInspect()
+			m.MinimockListByIDsInspect()
 
 			m.MinimockUpdateInspect()
 		}
@@ -1866,6 +1866,6 @@ func (m *SubcategoryRepositoryMock) minimockDone() bool {
 		m.MinimockCreateDone() &&
 		m.MinimockDeleteDone() &&
 		m.MinimockGetDone() &&
-		m.MinimockListByIdsDone() &&
+		m.MinimockListByIDsDone() &&
 		m.MinimockUpdateDone()
 }

@@ -16,10 +16,10 @@ func TestCreate(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
 	id := int(gofakeit.Int64())
-	categoryId := int(gofakeit.Int64())
+	categoryID := int(gofakeit.Int64())
 	req := &model.NewSubcategory{
 		Name:       gofakeit.Name(),
-		CategoryId: categoryId,
+		CategoryID: categoryID,
 	}
 	mc := minimock.NewController(t)
 	mockRepo := mocks.NewSubcategoryRepositoryMock(mc)

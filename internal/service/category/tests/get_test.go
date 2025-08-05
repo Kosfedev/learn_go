@@ -17,11 +17,11 @@ func TestGet(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
 	id := int(gofakeit.Int64())
-	domainId := int(gofakeit.Int64())
+	domainID := int(gofakeit.Int64())
 	res := &model.Category{
-		Id:        id,
+		ID:        id,
 		Name:      gofakeit.Name(),
-		DomainId:  domainId,
+		DomainID:  domainID,
 		CreatedAt: time.Time{},
 	}
 	mc := minimock.NewController(t)

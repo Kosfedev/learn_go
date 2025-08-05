@@ -32,7 +32,7 @@ func (r *repo) Get(ctx context.Context, id int) (*model.QuestionSet, error) {
 		return nil, err
 	}
 
-	questionSetServ.QuestionIds = questionSetQuestionsServ
+	questionSetServ.QuestionIDs = questionSetQuestionsServ
 
 	return questionSetServ, nil
 }

@@ -18,23 +18,23 @@ type QuestionSubcategoryRepositoryMock struct {
 	t          minimock.Tester
 	finishOnce sync.Once
 
-	funcAddSubcategoriesToQuestion          func(ctx context.Context, questionId int, subcategoryIds []int) (err error)
+	funcAddSubcategoriesToQuestion          func(ctx context.Context, questionID int, subcategoryIDs []int) (err error)
 	funcAddSubcategoriesToQuestionOrigin    string
-	inspectFuncAddSubcategoriesToQuestion   func(ctx context.Context, questionId int, subcategoryIds []int)
+	inspectFuncAddSubcategoriesToQuestion   func(ctx context.Context, questionID int, subcategoryIDs []int)
 	afterAddSubcategoriesToQuestionCounter  uint64
 	beforeAddSubcategoriesToQuestionCounter uint64
 	AddSubcategoriesToQuestionMock          mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion
 
-	funcListSubcategoriesByQuestionId          func(ctx context.Context, questionId int) (ia1 []int, err error)
-	funcListSubcategoriesByQuestionIdOrigin    string
-	inspectFuncListSubcategoriesByQuestionId   func(ctx context.Context, questionId int)
-	afterListSubcategoriesByQuestionIdCounter  uint64
-	beforeListSubcategoriesByQuestionIdCounter uint64
-	ListSubcategoriesByQuestionIdMock          mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId
+	funcListSubcategoriesByQuestionID          func(ctx context.Context, questionID int) (ia1 []int, err error)
+	funcListSubcategoriesByQuestionIDOrigin    string
+	inspectFuncListSubcategoriesByQuestionID   func(ctx context.Context, questionID int)
+	afterListSubcategoriesByQuestionIDCounter  uint64
+	beforeListSubcategoriesByQuestionIDCounter uint64
+	ListSubcategoriesByQuestionIDMock          mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID
 
-	funcRemoveSubcategoriesFromQuestion          func(ctx context.Context, questionId int, subcategoryIds []int) (err error)
+	funcRemoveSubcategoriesFromQuestion          func(ctx context.Context, questionID int, subcategoryIDs []int) (err error)
 	funcRemoveSubcategoriesFromQuestionOrigin    string
-	inspectFuncRemoveSubcategoriesFromQuestion   func(ctx context.Context, questionId int, subcategoryIds []int)
+	inspectFuncRemoveSubcategoriesFromQuestion   func(ctx context.Context, questionID int, subcategoryIDs []int)
 	afterRemoveSubcategoriesFromQuestionCounter  uint64
 	beforeRemoveSubcategoriesFromQuestionCounter uint64
 	RemoveSubcategoriesFromQuestionMock          mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion
@@ -51,8 +51,8 @@ func NewQuestionSubcategoryRepositoryMock(t minimock.Tester) *QuestionSubcategor
 	m.AddSubcategoriesToQuestionMock = mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion{mock: m}
 	m.AddSubcategoriesToQuestionMock.callArgs = []*QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{}
 
-	m.ListSubcategoriesByQuestionIdMock = mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId{mock: m}
-	m.ListSubcategoriesByQuestionIdMock.callArgs = []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams{}
+	m.ListSubcategoriesByQuestionIDMock = mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID{mock: m}
+	m.ListSubcategoriesByQuestionIDMock.callArgs = []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams{}
 
 	m.RemoveSubcategoriesFromQuestionMock = mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion{mock: m}
 	m.RemoveSubcategoriesFromQuestionMock.callArgs = []*QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{}
@@ -89,15 +89,15 @@ type QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionExpectation stru
 // QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams contains parameters of the QuestionSubcategoryRepository.AddSubcategoriesToQuestion
 type QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams struct {
 	ctx            context.Context
-	questionId     int
-	subcategoryIds []int
+	questionID     int
+	subcategoryIDs []int
 }
 
 // QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParamPtrs contains pointers to parameters of the QuestionSubcategoryRepository.AddSubcategoriesToQuestion
 type QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParamPtrs struct {
 	ctx            *context.Context
-	questionId     *int
-	subcategoryIds *[]int
+	questionID     *int
+	subcategoryIDs *[]int
 }
 
 // QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionResults contains results of the QuestionSubcategoryRepository.AddSubcategoriesToQuestion
@@ -109,8 +109,8 @@ type QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionResults struct {
 type QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionExpectationOrigins struct {
 	origin               string
 	originCtx            string
-	originQuestionId     string
-	originSubcategoryIds string
+	originQuestionID     string
+	originSubcategoryIDs string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -124,7 +124,7 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 }
 
 // Expect sets up expected params for QuestionSubcategoryRepository.AddSubcategoriesToQuestion
-func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) Expect(ctx context.Context, questionId int, subcategoryIds []int) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
+func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) Expect(ctx context.Context, questionID int, subcategoryIDs []int) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
 	if mmAddSubcategoriesToQuestion.mock.funcAddSubcategoriesToQuestion != nil {
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion mock is already set by Set")
 	}
@@ -137,7 +137,7 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion mock is already set by ExpectParams functions")
 	}
 
-	mmAddSubcategoriesToQuestion.defaultExpectation.params = &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionId, subcategoryIds}
+	mmAddSubcategoriesToQuestion.defaultExpectation.params = &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionID, subcategoryIDs}
 	mmAddSubcategoriesToQuestion.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
 	for _, e := range mmAddSubcategoriesToQuestion.expectations {
 		if minimock.Equal(e.params, mmAddSubcategoriesToQuestion.defaultExpectation.params) {
@@ -171,8 +171,8 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 	return mmAddSubcategoriesToQuestion
 }
 
-// ExpectQuestionIdParam2 sets up expected param questionId for QuestionSubcategoryRepository.AddSubcategoriesToQuestion
-func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) ExpectQuestionIdParam2(questionId int) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
+// ExpectQuestionIDParam2 sets up expected param questionID for QuestionSubcategoryRepository.AddSubcategoriesToQuestion
+func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) ExpectQuestionIDParam2(questionID int) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
 	if mmAddSubcategoriesToQuestion.mock.funcAddSubcategoriesToQuestion != nil {
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion mock is already set by Set")
 	}
@@ -188,14 +188,14 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 	if mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs == nil {
 		mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParamPtrs{}
 	}
-	mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs.questionId = &questionId
-	mmAddSubcategoriesToQuestion.defaultExpectation.expectationOrigins.originQuestionId = minimock.CallerInfo(1)
+	mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs.questionID = &questionID
+	mmAddSubcategoriesToQuestion.defaultExpectation.expectationOrigins.originQuestionID = minimock.CallerInfo(1)
 
 	return mmAddSubcategoriesToQuestion
 }
 
-// ExpectSubcategoryIdsParam3 sets up expected param subcategoryIds for QuestionSubcategoryRepository.AddSubcategoriesToQuestion
-func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) ExpectSubcategoryIdsParam3(subcategoryIds []int) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
+// ExpectSubcategoryIDsParam3 sets up expected param subcategoryIDs for QuestionSubcategoryRepository.AddSubcategoriesToQuestion
+func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) ExpectSubcategoryIDsParam3(subcategoryIDs []int) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
 	if mmAddSubcategoriesToQuestion.mock.funcAddSubcategoriesToQuestion != nil {
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion mock is already set by Set")
 	}
@@ -211,14 +211,14 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 	if mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs == nil {
 		mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParamPtrs{}
 	}
-	mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs.subcategoryIds = &subcategoryIds
-	mmAddSubcategoriesToQuestion.defaultExpectation.expectationOrigins.originSubcategoryIds = minimock.CallerInfo(1)
+	mmAddSubcategoriesToQuestion.defaultExpectation.paramPtrs.subcategoryIDs = &subcategoryIDs
+	mmAddSubcategoriesToQuestion.defaultExpectation.expectationOrigins.originSubcategoryIDs = minimock.CallerInfo(1)
 
 	return mmAddSubcategoriesToQuestion
 }
 
 // Inspect accepts an inspector function that has same arguments as the QuestionSubcategoryRepository.AddSubcategoriesToQuestion
-func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) Inspect(f func(ctx context.Context, questionId int, subcategoryIds []int)) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
+func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) Inspect(f func(ctx context.Context, questionID int, subcategoryIDs []int)) *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion {
 	if mmAddSubcategoriesToQuestion.mock.inspectFuncAddSubcategoriesToQuestion != nil {
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("Inspect function is already set for QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion")
 	}
@@ -243,7 +243,7 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 }
 
 // Set uses given function f to mock the QuestionSubcategoryRepository.AddSubcategoriesToQuestion method
-func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) Set(f func(ctx context.Context, questionId int, subcategoryIds []int) (err error)) *QuestionSubcategoryRepositoryMock {
+func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) Set(f func(ctx context.Context, questionID int, subcategoryIDs []int) (err error)) *QuestionSubcategoryRepositoryMock {
 	if mmAddSubcategoriesToQuestion.defaultExpectation != nil {
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("Default expectation is already set for the QuestionSubcategoryRepository.AddSubcategoriesToQuestion method")
 	}
@@ -259,14 +259,14 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 
 // When sets expectation for the QuestionSubcategoryRepository.AddSubcategoriesToQuestion which will trigger the result defined by the following
 // Then helper
-func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) When(ctx context.Context, questionId int, subcategoryIds []int) *QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionExpectation {
+func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcategoriesToQuestion) When(ctx context.Context, questionID int, subcategoryIDs []int) *QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionExpectation {
 	if mmAddSubcategoriesToQuestion.mock.funcAddSubcategoriesToQuestion != nil {
 		mmAddSubcategoriesToQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion mock is already set by Set")
 	}
 
 	expectation := &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionExpectation{
 		mock:               mmAddSubcategoriesToQuestion.mock,
-		params:             &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionId, subcategoryIds},
+		params:             &QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionID, subcategoryIDs},
 		expectationOrigins: QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionExpectationOrigins{origin: minimock.CallerInfo(1)},
 	}
 	mmAddSubcategoriesToQuestion.expectations = append(mmAddSubcategoriesToQuestion.expectations, expectation)
@@ -301,17 +301,17 @@ func (mmAddSubcategoriesToQuestion *mQuestionSubcategoryRepositoryMockAddSubcate
 }
 
 // AddSubcategoriesToQuestion implements mm_repository.QuestionSubcategoryRepository
-func (mmAddSubcategoriesToQuestion *QuestionSubcategoryRepositoryMock) AddSubcategoriesToQuestion(ctx context.Context, questionId int, subcategoryIds []int) (err error) {
+func (mmAddSubcategoriesToQuestion *QuestionSubcategoryRepositoryMock) AddSubcategoriesToQuestion(ctx context.Context, questionID int, subcategoryIDs []int) (err error) {
 	mm_atomic.AddUint64(&mmAddSubcategoriesToQuestion.beforeAddSubcategoriesToQuestionCounter, 1)
 	defer mm_atomic.AddUint64(&mmAddSubcategoriesToQuestion.afterAddSubcategoriesToQuestionCounter, 1)
 
 	mmAddSubcategoriesToQuestion.t.Helper()
 
 	if mmAddSubcategoriesToQuestion.inspectFuncAddSubcategoriesToQuestion != nil {
-		mmAddSubcategoriesToQuestion.inspectFuncAddSubcategoriesToQuestion(ctx, questionId, subcategoryIds)
+		mmAddSubcategoriesToQuestion.inspectFuncAddSubcategoriesToQuestion(ctx, questionID, subcategoryIDs)
 	}
 
-	mm_params := QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionId, subcategoryIds}
+	mm_params := QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionID, subcategoryIDs}
 
 	// Record call args
 	mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.mutex.Lock()
@@ -330,7 +330,7 @@ func (mmAddSubcategoriesToQuestion *QuestionSubcategoryRepositoryMock) AddSubcat
 		mm_want := mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.params
 		mm_want_ptrs := mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.paramPtrs
 
-		mm_got := QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionId, subcategoryIds}
+		mm_got := QuestionSubcategoryRepositoryMockAddSubcategoriesToQuestionParams{ctx, questionID, subcategoryIDs}
 
 		if mm_want_ptrs != nil {
 
@@ -339,14 +339,14 @@ func (mmAddSubcategoriesToQuestion *QuestionSubcategoryRepositoryMock) AddSubcat
 					mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
-			if mm_want_ptrs.questionId != nil && !minimock.Equal(*mm_want_ptrs.questionId, mm_got.questionId) {
-				mmAddSubcategoriesToQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion got unexpected parameter questionId, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.expectationOrigins.originQuestionId, *mm_want_ptrs.questionId, mm_got.questionId, minimock.Diff(*mm_want_ptrs.questionId, mm_got.questionId))
+			if mm_want_ptrs.questionID != nil && !minimock.Equal(*mm_want_ptrs.questionID, mm_got.questionID) {
+				mmAddSubcategoriesToQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion got unexpected parameter questionID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.expectationOrigins.originQuestionID, *mm_want_ptrs.questionID, mm_got.questionID, minimock.Diff(*mm_want_ptrs.questionID, mm_got.questionID))
 			}
 
-			if mm_want_ptrs.subcategoryIds != nil && !minimock.Equal(*mm_want_ptrs.subcategoryIds, mm_got.subcategoryIds) {
-				mmAddSubcategoriesToQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion got unexpected parameter subcategoryIds, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.expectationOrigins.originSubcategoryIds, *mm_want_ptrs.subcategoryIds, mm_got.subcategoryIds, minimock.Diff(*mm_want_ptrs.subcategoryIds, mm_got.subcategoryIds))
+			if mm_want_ptrs.subcategoryIDs != nil && !minimock.Equal(*mm_want_ptrs.subcategoryIDs, mm_got.subcategoryIDs) {
+				mmAddSubcategoriesToQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion got unexpected parameter subcategoryIDs, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmAddSubcategoriesToQuestion.AddSubcategoriesToQuestionMock.defaultExpectation.expectationOrigins.originSubcategoryIDs, *mm_want_ptrs.subcategoryIDs, mm_got.subcategoryIDs, minimock.Diff(*mm_want_ptrs.subcategoryIDs, mm_got.subcategoryIDs))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -361,9 +361,9 @@ func (mmAddSubcategoriesToQuestion *QuestionSubcategoryRepositoryMock) AddSubcat
 		return (*mm_results).err
 	}
 	if mmAddSubcategoriesToQuestion.funcAddSubcategoriesToQuestion != nil {
-		return mmAddSubcategoriesToQuestion.funcAddSubcategoriesToQuestion(ctx, questionId, subcategoryIds)
+		return mmAddSubcategoriesToQuestion.funcAddSubcategoriesToQuestion(ctx, questionID, subcategoryIDs)
 	}
-	mmAddSubcategoriesToQuestion.t.Fatalf("Unexpected call to QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion. %v %v %v", ctx, questionId, subcategoryIds)
+	mmAddSubcategoriesToQuestion.t.Fatalf("Unexpected call to QuestionSubcategoryRepositoryMock.AddSubcategoriesToQuestion. %v %v %v", ctx, questionID, subcategoryIDs)
 	return
 }
 
@@ -435,53 +435,53 @@ func (m *QuestionSubcategoryRepositoryMock) MinimockAddSubcategoriesToQuestionIn
 	}
 }
 
-type mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId struct {
+type mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID struct {
 	optional           bool
 	mock               *QuestionSubcategoryRepositoryMock
-	defaultExpectation *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation
-	expectations       []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation
+	defaultExpectation *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation
+	expectations       []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation
 
-	callArgs []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams
+	callArgs []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams
 	mutex    sync.RWMutex
 
 	expectedInvocations       uint64
 	expectedInvocationsOrigin string
 }
 
-// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation specifies expectation struct of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation struct {
+// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation specifies expectation struct of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation struct {
 	mock               *QuestionSubcategoryRepositoryMock
-	params             *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams
-	paramPtrs          *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParamPtrs
-	expectationOrigins QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectationOrigins
-	results            *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdResults
+	params             *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams
+	paramPtrs          *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParamPtrs
+	expectationOrigins QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectationOrigins
+	results            *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDResults
 	returnOrigin       string
 	Counter            uint64
 }
 
-// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams contains parameters of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams struct {
+// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams contains parameters of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams struct {
 	ctx        context.Context
-	questionId int
+	questionID int
 }
 
-// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParamPtrs contains pointers to parameters of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParamPtrs struct {
+// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParamPtrs contains pointers to parameters of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParamPtrs struct {
 	ctx        *context.Context
-	questionId *int
+	questionID *int
 }
 
-// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdResults contains results of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdResults struct {
+// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDResults contains results of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDResults struct {
 	ia1 []int
 	err error
 }
 
-// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdOrigins contains origins of expectations of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectationOrigins struct {
+// QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDOrigins contains origins of expectations of the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectationOrigins struct {
 	origin           string
 	originCtx        string
-	originQuestionId string
+	originQuestionID string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -489,292 +489,292 @@ type QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectationOr
 // Optional() makes method check to work in '0 or more' mode.
 // It is NOT RECOMMENDED to use this option unless you really need it, as default behaviour helps to
 // catch the problems when the expected method call is totally skipped during test run.
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Optional() *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId {
-	mmListSubcategoriesByQuestionId.optional = true
-	return mmListSubcategoriesByQuestionId
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Optional() *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID {
+	mmListSubcategoriesByQuestionID.optional = true
+	return mmListSubcategoriesByQuestionID
 }
 
-// Expect sets up expected params for QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Expect(ctx context.Context, questionId int) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId {
-	if mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Set")
+// Expect sets up expected params for QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Expect(ctx context.Context, questionID int) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID {
+	if mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Set")
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation == nil {
-		mmListSubcategoriesByQuestionId.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation{}
+	if mmListSubcategoriesByQuestionID.defaultExpectation == nil {
+		mmListSubcategoriesByQuestionID.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation{}
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by ExpectParams functions")
+	if mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by ExpectParams functions")
 	}
 
-	mmListSubcategoriesByQuestionId.defaultExpectation.params = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams{ctx, questionId}
-	mmListSubcategoriesByQuestionId.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
-	for _, e := range mmListSubcategoriesByQuestionId.expectations {
-		if minimock.Equal(e.params, mmListSubcategoriesByQuestionId.defaultExpectation.params) {
-			mmListSubcategoriesByQuestionId.mock.t.Fatalf("Expectation set by When has same params: %#v", *mmListSubcategoriesByQuestionId.defaultExpectation.params)
+	mmListSubcategoriesByQuestionID.defaultExpectation.params = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams{ctx, questionID}
+	mmListSubcategoriesByQuestionID.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
+	for _, e := range mmListSubcategoriesByQuestionID.expectations {
+		if minimock.Equal(e.params, mmListSubcategoriesByQuestionID.defaultExpectation.params) {
+			mmListSubcategoriesByQuestionID.mock.t.Fatalf("Expectation set by When has same params: %#v", *mmListSubcategoriesByQuestionID.defaultExpectation.params)
 		}
 	}
 
-	return mmListSubcategoriesByQuestionId
+	return mmListSubcategoriesByQuestionID
 }
 
-// ExpectCtxParam1 sets up expected param ctx for QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) ExpectCtxParam1(ctx context.Context) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId {
-	if mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Set")
+// ExpectCtxParam1 sets up expected param ctx for QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) ExpectCtxParam1(ctx context.Context) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID {
+	if mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Set")
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation == nil {
-		mmListSubcategoriesByQuestionId.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation{}
+	if mmListSubcategoriesByQuestionID.defaultExpectation == nil {
+		mmListSubcategoriesByQuestionID.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation{}
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation.params != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Expect")
+	if mmListSubcategoriesByQuestionID.defaultExpectation.params != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Expect")
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs == nil {
-		mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParamPtrs{}
+	if mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs == nil {
+		mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParamPtrs{}
 	}
-	mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs.ctx = &ctx
-	mmListSubcategoriesByQuestionId.defaultExpectation.expectationOrigins.originCtx = minimock.CallerInfo(1)
+	mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs.ctx = &ctx
+	mmListSubcategoriesByQuestionID.defaultExpectation.expectationOrigins.originCtx = minimock.CallerInfo(1)
 
-	return mmListSubcategoriesByQuestionId
+	return mmListSubcategoriesByQuestionID
 }
 
-// ExpectQuestionIdParam2 sets up expected param questionId for QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) ExpectQuestionIdParam2(questionId int) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId {
-	if mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Set")
+// ExpectQuestionIDParam2 sets up expected param questionID for QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) ExpectQuestionIDParam2(questionID int) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID {
+	if mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Set")
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation == nil {
-		mmListSubcategoriesByQuestionId.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation{}
+	if mmListSubcategoriesByQuestionID.defaultExpectation == nil {
+		mmListSubcategoriesByQuestionID.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation{}
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation.params != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Expect")
+	if mmListSubcategoriesByQuestionID.defaultExpectation.params != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Expect")
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs == nil {
-		mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParamPtrs{}
+	if mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs == nil {
+		mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParamPtrs{}
 	}
-	mmListSubcategoriesByQuestionId.defaultExpectation.paramPtrs.questionId = &questionId
-	mmListSubcategoriesByQuestionId.defaultExpectation.expectationOrigins.originQuestionId = minimock.CallerInfo(1)
+	mmListSubcategoriesByQuestionID.defaultExpectation.paramPtrs.questionID = &questionID
+	mmListSubcategoriesByQuestionID.defaultExpectation.expectationOrigins.originQuestionID = minimock.CallerInfo(1)
 
-	return mmListSubcategoriesByQuestionId
+	return mmListSubcategoriesByQuestionID
 }
 
-// Inspect accepts an inspector function that has same arguments as the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Inspect(f func(ctx context.Context, questionId int)) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId {
-	if mmListSubcategoriesByQuestionId.mock.inspectFuncListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("Inspect function is already set for QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId")
+// Inspect accepts an inspector function that has same arguments as the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Inspect(f func(ctx context.Context, questionID int)) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID {
+	if mmListSubcategoriesByQuestionID.mock.inspectFuncListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("Inspect function is already set for QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID")
 	}
 
-	mmListSubcategoriesByQuestionId.mock.inspectFuncListSubcategoriesByQuestionId = f
+	mmListSubcategoriesByQuestionID.mock.inspectFuncListSubcategoriesByQuestionID = f
 
-	return mmListSubcategoriesByQuestionId
+	return mmListSubcategoriesByQuestionID
 }
 
-// Return sets up results that will be returned by QuestionSubcategoryRepository.ListSubcategoriesByQuestionId
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Return(ia1 []int, err error) *QuestionSubcategoryRepositoryMock {
-	if mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Set")
+// Return sets up results that will be returned by QuestionSubcategoryRepository.ListSubcategoriesByQuestionID
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Return(ia1 []int, err error) *QuestionSubcategoryRepositoryMock {
+	if mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Set")
 	}
 
-	if mmListSubcategoriesByQuestionId.defaultExpectation == nil {
-		mmListSubcategoriesByQuestionId.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation{mock: mmListSubcategoriesByQuestionId.mock}
+	if mmListSubcategoriesByQuestionID.defaultExpectation == nil {
+		mmListSubcategoriesByQuestionID.defaultExpectation = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation{mock: mmListSubcategoriesByQuestionID.mock}
 	}
-	mmListSubcategoriesByQuestionId.defaultExpectation.results = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdResults{ia1, err}
-	mmListSubcategoriesByQuestionId.defaultExpectation.returnOrigin = minimock.CallerInfo(1)
-	return mmListSubcategoriesByQuestionId.mock
+	mmListSubcategoriesByQuestionID.defaultExpectation.results = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDResults{ia1, err}
+	mmListSubcategoriesByQuestionID.defaultExpectation.returnOrigin = minimock.CallerInfo(1)
+	return mmListSubcategoriesByQuestionID.mock
 }
 
-// Set uses given function f to mock the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId method
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Set(f func(ctx context.Context, questionId int) (ia1 []int, err error)) *QuestionSubcategoryRepositoryMock {
-	if mmListSubcategoriesByQuestionId.defaultExpectation != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("Default expectation is already set for the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId method")
+// Set uses given function f to mock the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID method
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Set(f func(ctx context.Context, questionID int) (ia1 []int, err error)) *QuestionSubcategoryRepositoryMock {
+	if mmListSubcategoriesByQuestionID.defaultExpectation != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("Default expectation is already set for the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID method")
 	}
 
-	if len(mmListSubcategoriesByQuestionId.expectations) > 0 {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("Some expectations are already set for the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId method")
+	if len(mmListSubcategoriesByQuestionID.expectations) > 0 {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("Some expectations are already set for the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID method")
 	}
 
-	mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId = f
-	mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionIdOrigin = minimock.CallerInfo(1)
-	return mmListSubcategoriesByQuestionId.mock
+	mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID = f
+	mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionIDOrigin = minimock.CallerInfo(1)
+	return mmListSubcategoriesByQuestionID.mock
 }
 
-// When sets expectation for the QuestionSubcategoryRepository.ListSubcategoriesByQuestionId which will trigger the result defined by the following
+// When sets expectation for the QuestionSubcategoryRepository.ListSubcategoriesByQuestionID which will trigger the result defined by the following
 // Then helper
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) When(ctx context.Context, questionId int) *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation {
-	if mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock is already set by Set")
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) When(ctx context.Context, questionID int) *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation {
+	if mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock is already set by Set")
 	}
 
-	expectation := &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation{
-		mock:               mmListSubcategoriesByQuestionId.mock,
-		params:             &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams{ctx, questionId},
-		expectationOrigins: QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectationOrigins{origin: minimock.CallerInfo(1)},
+	expectation := &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation{
+		mock:               mmListSubcategoriesByQuestionID.mock,
+		params:             &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams{ctx, questionID},
+		expectationOrigins: QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectationOrigins{origin: minimock.CallerInfo(1)},
 	}
-	mmListSubcategoriesByQuestionId.expectations = append(mmListSubcategoriesByQuestionId.expectations, expectation)
+	mmListSubcategoriesByQuestionID.expectations = append(mmListSubcategoriesByQuestionID.expectations, expectation)
 	return expectation
 }
 
-// Then sets up QuestionSubcategoryRepository.ListSubcategoriesByQuestionId return parameters for the expectation previously defined by the When method
-func (e *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdExpectation) Then(ia1 []int, err error) *QuestionSubcategoryRepositoryMock {
-	e.results = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdResults{ia1, err}
+// Then sets up QuestionSubcategoryRepository.ListSubcategoriesByQuestionID return parameters for the expectation previously defined by the When method
+func (e *QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDExpectation) Then(ia1 []int, err error) *QuestionSubcategoryRepositoryMock {
+	e.results = &QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDResults{ia1, err}
 	return e.mock
 }
 
-// Times sets number of times QuestionSubcategoryRepository.ListSubcategoriesByQuestionId should be invoked
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Times(n uint64) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId {
+// Times sets number of times QuestionSubcategoryRepository.ListSubcategoriesByQuestionID should be invoked
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Times(n uint64) *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID {
 	if n == 0 {
-		mmListSubcategoriesByQuestionId.mock.t.Fatalf("Times of QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId mock can not be zero")
+		mmListSubcategoriesByQuestionID.mock.t.Fatalf("Times of QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID mock can not be zero")
 	}
-	mm_atomic.StoreUint64(&mmListSubcategoriesByQuestionId.expectedInvocations, n)
-	mmListSubcategoriesByQuestionId.expectedInvocationsOrigin = minimock.CallerInfo(1)
-	return mmListSubcategoriesByQuestionId
+	mm_atomic.StoreUint64(&mmListSubcategoriesByQuestionID.expectedInvocations, n)
+	mmListSubcategoriesByQuestionID.expectedInvocationsOrigin = minimock.CallerInfo(1)
+	return mmListSubcategoriesByQuestionID
 }
 
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) invocationsDone() bool {
-	if len(mmListSubcategoriesByQuestionId.expectations) == 0 && mmListSubcategoriesByQuestionId.defaultExpectation == nil && mmListSubcategoriesByQuestionId.mock.funcListSubcategoriesByQuestionId == nil {
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) invocationsDone() bool {
+	if len(mmListSubcategoriesByQuestionID.expectations) == 0 && mmListSubcategoriesByQuestionID.defaultExpectation == nil && mmListSubcategoriesByQuestionID.mock.funcListSubcategoriesByQuestionID == nil {
 		return true
 	}
 
-	totalInvocations := mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionId.mock.afterListSubcategoriesByQuestionIdCounter)
-	expectedInvocations := mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionId.expectedInvocations)
+	totalInvocations := mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionID.mock.afterListSubcategoriesByQuestionIDCounter)
+	expectedInvocations := mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionID.expectedInvocations)
 
 	return totalInvocations > 0 && (expectedInvocations == 0 || expectedInvocations == totalInvocations)
 }
 
-// ListSubcategoriesByQuestionId implements mm_repository.QuestionSubcategoryRepository
-func (mmListSubcategoriesByQuestionId *QuestionSubcategoryRepositoryMock) ListSubcategoriesByQuestionId(ctx context.Context, questionId int) (ia1 []int, err error) {
-	mm_atomic.AddUint64(&mmListSubcategoriesByQuestionId.beforeListSubcategoriesByQuestionIdCounter, 1)
-	defer mm_atomic.AddUint64(&mmListSubcategoriesByQuestionId.afterListSubcategoriesByQuestionIdCounter, 1)
+// ListSubcategoriesByQuestionID implements mm_repository.QuestionSubcategoryRepository
+func (mmListSubcategoriesByQuestionID *QuestionSubcategoryRepositoryMock) ListSubcategoriesByQuestionID(ctx context.Context, questionID int) (ia1 []int, err error) {
+	mm_atomic.AddUint64(&mmListSubcategoriesByQuestionID.beforeListSubcategoriesByQuestionIDCounter, 1)
+	defer mm_atomic.AddUint64(&mmListSubcategoriesByQuestionID.afterListSubcategoriesByQuestionIDCounter, 1)
 
-	mmListSubcategoriesByQuestionId.t.Helper()
+	mmListSubcategoriesByQuestionID.t.Helper()
 
-	if mmListSubcategoriesByQuestionId.inspectFuncListSubcategoriesByQuestionId != nil {
-		mmListSubcategoriesByQuestionId.inspectFuncListSubcategoriesByQuestionId(ctx, questionId)
+	if mmListSubcategoriesByQuestionID.inspectFuncListSubcategoriesByQuestionID != nil {
+		mmListSubcategoriesByQuestionID.inspectFuncListSubcategoriesByQuestionID(ctx, questionID)
 	}
 
-	mm_params := QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams{ctx, questionId}
+	mm_params := QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams{ctx, questionID}
 
 	// Record call args
-	mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.mutex.Lock()
-	mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.callArgs = append(mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.callArgs, &mm_params)
-	mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.mutex.Unlock()
+	mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.mutex.Lock()
+	mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.callArgs = append(mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.callArgs, &mm_params)
+	mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.mutex.Unlock()
 
-	for _, e := range mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.expectations {
+	for _, e := range mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.expectations {
 		if minimock.Equal(*e.params, mm_params) {
 			mm_atomic.AddUint64(&e.Counter, 1)
 			return e.results.ia1, e.results.err
 		}
 	}
 
-	if mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation != nil {
-		mm_atomic.AddUint64(&mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.Counter, 1)
-		mm_want := mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.params
-		mm_want_ptrs := mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.paramPtrs
+	if mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation != nil {
+		mm_atomic.AddUint64(&mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.Counter, 1)
+		mm_want := mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.params
+		mm_want_ptrs := mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.paramPtrs
 
-		mm_got := QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams{ctx, questionId}
+		mm_got := QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams{ctx, questionID}
 
 		if mm_want_ptrs != nil {
 
 			if mm_want_ptrs.ctx != nil && !minimock.Equal(*mm_want_ptrs.ctx, mm_got.ctx) {
-				mmListSubcategoriesByQuestionId.t.Errorf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
+				mmListSubcategoriesByQuestionID.t.Errorf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
-			if mm_want_ptrs.questionId != nil && !minimock.Equal(*mm_want_ptrs.questionId, mm_got.questionId) {
-				mmListSubcategoriesByQuestionId.t.Errorf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId got unexpected parameter questionId, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.expectationOrigins.originQuestionId, *mm_want_ptrs.questionId, mm_got.questionId, minimock.Diff(*mm_want_ptrs.questionId, mm_got.questionId))
+			if mm_want_ptrs.questionID != nil && !minimock.Equal(*mm_want_ptrs.questionID, mm_got.questionID) {
+				mmListSubcategoriesByQuestionID.t.Errorf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID got unexpected parameter questionID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.expectationOrigins.originQuestionID, *mm_want_ptrs.questionID, mm_got.questionID, minimock.Diff(*mm_want_ptrs.questionID, mm_got.questionID))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
-			mmListSubcategoriesByQuestionId.t.Errorf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-				mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
+			mmListSubcategoriesByQuestionID.t.Errorf("QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
 		}
 
-		mm_results := mmListSubcategoriesByQuestionId.ListSubcategoriesByQuestionIdMock.defaultExpectation.results
+		mm_results := mmListSubcategoriesByQuestionID.ListSubcategoriesByQuestionIDMock.defaultExpectation.results
 		if mm_results == nil {
-			mmListSubcategoriesByQuestionId.t.Fatal("No results are set for the QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId")
+			mmListSubcategoriesByQuestionID.t.Fatal("No results are set for the QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID")
 		}
 		return (*mm_results).ia1, (*mm_results).err
 	}
-	if mmListSubcategoriesByQuestionId.funcListSubcategoriesByQuestionId != nil {
-		return mmListSubcategoriesByQuestionId.funcListSubcategoriesByQuestionId(ctx, questionId)
+	if mmListSubcategoriesByQuestionID.funcListSubcategoriesByQuestionID != nil {
+		return mmListSubcategoriesByQuestionID.funcListSubcategoriesByQuestionID(ctx, questionID)
 	}
-	mmListSubcategoriesByQuestionId.t.Fatalf("Unexpected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId. %v %v", ctx, questionId)
+	mmListSubcategoriesByQuestionID.t.Fatalf("Unexpected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID. %v %v", ctx, questionID)
 	return
 }
 
-// ListSubcategoriesByQuestionIdAfterCounter returns a count of finished QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId invocations
-func (mmListSubcategoriesByQuestionId *QuestionSubcategoryRepositoryMock) ListSubcategoriesByQuestionIdAfterCounter() uint64 {
-	return mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionId.afterListSubcategoriesByQuestionIdCounter)
+// ListSubcategoriesByQuestionIDAfterCounter returns a count of finished QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID invocations
+func (mmListSubcategoriesByQuestionID *QuestionSubcategoryRepositoryMock) ListSubcategoriesByQuestionIDAfterCounter() uint64 {
+	return mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionID.afterListSubcategoriesByQuestionIDCounter)
 }
 
-// ListSubcategoriesByQuestionIdBeforeCounter returns a count of QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId invocations
-func (mmListSubcategoriesByQuestionId *QuestionSubcategoryRepositoryMock) ListSubcategoriesByQuestionIdBeforeCounter() uint64 {
-	return mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionId.beforeListSubcategoriesByQuestionIdCounter)
+// ListSubcategoriesByQuestionIDBeforeCounter returns a count of QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID invocations
+func (mmListSubcategoriesByQuestionID *QuestionSubcategoryRepositoryMock) ListSubcategoriesByQuestionIDBeforeCounter() uint64 {
+	return mm_atomic.LoadUint64(&mmListSubcategoriesByQuestionID.beforeListSubcategoriesByQuestionIDCounter)
 }
 
-// Calls returns a list of arguments used in each call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId.
+// Calls returns a list of arguments used in each call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID.
 // The list is in the same order as the calls were made (i.e. recent calls have a higher index)
-func (mmListSubcategoriesByQuestionId *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionId) Calls() []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams {
-	mmListSubcategoriesByQuestionId.mutex.RLock()
+func (mmListSubcategoriesByQuestionID *mQuestionSubcategoryRepositoryMockListSubcategoriesByQuestionID) Calls() []*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams {
+	mmListSubcategoriesByQuestionID.mutex.RLock()
 
-	argCopy := make([]*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIdParams, len(mmListSubcategoriesByQuestionId.callArgs))
-	copy(argCopy, mmListSubcategoriesByQuestionId.callArgs)
+	argCopy := make([]*QuestionSubcategoryRepositoryMockListSubcategoriesByQuestionIDParams, len(mmListSubcategoriesByQuestionID.callArgs))
+	copy(argCopy, mmListSubcategoriesByQuestionID.callArgs)
 
-	mmListSubcategoriesByQuestionId.mutex.RUnlock()
+	mmListSubcategoriesByQuestionID.mutex.RUnlock()
 
 	return argCopy
 }
 
-// MinimockListSubcategoriesByQuestionIdDone returns true if the count of the ListSubcategoriesByQuestionId invocations corresponds
+// MinimockListSubcategoriesByQuestionIDDone returns true if the count of the ListSubcategoriesByQuestionID invocations corresponds
 // the number of defined expectations
-func (m *QuestionSubcategoryRepositoryMock) MinimockListSubcategoriesByQuestionIdDone() bool {
-	if m.ListSubcategoriesByQuestionIdMock.optional {
+func (m *QuestionSubcategoryRepositoryMock) MinimockListSubcategoriesByQuestionIDDone() bool {
+	if m.ListSubcategoriesByQuestionIDMock.optional {
 		// Optional methods provide '0 or more' call count restriction.
 		return true
 	}
 
-	for _, e := range m.ListSubcategoriesByQuestionIdMock.expectations {
+	for _, e := range m.ListSubcategoriesByQuestionIDMock.expectations {
 		if mm_atomic.LoadUint64(&e.Counter) < 1 {
 			return false
 		}
 	}
 
-	return m.ListSubcategoriesByQuestionIdMock.invocationsDone()
+	return m.ListSubcategoriesByQuestionIDMock.invocationsDone()
 }
 
-// MinimockListSubcategoriesByQuestionIdInspect logs each unmet expectation
-func (m *QuestionSubcategoryRepositoryMock) MinimockListSubcategoriesByQuestionIdInspect() {
-	for _, e := range m.ListSubcategoriesByQuestionIdMock.expectations {
+// MinimockListSubcategoriesByQuestionIDInspect logs each unmet expectation
+func (m *QuestionSubcategoryRepositoryMock) MinimockListSubcategoriesByQuestionIDInspect() {
+	for _, e := range m.ListSubcategoriesByQuestionIDMock.expectations {
 		if mm_atomic.LoadUint64(&e.Counter) < 1 {
-			m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
+			m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
 		}
 	}
 
-	afterListSubcategoriesByQuestionIdCounter := mm_atomic.LoadUint64(&m.afterListSubcategoriesByQuestionIdCounter)
+	afterListSubcategoriesByQuestionIDCounter := mm_atomic.LoadUint64(&m.afterListSubcategoriesByQuestionIDCounter)
 	// if default expectation was set then invocations count should be greater than zero
-	if m.ListSubcategoriesByQuestionIdMock.defaultExpectation != nil && afterListSubcategoriesByQuestionIdCounter < 1 {
-		if m.ListSubcategoriesByQuestionIdMock.defaultExpectation.params == nil {
-			m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId at\n%s", m.ListSubcategoriesByQuestionIdMock.defaultExpectation.returnOrigin)
+	if m.ListSubcategoriesByQuestionIDMock.defaultExpectation != nil && afterListSubcategoriesByQuestionIDCounter < 1 {
+		if m.ListSubcategoriesByQuestionIDMock.defaultExpectation.params == nil {
+			m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID at\n%s", m.ListSubcategoriesByQuestionIDMock.defaultExpectation.returnOrigin)
 		} else {
-			m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId at\n%s with params: %#v", m.ListSubcategoriesByQuestionIdMock.defaultExpectation.expectationOrigins.origin, *m.ListSubcategoriesByQuestionIdMock.defaultExpectation.params)
+			m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID at\n%s with params: %#v", m.ListSubcategoriesByQuestionIDMock.defaultExpectation.expectationOrigins.origin, *m.ListSubcategoriesByQuestionIDMock.defaultExpectation.params)
 		}
 	}
 	// if func was set then invocations count should be greater than zero
-	if m.funcListSubcategoriesByQuestionId != nil && afterListSubcategoriesByQuestionIdCounter < 1 {
-		m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId at\n%s", m.funcListSubcategoriesByQuestionIdOrigin)
+	if m.funcListSubcategoriesByQuestionID != nil && afterListSubcategoriesByQuestionIDCounter < 1 {
+		m.t.Errorf("Expected call to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID at\n%s", m.funcListSubcategoriesByQuestionIDOrigin)
 	}
 
-	if !m.ListSubcategoriesByQuestionIdMock.invocationsDone() && afterListSubcategoriesByQuestionIdCounter > 0 {
-		m.t.Errorf("Expected %d calls to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionId at\n%s but found %d calls",
-			mm_atomic.LoadUint64(&m.ListSubcategoriesByQuestionIdMock.expectedInvocations), m.ListSubcategoriesByQuestionIdMock.expectedInvocationsOrigin, afterListSubcategoriesByQuestionIdCounter)
+	if !m.ListSubcategoriesByQuestionIDMock.invocationsDone() && afterListSubcategoriesByQuestionIDCounter > 0 {
+		m.t.Errorf("Expected %d calls to QuestionSubcategoryRepositoryMock.ListSubcategoriesByQuestionID at\n%s but found %d calls",
+			mm_atomic.LoadUint64(&m.ListSubcategoriesByQuestionIDMock.expectedInvocations), m.ListSubcategoriesByQuestionIDMock.expectedInvocationsOrigin, afterListSubcategoriesByQuestionIDCounter)
 	}
 }
 
@@ -805,15 +805,15 @@ type QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionExpectation
 // QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams contains parameters of the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
 type QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams struct {
 	ctx            context.Context
-	questionId     int
-	subcategoryIds []int
+	questionID     int
+	subcategoryIDs []int
 }
 
 // QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParamPtrs contains pointers to parameters of the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
 type QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParamPtrs struct {
 	ctx            *context.Context
-	questionId     *int
-	subcategoryIds *[]int
+	questionID     *int
+	subcategoryIDs *[]int
 }
 
 // QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionResults contains results of the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
@@ -825,8 +825,8 @@ type QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionResults str
 type QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionExpectationOrigins struct {
 	origin               string
 	originCtx            string
-	originQuestionId     string
-	originSubcategoryIds string
+	originQuestionID     string
+	originSubcategoryIDs string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -840,7 +840,7 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 }
 
 // Expect sets up expected params for QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
-func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) Expect(ctx context.Context, questionId int, subcategoryIds []int) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
+func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) Expect(ctx context.Context, questionID int, subcategoryIDs []int) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
 	if mmRemoveSubcategoriesFromQuestion.mock.funcRemoveSubcategoriesFromQuestion != nil {
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion mock is already set by Set")
 	}
@@ -853,7 +853,7 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion mock is already set by ExpectParams functions")
 	}
 
-	mmRemoveSubcategoriesFromQuestion.defaultExpectation.params = &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionId, subcategoryIds}
+	mmRemoveSubcategoriesFromQuestion.defaultExpectation.params = &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionID, subcategoryIDs}
 	mmRemoveSubcategoriesFromQuestion.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
 	for _, e := range mmRemoveSubcategoriesFromQuestion.expectations {
 		if minimock.Equal(e.params, mmRemoveSubcategoriesFromQuestion.defaultExpectation.params) {
@@ -887,8 +887,8 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 	return mmRemoveSubcategoriesFromQuestion
 }
 
-// ExpectQuestionIdParam2 sets up expected param questionId for QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
-func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) ExpectQuestionIdParam2(questionId int) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
+// ExpectQuestionIDParam2 sets up expected param questionID for QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
+func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) ExpectQuestionIDParam2(questionID int) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
 	if mmRemoveSubcategoriesFromQuestion.mock.funcRemoveSubcategoriesFromQuestion != nil {
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion mock is already set by Set")
 	}
@@ -904,14 +904,14 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 	if mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs == nil {
 		mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParamPtrs{}
 	}
-	mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs.questionId = &questionId
-	mmRemoveSubcategoriesFromQuestion.defaultExpectation.expectationOrigins.originQuestionId = minimock.CallerInfo(1)
+	mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs.questionID = &questionID
+	mmRemoveSubcategoriesFromQuestion.defaultExpectation.expectationOrigins.originQuestionID = minimock.CallerInfo(1)
 
 	return mmRemoveSubcategoriesFromQuestion
 }
 
-// ExpectSubcategoryIdsParam3 sets up expected param subcategoryIds for QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
-func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) ExpectSubcategoryIdsParam3(subcategoryIds []int) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
+// ExpectSubcategoryIDsParam3 sets up expected param subcategoryIDs for QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
+func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) ExpectSubcategoryIDsParam3(subcategoryIDs []int) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
 	if mmRemoveSubcategoriesFromQuestion.mock.funcRemoveSubcategoriesFromQuestion != nil {
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion mock is already set by Set")
 	}
@@ -927,14 +927,14 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 	if mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs == nil {
 		mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs = &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParamPtrs{}
 	}
-	mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs.subcategoryIds = &subcategoryIds
-	mmRemoveSubcategoriesFromQuestion.defaultExpectation.expectationOrigins.originSubcategoryIds = minimock.CallerInfo(1)
+	mmRemoveSubcategoriesFromQuestion.defaultExpectation.paramPtrs.subcategoryIDs = &subcategoryIDs
+	mmRemoveSubcategoriesFromQuestion.defaultExpectation.expectationOrigins.originSubcategoryIDs = minimock.CallerInfo(1)
 
 	return mmRemoveSubcategoriesFromQuestion
 }
 
 // Inspect accepts an inspector function that has same arguments as the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion
-func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) Inspect(f func(ctx context.Context, questionId int, subcategoryIds []int)) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
+func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) Inspect(f func(ctx context.Context, questionID int, subcategoryIDs []int)) *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion {
 	if mmRemoveSubcategoriesFromQuestion.mock.inspectFuncRemoveSubcategoriesFromQuestion != nil {
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("Inspect function is already set for QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion")
 	}
@@ -959,7 +959,7 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 }
 
 // Set uses given function f to mock the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion method
-func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) Set(f func(ctx context.Context, questionId int, subcategoryIds []int) (err error)) *QuestionSubcategoryRepositoryMock {
+func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) Set(f func(ctx context.Context, questionID int, subcategoryIDs []int) (err error)) *QuestionSubcategoryRepositoryMock {
 	if mmRemoveSubcategoriesFromQuestion.defaultExpectation != nil {
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("Default expectation is already set for the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion method")
 	}
@@ -975,14 +975,14 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 
 // When sets expectation for the QuestionSubcategoryRepository.RemoveSubcategoriesFromQuestion which will trigger the result defined by the following
 // Then helper
-func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) When(ctx context.Context, questionId int, subcategoryIds []int) *QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionExpectation {
+func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestion) When(ctx context.Context, questionID int, subcategoryIDs []int) *QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionExpectation {
 	if mmRemoveSubcategoriesFromQuestion.mock.funcRemoveSubcategoriesFromQuestion != nil {
 		mmRemoveSubcategoriesFromQuestion.mock.t.Fatalf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion mock is already set by Set")
 	}
 
 	expectation := &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionExpectation{
 		mock:               mmRemoveSubcategoriesFromQuestion.mock,
-		params:             &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionId, subcategoryIds},
+		params:             &QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionID, subcategoryIDs},
 		expectationOrigins: QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionExpectationOrigins{origin: minimock.CallerInfo(1)},
 	}
 	mmRemoveSubcategoriesFromQuestion.expectations = append(mmRemoveSubcategoriesFromQuestion.expectations, expectation)
@@ -1017,17 +1017,17 @@ func (mmRemoveSubcategoriesFromQuestion *mQuestionSubcategoryRepositoryMockRemov
 }
 
 // RemoveSubcategoriesFromQuestion implements mm_repository.QuestionSubcategoryRepository
-func (mmRemoveSubcategoriesFromQuestion *QuestionSubcategoryRepositoryMock) RemoveSubcategoriesFromQuestion(ctx context.Context, questionId int, subcategoryIds []int) (err error) {
+func (mmRemoveSubcategoriesFromQuestion *QuestionSubcategoryRepositoryMock) RemoveSubcategoriesFromQuestion(ctx context.Context, questionID int, subcategoryIDs []int) (err error) {
 	mm_atomic.AddUint64(&mmRemoveSubcategoriesFromQuestion.beforeRemoveSubcategoriesFromQuestionCounter, 1)
 	defer mm_atomic.AddUint64(&mmRemoveSubcategoriesFromQuestion.afterRemoveSubcategoriesFromQuestionCounter, 1)
 
 	mmRemoveSubcategoriesFromQuestion.t.Helper()
 
 	if mmRemoveSubcategoriesFromQuestion.inspectFuncRemoveSubcategoriesFromQuestion != nil {
-		mmRemoveSubcategoriesFromQuestion.inspectFuncRemoveSubcategoriesFromQuestion(ctx, questionId, subcategoryIds)
+		mmRemoveSubcategoriesFromQuestion.inspectFuncRemoveSubcategoriesFromQuestion(ctx, questionID, subcategoryIDs)
 	}
 
-	mm_params := QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionId, subcategoryIds}
+	mm_params := QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionID, subcategoryIDs}
 
 	// Record call args
 	mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.mutex.Lock()
@@ -1046,7 +1046,7 @@ func (mmRemoveSubcategoriesFromQuestion *QuestionSubcategoryRepositoryMock) Remo
 		mm_want := mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.params
 		mm_want_ptrs := mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.paramPtrs
 
-		mm_got := QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionId, subcategoryIds}
+		mm_got := QuestionSubcategoryRepositoryMockRemoveSubcategoriesFromQuestionParams{ctx, questionID, subcategoryIDs}
 
 		if mm_want_ptrs != nil {
 
@@ -1055,14 +1055,14 @@ func (mmRemoveSubcategoriesFromQuestion *QuestionSubcategoryRepositoryMock) Remo
 					mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
-			if mm_want_ptrs.questionId != nil && !minimock.Equal(*mm_want_ptrs.questionId, mm_got.questionId) {
-				mmRemoveSubcategoriesFromQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion got unexpected parameter questionId, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.expectationOrigins.originQuestionId, *mm_want_ptrs.questionId, mm_got.questionId, minimock.Diff(*mm_want_ptrs.questionId, mm_got.questionId))
+			if mm_want_ptrs.questionID != nil && !minimock.Equal(*mm_want_ptrs.questionID, mm_got.questionID) {
+				mmRemoveSubcategoriesFromQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion got unexpected parameter questionID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.expectationOrigins.originQuestionID, *mm_want_ptrs.questionID, mm_got.questionID, minimock.Diff(*mm_want_ptrs.questionID, mm_got.questionID))
 			}
 
-			if mm_want_ptrs.subcategoryIds != nil && !minimock.Equal(*mm_want_ptrs.subcategoryIds, mm_got.subcategoryIds) {
-				mmRemoveSubcategoriesFromQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion got unexpected parameter subcategoryIds, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.expectationOrigins.originSubcategoryIds, *mm_want_ptrs.subcategoryIds, mm_got.subcategoryIds, minimock.Diff(*mm_want_ptrs.subcategoryIds, mm_got.subcategoryIds))
+			if mm_want_ptrs.subcategoryIDs != nil && !minimock.Equal(*mm_want_ptrs.subcategoryIDs, mm_got.subcategoryIDs) {
+				mmRemoveSubcategoriesFromQuestion.t.Errorf("QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion got unexpected parameter subcategoryIDs, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmRemoveSubcategoriesFromQuestion.RemoveSubcategoriesFromQuestionMock.defaultExpectation.expectationOrigins.originSubcategoryIDs, *mm_want_ptrs.subcategoryIDs, mm_got.subcategoryIDs, minimock.Diff(*mm_want_ptrs.subcategoryIDs, mm_got.subcategoryIDs))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1077,9 +1077,9 @@ func (mmRemoveSubcategoriesFromQuestion *QuestionSubcategoryRepositoryMock) Remo
 		return (*mm_results).err
 	}
 	if mmRemoveSubcategoriesFromQuestion.funcRemoveSubcategoriesFromQuestion != nil {
-		return mmRemoveSubcategoriesFromQuestion.funcRemoveSubcategoriesFromQuestion(ctx, questionId, subcategoryIds)
+		return mmRemoveSubcategoriesFromQuestion.funcRemoveSubcategoriesFromQuestion(ctx, questionID, subcategoryIDs)
 	}
-	mmRemoveSubcategoriesFromQuestion.t.Fatalf("Unexpected call to QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion. %v %v %v", ctx, questionId, subcategoryIds)
+	mmRemoveSubcategoriesFromQuestion.t.Fatalf("Unexpected call to QuestionSubcategoryRepositoryMock.RemoveSubcategoriesFromQuestion. %v %v %v", ctx, questionID, subcategoryIDs)
 	return
 }
 
@@ -1157,7 +1157,7 @@ func (m *QuestionSubcategoryRepositoryMock) MinimockFinish() {
 		if !m.minimockDone() {
 			m.MinimockAddSubcategoriesToQuestionInspect()
 
-			m.MinimockListSubcategoriesByQuestionIdInspect()
+			m.MinimockListSubcategoriesByQuestionIDInspect()
 
 			m.MinimockRemoveSubcategoriesFromQuestionInspect()
 		}
@@ -1184,6 +1184,6 @@ func (m *QuestionSubcategoryRepositoryMock) minimockDone() bool {
 	done := true
 	return done &&
 		m.MinimockAddSubcategoriesToQuestionDone() &&
-		m.MinimockListSubcategoriesByQuestionIdDone() &&
+		m.MinimockListSubcategoriesByQuestionIDDone() &&
 		m.MinimockRemoveSubcategoriesFromQuestionDone()
 }

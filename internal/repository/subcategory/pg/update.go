@@ -22,8 +22,8 @@ func (r *repo) Update(ctx context.Context, id int, subcategory *model.UpdatedSub
 		index++
 	}
 
-	if subcategoryRepo.CategoryId.Valid {
-		values = append(values, subcategoryRepo.CategoryId)
+	if subcategoryRepo.CategoryID.Valid {
+		values = append(values, subcategoryRepo.CategoryID)
 		queryRaw += fmt.Sprintf(" category_id = $%d,", index)
 	}
 

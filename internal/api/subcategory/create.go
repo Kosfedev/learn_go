@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/Kosfedev/learn_go/internal/converter"
+	"github.com/Kosfedev/learn_go/internal/api/converter"
 	desc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
 )
 

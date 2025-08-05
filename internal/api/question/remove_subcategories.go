@@ -3,7 +3,7 @@ package question
 import (
 	"context"
 
-	"github.com/Kosfedev/learn_go/internal/converter"
+	"github.com/Kosfedev/learn_go/internal/api/converter"
 	desc "github.com/Kosfedev/learn_go/pkg/question_v1"
 )
 

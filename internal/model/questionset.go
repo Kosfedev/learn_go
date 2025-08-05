@@ -3,16 +3,16 @@ package model
 import "time"
 
 type QuestionSet struct {
-	Id          int
+	ID          int
 	Name        string
-	QuestionIds []int
+	QuestionIDs []int
 	CreatedAt   time.Time
 	UpdatedAt   *time.Time
 }
 
 type NewQuestionSet struct {
 	Name        string
-	QuestionIds []int
+	QuestionIDs []int
 }
 
 type UpdatedQuestionSet struct {

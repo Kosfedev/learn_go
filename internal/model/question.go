@@ -19,7 +19,7 @@ func (qt QuestionType) IsValid() bool {
 }
 
 type QuestionOption struct {
-	Id        int
+	ID        int
 	Text      string
 	IsCorrect bool
 }
@@ -30,7 +30,7 @@ type NewQuestionOption struct {
 }
 
 type Question struct {
-	Id              int
+	ID              int
 	Text            string
 	Type            QuestionType
 	Options         []*QuestionOption

@@ -8,7 +8,7 @@ import (
 	"github.com/gojuno/minimock/v3"
 
 	"github.com/Kosfedev/learn_go/internal/repository/mocks"
-	 "github.com/Kosfedev/learn_go/internal/service/category"
+	"github.com/Kosfedev/learn_go/internal/service/category"
 )
 
 func TestDelete(t *testing.T) {

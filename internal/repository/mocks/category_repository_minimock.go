@@ -461,7 +461,7 @@ type CategoryRepositoryMockDeleteResults struct {
 type CategoryRepositoryMockDeleteExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -522,8 +522,8 @@ func (mmDelete *mCategoryRepositoryMockDelete) ExpectCtxParam1(ctx context.Conte
 	return mmDelete
 }
 
-// ExpectIdParam2 sets up expected param id for CategoryRepository.Delete
-func (mmDelete *mCategoryRepositoryMockDelete) ExpectIdParam2(id int) *mCategoryRepositoryMockDelete {
+// ExpectIDParam2 sets up expected param id for CategoryRepository.Delete
+func (mmDelete *mCategoryRepositoryMockDelete) ExpectIDParam2(id int) *mCategoryRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("CategoryRepositoryMock.Delete mock is already set by Set")
 	}
@@ -540,7 +540,7 @@ func (mmDelete *mCategoryRepositoryMockDelete) ExpectIdParam2(id int) *mCategory
 		mmDelete.defaultExpectation.paramPtrs = &CategoryRepositoryMockDeleteParamPtrs{}
 	}
 	mmDelete.defaultExpectation.paramPtrs.id = &id
-	mmDelete.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmDelete.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmDelete
 }
@@ -669,7 +669,7 @@ func (mmDelete *CategoryRepositoryMock) Delete(ctx context.Context, id int) (err
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmDelete.t.Errorf("CategoryRepositoryMock.Delete got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -804,7 +804,7 @@ type CategoryRepositoryMockGetResults struct {
 type CategoryRepositoryMockGetExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -865,8 +865,8 @@ func (mmGet *mCategoryRepositoryMockGet) ExpectCtxParam1(ctx context.Context) *m
 	return mmGet
 }
 
-// ExpectIdParam2 sets up expected param id for CategoryRepository.Get
-func (mmGet *mCategoryRepositoryMockGet) ExpectIdParam2(id int) *mCategoryRepositoryMockGet {
+// ExpectIDParam2 sets up expected param id for CategoryRepository.Get
+func (mmGet *mCategoryRepositoryMockGet) ExpectIDParam2(id int) *mCategoryRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("CategoryRepositoryMock.Get mock is already set by Set")
 	}
@@ -883,7 +883,7 @@ func (mmGet *mCategoryRepositoryMockGet) ExpectIdParam2(id int) *mCategoryReposi
 		mmGet.defaultExpectation.paramPtrs = &CategoryRepositoryMockGetParamPtrs{}
 	}
 	mmGet.defaultExpectation.paramPtrs.id = &id
-	mmGet.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmGet.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmGet
 }
@@ -1012,7 +1012,7 @@ func (mmGet *CategoryRepositoryMock) Get(ctx context.Context, id int) (cp1 *mode
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmGet.t.Errorf("CategoryRepositoryMock.Get got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmGet.GetMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmGet.GetMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1148,7 +1148,7 @@ type CategoryRepositoryMockUpdateResults struct {
 type CategoryRepositoryMockUpdateExpectationOrigins struct {
 	origin                string
 	originCtx             string
-	originId              string
+	originID              string
 	originUpdatedCategory string
 }
 
@@ -1210,8 +1210,8 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectCtxParam1(ctx context.Conte
 	return mmUpdate
 }
 
-// ExpectIdParam2 sets up expected param id for CategoryRepository.Update
-func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectIdParam2(id int) *mCategoryRepositoryMockUpdate {
+// ExpectIDParam2 sets up expected param id for CategoryRepository.Update
+func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectIDParam2(id int) *mCategoryRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("CategoryRepositoryMock.Update mock is already set by Set")
 	}
@@ -1228,7 +1228,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectIdParam2(id int) *mCategory
 		mmUpdate.defaultExpectation.paramPtrs = &CategoryRepositoryMockUpdateParamPtrs{}
 	}
 	mmUpdate.defaultExpectation.paramPtrs.id = &id
-	mmUpdate.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmUpdate.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmUpdate
 }
@@ -1380,7 +1380,7 @@ func (mmUpdate *CategoryRepositoryMock) Update(ctx context.Context, id int, upda
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmUpdate.t.Errorf("CategoryRepositoryMock.Update got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.updatedCategory != nil && !minimock.Equal(*mm_want_ptrs.updatedCategory, mm_got.updatedCategory) {
