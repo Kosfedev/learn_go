@@ -6,7 +6,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qds *serv) Get(ctx context.Context, id int) (*model.Domain, error) {
+func (qds *serv) Get(ctx context.Context, id int64) (*model.Domain, error) {
 	domain, err := qds.repo.Get(ctx, id)
 	if err != nil {
 		return nil, err

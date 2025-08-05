@@ -11,7 +11,7 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg/model"
 )
 
-func (r *repo) ListByIDs(ctx context.Context, ids []int) ([]*model.Subcategory, error) {
+func (r *repo) ListByIDs(ctx context.Context, ids []int64) ([]*model.Subcategory, error) {
 	idsRepo := make([]interface{}, len(ids))
 	placeholders := make([]string, len(ids))
 	for i, id := range ids {

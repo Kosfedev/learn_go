@@ -11,7 +11,7 @@ import (
 func (domainImpl *Implementation) Update(ctx context.Context, req *desc.UpdateRequest) (*desc.UpdateResponse, error) {
 	updatedDomain := converter.UpdatedDomainFromGRPC(req)
 	log.Printf("updated domain: %+v", updatedDomain)
-	err := domainImpl.domainService.Update(ctx, int(req.Id), updatedDomain)
+	err := domainImpl.domainService.Update(ctx, int64(req.Id), updatedDomain)
 	if err != nil {
 		return nil, err
 	}

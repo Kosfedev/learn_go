@@ -9,7 +9,7 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg/model"
 )
 
-func (r *repo) Get(ctx context.Context, id int) (*model.Subcategory, error) {
+func (r *repo) Get(ctx context.Context, id int64) (*model.Subcategory, error) {
 	query := db.Query{
 		Name:     "subcategory_repository.get",
 		QueryRaw: `SELECT * FROM subcategory WHERE id = $1;`,

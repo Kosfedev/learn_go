@@ -9,7 +9,7 @@ import (
 
 func DomainFromPGSQL(domainRepo *modelRepo.Domain) *model.Domain {
 	domain := &model.Domain{
-		ID:        int(domainRepo.ID),
+		ID:        int64(domainRepo.ID),
 		Name:      domainRepo.Name,
 		CreatedAt: domainRepo.CreatedAt,
 	}

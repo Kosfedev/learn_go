@@ -14,7 +14,7 @@ import (
 func TestDeleteOptions(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	optionIDs := make([]int, 10)
+	optionIDs := make([]int64, 10)
 	gofakeit.Slice(&optionIDs)
 	mc := minimock.NewController(t)
 	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)

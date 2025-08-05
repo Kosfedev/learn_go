@@ -10,7 +10,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/category/pg/converter"
 )
 
-func (r *repo) Update(ctx context.Context, id int, category *model.UpdatedCategory) error {
+func (r *repo) Update(ctx context.Context, id int64, category *model.UpdatedCategory) error {
 	categoryRepo := converter.UpdatedCategoryToPGSQL(category)
 	values := []interface{}{id}
 	queryRaw := "UPDATE category SET"

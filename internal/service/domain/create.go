@@ -6,7 +6,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qds *serv) Create(ctx context.Context, newDomain *model.NewDomain) (int, error) {
+func (qds *serv) Create(ctx context.Context, newDomain *model.NewDomain) (int64, error) {
 	id, err := qds.repo.Create(ctx, newDomain)
 	if err != nil {
 		return 0, err

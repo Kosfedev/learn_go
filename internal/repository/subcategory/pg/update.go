@@ -10,7 +10,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/subcategory/pg/converter"
 )
 
-func (r *repo) Update(ctx context.Context, id int, subcategory *model.UpdatedSubcategory) error {
+func (r *repo) Update(ctx context.Context, id int64, subcategory *model.UpdatedSubcategory) error {
 	subcategoryRepo := converter.UpdatedSubcategoryToPGSQL(subcategory)
 	values := []interface{}{id}
 	queryRaw := "UPDATE subcategory SET"

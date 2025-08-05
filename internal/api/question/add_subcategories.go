@@ -9,7 +9,7 @@ import (
 
 func (questionImpl *Implementation) AddSubcategories(ctx context.Context, req *desc.AddSubcategoriesRequest) (*desc.AddSubcategoriesResponse, error) {
 	subcategoryIds := converter.AddSubcategoriesFromGRPC(req)
-	err := questionImpl.questionService.AddSubcategories(ctx, int(req.QuestionId), subcategoryIds)
+	err := questionImpl.questionService.AddSubcategories(ctx, int64(req.QuestionId), subcategoryIds)
 	if err != nil {
 		return nil, err
 	}

@@ -10,7 +10,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/domain/pg/converter"
 )
 
-func (r *repo) Update(ctx context.Context, id int, domain *model.UpdatedDomain) error {
+func (r *repo) Update(ctx context.Context, id int64, domain *model.UpdatedDomain) error {
 	domainRepo := converter.UpdatedDomainToPGSQL(domain)
 	values := []interface{}{id}
 	queryRaw := "UPDATE domain SET"

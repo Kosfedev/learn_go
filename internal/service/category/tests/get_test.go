@@ -16,8 +16,8 @@ import (
 func TestGet(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	id := int(gofakeit.Int64())
-	domainID := int(gofakeit.Int64())
+	id := int64(gofakeit.Int64())
+	domainID := int64(gofakeit.Int64())
 	res := &model.Category{
 		ID:        id,
 		Name:      gofakeit.Name(),

@@ -9,9 +9,9 @@ import (
 
 func SubcategoryFromPGSQL(subcategoryRepo *modelRepo.Subcategory) *model.Subcategory {
 	subcategory := &model.Subcategory{
-		ID:         int(subcategoryRepo.ID),
+		ID:         int64(subcategoryRepo.ID),
 		Name:       subcategoryRepo.Name,
-		CategoryID: int(subcategoryRepo.CategoryID),
+		CategoryID: int64(subcategoryRepo.CategoryID),
 		CreatedAt:  subcategoryRepo.CreatedAt,
 	}
 

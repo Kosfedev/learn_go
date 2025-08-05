@@ -28,9 +28,9 @@ func QuestionSetToGRPC(question *model.QuestionSet) *desc.GetResponse {
 }
 
 func NewQuestionSetFromGRPC(req *desc.CreateRequest) *model.NewQuestionSet {
-	newQuestionIds := make([]int, len(req.QuestionIds))
+	newQuestionIds := make([]int64, len(req.QuestionIds))
 	for i, questionIdGRPC := range req.QuestionIds {
-		newQuestionIds[i] = int(questionIdGRPC)
+		newQuestionIds[i] = int64(questionIdGRPC)
 	}
 
 	newQuestionSet := &model.NewQuestionSet{

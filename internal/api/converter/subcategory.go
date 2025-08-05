@@ -24,7 +24,7 @@ func SubcategoryToGRPC(subcategory *model.Subcategory) *desc.GetResponse {
 }
 
 func NewSubcategoryFromGRPC(req *desc.CreateRequest) *model.NewSubcategory {
-	newSubcategory := &model.NewSubcategory{Name: req.Name, CategoryID: int(req.CategoryId)}
+	newSubcategory := &model.NewSubcategory{Name: req.Name, CategoryID: int64(req.CategoryId)}
 
 	return newSubcategory
 }
@@ -38,7 +38,7 @@ func UpdatedSubcategoryFromGRPC(req *desc.UpdateRequest) *model.UpdatedSubcatego
 	}
 
 	if req.CategoryId != nil {
-		domainId := int(req.CategoryId.GetValue())
+		domainId := int64(req.CategoryId.GetValue())
 		updatedSubcategory.CategoryID = &domainId
 	}
 

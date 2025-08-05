@@ -8,7 +8,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) DeleteOptions(ctx context.Context, ids []int) error {
+func (r *repo) DeleteOptions(ctx context.Context, ids []int64) error {
 	if len(ids) == 0 {
 		return nil
 	}

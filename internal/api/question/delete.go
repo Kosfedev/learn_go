@@ -7,7 +7,7 @@ import (
 )
 
 func (questionImpl *Implementation) Delete(ctx context.Context, req *desc.DeleteRequest) (*desc.DeleteResponse, error) {
-	err := questionImpl.questionService.Delete(ctx, int(req.Id))
+	err := questionImpl.questionService.Delete(ctx, int64(req.Id))
 	if err != nil {
 		return nil, err
 	}

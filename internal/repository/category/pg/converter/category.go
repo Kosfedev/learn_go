@@ -9,9 +9,9 @@ import (
 
 func CategoryFromPGSQL(categoryRepo *modelRepo.Category) *model.Category {
 	category := &model.Category{
-		ID:        int(categoryRepo.ID),
+		ID:        int64(categoryRepo.ID),
 		Name:      categoryRepo.Name,
-		DomainID:  int(categoryRepo.DomainID),
+		DomainID:  int64(categoryRepo.DomainID),
 		CreatedAt: categoryRepo.CreatedAt,
 	}
 

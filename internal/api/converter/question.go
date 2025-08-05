@@ -111,29 +111,29 @@ func NewQuestionOptionsFromGRPC(req *desc.AddOptionsRequest) []*model.NewQuestio
 	return newOptions
 }
 
-func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int {
-	optionIds := make([]int, len(req.Ids))
+func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int64 {
+	optionIds := make([]int64, len(req.Ids))
 	for i, id := range req.Ids {
-		optionIds[i] = int(id)
+		optionIds[i] = int64(id)
 	}
 
 	return optionIds
 }
 
 // TODO: refactor to SubcategoryIdsFromGRPC???
-func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int {
-	subcategoryIds := make([]int, len(req.SubcategoryIds))
+func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int64 {
+	subcategoryIds := make([]int64, len(req.SubcategoryIds))
 	for i, id := range req.SubcategoryIds {
-		subcategoryIds[i] = int(id)
+		subcategoryIds[i] = int64(id)
 	}
 
 	return subcategoryIds
 }
 
-func RemoveSubcategoriesFromGRPC(req *desc.RemoveSubcategoriesRequest) []int {
-	subcategoryIds := make([]int, len(req.SubcategoryIds))
+func RemoveSubcategoriesFromGRPC(req *desc.RemoveSubcategoriesRequest) []int64 {
+	subcategoryIds := make([]int64, len(req.SubcategoryIds))
 	for i, id := range req.SubcategoryIds {
-		subcategoryIds[i] = int(id)
+		subcategoryIds[i] = int64(id)
 	}
 
 	return subcategoryIds

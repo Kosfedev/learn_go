@@ -9,8 +9,8 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/questionset/pg/model"
 )
 
-func (r *repo) getQuestions(ctx context.Context, id int) ([]int, error) {
-	questionSetQuestionsServ := make([]int, 0)
+func (r *repo) getQuestions(ctx context.Context, id int64) ([]int64, error) {
+	questionSetQuestionsServ := make([]int64, 0)
 	query := db.Query{
 		Name:     "question_set_repository.get_questions",
 		QueryRaw: `SELECT * FROM question_set_question WHERE question_set_id = $1;`,
@@ -30,7 +30,7 @@ func (r *repo) getQuestions(ctx context.Context, id int) ([]int, error) {
 
 			return nil, err
 		}
-		questionSetQuestionsServ = append(questionSetQuestionsServ, int(questionSetOptionRepo.QuestionID))
+		questionSetQuestionsServ = append(questionSetQuestionsServ, int64(questionSetOptionRepo.QuestionID))
 	}
 
 	return questionSetQuestionsServ, nil

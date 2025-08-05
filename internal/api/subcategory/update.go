@@ -11,7 +11,7 @@ import (
 func (subcategoryImpl *Implementation) Update(ctx context.Context, req *desc.UpdateRequest) (*desc.UpdateResponse, error) {
 	updatedSubcategory := converter.UpdatedSubcategoryFromGRPC(req)
 	log.Printf("updated subcategory: %+v", updatedSubcategory)
-	err := subcategoryImpl.subcategoryService.Update(ctx, int(req.Id), updatedSubcategory)
+	err := subcategoryImpl.subcategoryService.Update(ctx, int64(req.Id), updatedSubcategory)
 	if err != nil {
 		return nil, err
 	}

@@ -9,7 +9,7 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/category/pg/model"
 )
 
-func (r *repo) Get(ctx context.Context, id int) (*model.Category, error) {
+func (r *repo) Get(ctx context.Context, id int64) (*model.Category, error) {
 	query := db.Query{
 		Name:     "category_repository.get",
 		QueryRaw: `SELECT * FROM category WHERE id = $1;`,

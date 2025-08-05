@@ -15,7 +15,7 @@ import (
 func TestUpdate(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	id := int(gofakeit.Int64())
+	id := int64(gofakeit.Int64())
 	text := gofakeit.Sentence(5)
 	req := &model.UpdatedSubcategory{
 		Name: &text,

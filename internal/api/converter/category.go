@@ -24,7 +24,7 @@ func CategoryToGRPC(category *model.Category) *desc.GetResponse {
 }
 
 func NewCategoryFromGRPC(req *desc.CreateRequest) *model.NewCategory {
-	newCategory := &model.NewCategory{Name: req.Name, DomainID: int(req.DomainId)}
+	newCategory := &model.NewCategory{Name: req.Name, DomainID: int64(req.DomainId)}
 
 	return newCategory
 }
@@ -38,7 +38,7 @@ func UpdatedCategoryFromGRPC(req *desc.UpdateRequest) *model.UpdatedCategory {
 	}
 
 	if req.DomainId != nil {
-		domainId := int(req.DomainId.GetValue())
+		domainId := int64(req.DomainId.GetValue())
 		updatedCategory.DomainID = &domainId
 	}
 

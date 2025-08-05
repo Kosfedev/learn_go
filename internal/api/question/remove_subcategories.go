@@ -9,7 +9,7 @@ import (
 
 func (questionImpl *Implementation) RemoveSubcategories(ctx context.Context, req *desc.RemoveSubcategoriesRequest) (*desc.RemoveSubcategoriesResponse, error) {
 	subcategoryIds := converter.RemoveSubcategoriesFromGRPC(req)
-	err := questionImpl.questionService.RemoveSubcategories(ctx, int(req.QuestionId), subcategoryIds)
+	err := questionImpl.questionService.RemoveSubcategories(ctx, int64(req.QuestionId), subcategoryIds)
 	if err != nil {
 		return nil, err
 	}

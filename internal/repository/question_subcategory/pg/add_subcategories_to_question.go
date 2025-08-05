@@ -8,7 +8,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) AddSubcategoriesToQuestion(ctx context.Context, questionID int, subcategoryIDs []int) error {
+func (r *repo) AddSubcategoriesToQuestion(ctx context.Context, questionID int64, subcategoryIDs []int64) error {
 	if len(subcategoryIDs) == 0 {
 		return nil
 	}

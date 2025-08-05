@@ -8,7 +8,7 @@ import (
 )
 
 func (questionImpl *Implementation) Get(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
-	question, err := questionImpl.questionService.Get(ctx, int(req.Id))
+	question, err := questionImpl.questionService.Get(ctx, int64(req.Id))
 	if err != nil {
 		return nil, err
 	}
