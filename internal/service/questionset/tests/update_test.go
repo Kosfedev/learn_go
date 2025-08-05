@@ -15,7 +15,7 @@ import (
 func TestUpdate(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	id := int(gofakeit.Int64())
+	id := gofakeit.Int64()
 	name := gofakeit.Question()
 	req := &model.UpdatedQuestionSet{
 		Name: &name,

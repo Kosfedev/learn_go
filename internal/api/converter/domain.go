@@ -9,7 +9,7 @@ import (
 
 func DomainToGRPC(domain *model.Domain) *desc.GetResponse {
 	res := &desc.GetResponse{
-		Id:        int64(domain.ID),
+		Id:        domain.ID,
 		Name:      domain.Name,
 		CreatedAt: timestamppb.New(domain.CreatedAt),
 		UpdatedAt: nil,

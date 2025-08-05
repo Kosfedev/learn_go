@@ -6,7 +6,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) Delete(ctx context.Context, id int) error {
+func (r *repo) Delete(ctx context.Context, id int64) error {
 	query := db.Query{
 		Name:     "category_repository.delete",
 		QueryRaw: `DELETE FROM category WHERE id = $1;`,

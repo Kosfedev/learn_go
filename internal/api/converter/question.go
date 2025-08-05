@@ -12,7 +12,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	options := make([]*desc.QuestionOption, len(question.Options))
 	for i, option := range question.Options {
 		options[i] = &desc.QuestionOption{
-			Id:        int64(option.ID),
+			Id:        option.ID,
 			Text:      option.Text,
 			IsCorrect: option.IsCorrect,
 		}
@@ -21,9 +21,9 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	subcategories := make([]*desc.Subcategory, len(question.Subcategories))
 	for i, subcategory := range question.Subcategories {
 		subcategories[i] = &desc.Subcategory{
-			Id:         int64(subcategory.ID),
+			Id:         subcategory.ID,
 			Name:       subcategory.Name,
-			CategoryId: int64(subcategory.CategoryID),
+			CategoryId: subcategory.CategoryID,
 			CreatedAt:  timestamppb.New(subcategory.CreatedAt),
 			UpdatedAt:  nil,
 		}
@@ -34,7 +34,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	}
 
 	res := &desc.GetResponse{
-		Id:            int64(question.ID),
+		Id:            question.ID,
 		Text:          question.Text,
 		QuestionType:  desc.QuestionType(question.Type),
 		Options:       options,
@@ -109,32 +109,4 @@ func NewQuestionOptionsFromGRPC(req *desc.AddOptionsRequest) []*model.NewQuestio
 	}
 
 	return newOptions
-}
-
-func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int {
-	optionIds := make([]int, len(req.Ids))
-	for i, id := range req.Ids {
-		optionIds[i] = int(id)
-	}
-
-	return optionIds
-}
-
-// TODO: refactor to SubcategoryIdsFromGRPC???
-func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int {
-	subcategoryIds := make([]int, len(req.SubcategoryIds))
-	for i, id := range req.SubcategoryIds {
-		subcategoryIds[i] = int(id)
-	}
-
-	return subcategoryIds
-}
-
-func RemoveSubcategoriesFromGRPC(req *desc.RemoveSubcategoriesRequest) []int {
-	subcategoryIds := make([]int, len(req.SubcategoryIds))
-	for i, id := range req.SubcategoryIds {
-		subcategoryIds[i] = int(id)
-	}
-
-	return subcategoryIds
 }

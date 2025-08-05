@@ -15,8 +15,8 @@ import (
 func TestCreate(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	id := int(gofakeit.Int64())
-	domainID := int(gofakeit.Int64())
+	id := gofakeit.Int64()
+	domainID := gofakeit.Int64()
 	req := &model.NewCategory{
 		Name:     gofakeit.Name(),
 		DomainID: domainID,

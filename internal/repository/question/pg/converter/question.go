@@ -9,7 +9,7 @@ import (
 
 func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
 	questionServ := &model.Question{
-		ID:        int(questionRepo.ID),
+		ID:        questionRepo.ID,
 		Text:      questionRepo.Text,
 		Type:      model.QuestionType(questionRepo.Type),
 		CreatedAt: questionRepo.CreatedAt,
@@ -29,7 +29,7 @@ func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
 func NewQuestionToPGSQL(questionServ *model.NewQuestion) *modelRepo.NewQuestion {
 	questionRepo := &modelRepo.NewQuestion{
 		Text: questionServ.Text,
-		Type: int32(questionServ.Type),
+		Type: int64(questionServ.Type),
 	}
 
 	if questionServ.ReferenceAnswer != nil {
@@ -53,8 +53,8 @@ func UpdatedQuestionToPGSQL(questionServ *model.UpdatedQuestion) *modelRepo.Upda
 	}
 
 	if questionServ.Type != nil {
-		questionRepo.Type = sql.NullInt32{
-			Int32: int32(*questionServ.Type),
+		questionRepo.Type = sql.NullInt64{
+			Int64: int64(*questionServ.Type),
 			Valid: true,
 		}
 	}

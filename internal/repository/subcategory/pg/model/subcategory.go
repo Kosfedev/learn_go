@@ -6,19 +6,19 @@ import (
 )
 
 type Subcategory struct {
-	ID         int32
+	ID         int64
 	Name       string
-	CategoryID int32
+	CategoryID int64
 	CreatedAt  time.Time
 	UpdatedAt  sql.NullTime
 }
 
 type NewSubcategory struct {
 	Name       string
-	CategoryID int32
+	CategoryID int64
 }
 
 type UpdatedSubcategory struct {
 	Name       sql.NullString
-	CategoryID sql.NullInt32
+	CategoryID sql.NullInt64
 }

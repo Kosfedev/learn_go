@@ -10,7 +10,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 )
 
-func (r *repo) Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
+func (r *repo) Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestion) error {
 	updatedQuestionRepo := converter.UpdatedQuestionToPGSQL(updatedQuestion)
 	index := 2
 	values := []interface{}{id}

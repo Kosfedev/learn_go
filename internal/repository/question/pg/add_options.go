@@ -10,7 +10,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 )
 
-func (r *repo) AddOptions(ctx context.Context, questionID int, options []*model.NewQuestionOption) error {
+func (r *repo) AddOptions(ctx context.Context, questionID int64, options []*model.NewQuestionOption) error {
 	if len(options) == 0 {
 		return nil
 	}

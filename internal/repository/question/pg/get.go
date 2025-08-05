@@ -11,7 +11,7 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
 )
 
-func (r *repo) Get(ctx context.Context, id int) (*model.Question, error) {
+func (r *repo) Get(ctx context.Context, id int64) (*model.Question, error) {
 	questionRepo := &modelRepo.Question{}
 	query := db.Query{
 		Name:     "question_repository.get",

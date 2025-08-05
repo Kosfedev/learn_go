@@ -14,7 +14,7 @@ import (
 func TestDelete(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	id := int(gofakeit.Int64())
+	id := gofakeit.Int64()
 	mc := minimock.NewController(t)
 	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
 	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)

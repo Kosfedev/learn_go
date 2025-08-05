@@ -2,8 +2,8 @@
 -- +goose StatementBegin
 SELECT 'up SQL query';
 CREATE TABLE question_set_question(
-    question_id INTEGER NOT NULL,
-    question_set_id INTEGER NOT NULL,
+    question_id BIGINT NOT NULL,
+    question_set_id BIGINT NOT NULL,
 
     PRIMARY KEY (question_id, question_set_id),
     FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE,

@@ -8,20 +8,20 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/questionset/pg/converter"
 )
 
-func (r *repo) Create(ctx context.Context, newQuestionSet *model.NewQuestionSet) (int, error) {
+func (r *repo) Create(ctx context.Context, newQuestionSet *model.NewQuestionSet) (int64, error) {
 	newQuestionSetRepo := converter.NewQuestionSetToPGSQL(newQuestionSet)
 	query := db.Query{
 		Name:     "question_set_repository.create",
 		QueryRaw: `INSERT INTO question_set (name) VALUES ($1) RETURNING id;`,
 	}
 
-	var questionSetIDRepo int32
+	var questionSetIDRepo int64
 	err := r.db.DB().ScanOne(ctx, &questionSetIDRepo, query, newQuestionSetRepo.Name)
 	if err != nil {
 		return 0, err
 	}
 
-	questionSetID := int(questionSetIDRepo)
+	questionSetID := questionSetIDRepo
 
 	// TODO: нужна транзакция
 	err = r.addQuestions(ctx, questionSetID, newQuestionSet.QuestionIDs)

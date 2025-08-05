@@ -8,7 +8,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) RemoveSubcategoriesFromQuestion(ctx context.Context, questionID int, subcategoryIDs []int) error {
+func (r *repo) RemoveSubcategoriesFromQuestion(ctx context.Context, questionID int64, subcategoryIDs []int64) error {
 	if len(subcategoryIDs) == 0 {
 		return nil
 	}
@@ -17,7 +17,7 @@ func (r *repo) RemoveSubcategoriesFromQuestion(ctx context.Context, questionID i
 	values[0] = questionID
 	placeholders := make([]string, len(subcategoryIDs))
 	for i, id := range subcategoryIDs {
-		values[i+1] = int32(id)
+		values[i+1] = id
 		placeholders[i] = fmt.Sprintf("$%d", i+2)
 	}
 

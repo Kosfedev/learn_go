@@ -9,7 +9,7 @@ import (
 
 func QuestionSetFromPGSQL(questionSetRepo *modelRepo.QuestionSet) *model.QuestionSet {
 	questionSetServ := &model.QuestionSet{
-		ID:        int(questionSetRepo.ID),
+		ID:        questionSetRepo.ID,
 		Name:      questionSetRepo.Name,
 		CreatedAt: questionSetRepo.CreatedAt,
 	}

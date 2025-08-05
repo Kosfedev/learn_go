@@ -3,7 +3,7 @@ package model
 import "time"
 
 type Domain struct {
-	ID        int
+	ID        int64
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt *time.Time

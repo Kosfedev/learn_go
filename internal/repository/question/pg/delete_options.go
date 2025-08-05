@@ -8,7 +8,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) DeleteOptions(ctx context.Context, ids []int) error {
+func (r *repo) DeleteOptions(ctx context.Context, ids []int64) error {
 	if len(ids) == 0 {
 		return nil
 	}
@@ -16,7 +16,7 @@ func (r *repo) DeleteOptions(ctx context.Context, ids []int) error {
 	idsRepo := make([]interface{}, len(ids))
 	placeholders := make([]string, len(ids))
 	for i, id := range ids {
-		idsRepo[i] = int32(id)
+		idsRepo[i] = id
 		placeholders[i] = fmt.Sprintf("$%d", i+1)
 	}
 

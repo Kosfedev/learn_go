@@ -8,19 +8,19 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) addQuestions(ctx context.Context, questionSetID int, questionIDs []int) error {
+func (r *repo) addQuestions(ctx context.Context, questionSetID int64, questionIDs []int64) error {
 	if len(questionIDs) == 0 {
 		return nil
 	}
 
 	var values []interface{}
 	nArgs := 2
-	questionSetIDRepo := int32(questionSetID)
+	questionSetIDRepo := questionSetID
 	queryRaw := `INSERT INTO question_set_question (question_id, question_set_id) VALUES`
 
 	for i, questionID := range questionIDs {
 		queryRaw += fmt.Sprintf(" ($%d, $%d),", i*nArgs+1, i*nArgs+2)
-		questionIDRepo := int32(questionID)
+		questionIDRepo := questionID
 		values = append(values, questionIDRepo, questionSetIDRepo)
 	}
 

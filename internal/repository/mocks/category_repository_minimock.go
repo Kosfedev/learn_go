@@ -19,30 +19,30 @@ type CategoryRepositoryMock struct {
 	t          minimock.Tester
 	finishOnce sync.Once
 
-	funcCreate          func(ctx context.Context, category *model.NewCategory) (i1 int, err error)
+	funcCreate          func(ctx context.Context, category *model.NewCategory) (i1 int64, err error)
 	funcCreateOrigin    string
 	inspectFuncCreate   func(ctx context.Context, category *model.NewCategory)
 	afterCreateCounter  uint64
 	beforeCreateCounter uint64
 	CreateMock          mCategoryRepositoryMockCreate
 
-	funcDelete          func(ctx context.Context, id int) (err error)
+	funcDelete          func(ctx context.Context, id int64) (err error)
 	funcDeleteOrigin    string
-	inspectFuncDelete   func(ctx context.Context, id int)
+	inspectFuncDelete   func(ctx context.Context, id int64)
 	afterDeleteCounter  uint64
 	beforeDeleteCounter uint64
 	DeleteMock          mCategoryRepositoryMockDelete
 
-	funcGet          func(ctx context.Context, id int) (cp1 *model.Category, err error)
+	funcGet          func(ctx context.Context, id int64) (cp1 *model.Category, err error)
 	funcGetOrigin    string
-	inspectFuncGet   func(ctx context.Context, id int)
+	inspectFuncGet   func(ctx context.Context, id int64)
 	afterGetCounter  uint64
 	beforeGetCounter uint64
 	GetMock          mCategoryRepositoryMockGet
 
-	funcUpdate          func(ctx context.Context, id int, updatedCategory *model.UpdatedCategory) (err error)
+	funcUpdate          func(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) (err error)
 	funcUpdateOrigin    string
-	inspectFuncUpdate   func(ctx context.Context, id int, updatedCategory *model.UpdatedCategory)
+	inspectFuncUpdate   func(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory)
 	afterUpdateCounter  uint64
 	beforeUpdateCounter uint64
 	UpdateMock          mCategoryRepositoryMockUpdate
@@ -111,7 +111,7 @@ type CategoryRepositoryMockCreateParamPtrs struct {
 
 // CategoryRepositoryMockCreateResults contains results of the CategoryRepository.Create
 type CategoryRepositoryMockCreateResults struct {
-	i1  int
+	i1  int64
 	err error
 }
 
@@ -215,7 +215,7 @@ func (mmCreate *mCategoryRepositoryMockCreate) Inspect(f func(ctx context.Contex
 }
 
 // Return sets up results that will be returned by CategoryRepository.Create
-func (mmCreate *mCategoryRepositoryMockCreate) Return(i1 int, err error) *CategoryRepositoryMock {
+func (mmCreate *mCategoryRepositoryMockCreate) Return(i1 int64, err error) *CategoryRepositoryMock {
 	if mmCreate.mock.funcCreate != nil {
 		mmCreate.mock.t.Fatalf("CategoryRepositoryMock.Create mock is already set by Set")
 	}
@@ -229,7 +229,7 @@ func (mmCreate *mCategoryRepositoryMockCreate) Return(i1 int, err error) *Catego
 }
 
 // Set uses given function f to mock the CategoryRepository.Create method
-func (mmCreate *mCategoryRepositoryMockCreate) Set(f func(ctx context.Context, category *model.NewCategory) (i1 int, err error)) *CategoryRepositoryMock {
+func (mmCreate *mCategoryRepositoryMockCreate) Set(f func(ctx context.Context, category *model.NewCategory) (i1 int64, err error)) *CategoryRepositoryMock {
 	if mmCreate.defaultExpectation != nil {
 		mmCreate.mock.t.Fatalf("Default expectation is already set for the CategoryRepository.Create method")
 	}
@@ -260,7 +260,7 @@ func (mmCreate *mCategoryRepositoryMockCreate) When(ctx context.Context, categor
 }
 
 // Then sets up CategoryRepository.Create return parameters for the expectation previously defined by the When method
-func (e *CategoryRepositoryMockCreateExpectation) Then(i1 int, err error) *CategoryRepositoryMock {
+func (e *CategoryRepositoryMockCreateExpectation) Then(i1 int64, err error) *CategoryRepositoryMock {
 	e.results = &CategoryRepositoryMockCreateResults{i1, err}
 	return e.mock
 }
@@ -287,7 +287,7 @@ func (mmCreate *mCategoryRepositoryMockCreate) invocationsDone() bool {
 }
 
 // Create implements mm_repository.CategoryRepository
-func (mmCreate *CategoryRepositoryMock) Create(ctx context.Context, category *model.NewCategory) (i1 int, err error) {
+func (mmCreate *CategoryRepositoryMock) Create(ctx context.Context, category *model.NewCategory) (i1 int64, err error) {
 	mm_atomic.AddUint64(&mmCreate.beforeCreateCounter, 1)
 	defer mm_atomic.AddUint64(&mmCreate.afterCreateCounter, 1)
 
@@ -443,13 +443,13 @@ type CategoryRepositoryMockDeleteExpectation struct {
 // CategoryRepositoryMockDeleteParams contains parameters of the CategoryRepository.Delete
 type CategoryRepositoryMockDeleteParams struct {
 	ctx context.Context
-	id  int
+	id  int64
 }
 
 // CategoryRepositoryMockDeleteParamPtrs contains pointers to parameters of the CategoryRepository.Delete
 type CategoryRepositoryMockDeleteParamPtrs struct {
 	ctx *context.Context
-	id  *int
+	id  *int64
 }
 
 // CategoryRepositoryMockDeleteResults contains results of the CategoryRepository.Delete
@@ -461,7 +461,7 @@ type CategoryRepositoryMockDeleteResults struct {
 type CategoryRepositoryMockDeleteExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originID  string
+	originId  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -475,7 +475,7 @@ func (mmDelete *mCategoryRepositoryMockDelete) Optional() *mCategoryRepositoryMo
 }
 
 // Expect sets up expected params for CategoryRepository.Delete
-func (mmDelete *mCategoryRepositoryMockDelete) Expect(ctx context.Context, id int) *mCategoryRepositoryMockDelete {
+func (mmDelete *mCategoryRepositoryMockDelete) Expect(ctx context.Context, id int64) *mCategoryRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("CategoryRepositoryMock.Delete mock is already set by Set")
 	}
@@ -522,8 +522,8 @@ func (mmDelete *mCategoryRepositoryMockDelete) ExpectCtxParam1(ctx context.Conte
 	return mmDelete
 }
 
-// ExpectIDParam2 sets up expected param id for CategoryRepository.Delete
-func (mmDelete *mCategoryRepositoryMockDelete) ExpectIDParam2(id int) *mCategoryRepositoryMockDelete {
+// ExpectIdParam2 sets up expected param id for CategoryRepository.Delete
+func (mmDelete *mCategoryRepositoryMockDelete) ExpectIdParam2(id int64) *mCategoryRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("CategoryRepositoryMock.Delete mock is already set by Set")
 	}
@@ -540,13 +540,13 @@ func (mmDelete *mCategoryRepositoryMockDelete) ExpectIDParam2(id int) *mCategory
 		mmDelete.defaultExpectation.paramPtrs = &CategoryRepositoryMockDeleteParamPtrs{}
 	}
 	mmDelete.defaultExpectation.paramPtrs.id = &id
-	mmDelete.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
+	mmDelete.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmDelete
 }
 
 // Inspect accepts an inspector function that has same arguments as the CategoryRepository.Delete
-func (mmDelete *mCategoryRepositoryMockDelete) Inspect(f func(ctx context.Context, id int)) *mCategoryRepositoryMockDelete {
+func (mmDelete *mCategoryRepositoryMockDelete) Inspect(f func(ctx context.Context, id int64)) *mCategoryRepositoryMockDelete {
 	if mmDelete.mock.inspectFuncDelete != nil {
 		mmDelete.mock.t.Fatalf("Inspect function is already set for CategoryRepositoryMock.Delete")
 	}
@@ -571,7 +571,7 @@ func (mmDelete *mCategoryRepositoryMockDelete) Return(err error) *CategoryReposi
 }
 
 // Set uses given function f to mock the CategoryRepository.Delete method
-func (mmDelete *mCategoryRepositoryMockDelete) Set(f func(ctx context.Context, id int) (err error)) *CategoryRepositoryMock {
+func (mmDelete *mCategoryRepositoryMockDelete) Set(f func(ctx context.Context, id int64) (err error)) *CategoryRepositoryMock {
 	if mmDelete.defaultExpectation != nil {
 		mmDelete.mock.t.Fatalf("Default expectation is already set for the CategoryRepository.Delete method")
 	}
@@ -587,7 +587,7 @@ func (mmDelete *mCategoryRepositoryMockDelete) Set(f func(ctx context.Context, i
 
 // When sets expectation for the CategoryRepository.Delete which will trigger the result defined by the following
 // Then helper
-func (mmDelete *mCategoryRepositoryMockDelete) When(ctx context.Context, id int) *CategoryRepositoryMockDeleteExpectation {
+func (mmDelete *mCategoryRepositoryMockDelete) When(ctx context.Context, id int64) *CategoryRepositoryMockDeleteExpectation {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("CategoryRepositoryMock.Delete mock is already set by Set")
 	}
@@ -629,7 +629,7 @@ func (mmDelete *mCategoryRepositoryMockDelete) invocationsDone() bool {
 }
 
 // Delete implements mm_repository.CategoryRepository
-func (mmDelete *CategoryRepositoryMock) Delete(ctx context.Context, id int) (err error) {
+func (mmDelete *CategoryRepositoryMock) Delete(ctx context.Context, id int64) (err error) {
 	mm_atomic.AddUint64(&mmDelete.beforeDeleteCounter, 1)
 	defer mm_atomic.AddUint64(&mmDelete.afterDeleteCounter, 1)
 
@@ -669,7 +669,7 @@ func (mmDelete *CategoryRepositoryMock) Delete(ctx context.Context, id int) (err
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmDelete.t.Errorf("CategoryRepositoryMock.Delete got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -785,13 +785,13 @@ type CategoryRepositoryMockGetExpectation struct {
 // CategoryRepositoryMockGetParams contains parameters of the CategoryRepository.Get
 type CategoryRepositoryMockGetParams struct {
 	ctx context.Context
-	id  int
+	id  int64
 }
 
 // CategoryRepositoryMockGetParamPtrs contains pointers to parameters of the CategoryRepository.Get
 type CategoryRepositoryMockGetParamPtrs struct {
 	ctx *context.Context
-	id  *int
+	id  *int64
 }
 
 // CategoryRepositoryMockGetResults contains results of the CategoryRepository.Get
@@ -804,7 +804,7 @@ type CategoryRepositoryMockGetResults struct {
 type CategoryRepositoryMockGetExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originID  string
+	originId  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -818,7 +818,7 @@ func (mmGet *mCategoryRepositoryMockGet) Optional() *mCategoryRepositoryMockGet 
 }
 
 // Expect sets up expected params for CategoryRepository.Get
-func (mmGet *mCategoryRepositoryMockGet) Expect(ctx context.Context, id int) *mCategoryRepositoryMockGet {
+func (mmGet *mCategoryRepositoryMockGet) Expect(ctx context.Context, id int64) *mCategoryRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("CategoryRepositoryMock.Get mock is already set by Set")
 	}
@@ -865,8 +865,8 @@ func (mmGet *mCategoryRepositoryMockGet) ExpectCtxParam1(ctx context.Context) *m
 	return mmGet
 }
 
-// ExpectIDParam2 sets up expected param id for CategoryRepository.Get
-func (mmGet *mCategoryRepositoryMockGet) ExpectIDParam2(id int) *mCategoryRepositoryMockGet {
+// ExpectIdParam2 sets up expected param id for CategoryRepository.Get
+func (mmGet *mCategoryRepositoryMockGet) ExpectIdParam2(id int64) *mCategoryRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("CategoryRepositoryMock.Get mock is already set by Set")
 	}
@@ -883,13 +883,13 @@ func (mmGet *mCategoryRepositoryMockGet) ExpectIDParam2(id int) *mCategoryReposi
 		mmGet.defaultExpectation.paramPtrs = &CategoryRepositoryMockGetParamPtrs{}
 	}
 	mmGet.defaultExpectation.paramPtrs.id = &id
-	mmGet.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
+	mmGet.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmGet
 }
 
 // Inspect accepts an inspector function that has same arguments as the CategoryRepository.Get
-func (mmGet *mCategoryRepositoryMockGet) Inspect(f func(ctx context.Context, id int)) *mCategoryRepositoryMockGet {
+func (mmGet *mCategoryRepositoryMockGet) Inspect(f func(ctx context.Context, id int64)) *mCategoryRepositoryMockGet {
 	if mmGet.mock.inspectFuncGet != nil {
 		mmGet.mock.t.Fatalf("Inspect function is already set for CategoryRepositoryMock.Get")
 	}
@@ -914,7 +914,7 @@ func (mmGet *mCategoryRepositoryMockGet) Return(cp1 *model.Category, err error) 
 }
 
 // Set uses given function f to mock the CategoryRepository.Get method
-func (mmGet *mCategoryRepositoryMockGet) Set(f func(ctx context.Context, id int) (cp1 *model.Category, err error)) *CategoryRepositoryMock {
+func (mmGet *mCategoryRepositoryMockGet) Set(f func(ctx context.Context, id int64) (cp1 *model.Category, err error)) *CategoryRepositoryMock {
 	if mmGet.defaultExpectation != nil {
 		mmGet.mock.t.Fatalf("Default expectation is already set for the CategoryRepository.Get method")
 	}
@@ -930,7 +930,7 @@ func (mmGet *mCategoryRepositoryMockGet) Set(f func(ctx context.Context, id int)
 
 // When sets expectation for the CategoryRepository.Get which will trigger the result defined by the following
 // Then helper
-func (mmGet *mCategoryRepositoryMockGet) When(ctx context.Context, id int) *CategoryRepositoryMockGetExpectation {
+func (mmGet *mCategoryRepositoryMockGet) When(ctx context.Context, id int64) *CategoryRepositoryMockGetExpectation {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("CategoryRepositoryMock.Get mock is already set by Set")
 	}
@@ -972,7 +972,7 @@ func (mmGet *mCategoryRepositoryMockGet) invocationsDone() bool {
 }
 
 // Get implements mm_repository.CategoryRepository
-func (mmGet *CategoryRepositoryMock) Get(ctx context.Context, id int) (cp1 *model.Category, err error) {
+func (mmGet *CategoryRepositoryMock) Get(ctx context.Context, id int64) (cp1 *model.Category, err error) {
 	mm_atomic.AddUint64(&mmGet.beforeGetCounter, 1)
 	defer mm_atomic.AddUint64(&mmGet.afterGetCounter, 1)
 
@@ -1012,7 +1012,7 @@ func (mmGet *CategoryRepositoryMock) Get(ctx context.Context, id int) (cp1 *mode
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmGet.t.Errorf("CategoryRepositoryMock.Get got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmGet.GetMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmGet.GetMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1128,14 +1128,14 @@ type CategoryRepositoryMockUpdateExpectation struct {
 // CategoryRepositoryMockUpdateParams contains parameters of the CategoryRepository.Update
 type CategoryRepositoryMockUpdateParams struct {
 	ctx             context.Context
-	id              int
+	id              int64
 	updatedCategory *model.UpdatedCategory
 }
 
 // CategoryRepositoryMockUpdateParamPtrs contains pointers to parameters of the CategoryRepository.Update
 type CategoryRepositoryMockUpdateParamPtrs struct {
 	ctx             *context.Context
-	id              *int
+	id              *int64
 	updatedCategory **model.UpdatedCategory
 }
 
@@ -1148,7 +1148,7 @@ type CategoryRepositoryMockUpdateResults struct {
 type CategoryRepositoryMockUpdateExpectationOrigins struct {
 	origin                string
 	originCtx             string
-	originID              string
+	originId              string
 	originUpdatedCategory string
 }
 
@@ -1163,7 +1163,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) Optional() *mCategoryRepositoryMo
 }
 
 // Expect sets up expected params for CategoryRepository.Update
-func (mmUpdate *mCategoryRepositoryMockUpdate) Expect(ctx context.Context, id int, updatedCategory *model.UpdatedCategory) *mCategoryRepositoryMockUpdate {
+func (mmUpdate *mCategoryRepositoryMockUpdate) Expect(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) *mCategoryRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("CategoryRepositoryMock.Update mock is already set by Set")
 	}
@@ -1210,8 +1210,8 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectCtxParam1(ctx context.Conte
 	return mmUpdate
 }
 
-// ExpectIDParam2 sets up expected param id for CategoryRepository.Update
-func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectIDParam2(id int) *mCategoryRepositoryMockUpdate {
+// ExpectIdParam2 sets up expected param id for CategoryRepository.Update
+func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectIdParam2(id int64) *mCategoryRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("CategoryRepositoryMock.Update mock is already set by Set")
 	}
@@ -1228,7 +1228,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectIDParam2(id int) *mCategory
 		mmUpdate.defaultExpectation.paramPtrs = &CategoryRepositoryMockUpdateParamPtrs{}
 	}
 	mmUpdate.defaultExpectation.paramPtrs.id = &id
-	mmUpdate.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
+	mmUpdate.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmUpdate
 }
@@ -1257,7 +1257,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) ExpectUpdatedCategoryParam3(updat
 }
 
 // Inspect accepts an inspector function that has same arguments as the CategoryRepository.Update
-func (mmUpdate *mCategoryRepositoryMockUpdate) Inspect(f func(ctx context.Context, id int, updatedCategory *model.UpdatedCategory)) *mCategoryRepositoryMockUpdate {
+func (mmUpdate *mCategoryRepositoryMockUpdate) Inspect(f func(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory)) *mCategoryRepositoryMockUpdate {
 	if mmUpdate.mock.inspectFuncUpdate != nil {
 		mmUpdate.mock.t.Fatalf("Inspect function is already set for CategoryRepositoryMock.Update")
 	}
@@ -1282,7 +1282,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) Return(err error) *CategoryReposi
 }
 
 // Set uses given function f to mock the CategoryRepository.Update method
-func (mmUpdate *mCategoryRepositoryMockUpdate) Set(f func(ctx context.Context, id int, updatedCategory *model.UpdatedCategory) (err error)) *CategoryRepositoryMock {
+func (mmUpdate *mCategoryRepositoryMockUpdate) Set(f func(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) (err error)) *CategoryRepositoryMock {
 	if mmUpdate.defaultExpectation != nil {
 		mmUpdate.mock.t.Fatalf("Default expectation is already set for the CategoryRepository.Update method")
 	}
@@ -1298,7 +1298,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) Set(f func(ctx context.Context, i
 
 // When sets expectation for the CategoryRepository.Update which will trigger the result defined by the following
 // Then helper
-func (mmUpdate *mCategoryRepositoryMockUpdate) When(ctx context.Context, id int, updatedCategory *model.UpdatedCategory) *CategoryRepositoryMockUpdateExpectation {
+func (mmUpdate *mCategoryRepositoryMockUpdate) When(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) *CategoryRepositoryMockUpdateExpectation {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("CategoryRepositoryMock.Update mock is already set by Set")
 	}
@@ -1340,7 +1340,7 @@ func (mmUpdate *mCategoryRepositoryMockUpdate) invocationsDone() bool {
 }
 
 // Update implements mm_repository.CategoryRepository
-func (mmUpdate *CategoryRepositoryMock) Update(ctx context.Context, id int, updatedCategory *model.UpdatedCategory) (err error) {
+func (mmUpdate *CategoryRepositoryMock) Update(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) (err error) {
 	mm_atomic.AddUint64(&mmUpdate.beforeUpdateCounter, 1)
 	defer mm_atomic.AddUint64(&mmUpdate.afterUpdateCounter, 1)
 
@@ -1380,7 +1380,7 @@ func (mmUpdate *CategoryRepositoryMock) Update(ctx context.Context, id int, upda
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmUpdate.t.Errorf("CategoryRepositoryMock.Update got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.updatedCategory != nil && !minimock.Equal(*mm_want_ptrs.updatedCategory, mm_got.updatedCategory) {

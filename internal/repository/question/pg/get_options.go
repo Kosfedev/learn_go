@@ -11,7 +11,7 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
 )
 
-func (r *repo) getOptions(ctx context.Context, id int) ([]*model.QuestionOption, error) {
+func (r *repo) getOptions(ctx context.Context, id int64) ([]*model.QuestionOption, error) {
 	questionOptionsServ := make([]*model.QuestionOption, 0)
 	query := db.Query{
 		Name:     "question_repository.add_options",

@@ -2,7 +2,7 @@
 -- +goose StatementBegin
 SELECT 'up SQL query';
 CREATE TABLE question (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     text TEXT NOT NULL,
     type INTEGER,
     reference_answer TEXT,

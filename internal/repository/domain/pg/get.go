@@ -9,7 +9,7 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/domain/pg/model"
 )
 
-func (r *repo) Get(ctx context.Context, id int) (*model.Domain, error) {
+func (r *repo) Get(ctx context.Context, id int64) (*model.Domain, error) {
 	query := db.Query{
 		Name:     "domain_repository.get",
 		QueryRaw: `SELECT * FROM domain WHERE id = $1`,

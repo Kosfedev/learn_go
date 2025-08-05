@@ -8,7 +8,7 @@ import (
 )
 
 func (domainImpl *Implementation) Get(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
-	domain, err := domainImpl.domainService.Get(ctx, int(req.Id))
+	domain, err := domainImpl.domainService.Get(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

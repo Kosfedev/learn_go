@@ -7,40 +7,40 @@ import (
 )
 
 type QuestionService interface {
-	Create(ctx context.Context, newQuestion *model.NewQuestion) (int, error)
-	Get(ctx context.Context, id int) (*model.Question, error)
-	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error
-	Delete(ctx context.Context, id int) error
-	AddOptions(ctx context.Context, questionID int, newQuestionOptions []*model.NewQuestionOption) error
-	DeleteOptions(ctx context.Context, ids []int) error
-	AddSubcategories(ctx context.Context, questionID int, subcategoryIDs []int) error
-	RemoveSubcategories(ctx context.Context, questionID int, subcategoryIDs []int) error
+	Create(ctx context.Context, newQuestion *model.NewQuestion) (int64, error)
+	Get(ctx context.Context, id int64) (*model.Question, error)
+	Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestion) error
+	Delete(ctx context.Context, id int64) error
+	AddOptions(ctx context.Context, questionID int64, newQuestionOptions []*model.NewQuestionOption) error
+	DeleteOptions(ctx context.Context, ids []int64) error
+	AddSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
+	RemoveSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 }
 
 type QuestionSetService interface {
-	Create(ctx context.Context, newQuestionSet *model.NewQuestionSet) (int, error)
-	Get(ctx context.Context, id int) (*model.QuestionSet, error)
-	Update(ctx context.Context, id int, updatedQuestionSet *model.UpdatedQuestionSet) error
-	Delete(ctx context.Context, id int) error
+	Create(ctx context.Context, newQuestionSet *model.NewQuestionSet) (int64, error)
+	Get(ctx context.Context, id int64) (*model.QuestionSet, error)
+	Update(ctx context.Context, id int64, updatedQuestionSet *model.UpdatedQuestionSet) error
+	Delete(ctx context.Context, id int64) error
 }
 
 type DomainService interface {
-	Create(ctx context.Context, newDomain *model.NewDomain) (int, error)
-	Get(ctx context.Context, id int) (*model.Domain, error)
-	Update(ctx context.Context, id int, updatedDomain *model.UpdatedDomain) error
-	Delete(ctx context.Context, id int) error
+	Create(ctx context.Context, newDomain *model.NewDomain) (int64, error)
+	Get(ctx context.Context, id int64) (*model.Domain, error)
+	Update(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain) error
+	Delete(ctx context.Context, id int64) error
 }
 
 type CategoryService interface {
-	Create(ctx context.Context, newCategory *model.NewCategory) (int, error)
-	Get(ctx context.Context, id int) (*model.Category, error)
-	Update(ctx context.Context, id int, updatedCategory *model.UpdatedCategory) error
-	Delete(ctx context.Context, id int) error
+	Create(ctx context.Context, newCategory *model.NewCategory) (int64, error)
+	Get(ctx context.Context, id int64) (*model.Category, error)
+	Update(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) error
+	Delete(ctx context.Context, id int64) error
 }
 
 type SubcategoryService interface {
-	Create(ctx context.Context, newSubcategory *model.NewSubcategory) (int, error)
-	Get(ctx context.Context, id int) (*model.Subcategory, error)
-	Update(ctx context.Context, id int, updatedSubcategory *model.UpdatedSubcategory) error
-	Delete(ctx context.Context, id int) error
+	Create(ctx context.Context, newSubcategory *model.NewSubcategory) (int64, error)
+	Get(ctx context.Context, id int64) (*model.Subcategory, error)
+	Update(ctx context.Context, id int64, updatedSubcategory *model.UpdatedSubcategory) error
+	Delete(ctx context.Context, id int64) error
 }

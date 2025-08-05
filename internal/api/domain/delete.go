@@ -7,7 +7,7 @@ import (
 )
 
 func (domainImpl *Implementation) Delete(ctx context.Context, req *desc.DeleteRequest) (*desc.DeleteResponse, error) {
-	err := domainImpl.domainService.Delete(ctx, int(req.Id))
+	err := domainImpl.domainService.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

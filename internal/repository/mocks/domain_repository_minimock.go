@@ -19,30 +19,30 @@ type DomainRepositoryMock struct {
 	t          minimock.Tester
 	finishOnce sync.Once
 
-	funcCreate          func(ctx context.Context, domain *model.NewDomain) (i1 int, err error)
+	funcCreate          func(ctx context.Context, domain *model.NewDomain) (i1 int64, err error)
 	funcCreateOrigin    string
 	inspectFuncCreate   func(ctx context.Context, domain *model.NewDomain)
 	afterCreateCounter  uint64
 	beforeCreateCounter uint64
 	CreateMock          mDomainRepositoryMockCreate
 
-	funcDelete          func(ctx context.Context, id int) (err error)
+	funcDelete          func(ctx context.Context, id int64) (err error)
 	funcDeleteOrigin    string
-	inspectFuncDelete   func(ctx context.Context, id int)
+	inspectFuncDelete   func(ctx context.Context, id int64)
 	afterDeleteCounter  uint64
 	beforeDeleteCounter uint64
 	DeleteMock          mDomainRepositoryMockDelete
 
-	funcGet          func(ctx context.Context, id int) (dp1 *model.Domain, err error)
+	funcGet          func(ctx context.Context, id int64) (dp1 *model.Domain, err error)
 	funcGetOrigin    string
-	inspectFuncGet   func(ctx context.Context, id int)
+	inspectFuncGet   func(ctx context.Context, id int64)
 	afterGetCounter  uint64
 	beforeGetCounter uint64
 	GetMock          mDomainRepositoryMockGet
 
-	funcUpdate          func(ctx context.Context, id int, updatedDomain *model.UpdatedDomain) (err error)
+	funcUpdate          func(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain) (err error)
 	funcUpdateOrigin    string
-	inspectFuncUpdate   func(ctx context.Context, id int, updatedDomain *model.UpdatedDomain)
+	inspectFuncUpdate   func(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain)
 	afterUpdateCounter  uint64
 	beforeUpdateCounter uint64
 	UpdateMock          mDomainRepositoryMockUpdate
@@ -111,7 +111,7 @@ type DomainRepositoryMockCreateParamPtrs struct {
 
 // DomainRepositoryMockCreateResults contains results of the DomainRepository.Create
 type DomainRepositoryMockCreateResults struct {
-	i1  int
+	i1  int64
 	err error
 }
 
@@ -215,7 +215,7 @@ func (mmCreate *mDomainRepositoryMockCreate) Inspect(f func(ctx context.Context,
 }
 
 // Return sets up results that will be returned by DomainRepository.Create
-func (mmCreate *mDomainRepositoryMockCreate) Return(i1 int, err error) *DomainRepositoryMock {
+func (mmCreate *mDomainRepositoryMockCreate) Return(i1 int64, err error) *DomainRepositoryMock {
 	if mmCreate.mock.funcCreate != nil {
 		mmCreate.mock.t.Fatalf("DomainRepositoryMock.Create mock is already set by Set")
 	}
@@ -229,7 +229,7 @@ func (mmCreate *mDomainRepositoryMockCreate) Return(i1 int, err error) *DomainRe
 }
 
 // Set uses given function f to mock the DomainRepository.Create method
-func (mmCreate *mDomainRepositoryMockCreate) Set(f func(ctx context.Context, domain *model.NewDomain) (i1 int, err error)) *DomainRepositoryMock {
+func (mmCreate *mDomainRepositoryMockCreate) Set(f func(ctx context.Context, domain *model.NewDomain) (i1 int64, err error)) *DomainRepositoryMock {
 	if mmCreate.defaultExpectation != nil {
 		mmCreate.mock.t.Fatalf("Default expectation is already set for the DomainRepository.Create method")
 	}
@@ -260,7 +260,7 @@ func (mmCreate *mDomainRepositoryMockCreate) When(ctx context.Context, domain *m
 }
 
 // Then sets up DomainRepository.Create return parameters for the expectation previously defined by the When method
-func (e *DomainRepositoryMockCreateExpectation) Then(i1 int, err error) *DomainRepositoryMock {
+func (e *DomainRepositoryMockCreateExpectation) Then(i1 int64, err error) *DomainRepositoryMock {
 	e.results = &DomainRepositoryMockCreateResults{i1, err}
 	return e.mock
 }
@@ -287,7 +287,7 @@ func (mmCreate *mDomainRepositoryMockCreate) invocationsDone() bool {
 }
 
 // Create implements mm_repository.DomainRepository
-func (mmCreate *DomainRepositoryMock) Create(ctx context.Context, domain *model.NewDomain) (i1 int, err error) {
+func (mmCreate *DomainRepositoryMock) Create(ctx context.Context, domain *model.NewDomain) (i1 int64, err error) {
 	mm_atomic.AddUint64(&mmCreate.beforeCreateCounter, 1)
 	defer mm_atomic.AddUint64(&mmCreate.afterCreateCounter, 1)
 
@@ -443,13 +443,13 @@ type DomainRepositoryMockDeleteExpectation struct {
 // DomainRepositoryMockDeleteParams contains parameters of the DomainRepository.Delete
 type DomainRepositoryMockDeleteParams struct {
 	ctx context.Context
-	id  int
+	id  int64
 }
 
 // DomainRepositoryMockDeleteParamPtrs contains pointers to parameters of the DomainRepository.Delete
 type DomainRepositoryMockDeleteParamPtrs struct {
 	ctx *context.Context
-	id  *int
+	id  *int64
 }
 
 // DomainRepositoryMockDeleteResults contains results of the DomainRepository.Delete
@@ -461,7 +461,7 @@ type DomainRepositoryMockDeleteResults struct {
 type DomainRepositoryMockDeleteExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originID  string
+	originId  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -475,7 +475,7 @@ func (mmDelete *mDomainRepositoryMockDelete) Optional() *mDomainRepositoryMockDe
 }
 
 // Expect sets up expected params for DomainRepository.Delete
-func (mmDelete *mDomainRepositoryMockDelete) Expect(ctx context.Context, id int) *mDomainRepositoryMockDelete {
+func (mmDelete *mDomainRepositoryMockDelete) Expect(ctx context.Context, id int64) *mDomainRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("DomainRepositoryMock.Delete mock is already set by Set")
 	}
@@ -522,8 +522,8 @@ func (mmDelete *mDomainRepositoryMockDelete) ExpectCtxParam1(ctx context.Context
 	return mmDelete
 }
 
-// ExpectIDParam2 sets up expected param id for DomainRepository.Delete
-func (mmDelete *mDomainRepositoryMockDelete) ExpectIDParam2(id int) *mDomainRepositoryMockDelete {
+// ExpectIdParam2 sets up expected param id for DomainRepository.Delete
+func (mmDelete *mDomainRepositoryMockDelete) ExpectIdParam2(id int64) *mDomainRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("DomainRepositoryMock.Delete mock is already set by Set")
 	}
@@ -540,13 +540,13 @@ func (mmDelete *mDomainRepositoryMockDelete) ExpectIDParam2(id int) *mDomainRepo
 		mmDelete.defaultExpectation.paramPtrs = &DomainRepositoryMockDeleteParamPtrs{}
 	}
 	mmDelete.defaultExpectation.paramPtrs.id = &id
-	mmDelete.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
+	mmDelete.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmDelete
 }
 
 // Inspect accepts an inspector function that has same arguments as the DomainRepository.Delete
-func (mmDelete *mDomainRepositoryMockDelete) Inspect(f func(ctx context.Context, id int)) *mDomainRepositoryMockDelete {
+func (mmDelete *mDomainRepositoryMockDelete) Inspect(f func(ctx context.Context, id int64)) *mDomainRepositoryMockDelete {
 	if mmDelete.mock.inspectFuncDelete != nil {
 		mmDelete.mock.t.Fatalf("Inspect function is already set for DomainRepositoryMock.Delete")
 	}
@@ -571,7 +571,7 @@ func (mmDelete *mDomainRepositoryMockDelete) Return(err error) *DomainRepository
 }
 
 // Set uses given function f to mock the DomainRepository.Delete method
-func (mmDelete *mDomainRepositoryMockDelete) Set(f func(ctx context.Context, id int) (err error)) *DomainRepositoryMock {
+func (mmDelete *mDomainRepositoryMockDelete) Set(f func(ctx context.Context, id int64) (err error)) *DomainRepositoryMock {
 	if mmDelete.defaultExpectation != nil {
 		mmDelete.mock.t.Fatalf("Default expectation is already set for the DomainRepository.Delete method")
 	}
@@ -587,7 +587,7 @@ func (mmDelete *mDomainRepositoryMockDelete) Set(f func(ctx context.Context, id 
 
 // When sets expectation for the DomainRepository.Delete which will trigger the result defined by the following
 // Then helper
-func (mmDelete *mDomainRepositoryMockDelete) When(ctx context.Context, id int) *DomainRepositoryMockDeleteExpectation {
+func (mmDelete *mDomainRepositoryMockDelete) When(ctx context.Context, id int64) *DomainRepositoryMockDeleteExpectation {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("DomainRepositoryMock.Delete mock is already set by Set")
 	}
@@ -629,7 +629,7 @@ func (mmDelete *mDomainRepositoryMockDelete) invocationsDone() bool {
 }
 
 // Delete implements mm_repository.DomainRepository
-func (mmDelete *DomainRepositoryMock) Delete(ctx context.Context, id int) (err error) {
+func (mmDelete *DomainRepositoryMock) Delete(ctx context.Context, id int64) (err error) {
 	mm_atomic.AddUint64(&mmDelete.beforeDeleteCounter, 1)
 	defer mm_atomic.AddUint64(&mmDelete.afterDeleteCounter, 1)
 
@@ -669,7 +669,7 @@ func (mmDelete *DomainRepositoryMock) Delete(ctx context.Context, id int) (err e
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmDelete.t.Errorf("DomainRepositoryMock.Delete got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -785,13 +785,13 @@ type DomainRepositoryMockGetExpectation struct {
 // DomainRepositoryMockGetParams contains parameters of the DomainRepository.Get
 type DomainRepositoryMockGetParams struct {
 	ctx context.Context
-	id  int
+	id  int64
 }
 
 // DomainRepositoryMockGetParamPtrs contains pointers to parameters of the DomainRepository.Get
 type DomainRepositoryMockGetParamPtrs struct {
 	ctx *context.Context
-	id  *int
+	id  *int64
 }
 
 // DomainRepositoryMockGetResults contains results of the DomainRepository.Get
@@ -804,7 +804,7 @@ type DomainRepositoryMockGetResults struct {
 type DomainRepositoryMockGetExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originID  string
+	originId  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -818,7 +818,7 @@ func (mmGet *mDomainRepositoryMockGet) Optional() *mDomainRepositoryMockGet {
 }
 
 // Expect sets up expected params for DomainRepository.Get
-func (mmGet *mDomainRepositoryMockGet) Expect(ctx context.Context, id int) *mDomainRepositoryMockGet {
+func (mmGet *mDomainRepositoryMockGet) Expect(ctx context.Context, id int64) *mDomainRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("DomainRepositoryMock.Get mock is already set by Set")
 	}
@@ -865,8 +865,8 @@ func (mmGet *mDomainRepositoryMockGet) ExpectCtxParam1(ctx context.Context) *mDo
 	return mmGet
 }
 
-// ExpectIDParam2 sets up expected param id for DomainRepository.Get
-func (mmGet *mDomainRepositoryMockGet) ExpectIDParam2(id int) *mDomainRepositoryMockGet {
+// ExpectIdParam2 sets up expected param id for DomainRepository.Get
+func (mmGet *mDomainRepositoryMockGet) ExpectIdParam2(id int64) *mDomainRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("DomainRepositoryMock.Get mock is already set by Set")
 	}
@@ -883,13 +883,13 @@ func (mmGet *mDomainRepositoryMockGet) ExpectIDParam2(id int) *mDomainRepository
 		mmGet.defaultExpectation.paramPtrs = &DomainRepositoryMockGetParamPtrs{}
 	}
 	mmGet.defaultExpectation.paramPtrs.id = &id
-	mmGet.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
+	mmGet.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmGet
 }
 
 // Inspect accepts an inspector function that has same arguments as the DomainRepository.Get
-func (mmGet *mDomainRepositoryMockGet) Inspect(f func(ctx context.Context, id int)) *mDomainRepositoryMockGet {
+func (mmGet *mDomainRepositoryMockGet) Inspect(f func(ctx context.Context, id int64)) *mDomainRepositoryMockGet {
 	if mmGet.mock.inspectFuncGet != nil {
 		mmGet.mock.t.Fatalf("Inspect function is already set for DomainRepositoryMock.Get")
 	}
@@ -914,7 +914,7 @@ func (mmGet *mDomainRepositoryMockGet) Return(dp1 *model.Domain, err error) *Dom
 }
 
 // Set uses given function f to mock the DomainRepository.Get method
-func (mmGet *mDomainRepositoryMockGet) Set(f func(ctx context.Context, id int) (dp1 *model.Domain, err error)) *DomainRepositoryMock {
+func (mmGet *mDomainRepositoryMockGet) Set(f func(ctx context.Context, id int64) (dp1 *model.Domain, err error)) *DomainRepositoryMock {
 	if mmGet.defaultExpectation != nil {
 		mmGet.mock.t.Fatalf("Default expectation is already set for the DomainRepository.Get method")
 	}
@@ -930,7 +930,7 @@ func (mmGet *mDomainRepositoryMockGet) Set(f func(ctx context.Context, id int) (
 
 // When sets expectation for the DomainRepository.Get which will trigger the result defined by the following
 // Then helper
-func (mmGet *mDomainRepositoryMockGet) When(ctx context.Context, id int) *DomainRepositoryMockGetExpectation {
+func (mmGet *mDomainRepositoryMockGet) When(ctx context.Context, id int64) *DomainRepositoryMockGetExpectation {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("DomainRepositoryMock.Get mock is already set by Set")
 	}
@@ -972,7 +972,7 @@ func (mmGet *mDomainRepositoryMockGet) invocationsDone() bool {
 }
 
 // Get implements mm_repository.DomainRepository
-func (mmGet *DomainRepositoryMock) Get(ctx context.Context, id int) (dp1 *model.Domain, err error) {
+func (mmGet *DomainRepositoryMock) Get(ctx context.Context, id int64) (dp1 *model.Domain, err error) {
 	mm_atomic.AddUint64(&mmGet.beforeGetCounter, 1)
 	defer mm_atomic.AddUint64(&mmGet.afterGetCounter, 1)
 
@@ -1012,7 +1012,7 @@ func (mmGet *DomainRepositoryMock) Get(ctx context.Context, id int) (dp1 *model.
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmGet.t.Errorf("DomainRepositoryMock.Get got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmGet.GetMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmGet.GetMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1128,14 +1128,14 @@ type DomainRepositoryMockUpdateExpectation struct {
 // DomainRepositoryMockUpdateParams contains parameters of the DomainRepository.Update
 type DomainRepositoryMockUpdateParams struct {
 	ctx           context.Context
-	id            int
+	id            int64
 	updatedDomain *model.UpdatedDomain
 }
 
 // DomainRepositoryMockUpdateParamPtrs contains pointers to parameters of the DomainRepository.Update
 type DomainRepositoryMockUpdateParamPtrs struct {
 	ctx           *context.Context
-	id            *int
+	id            *int64
 	updatedDomain **model.UpdatedDomain
 }
 
@@ -1148,7 +1148,7 @@ type DomainRepositoryMockUpdateResults struct {
 type DomainRepositoryMockUpdateExpectationOrigins struct {
 	origin              string
 	originCtx           string
-	originID            string
+	originId            string
 	originUpdatedDomain string
 }
 
@@ -1163,7 +1163,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) Optional() *mDomainRepositoryMockUp
 }
 
 // Expect sets up expected params for DomainRepository.Update
-func (mmUpdate *mDomainRepositoryMockUpdate) Expect(ctx context.Context, id int, updatedDomain *model.UpdatedDomain) *mDomainRepositoryMockUpdate {
+func (mmUpdate *mDomainRepositoryMockUpdate) Expect(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain) *mDomainRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("DomainRepositoryMock.Update mock is already set by Set")
 	}
@@ -1210,8 +1210,8 @@ func (mmUpdate *mDomainRepositoryMockUpdate) ExpectCtxParam1(ctx context.Context
 	return mmUpdate
 }
 
-// ExpectIDParam2 sets up expected param id for DomainRepository.Update
-func (mmUpdate *mDomainRepositoryMockUpdate) ExpectIDParam2(id int) *mDomainRepositoryMockUpdate {
+// ExpectIdParam2 sets up expected param id for DomainRepository.Update
+func (mmUpdate *mDomainRepositoryMockUpdate) ExpectIdParam2(id int64) *mDomainRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("DomainRepositoryMock.Update mock is already set by Set")
 	}
@@ -1228,7 +1228,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) ExpectIDParam2(id int) *mDomainRepo
 		mmUpdate.defaultExpectation.paramPtrs = &DomainRepositoryMockUpdateParamPtrs{}
 	}
 	mmUpdate.defaultExpectation.paramPtrs.id = &id
-	mmUpdate.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
+	mmUpdate.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmUpdate
 }
@@ -1257,7 +1257,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) ExpectUpdatedDomainParam3(updatedDo
 }
 
 // Inspect accepts an inspector function that has same arguments as the DomainRepository.Update
-func (mmUpdate *mDomainRepositoryMockUpdate) Inspect(f func(ctx context.Context, id int, updatedDomain *model.UpdatedDomain)) *mDomainRepositoryMockUpdate {
+func (mmUpdate *mDomainRepositoryMockUpdate) Inspect(f func(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain)) *mDomainRepositoryMockUpdate {
 	if mmUpdate.mock.inspectFuncUpdate != nil {
 		mmUpdate.mock.t.Fatalf("Inspect function is already set for DomainRepositoryMock.Update")
 	}
@@ -1282,7 +1282,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) Return(err error) *DomainRepository
 }
 
 // Set uses given function f to mock the DomainRepository.Update method
-func (mmUpdate *mDomainRepositoryMockUpdate) Set(f func(ctx context.Context, id int, updatedDomain *model.UpdatedDomain) (err error)) *DomainRepositoryMock {
+func (mmUpdate *mDomainRepositoryMockUpdate) Set(f func(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain) (err error)) *DomainRepositoryMock {
 	if mmUpdate.defaultExpectation != nil {
 		mmUpdate.mock.t.Fatalf("Default expectation is already set for the DomainRepository.Update method")
 	}
@@ -1298,7 +1298,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) Set(f func(ctx context.Context, id 
 
 // When sets expectation for the DomainRepository.Update which will trigger the result defined by the following
 // Then helper
-func (mmUpdate *mDomainRepositoryMockUpdate) When(ctx context.Context, id int, updatedDomain *model.UpdatedDomain) *DomainRepositoryMockUpdateExpectation {
+func (mmUpdate *mDomainRepositoryMockUpdate) When(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain) *DomainRepositoryMockUpdateExpectation {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("DomainRepositoryMock.Update mock is already set by Set")
 	}
@@ -1340,7 +1340,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) invocationsDone() bool {
 }
 
 // Update implements mm_repository.DomainRepository
-func (mmUpdate *DomainRepositoryMock) Update(ctx context.Context, id int, updatedDomain *model.UpdatedDomain) (err error) {
+func (mmUpdate *DomainRepositoryMock) Update(ctx context.Context, id int64, updatedDomain *model.UpdatedDomain) (err error) {
 	mm_atomic.AddUint64(&mmUpdate.beforeUpdateCounter, 1)
 	defer mm_atomic.AddUint64(&mmUpdate.afterUpdateCounter, 1)
 
@@ -1380,7 +1380,7 @@ func (mmUpdate *DomainRepositoryMock) Update(ctx context.Context, id int, update
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmUpdate.t.Errorf("DomainRepositoryMock.Update got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.updatedDomain != nil && !minimock.Equal(*mm_want_ptrs.updatedDomain, mm_got.updatedDomain) {
