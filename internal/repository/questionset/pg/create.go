@@ -15,19 +15,19 @@ func (r *repo) Create(ctx context.Context, newQuestionSet *model.NewQuestionSet)
 		QueryRaw: `INSERT INTO question_set (name) VALUES ($1) RETURNING id;`,
 	}
 
-	var questionSetIdRepo int32
-	err := r.db.DB().ScanOne(ctx, &questionSetIdRepo, query, newQuestionSetRepo.Name)
+	var questionSetIDRepo int32
+	err := r.db.DB().ScanOne(ctx, &questionSetIDRepo, query, newQuestionSetRepo.Name)
 	if err != nil {
 		return 0, err
 	}
 
-	questionSetId := int(questionSetIdRepo)
+	questionSetID := int(questionSetIDRepo)
 
 	// TODO: нужна транзакция
-	err = r.addQuestions(ctx, questionSetId, newQuestionSet.QuestionIds)
+	err = r.addQuestions(ctx, questionSetID, newQuestionSet.QuestionIDs)
 	if err != nil {
 		return 0, err
 	}
 
-	return questionSetId, nil
+	return questionSetID, nil
 }

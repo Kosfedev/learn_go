@@ -461,7 +461,7 @@ type QuestionSetRepositoryMockDeleteResults struct {
 type QuestionSetRepositoryMockDeleteExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -522,8 +522,8 @@ func (mmDelete *mQuestionSetRepositoryMockDelete) ExpectCtxParam1(ctx context.Co
 	return mmDelete
 }
 
-// ExpectIdParam2 sets up expected param id for QuestionSetRepository.Delete
-func (mmDelete *mQuestionSetRepositoryMockDelete) ExpectIdParam2(id int) *mQuestionSetRepositoryMockDelete {
+// ExpectIDParam2 sets up expected param id for QuestionSetRepository.Delete
+func (mmDelete *mQuestionSetRepositoryMockDelete) ExpectIDParam2(id int) *mQuestionSetRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("QuestionSetRepositoryMock.Delete mock is already set by Set")
 	}
@@ -540,7 +540,7 @@ func (mmDelete *mQuestionSetRepositoryMockDelete) ExpectIdParam2(id int) *mQuest
 		mmDelete.defaultExpectation.paramPtrs = &QuestionSetRepositoryMockDeleteParamPtrs{}
 	}
 	mmDelete.defaultExpectation.paramPtrs.id = &id
-	mmDelete.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmDelete.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmDelete
 }
@@ -669,7 +669,7 @@ func (mmDelete *QuestionSetRepositoryMock) Delete(ctx context.Context, id int) (
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmDelete.t.Errorf("QuestionSetRepositoryMock.Delete got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -804,7 +804,7 @@ type QuestionSetRepositoryMockGetResults struct {
 type QuestionSetRepositoryMockGetExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -865,8 +865,8 @@ func (mmGet *mQuestionSetRepositoryMockGet) ExpectCtxParam1(ctx context.Context)
 	return mmGet
 }
 
-// ExpectIdParam2 sets up expected param id for QuestionSetRepository.Get
-func (mmGet *mQuestionSetRepositoryMockGet) ExpectIdParam2(id int) *mQuestionSetRepositoryMockGet {
+// ExpectIDParam2 sets up expected param id for QuestionSetRepository.Get
+func (mmGet *mQuestionSetRepositoryMockGet) ExpectIDParam2(id int) *mQuestionSetRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("QuestionSetRepositoryMock.Get mock is already set by Set")
 	}
@@ -883,7 +883,7 @@ func (mmGet *mQuestionSetRepositoryMockGet) ExpectIdParam2(id int) *mQuestionSet
 		mmGet.defaultExpectation.paramPtrs = &QuestionSetRepositoryMockGetParamPtrs{}
 	}
 	mmGet.defaultExpectation.paramPtrs.id = &id
-	mmGet.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmGet.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmGet
 }
@@ -1012,7 +1012,7 @@ func (mmGet *QuestionSetRepositoryMock) Get(ctx context.Context, id int) (qp1 *m
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmGet.t.Errorf("QuestionSetRepositoryMock.Get got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmGet.GetMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmGet.GetMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1148,7 +1148,7 @@ type QuestionSetRepositoryMockUpdateResults struct {
 type QuestionSetRepositoryMockUpdateExpectationOrigins struct {
 	origin                string
 	originCtx             string
-	originId              string
+	originID              string
 	originUpdatedQuestion string
 }
 
@@ -1210,8 +1210,8 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectCtxParam1(ctx context.Co
 	return mmUpdate
 }
 
-// ExpectIdParam2 sets up expected param id for QuestionSetRepository.Update
-func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectIdParam2(id int) *mQuestionSetRepositoryMockUpdate {
+// ExpectIDParam2 sets up expected param id for QuestionSetRepository.Update
+func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectIDParam2(id int) *mQuestionSetRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("QuestionSetRepositoryMock.Update mock is already set by Set")
 	}
@@ -1228,7 +1228,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectIdParam2(id int) *mQuest
 		mmUpdate.defaultExpectation.paramPtrs = &QuestionSetRepositoryMockUpdateParamPtrs{}
 	}
 	mmUpdate.defaultExpectation.paramPtrs.id = &id
-	mmUpdate.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmUpdate.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmUpdate
 }
@@ -1380,7 +1380,7 @@ func (mmUpdate *QuestionSetRepositoryMock) Update(ctx context.Context, id int, u
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmUpdate.t.Errorf("QuestionSetRepositoryMock.Update got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.updatedQuestion != nil && !minimock.Equal(*mm_want_ptrs.updatedQuestion, mm_got.updatedQuestion) {

@@ -8,8 +8,8 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg/model"
 )
 
-func (r *repo) ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error) {
-	idRepo := int32(questionId)
+func (r *repo) ListSubcategoriesByQuestionID(ctx context.Context, questionID int) ([]int, error) {
+	idRepo := int32(questionID)
 	query := db.Query{
 		Name:     "question_subcategory_repository.list_subcategories_by_question_id",
 		QueryRaw: `SELECT * FROM question_subcategory WHERE question_id = $1`,
@@ -21,7 +21,7 @@ func (r *repo) ListSubcategoriesByQuestionId(ctx context.Context, questionId int
 		return nil, err
 	}
 
-	subcategories := converter.QuestionSubcategoriesIdsFromPGSQL(questionSubcategories)
+	subcategories := converter.QuestionSubcategoriesIDsFromPGSQL(questionSubcategories)
 
 	return subcategories, nil
 }

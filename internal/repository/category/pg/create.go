@@ -16,7 +16,7 @@ func (r *repo) Create(ctx context.Context, category *model.NewCategory) (int, er
 	}
 
 	var id int
-	err := r.db.DB().ScanOne(ctx, &id, query, categoryRepo.Name, category.DomainId)
+	err := r.db.DB().ScanOne(ctx, &id, query, categoryRepo.Name, category.DomainID)
 	if err != nil {
 		return 0, err
 	}

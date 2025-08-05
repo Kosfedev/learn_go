@@ -24,7 +24,7 @@ func (r *repo) getOptions(ctx context.Context, id int) ([]*model.QuestionOption,
 
 	for rows.Next() {
 		questionOptionRepo := &modelRepo.QuestionOption{}
-		err = rows.Scan(&questionOptionRepo.Id, &questionOptionRepo.QuestionId, &questionOptionRepo.Text, &questionOptionRepo.IsCorrect)
+		err = rows.Scan(&questionOptionRepo.ID, &questionOptionRepo.QuestionID, &questionOptionRepo.Text, &questionOptionRepo.IsCorrect)
 		if err != nil {
 			if errors.Is(err, sql.ErrNoRows) {
 				return nil, nil

@@ -1,6 +1,6 @@
 package model
 
 type QuestionSubcategory struct {
-	QuestionId    int32
-	SubcategoryId int32
+	QuestionID    int32
+	SubcategoryID int32
 }

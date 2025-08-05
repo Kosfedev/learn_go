@@ -18,17 +18,17 @@ func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int,
 			RETURNING id;`,
 	}
 
-	var questionId int
-	err := r.db.DB().ScanOne(ctx, &questionId, query, newQuestionRepo.Text, newQuestionRepo.Type, newQuestionRepo.ReferenceAnswer)
+	var questionID int
+	err := r.db.DB().ScanOne(ctx, &questionID, query, newQuestionRepo.Text, newQuestionRepo.Type, newQuestionRepo.ReferenceAnswer)
 	if err != nil {
 		return 0, err
 	}
 
 	// TODO: нужна транзакция
-	err = r.AddOptions(ctx, questionId, newQuestion.Options)
+	err = r.AddOptions(ctx, questionID, newQuestion.Options)
 	if err != nil {
 		return 0, err
 	}
 
-	return questionId, nil
+	return questionID, nil
 }

@@ -11,10 +11,10 @@ type QuestionService interface {
 	Get(ctx context.Context, id int) (*model.Question, error)
 	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, id int) error
-	AddOptions(ctx context.Context, questionId int, newQuestionOptions []*model.NewQuestionOption) error
+	AddOptions(ctx context.Context, questionID int, newQuestionOptions []*model.NewQuestionOption) error
 	DeleteOptions(ctx context.Context, ids []int) error
-	AddSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
-	RemoveSubcategories(ctx context.Context, questionId int, subcategoryIds []int) error
+	AddSubcategories(ctx context.Context, questionID int, subcategoryIDs []int) error
+	RemoveSubcategories(ctx context.Context, questionID int, subcategoryIDs []int) error
 }
 
 type QuestionSetService interface {

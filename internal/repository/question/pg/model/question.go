@@ -6,7 +6,7 @@ import (
 )
 
 type Question struct {
-	Id              int32
+	ID              int32
 	Text            string
 	Type            int32
 	ReferenceAnswer sql.NullString

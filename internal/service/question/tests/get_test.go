@@ -18,7 +18,7 @@ func TestGet(t *testing.T) {
 	ctx := context.Background()
 	id := int(gofakeit.Int64())
 	res := &model.Question{
-		Id:              id,
+		ID:              id,
 		Text:            gofakeit.Question(),
 		Type:            3,
 		Options:         nil,

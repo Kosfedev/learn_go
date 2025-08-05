@@ -3,19 +3,19 @@ package model
 import "time"
 
 type Category struct {
-	Id        int
+	ID        int
 	Name      string
-	DomainId  int
+	DomainID  int
 	CreatedAt time.Time
 	UpdatedAt *time.Time
 }
 
 type NewCategory struct {
 	Name     string
-	DomainId int
+	DomainID int
 }
 
 type UpdatedCategory struct {
 	Name     *string
-	DomainId *int
+	DomainID *int
 }

@@ -11,7 +11,7 @@ type QuestionRepository interface {
 	Get(ctx context.Context, id int) (*model.Question, error)
 	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, id int) error
-	AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error
+	AddOptions(ctx context.Context, questionID int, options []*model.NewQuestionOption) error
 	DeleteOptions(ctx context.Context, ids []int) error
 }
 
@@ -20,17 +20,17 @@ type QuestionSetRepository interface {
 	Get(ctx context.Context, id int) (*model.QuestionSet, error)
 	Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestionSet) error
 	Delete(ctx context.Context, id int) error
-	// AddQuestions(ctx context.Context, questionSetId int, questionIds []int) error
+	// AddQuestions(ctx context.Context, questionSetID int, questionIDs []int) error
 	// RemoveQuestions(ctx context.Context, ids []int) error
 }
 
 type QuestionSubcategoryRepository interface {
-	AddSubcategoriesToQuestion(ctx context.Context, questionId int, subcategoryIds []int) error
-	RemoveSubcategoriesFromQuestion(ctx context.Context, questionId int, subcategoryIds []int) error
-	ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error)
-	// AddQuestionsToSubcategory(ctx context.Context, subcategoryId int, questionIds []int) error
-	// RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryId int, questionIds []int) error
-	// ListQuestionsBySubcategoryId(ctx context.Context, subcategoryId int) ([]int, error)
+	AddSubcategoriesToQuestion(ctx context.Context, questionID int, subcategoryIDs []int) error
+	RemoveSubcategoriesFromQuestion(ctx context.Context, questionID int, subcategoryIDs []int) error
+	ListSubcategoriesByQuestionID(ctx context.Context, questionID int) ([]int, error)
+	// AddQuestionsToSubcategory(ctx context.Context, subcategoryID int, questionIDs []int) error
+	// RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryID int, questionIDs []int) error
+	// ListQuestionsBySubcategoryID(ctx context.Context, subcategoryID int) ([]int, error)
 }
 
 type DomainRepository interface {
@@ -52,5 +52,5 @@ type SubcategoryRepository interface {
 	Get(ctx context.Context, id int) (*model.Subcategory, error)
 	Update(ctx context.Context, id int, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int) error
-	ListByIds(ctx context.Context, ids []int) ([]*model.Subcategory, error)
+	ListByIDs(ctx context.Context, ids []int) ([]*model.Subcategory, error)
 }

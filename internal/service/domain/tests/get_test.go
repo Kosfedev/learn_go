@@ -18,7 +18,7 @@ func TestGet(t *testing.T) {
 	ctx := context.Background()
 	id := int(gofakeit.Int64())
 	res := &model.Domain{
-		Id:        id,
+		ID:        id,
 		Name:      gofakeit.Name(),
 		CreatedAt: time.Time{},
 	}

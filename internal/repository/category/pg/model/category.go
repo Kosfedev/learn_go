@@ -6,19 +6,19 @@ import (
 )
 
 type Category struct {
-	Id        int32
+	ID        int32
 	Name      string
-	DomainId  int32
+	DomainID  int32
 	CreatedAt time.Time
 	UpdatedAt sql.NullTime
 }
 
 type NewCategory struct {
 	Name     string
-	DomainId int32
+	DomainID int32
 }
 
 type UpdatedCategory struct {
 	Name     sql.NullString
-	DomainId sql.NullInt32
+	DomainID sql.NullInt32
 }

@@ -461,7 +461,7 @@ type DomainRepositoryMockDeleteResults struct {
 type DomainRepositoryMockDeleteExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -522,8 +522,8 @@ func (mmDelete *mDomainRepositoryMockDelete) ExpectCtxParam1(ctx context.Context
 	return mmDelete
 }
 
-// ExpectIdParam2 sets up expected param id for DomainRepository.Delete
-func (mmDelete *mDomainRepositoryMockDelete) ExpectIdParam2(id int) *mDomainRepositoryMockDelete {
+// ExpectIDParam2 sets up expected param id for DomainRepository.Delete
+func (mmDelete *mDomainRepositoryMockDelete) ExpectIDParam2(id int) *mDomainRepositoryMockDelete {
 	if mmDelete.mock.funcDelete != nil {
 		mmDelete.mock.t.Fatalf("DomainRepositoryMock.Delete mock is already set by Set")
 	}
@@ -540,7 +540,7 @@ func (mmDelete *mDomainRepositoryMockDelete) ExpectIdParam2(id int) *mDomainRepo
 		mmDelete.defaultExpectation.paramPtrs = &DomainRepositoryMockDeleteParamPtrs{}
 	}
 	mmDelete.defaultExpectation.paramPtrs.id = &id
-	mmDelete.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmDelete.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmDelete
 }
@@ -669,7 +669,7 @@ func (mmDelete *DomainRepositoryMock) Delete(ctx context.Context, id int) (err e
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmDelete.t.Errorf("DomainRepositoryMock.Delete got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmDelete.DeleteMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -804,7 +804,7 @@ type DomainRepositoryMockGetResults struct {
 type DomainRepositoryMockGetExpectationOrigins struct {
 	origin    string
 	originCtx string
-	originId  string
+	originID  string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -865,8 +865,8 @@ func (mmGet *mDomainRepositoryMockGet) ExpectCtxParam1(ctx context.Context) *mDo
 	return mmGet
 }
 
-// ExpectIdParam2 sets up expected param id for DomainRepository.Get
-func (mmGet *mDomainRepositoryMockGet) ExpectIdParam2(id int) *mDomainRepositoryMockGet {
+// ExpectIDParam2 sets up expected param id for DomainRepository.Get
+func (mmGet *mDomainRepositoryMockGet) ExpectIDParam2(id int) *mDomainRepositoryMockGet {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("DomainRepositoryMock.Get mock is already set by Set")
 	}
@@ -883,7 +883,7 @@ func (mmGet *mDomainRepositoryMockGet) ExpectIdParam2(id int) *mDomainRepository
 		mmGet.defaultExpectation.paramPtrs = &DomainRepositoryMockGetParamPtrs{}
 	}
 	mmGet.defaultExpectation.paramPtrs.id = &id
-	mmGet.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmGet.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmGet
 }
@@ -1012,7 +1012,7 @@ func (mmGet *DomainRepositoryMock) Get(ctx context.Context, id int) (dp1 *model.
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmGet.t.Errorf("DomainRepositoryMock.Get got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmGet.GetMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmGet.GetMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
@@ -1148,7 +1148,7 @@ type DomainRepositoryMockUpdateResults struct {
 type DomainRepositoryMockUpdateExpectationOrigins struct {
 	origin              string
 	originCtx           string
-	originId            string
+	originID            string
 	originUpdatedDomain string
 }
 
@@ -1210,8 +1210,8 @@ func (mmUpdate *mDomainRepositoryMockUpdate) ExpectCtxParam1(ctx context.Context
 	return mmUpdate
 }
 
-// ExpectIdParam2 sets up expected param id for DomainRepository.Update
-func (mmUpdate *mDomainRepositoryMockUpdate) ExpectIdParam2(id int) *mDomainRepositoryMockUpdate {
+// ExpectIDParam2 sets up expected param id for DomainRepository.Update
+func (mmUpdate *mDomainRepositoryMockUpdate) ExpectIDParam2(id int) *mDomainRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("DomainRepositoryMock.Update mock is already set by Set")
 	}
@@ -1228,7 +1228,7 @@ func (mmUpdate *mDomainRepositoryMockUpdate) ExpectIdParam2(id int) *mDomainRepo
 		mmUpdate.defaultExpectation.paramPtrs = &DomainRepositoryMockUpdateParamPtrs{}
 	}
 	mmUpdate.defaultExpectation.paramPtrs.id = &id
-	mmUpdate.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
+	mmUpdate.defaultExpectation.expectationOrigins.originID = minimock.CallerInfo(1)
 
 	return mmUpdate
 }
@@ -1380,7 +1380,7 @@ func (mmUpdate *DomainRepositoryMock) Update(ctx context.Context, id int, update
 
 			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
 				mmUpdate.t.Errorf("DomainRepositoryMock.Update got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
+					mmUpdate.UpdateMock.defaultExpectation.expectationOrigins.originID, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.updatedDomain != nil && !minimock.Equal(*mm_want_ptrs.updatedDomain, mm_got.updatedDomain) {

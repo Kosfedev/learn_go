@@ -6,18 +6,18 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qs *serv) Get(ctx context.Context, questionId int) (*model.Question, error) {
-	question, err := qs.questionRepo.Get(ctx, questionId)
+func (qs *serv) Get(ctx context.Context, questionID int) (*model.Question, error) {
+	question, err := qs.questionRepo.Get(ctx, questionID)
 	if err != nil {
 		return nil, err
 	}
 
-	questionSubcategoryIds, err := qs.questionSubcategoryRepo.ListSubcategoriesByQuestionId(ctx, questionId)
+	questionSubcategoryIDs, err := qs.questionSubcategoryRepo.ListSubcategoriesByQuestionID(ctx, questionID)
 	if err != nil {
 		return nil, err
 	}
 
-	subcategories, err := qs.subcategoryRepo.ListByIds(ctx, questionSubcategoryIds)
+	subcategories, err := qs.subcategoryRepo.ListByIDs(ctx, questionSubcategoryIDs)
 	if err != nil {
 		return nil, err
 	}

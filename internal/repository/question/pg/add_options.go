@@ -10,7 +10,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 )
 
-func (r *repo) AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error {
+func (r *repo) AddOptions(ctx context.Context, questionID int, options []*model.NewQuestionOption) error {
 	if len(options) == 0 {
 		return nil
 	}
@@ -21,8 +21,8 @@ func (r *repo) AddOptions(ctx context.Context, questionId int, options []*model.
 
 	for i, option := range options {
 		queryRaw += fmt.Sprintf(" ($%d, $%d, $%d),", i*nArgs+1, i*nArgs+2, i*nArgs+3)
-		newOptionRepo := converter.NewQuestionOptionToPGSQL(questionId, option)
-		values = append(values, newOptionRepo.QuestionId, newOptionRepo.Text, newOptionRepo.IsCorrect)
+		newOptionRepo := converter.NewQuestionOptionToPGSQL(questionID, option)
+		values = append(values, newOptionRepo.QuestionID, newOptionRepo.Text, newOptionRepo.IsCorrect)
 	}
 
 	queryRaw = strings.TrimSuffix(queryRaw, ",")

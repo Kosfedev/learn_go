@@ -7,7 +7,7 @@ import (
 
 func QuestionOptionFromPGSQL(questionOptionRepo *modelRepo.QuestionOption) *model.QuestionOption {
 	questionOptionServ := &model.QuestionOption{
-		Id:        int(questionOptionRepo.Id),
+		ID:        int(questionOptionRepo.ID),
 		Text:      questionOptionRepo.Text,
 		IsCorrect: questionOptionRepo.IsCorrect,
 	}
@@ -15,9 +15,9 @@ func QuestionOptionFromPGSQL(questionOptionRepo *modelRepo.QuestionOption) *mode
 	return questionOptionServ
 }
 
-func NewQuestionOptionToPGSQL(questionId int, questionOptionServ *model.NewQuestionOption) *modelRepo.NewQuestionOption {
+func NewQuestionOptionToPGSQL(questionID int, questionOptionServ *model.NewQuestionOption) *modelRepo.NewQuestionOption {
 	newQuestionOptionRepo := &modelRepo.NewQuestionOption{
-		QuestionId: int32(questionId),
+		QuestionID: int32(questionID),
 		Text:       questionOptionServ.Text,
 		IsCorrect:  questionOptionServ.IsCorrect,
 	}

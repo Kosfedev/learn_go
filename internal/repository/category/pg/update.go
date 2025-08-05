@@ -22,8 +22,8 @@ func (r *repo) Update(ctx context.Context, id int, category *model.UpdatedCatego
 		index++
 	}
 
-	if categoryRepo.DomainId.Valid {
-		values = append(values, categoryRepo.DomainId)
+	if categoryRepo.DomainID.Valid {
+		values = append(values, categoryRepo.DomainID)
 		queryRaw += fmt.Sprintf(" domain_id = $%d,", index)
 	}
 

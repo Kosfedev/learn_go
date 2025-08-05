@@ -8,19 +8,19 @@ import (
 	"github.com/Kosfedev/learn_go/internal/client/db"
 )
 
-func (r *repo) AddSubcategoriesToQuestion(ctx context.Context, questionId int, subcategoryIds []int) error {
-	if len(subcategoryIds) == 0 {
+func (r *repo) AddSubcategoriesToQuestion(ctx context.Context, questionID int, subcategoryIDs []int) error {
+	if len(subcategoryIDs) == 0 {
 		return nil
 	}
 
 	var values []interface{}
 	nArgs := 2
-	questionIdRepo := int32(questionId)
+	questionIDRepo := int32(questionID)
 	queryRaw := `INSERT INTO question_subcategory (question_id, subcategory_id) VALUES`
 
-	for i, subcategoryId := range subcategoryIds {
+	for i, subcategoryID := range subcategoryIDs {
 		queryRaw += fmt.Sprintf(" ($%d, $%d),", i*nArgs+1, i*nArgs+2)
-		values = append(values, questionIdRepo, int32(subcategoryId))
+		values = append(values, questionIDRepo, int32(subcategoryID))
 	}
 
 	queryRaw = strings.TrimSuffix(queryRaw, ",")
