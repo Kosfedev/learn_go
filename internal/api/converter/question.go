@@ -12,7 +12,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	options := make([]*desc.QuestionOption, len(question.Options))
 	for i, option := range question.Options {
 		options[i] = &desc.QuestionOption{
-			Id:        int64(option.Id),
+			Id:        int64(option.ID),
 			Text:      option.Text,
 			IsCorrect: option.IsCorrect,
 		}
@@ -21,9 +21,9 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	subcategories := make([]*desc.Subcategory, len(question.Subcategories))
 	for i, subcategory := range question.Subcategories {
 		subcategories[i] = &desc.Subcategory{
-			Id:         int64(subcategory.Id),
+			Id:         int64(subcategory.ID),
 			Name:       subcategory.Name,
-			CategoryId: int64(subcategory.CategoryId),
+			CategoryId: int64(subcategory.CategoryID),
 			CreatedAt:  timestamppb.New(subcategory.CreatedAt),
 			UpdatedAt:  nil,
 		}
@@ -34,7 +34,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	}
 
 	res := &desc.GetResponse{
-		Id:            int64(question.Id),
+		Id:            int64(question.ID),
 		Text:          question.Text,
 		QuestionType:  desc.QuestionType(question.Type),
 		Options:       options,

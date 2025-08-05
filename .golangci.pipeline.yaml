@@ -16,3 +16,13 @@ linters:
     - revive
     - typecheck
     - unused
+  exclusions:
+    rules:
+        # protobuf конвертирует id в Id вместо ID, чем триггерит revive
+      - path: internal/api
+        linters:
+          - revive
+        # требует публичного типа экспорта pgConfig, grpcConfig - нежелательно
+      - path: internal/config/env
+        linters:
+          - revive

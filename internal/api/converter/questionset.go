@@ -8,13 +8,13 @@ import (
 )
 
 func QuestionSetToGRPC(question *model.QuestionSet) *desc.GetResponse {
-	questionIdsGRPC := make([]int64, len(question.QuestionIds))
-	for i, questionId := range question.QuestionIds {
+	questionIdsGRPC := make([]int64, len(question.QuestionIDs))
+	for i, questionId := range question.QuestionIDs {
 		questionIdsGRPC[i] = int64(questionId)
 	}
 
 	res := &desc.GetResponse{
-		Id:          int64(question.Id),
+		Id:          int64(question.ID),
 		Name:        question.Name,
 		QuestionIds: questionIdsGRPC,
 		CreatedAt:   timestamppb.New(question.CreatedAt),
@@ -35,7 +35,7 @@ func NewQuestionSetFromGRPC(req *desc.CreateRequest) *model.NewQuestionSet {
 
 	newQuestionSet := &model.NewQuestionSet{
 		Name:        req.Name,
-		QuestionIds: newQuestionIds,
+		QuestionIDs: newQuestionIds,
 	}
 
 	return newQuestionSet
