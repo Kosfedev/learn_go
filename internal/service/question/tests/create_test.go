@@ -15,7 +15,7 @@ import (
 func TestCreate(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	id := int64(gofakeit.Int64())
+	id := gofakeit.Int64()
 	refAnswer := gofakeit.Quote()
 	req := &model.NewQuestion{
 		Text:            gofakeit.Question(),

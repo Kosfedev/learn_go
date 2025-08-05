@@ -30,7 +30,7 @@ func (r *repo) getQuestions(ctx context.Context, id int64) ([]int64, error) {
 
 			return nil, err
 		}
-		questionSetQuestionsServ = append(questionSetQuestionsServ, int64(questionSetOptionRepo.QuestionID))
+		questionSetQuestionsServ = append(questionSetQuestionsServ, questionSetOptionRepo.QuestionID)
 	}
 
 	return questionSetQuestionsServ, nil

@@ -6,9 +6,9 @@ import (
 )
 
 type Question struct {
-	ID              int32
+	ID              int64
 	Text            string
-	Type            int32
+	Type            int64
 	ReferenceAnswer sql.NullString
 	CreatedAt       time.Time
 	UpdatedAt       sql.NullTime
@@ -16,12 +16,12 @@ type Question struct {
 
 type NewQuestion struct {
 	Text            string
-	Type            int32
+	Type            int64
 	ReferenceAnswer sql.NullString
 }
 
 type UpdatedQuestion struct {
 	Text            sql.NullString
-	Type            sql.NullInt32
+	Type            sql.NullInt64
 	ReferenceAnswer sql.NullString
 }

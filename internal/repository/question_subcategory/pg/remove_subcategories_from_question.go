@@ -17,7 +17,7 @@ func (r *repo) RemoveSubcategoriesFromQuestion(ctx context.Context, questionID i
 	values[0] = questionID
 	placeholders := make([]string, len(subcategoryIDs))
 	for i, id := range subcategoryIDs {
-		values[i+1] = int32(id)
+		values[i+1] = id
 		placeholders[i] = fmt.Sprintf("$%d", i+2)
 	}
 

@@ -9,9 +9,9 @@ import (
 
 func CategoryFromPGSQL(categoryRepo *modelRepo.Category) *model.Category {
 	category := &model.Category{
-		ID:        int64(categoryRepo.ID),
+		ID:        categoryRepo.ID,
 		Name:      categoryRepo.Name,
-		DomainID:  int64(categoryRepo.DomainID),
+		DomainID:  categoryRepo.DomainID,
 		CreatedAt: categoryRepo.CreatedAt,
 	}
 
@@ -25,7 +25,7 @@ func CategoryFromPGSQL(categoryRepo *modelRepo.Category) *model.Category {
 func NewCategoryToPGSQL(category *model.NewCategory) *modelRepo.NewCategory {
 	categoryRepo := &modelRepo.NewCategory{
 		Name:     category.Name,
-		DomainID: int32(category.DomainID),
+		DomainID: category.DomainID,
 	}
 
 	return categoryRepo
@@ -42,8 +42,8 @@ func UpdatedCategoryToPGSQL(category *model.UpdatedCategory) *modelRepo.UpdatedC
 	}
 
 	if category.DomainID != nil {
-		categoryRepo.DomainID = sql.NullInt32{
-			Int32: int32(*category.DomainID),
+		categoryRepo.DomainID = sql.NullInt64{
+			Int64: *category.DomainID,
 			Valid: true,
 		}
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func (r *repo) ListSubcategoriesByQuestionID(ctx context.Context, questionID int64) ([]int64, error) {
-	idRepo := int32(questionID)
+	idRepo := questionID
 	query := db.Query{
 		Name:     "question_subcategory_repository.list_subcategories_by_question_id",
 		QueryRaw: `SELECT * FROM question_subcategory WHERE question_id = $1`,

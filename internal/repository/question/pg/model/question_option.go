@@ -1,14 +1,14 @@
 package model
 
 type QuestionOption struct {
-	ID         int32
-	QuestionID int32
+	ID         int64
+	QuestionID int64
 	Text       string
 	IsCorrect  bool
 }
 
 type NewQuestionOption struct {
-	QuestionID int32
+	QuestionID int64
 	Text       string
 	IsCorrect  bool
 }

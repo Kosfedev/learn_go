@@ -6,7 +6,7 @@ import (
 )
 
 type Domain struct {
-	ID        int32
+	ID        int64
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt sql.NullTime

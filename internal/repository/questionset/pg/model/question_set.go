@@ -6,7 +6,7 @@ import (
 )
 
 type QuestionSet struct {
-	ID        int32
+	ID        int64
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt sql.NullTime

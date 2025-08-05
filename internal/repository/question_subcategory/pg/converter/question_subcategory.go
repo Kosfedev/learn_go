@@ -8,7 +8,7 @@ func QuestionSubcategoriesIDsFromPGSQL(questionSubcategoriesRepo []*modelRepo.Qu
 	questionSubcategories := make([]int64, len(questionSubcategoriesRepo))
 
 	for i, questionSubcategoryRepo := range questionSubcategoriesRepo {
-		questionSubcategories[i] = int64(questionSubcategoryRepo.SubcategoryID)
+		questionSubcategories[i] = questionSubcategoryRepo.SubcategoryID
 	}
 
 	return questionSubcategories

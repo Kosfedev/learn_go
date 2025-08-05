@@ -17,7 +17,7 @@ func (subcategoryImpl *Implementation) Create(ctx context.Context, req *desc.Cre
 	}
 
 	res := &desc.CreateResponse{
-		Id: int64(id),
+		Id: id,
 	}
 
 	return res, nil

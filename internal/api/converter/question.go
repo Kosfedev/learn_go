@@ -12,7 +12,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	options := make([]*desc.QuestionOption, len(question.Options))
 	for i, option := range question.Options {
 		options[i] = &desc.QuestionOption{
-			Id:        int64(option.ID),
+			Id:        option.ID,
 			Text:      option.Text,
 			IsCorrect: option.IsCorrect,
 		}
@@ -21,9 +21,9 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	subcategories := make([]*desc.Subcategory, len(question.Subcategories))
 	for i, subcategory := range question.Subcategories {
 		subcategories[i] = &desc.Subcategory{
-			Id:         int64(subcategory.ID),
+			Id:         subcategory.ID,
 			Name:       subcategory.Name,
-			CategoryId: int64(subcategory.CategoryID),
+			CategoryId: subcategory.CategoryID,
 			CreatedAt:  timestamppb.New(subcategory.CreatedAt),
 			UpdatedAt:  nil,
 		}
@@ -34,7 +34,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	}
 
 	res := &desc.GetResponse{
-		Id:            int64(question.ID),
+		Id:            question.ID,
 		Text:          question.Text,
 		QuestionType:  desc.QuestionType(question.Type),
 		Options:       options,
@@ -114,7 +114,7 @@ func NewQuestionOptionsFromGRPC(req *desc.AddOptionsRequest) []*model.NewQuestio
 func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int64 {
 	optionIds := make([]int64, len(req.Ids))
 	for i, id := range req.Ids {
-		optionIds[i] = int64(id)
+		optionIds[i] = id
 	}
 
 	return optionIds
@@ -124,7 +124,7 @@ func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int64 {
 func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int64 {
 	subcategoryIds := make([]int64, len(req.SubcategoryIds))
 	for i, id := range req.SubcategoryIds {
-		subcategoryIds[i] = int64(id)
+		subcategoryIds[i] = id
 	}
 
 	return subcategoryIds
@@ -133,7 +133,7 @@ func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int64 {
 func RemoveSubcategoriesFromGRPC(req *desc.RemoveSubcategoriesRequest) []int64 {
 	subcategoryIds := make([]int64, len(req.SubcategoryIds))
 	for i, id := range req.SubcategoryIds {
-		subcategoryIds[i] = int64(id)
+		subcategoryIds[i] = id
 	}
 
 	return subcategoryIds

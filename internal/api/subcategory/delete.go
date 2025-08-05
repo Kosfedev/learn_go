@@ -7,7 +7,7 @@ import (
 )
 
 func (subcategoryImpl *Implementation) Delete(ctx context.Context, req *desc.DeleteRequest) (*desc.DeleteResponse, error) {
-	err := subcategoryImpl.subcategoryService.Delete(ctx, int64(req.Id))
+	err := subcategoryImpl.subcategoryService.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

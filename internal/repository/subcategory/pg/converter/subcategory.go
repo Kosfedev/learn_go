@@ -9,9 +9,9 @@ import (
 
 func SubcategoryFromPGSQL(subcategoryRepo *modelRepo.Subcategory) *model.Subcategory {
 	subcategory := &model.Subcategory{
-		ID:         int64(subcategoryRepo.ID),
+		ID:         subcategoryRepo.ID,
 		Name:       subcategoryRepo.Name,
-		CategoryID: int64(subcategoryRepo.CategoryID),
+		CategoryID: subcategoryRepo.CategoryID,
 		CreatedAt:  subcategoryRepo.CreatedAt,
 	}
 
@@ -34,7 +34,7 @@ func SubcategoriesFromPGSQL(subcategoryRepo []*modelRepo.Subcategory) []*model.S
 func NewSubcategoryToPGSQL(subcategory *model.NewSubcategory) *modelRepo.NewSubcategory {
 	subcategoryRepo := &modelRepo.NewSubcategory{
 		Name:       subcategory.Name,
-		CategoryID: int32(subcategory.CategoryID),
+		CategoryID: subcategory.CategoryID,
 	}
 
 	return subcategoryRepo
@@ -51,8 +51,8 @@ func UpdatedSubcategoryToPGSQL(subcategory *model.UpdatedSubcategory) *modelRepo
 	}
 
 	if subcategory.CategoryID != nil {
-		subcategoryRepo.CategoryID = sql.NullInt32{
-			Int32: int32(*subcategory.CategoryID),
+		subcategoryRepo.CategoryID = sql.NullInt64{
+			Int64: *subcategory.CategoryID,
 			Valid: true,
 		}
 	}

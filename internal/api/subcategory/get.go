@@ -8,7 +8,7 @@ import (
 )
 
 func (subcategoryImpl *Implementation) Get(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
-	subcategory, err := subcategoryImpl.subcategoryService.Get(ctx, int64(req.Id))
+	subcategory, err := subcategoryImpl.subcategoryService.Get(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

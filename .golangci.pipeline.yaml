@@ -15,6 +15,7 @@ linters:
     - ineffassign
     - revive
     - typecheck
+    - unconvert
     - unused
   exclusions:
     rules:
