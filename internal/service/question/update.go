@@ -7,7 +7,7 @@ import (
 )
 
 func (qs *serv) Update(ctx context.Context, id int, updatedQuestion *model.UpdatedQuestion) error {
-	err := qs.repo.Update(ctx, id, updatedQuestion)
+	err := qs.questionRepo.Update(ctx, id, updatedQuestion)
 	if err != nil {
 		return err
 	}

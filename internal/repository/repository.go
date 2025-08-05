@@ -24,6 +24,15 @@ type QuestionSetRepository interface {
 	// RemoveQuestions(ctx context.Context, ids []int) error
 }
 
+type QuestionSubcategoryRepository interface {
+	AddSubcategoriesToQuestion(ctx context.Context, questionId int, subcategoryIds []int) error
+	RemoveSubcategoriesFromQuestion(ctx context.Context, questionId int, subcategoryIds []int) error
+	ListSubcategoriesByQuestionId(ctx context.Context, questionId int) ([]int, error)
+	// AddQuestionsToSubcategory(ctx context.Context, subcategoryId int, questionIds []int) error
+	// RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryId int, questionIds []int) error
+	// ListQuestionsBySubcategoryId(ctx context.Context, subcategoryId int) ([]int, error)
+}
+
 type DomainRepository interface {
 	Create(ctx context.Context, domain *model.NewDomain) (int, error)
 	Get(ctx context.Context, id int) (*model.Domain, error)
@@ -43,4 +52,5 @@ type SubcategoryRepository interface {
 	Get(ctx context.Context, id int) (*model.Subcategory, error)
 	Update(ctx context.Context, id int, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int) error
+	ListByIds(ctx context.Context, ids []int) ([]*model.Subcategory, error)
 }

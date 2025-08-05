@@ -7,7 +7,7 @@ import (
 )
 
 func (qs *serv) AddOptions(ctx context.Context, questionId int, options []*model.NewQuestionOption) error {
-	err := qs.repo.AddOptions(ctx, questionId, options)
+	err := qs.questionRepo.AddOptions(ctx, questionId, options)
 	if err != nil {
 		return err
 	}

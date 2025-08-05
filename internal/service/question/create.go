@@ -16,7 +16,7 @@ func (qs *serv) Create(ctx context.Context, newQuestion *model.NewQuestion) (int
 		return 0, errors.New("invalid question type")
 	}
 
-	id, err := qs.repo.Create(ctx, newQuestion)
+	id, err := qs.questionRepo.Create(ctx, newQuestion)
 	if err != nil {
 		return 0, err
 	}

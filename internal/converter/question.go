@@ -18,12 +18,28 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 		}
 	}
 
+	subcategories := make([]*desc.Subcategory, len(question.Subcategories))
+	for i, subcategory := range question.Subcategories {
+		subcategories[i] = &desc.Subcategory{
+			Id:         int64(subcategory.Id),
+			Name:       subcategory.Name,
+			CategoryId: int64(subcategory.CategoryId),
+			CreatedAt:  timestamppb.New(subcategory.CreatedAt),
+			UpdatedAt:  nil,
+		}
+
+		if subcategory.UpdatedAt != nil {
+			subcategories[i].UpdatedAt = timestamppb.New(*subcategory.UpdatedAt)
+		}
+	}
+
 	res := &desc.GetResponse{
-		Id:           int64(question.Id),
-		Text:         question.Text,
-		QuestionType: desc.QuestionType(question.Type),
-		Options:      options,
-		CreatedAt:    timestamppb.New(question.CreatedAt),
+		Id:            int64(question.Id),
+		Text:          question.Text,
+		QuestionType:  desc.QuestionType(question.Type),
+		Options:       options,
+		Subcategories: subcategories,
+		CreatedAt:     timestamppb.New(question.CreatedAt),
 	}
 
 	if question.ReferenceAnswer != nil {
@@ -102,4 +118,23 @@ func DeleteQuestionOptionsFromGRPC(req *desc.DeleteOptionsRequest) []int {
 	}
 
 	return optionIds
+}
+
+// TODO: refactor to SubcategoryIdsFromGRPC???
+func AddSubcategoriesFromGRPC(req *desc.AddSubcategoriesRequest) []int {
+	subcategoryIds := make([]int, len(req.SubcategoryIds))
+	for i, id := range req.SubcategoryIds {
+		subcategoryIds[i] = int(id)
+	}
+
+	return subcategoryIds
+}
+
+func RemoveSubcategoriesFromGRPC(req *desc.RemoveSubcategoriesRequest) []int {
+	subcategoryIds := make([]int, len(req.SubcategoryIds))
+	for i, id := range req.SubcategoryIds {
+		subcategoryIds[i] = int(id)
+	}
+
+	return subcategoryIds
 }

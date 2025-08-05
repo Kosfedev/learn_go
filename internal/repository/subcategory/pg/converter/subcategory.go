@@ -22,6 +22,15 @@ func SubcategoryFromPGSQL(subcategoryRepo *modelRepo.Subcategory) *model.Subcate
 	return subcategory
 }
 
+func SubcategoriesFromPGSQL(subcategoryRepo []*modelRepo.Subcategory) []*model.Subcategory {
+	subcategories := make([]*model.Subcategory, len(subcategoryRepo))
+	for i, subcategory := range subcategoryRepo {
+		subcategories[i] = SubcategoryFromPGSQL(subcategory)
+	}
+
+	return subcategories
+}
+
 func NewSubcategoryToPGSQL(subcategory *model.NewSubcategory) *modelRepo.NewSubcategory {
 	subcategoryRepo := &modelRepo.NewSubcategory{
 		Name:       subcategory.Name,
