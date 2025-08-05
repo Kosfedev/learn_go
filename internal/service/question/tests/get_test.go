@@ -27,9 +27,11 @@ func TestGet(t *testing.T) {
 		UpdatedAt:       nil,
 	}
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionRepositoryMock(mc)
-	mockRepo.GetMock.Expect(ctx, id).Return(res, nil)
-	questionService := question.NewService(mockRepo)
+	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
+	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
+	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
+	mockQuestionRepo.GetMock.Expect(ctx, id).Return(res, nil)
+	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Get placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Get(ctx, id)

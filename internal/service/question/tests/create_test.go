@@ -23,9 +23,11 @@ func TestCreate(t *testing.T) {
 		ReferenceAnswer: &refAnswer,
 	}
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionRepositoryMock(mc)
-	mockRepo.CreateMock.Expect(ctx, req).Return(id, nil)
-	questionService := question.NewService(mockRepo)
+	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
+	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
+	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
+	mockQuestionRepo.CreateMock.Expect(ctx, req).Return(id, nil)
+	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Create placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Create(context.Background(), req)

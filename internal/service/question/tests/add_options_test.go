@@ -27,9 +27,11 @@ func TestAddOptions(t *testing.T) {
 		},
 	}
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionRepositoryMock(mc)
-	mockRepo.AddOptionsMock.Expect(ctx, id, req).Return(nil)
-	questionService := question.NewService(mockRepo)
+	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
+	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
+	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
+	mockQuestionRepo.AddOptionsMock.Expect(ctx, id, req).Return(nil)
+	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Add options placeholder implementation test", func(t *testing.T) {
 		err := questionService.AddOptions(context.Background(), id, req)
