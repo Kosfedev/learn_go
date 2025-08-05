@@ -2,8 +2,8 @@
 -- +goose StatementBegin
 SELECT 'up SQL query';
 CREATE TABLE question_subcategory(
-    question_id INTEGER NOT NULL,
-    subcategory_id INTEGER NOT NULL,
+    question_id BIGINT NOT NULL,
+    subcategory_id BIGINT NOT NULL,
 
     PRIMARY KEY (question_id, subcategory_id),
     FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE,
