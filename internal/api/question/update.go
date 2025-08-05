@@ -9,7 +9,7 @@ import (
 
 func (questionImpl *Implementation) Update(ctx context.Context, req *desc.UpdateRequest) (*desc.UpdateResponse, error) {
 	question := converter.UpdatedQuestionFromGRPC(req)
-	err := questionImpl.questionService.Update(ctx, int64(req.Id), question)
+	err := questionImpl.questionService.Update(ctx, req.Id, question)
 	if err != nil {
 		return nil, err
 	}

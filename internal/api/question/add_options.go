@@ -9,7 +9,7 @@ import (
 
 func (questionImpl *Implementation) AddOptions(ctx context.Context, req *desc.AddOptionsRequest) (*desc.AddOptionsResponse, error) {
 	newOptions := converter.NewQuestionOptionsFromGRPC(req)
-	err := questionImpl.questionService.AddOptions(ctx, int64(req.QuestionId), newOptions)
+	err := questionImpl.questionService.AddOptions(ctx, req.QuestionId, newOptions)
 	if err != nil {
 		return nil, err
 	}
