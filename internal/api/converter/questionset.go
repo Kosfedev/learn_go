@@ -7,7 +7,7 @@ import (
 	desc "github.com/Kosfedev/learn_go/pkg/questionset_v1"
 )
 
-func QuestionSetToGRPC(question *model.QuestionSet) *desc.GetResponse {
+func QuestionSetToGRPC(question *model.Set) *desc.GetResponse {
 	res := &desc.GetResponse{
 		Id:          question.ID,
 		Name:        question.Name,
@@ -22,8 +22,8 @@ func QuestionSetToGRPC(question *model.QuestionSet) *desc.GetResponse {
 	return res
 }
 
-func NewQuestionSetFromGRPC(req *desc.CreateRequest) *model.NewQuestionSet {
-	newQuestionSet := &model.NewQuestionSet{
+func NewQuestionSetFromGRPC(req *desc.CreateRequest) *model.NewSet {
+	newQuestionSet := &model.NewSet{
 		Name:        req.Name,
 		QuestionIDs: req.QuestionIds,
 	}
@@ -31,8 +31,8 @@ func NewQuestionSetFromGRPC(req *desc.CreateRequest) *model.NewQuestionSet {
 	return newQuestionSet
 }
 
-func UpdatedQuestionSetFromGRPC(req *desc.UpdateRequest) *model.UpdatedQuestionSet {
-	updatedQuestionSet := &model.UpdatedQuestionSet{}
+func UpdatedQuestionSetFromGRPC(req *desc.UpdateRequest) *model.UpdatedSet {
+	updatedQuestionSet := &model.UpdatedSet{}
 
 	if req.Name != nil {
 		name := req.Name.GetValue()

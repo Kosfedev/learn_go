@@ -19,9 +19,9 @@ type QuestionSetRepositoryMock struct {
 	t          minimock.Tester
 	finishOnce sync.Once
 
-	funcCreate          func(ctx context.Context, question *model.NewQuestionSet) (i1 int64, err error)
+	funcCreate          func(ctx context.Context, question *model.NewSet) (i1 int64, err error)
 	funcCreateOrigin    string
-	inspectFuncCreate   func(ctx context.Context, question *model.NewQuestionSet)
+	inspectFuncCreate   func(ctx context.Context, question *model.NewSet)
 	afterCreateCounter  uint64
 	beforeCreateCounter uint64
 	CreateMock          mQuestionSetRepositoryMockCreate
@@ -33,16 +33,16 @@ type QuestionSetRepositoryMock struct {
 	beforeDeleteCounter uint64
 	DeleteMock          mQuestionSetRepositoryMockDelete
 
-	funcGet          func(ctx context.Context, id int64) (qp1 *model.QuestionSet, err error)
+	funcGet          func(ctx context.Context, id int64) (qp1 *model.Set, err error)
 	funcGetOrigin    string
 	inspectFuncGet   func(ctx context.Context, id int64)
 	afterGetCounter  uint64
 	beforeGetCounter uint64
 	GetMock          mQuestionSetRepositoryMockGet
 
-	funcUpdate          func(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet) (err error)
+	funcUpdate          func(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet) (err error)
 	funcUpdateOrigin    string
-	inspectFuncUpdate   func(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet)
+	inspectFuncUpdate   func(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet)
 	afterUpdateCounter  uint64
 	beforeUpdateCounter uint64
 	UpdateMock          mQuestionSetRepositoryMockUpdate
@@ -100,13 +100,13 @@ type QuestionSetRepositoryMockCreateExpectation struct {
 // QuestionSetRepositoryMockCreateParams contains parameters of the QuestionSetRepository.Create
 type QuestionSetRepositoryMockCreateParams struct {
 	ctx      context.Context
-	question *model.NewQuestionSet
+	question *model.NewSet
 }
 
 // QuestionSetRepositoryMockCreateParamPtrs contains pointers to parameters of the QuestionSetRepository.Create
 type QuestionSetRepositoryMockCreateParamPtrs struct {
 	ctx      *context.Context
-	question **model.NewQuestionSet
+	question **model.NewSet
 }
 
 // QuestionSetRepositoryMockCreateResults contains results of the QuestionSetRepository.Create
@@ -133,7 +133,7 @@ func (mmCreate *mQuestionSetRepositoryMockCreate) Optional() *mQuestionSetReposi
 }
 
 // Expect sets up expected params for QuestionSetRepository.Create
-func (mmCreate *mQuestionSetRepositoryMockCreate) Expect(ctx context.Context, question *model.NewQuestionSet) *mQuestionSetRepositoryMockCreate {
+func (mmCreate *mQuestionSetRepositoryMockCreate) Expect(ctx context.Context, question *model.NewSet) *mQuestionSetRepositoryMockCreate {
 	if mmCreate.mock.funcCreate != nil {
 		mmCreate.mock.t.Fatalf("QuestionSetRepositoryMock.Create mock is already set by Set")
 	}
@@ -181,7 +181,7 @@ func (mmCreate *mQuestionSetRepositoryMockCreate) ExpectCtxParam1(ctx context.Co
 }
 
 // ExpectQuestionParam2 sets up expected param question for QuestionSetRepository.Create
-func (mmCreate *mQuestionSetRepositoryMockCreate) ExpectQuestionParam2(question *model.NewQuestionSet) *mQuestionSetRepositoryMockCreate {
+func (mmCreate *mQuestionSetRepositoryMockCreate) ExpectQuestionParam2(question *model.NewSet) *mQuestionSetRepositoryMockCreate {
 	if mmCreate.mock.funcCreate != nil {
 		mmCreate.mock.t.Fatalf("QuestionSetRepositoryMock.Create mock is already set by Set")
 	}
@@ -204,7 +204,7 @@ func (mmCreate *mQuestionSetRepositoryMockCreate) ExpectQuestionParam2(question 
 }
 
 // Inspect accepts an inspector function that has same arguments as the QuestionSetRepository.Create
-func (mmCreate *mQuestionSetRepositoryMockCreate) Inspect(f func(ctx context.Context, question *model.NewQuestionSet)) *mQuestionSetRepositoryMockCreate {
+func (mmCreate *mQuestionSetRepositoryMockCreate) Inspect(f func(ctx context.Context, question *model.NewSet)) *mQuestionSetRepositoryMockCreate {
 	if mmCreate.mock.inspectFuncCreate != nil {
 		mmCreate.mock.t.Fatalf("Inspect function is already set for QuestionSetRepositoryMock.Create")
 	}
@@ -229,7 +229,7 @@ func (mmCreate *mQuestionSetRepositoryMockCreate) Return(i1 int64, err error) *Q
 }
 
 // Set uses given function f to mock the QuestionSetRepository.Create method
-func (mmCreate *mQuestionSetRepositoryMockCreate) Set(f func(ctx context.Context, question *model.NewQuestionSet) (i1 int64, err error)) *QuestionSetRepositoryMock {
+func (mmCreate *mQuestionSetRepositoryMockCreate) Set(f func(ctx context.Context, question *model.NewSet) (i1 int64, err error)) *QuestionSetRepositoryMock {
 	if mmCreate.defaultExpectation != nil {
 		mmCreate.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.Create method")
 	}
@@ -245,7 +245,7 @@ func (mmCreate *mQuestionSetRepositoryMockCreate) Set(f func(ctx context.Context
 
 // When sets expectation for the QuestionSetRepository.Create which will trigger the result defined by the following
 // Then helper
-func (mmCreate *mQuestionSetRepositoryMockCreate) When(ctx context.Context, question *model.NewQuestionSet) *QuestionSetRepositoryMockCreateExpectation {
+func (mmCreate *mQuestionSetRepositoryMockCreate) When(ctx context.Context, question *model.NewSet) *QuestionSetRepositoryMockCreateExpectation {
 	if mmCreate.mock.funcCreate != nil {
 		mmCreate.mock.t.Fatalf("QuestionSetRepositoryMock.Create mock is already set by Set")
 	}
@@ -287,7 +287,7 @@ func (mmCreate *mQuestionSetRepositoryMockCreate) invocationsDone() bool {
 }
 
 // Create implements mm_repository.QuestionSetRepository
-func (mmCreate *QuestionSetRepositoryMock) Create(ctx context.Context, question *model.NewQuestionSet) (i1 int64, err error) {
+func (mmCreate *QuestionSetRepositoryMock) Create(ctx context.Context, question *model.NewSet) (i1 int64, err error) {
 	mm_atomic.AddUint64(&mmCreate.beforeCreateCounter, 1)
 	defer mm_atomic.AddUint64(&mmCreate.afterCreateCounter, 1)
 
@@ -796,7 +796,7 @@ type QuestionSetRepositoryMockGetParamPtrs struct {
 
 // QuestionSetRepositoryMockGetResults contains results of the QuestionSetRepository.Get
 type QuestionSetRepositoryMockGetResults struct {
-	qp1 *model.QuestionSet
+	qp1 *model.Set
 	err error
 }
 
@@ -900,7 +900,7 @@ func (mmGet *mQuestionSetRepositoryMockGet) Inspect(f func(ctx context.Context, 
 }
 
 // Return sets up results that will be returned by QuestionSetRepository.Get
-func (mmGet *mQuestionSetRepositoryMockGet) Return(qp1 *model.QuestionSet, err error) *QuestionSetRepositoryMock {
+func (mmGet *mQuestionSetRepositoryMockGet) Return(qp1 *model.Set, err error) *QuestionSetRepositoryMock {
 	if mmGet.mock.funcGet != nil {
 		mmGet.mock.t.Fatalf("QuestionSetRepositoryMock.Get mock is already set by Set")
 	}
@@ -914,7 +914,7 @@ func (mmGet *mQuestionSetRepositoryMockGet) Return(qp1 *model.QuestionSet, err e
 }
 
 // Set uses given function f to mock the QuestionSetRepository.Get method
-func (mmGet *mQuestionSetRepositoryMockGet) Set(f func(ctx context.Context, id int64) (qp1 *model.QuestionSet, err error)) *QuestionSetRepositoryMock {
+func (mmGet *mQuestionSetRepositoryMockGet) Set(f func(ctx context.Context, id int64) (qp1 *model.Set, err error)) *QuestionSetRepositoryMock {
 	if mmGet.defaultExpectation != nil {
 		mmGet.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.Get method")
 	}
@@ -945,7 +945,7 @@ func (mmGet *mQuestionSetRepositoryMockGet) When(ctx context.Context, id int64) 
 }
 
 // Then sets up QuestionSetRepository.Get return parameters for the expectation previously defined by the When method
-func (e *QuestionSetRepositoryMockGetExpectation) Then(qp1 *model.QuestionSet, err error) *QuestionSetRepositoryMock {
+func (e *QuestionSetRepositoryMockGetExpectation) Then(qp1 *model.Set, err error) *QuestionSetRepositoryMock {
 	e.results = &QuestionSetRepositoryMockGetResults{qp1, err}
 	return e.mock
 }
@@ -972,7 +972,7 @@ func (mmGet *mQuestionSetRepositoryMockGet) invocationsDone() bool {
 }
 
 // Get implements mm_repository.QuestionSetRepository
-func (mmGet *QuestionSetRepositoryMock) Get(ctx context.Context, id int64) (qp1 *model.QuestionSet, err error) {
+func (mmGet *QuestionSetRepositoryMock) Get(ctx context.Context, id int64) (qp1 *model.Set, err error) {
 	mm_atomic.AddUint64(&mmGet.beforeGetCounter, 1)
 	defer mm_atomic.AddUint64(&mmGet.afterGetCounter, 1)
 
@@ -1129,14 +1129,14 @@ type QuestionSetRepositoryMockUpdateExpectation struct {
 type QuestionSetRepositoryMockUpdateParams struct {
 	ctx             context.Context
 	id              int64
-	updatedQuestion *model.UpdatedQuestionSet
+	updatedQuestion *model.UpdatedSet
 }
 
 // QuestionSetRepositoryMockUpdateParamPtrs contains pointers to parameters of the QuestionSetRepository.Update
 type QuestionSetRepositoryMockUpdateParamPtrs struct {
 	ctx             *context.Context
 	id              *int64
-	updatedQuestion **model.UpdatedQuestionSet
+	updatedQuestion **model.UpdatedSet
 }
 
 // QuestionSetRepositoryMockUpdateResults contains results of the QuestionSetRepository.Update
@@ -1163,7 +1163,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) Optional() *mQuestionSetReposi
 }
 
 // Expect sets up expected params for QuestionSetRepository.Update
-func (mmUpdate *mQuestionSetRepositoryMockUpdate) Expect(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet) *mQuestionSetRepositoryMockUpdate {
+func (mmUpdate *mQuestionSetRepositoryMockUpdate) Expect(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet) *mQuestionSetRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("QuestionSetRepositoryMock.Update mock is already set by Set")
 	}
@@ -1234,7 +1234,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectIdParam2(id int64) *mQue
 }
 
 // ExpectUpdatedQuestionParam3 sets up expected param updatedQuestion for QuestionSetRepository.Update
-func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectUpdatedQuestionParam3(updatedQuestion *model.UpdatedQuestionSet) *mQuestionSetRepositoryMockUpdate {
+func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectUpdatedQuestionParam3(updatedQuestion *model.UpdatedSet) *mQuestionSetRepositoryMockUpdate {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("QuestionSetRepositoryMock.Update mock is already set by Set")
 	}
@@ -1257,7 +1257,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) ExpectUpdatedQuestionParam3(up
 }
 
 // Inspect accepts an inspector function that has same arguments as the QuestionSetRepository.Update
-func (mmUpdate *mQuestionSetRepositoryMockUpdate) Inspect(f func(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet)) *mQuestionSetRepositoryMockUpdate {
+func (mmUpdate *mQuestionSetRepositoryMockUpdate) Inspect(f func(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet)) *mQuestionSetRepositoryMockUpdate {
 	if mmUpdate.mock.inspectFuncUpdate != nil {
 		mmUpdate.mock.t.Fatalf("Inspect function is already set for QuestionSetRepositoryMock.Update")
 	}
@@ -1282,7 +1282,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) Return(err error) *QuestionSet
 }
 
 // Set uses given function f to mock the QuestionSetRepository.Update method
-func (mmUpdate *mQuestionSetRepositoryMockUpdate) Set(f func(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet) (err error)) *QuestionSetRepositoryMock {
+func (mmUpdate *mQuestionSetRepositoryMockUpdate) Set(f func(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet) (err error)) *QuestionSetRepositoryMock {
 	if mmUpdate.defaultExpectation != nil {
 		mmUpdate.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.Update method")
 	}
@@ -1298,7 +1298,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) Set(f func(ctx context.Context
 
 // When sets expectation for the QuestionSetRepository.Update which will trigger the result defined by the following
 // Then helper
-func (mmUpdate *mQuestionSetRepositoryMockUpdate) When(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet) *QuestionSetRepositoryMockUpdateExpectation {
+func (mmUpdate *mQuestionSetRepositoryMockUpdate) When(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet) *QuestionSetRepositoryMockUpdateExpectation {
 	if mmUpdate.mock.funcUpdate != nil {
 		mmUpdate.mock.t.Fatalf("QuestionSetRepositoryMock.Update mock is already set by Set")
 	}
@@ -1340,7 +1340,7 @@ func (mmUpdate *mQuestionSetRepositoryMockUpdate) invocationsDone() bool {
 }
 
 // Update implements mm_repository.QuestionSetRepository
-func (mmUpdate *QuestionSetRepositoryMock) Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet) (err error) {
+func (mmUpdate *QuestionSetRepositoryMock) Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedSet) (err error) {
 	mm_atomic.AddUint64(&mmUpdate.beforeUpdateCounter, 1)
 	defer mm_atomic.AddUint64(&mmUpdate.afterUpdateCounter, 1)
 

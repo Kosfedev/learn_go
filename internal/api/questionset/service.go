@@ -7,10 +7,10 @@ import (
 
 type Implementation struct {
 	desc.UnimplementedQuestionSetV1Server
-	questionSetService service.QuestionSetService
+	questionSetService service.SetService
 }
 
-func NewImplementation(questionSetService service.QuestionSetService) *Implementation {
+func NewImplementation(questionSetService service.SetService) *Implementation {
 	return &Implementation{
 		questionSetService: questionSetService,
 	}

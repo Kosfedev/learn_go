@@ -17,10 +17,10 @@ type QuestionService interface {
 	RemoveSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 }
 
-type QuestionSetService interface {
-	Create(ctx context.Context, newQuestionSet *model.NewQuestionSet) (int64, error)
-	Get(ctx context.Context, id int64) (*model.QuestionSet, error)
-	Update(ctx context.Context, id int64, updatedQuestionSet *model.UpdatedQuestionSet) error
+type SetService interface {
+	Create(ctx context.Context, newSet *model.NewSet) (int64, error)
+	Get(ctx context.Context, id int64) (*model.Set, error)
+	Update(ctx context.Context, id int64, updatedSet *model.UpdatedSet) error
 	Delete(ctx context.Context, id int64) error
 }
 

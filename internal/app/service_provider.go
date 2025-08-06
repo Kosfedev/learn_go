@@ -18,14 +18,14 @@ import (
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
 	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
-	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
-	questionQuestionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset_question/pg"
+	questionQuestionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
+	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
 	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
 	questionService "github.com/Kosfedev/learn_go/internal/service/question"
-	questionSetService "github.com/Kosfedev/learn_go/internal/service/questionset"
+	questionSetService "github.com/Kosfedev/learn_go/internal/service/set"
 	subcategoryService "github.com/Kosfedev/learn_go/internal/service/subcategory"
 )
 
@@ -36,15 +36,15 @@ type serviceProvider struct {
 	dbClient db.Client
 
 	questionRepo            repository.QuestionRepository
-	questionSetRepo         repository.QuestionSetRepository
+	questionSetRepo         repository.SetRepository
 	questionSubcategoryRepo repository.QuestionSubcategoryRepository
-	questionQuestionSetRepo repository.QuestionQuestionSetRepository
+	questionQuestionSetRepo repository.QuestionSetRepository
 	domainRepo              repository.DomainRepository
 	categoryRepo            repository.CategoryRepository
 	subcategoryRepo         repository.SubcategoryRepository
 
 	questionServ    service.QuestionService
-	questionSetServ service.QuestionSetService
+	questionSetServ service.SetService
 	domainServ      service.DomainService
 	categoryServ    service.CategoryService
 	subcategoryServ service.SubcategoryService
@@ -114,7 +114,7 @@ func (sp *serviceProvider) QuestionRepository(ctx context.Context) repository.Qu
 	return sp.questionRepo
 }
 
-func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository.QuestionSetRepository {
+func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository.SetRepository {
 	if sp.questionSetRepo == nil {
 		sp.questionSetRepo = questionSetPGRepository.NewRepository(sp.DBClient(ctx))
 	}
@@ -130,7 +130,7 @@ func (sp *serviceProvider) QuestionSubcategoryRepository(ctx context.Context) re
 	return sp.questionSubcategoryRepo
 }
 
-func (sp *serviceProvider) QuestionQuestionSetRepository(ctx context.Context) repository.QuestionQuestionSetRepository {
+func (sp *serviceProvider) QuestionQuestionSetRepository(ctx context.Context) repository.QuestionSetRepository {
 	if sp.questionQuestionSetRepo == nil {
 		sp.questionQuestionSetRepo = questionQuestionSetPGRepository.NewRepository(sp.DBClient(ctx))
 	}
@@ -170,7 +170,7 @@ func (sp *serviceProvider) QuestionService(ctx context.Context) service.Question
 	return sp.questionServ
 }
 
-func (sp *serviceProvider) QuestionSetService(ctx context.Context) service.QuestionSetService {
+func (sp *serviceProvider) QuestionSetService(ctx context.Context) service.SetService {
 	if sp.questionSetServ == nil {
 		sp.questionSetServ = questionSetService.NewService(sp.QuestionSetRepository(ctx))
 	}
