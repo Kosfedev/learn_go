@@ -20,7 +20,7 @@ func TestCreate(t *testing.T) {
 		Name: gofakeit.Question(),
 	}
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionSetRepositoryMock(mc)
+	mockRepo := mocks.NewSetRepositoryMock(mc)
 	mockRepo.CreateMock.Expect(ctx, req).Return(id, nil)
 	setService := set.NewService(mockRepo)
 

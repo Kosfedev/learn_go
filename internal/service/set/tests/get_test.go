@@ -24,7 +24,7 @@ func TestGet(t *testing.T) {
 		CreatedAt:   time.Time{},
 	}
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionSetRepositoryMock(mc)
+	mockRepo := mocks.NewSetRepositoryMock(mc)
 	mockRepo.GetMock.Expect(ctx, id).Return(res, nil)
 	setService := set.NewService(mockRepo)
 

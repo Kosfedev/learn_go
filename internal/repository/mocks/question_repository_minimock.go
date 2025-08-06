@@ -19,9 +19,9 @@ type QuestionRepositoryMock struct {
 	t          minimock.Tester
 	finishOnce sync.Once
 
-	funcAddOptions          func(ctx context.Context, questionID int64, options []*model.NewQuestionOption) (err error)
+	funcAddOptions          func(ctx context.Context, id int64, options []*model.NewQuestionOption) (err error)
 	funcAddOptionsOrigin    string
-	inspectFuncAddOptions   func(ctx context.Context, questionID int64, options []*model.NewQuestionOption)
+	inspectFuncAddOptions   func(ctx context.Context, id int64, options []*model.NewQuestionOption)
 	afterAddOptionsCounter  uint64
 	beforeAddOptionsCounter uint64
 	AddOptionsMock          mQuestionRepositoryMockAddOptions
@@ -119,16 +119,16 @@ type QuestionRepositoryMockAddOptionsExpectation struct {
 
 // QuestionRepositoryMockAddOptionsParams contains parameters of the QuestionRepository.AddOptions
 type QuestionRepositoryMockAddOptionsParams struct {
-	ctx        context.Context
-	questionID int64
-	options    []*model.NewQuestionOption
+	ctx     context.Context
+	id      int64
+	options []*model.NewQuestionOption
 }
 
 // QuestionRepositoryMockAddOptionsParamPtrs contains pointers to parameters of the QuestionRepository.AddOptions
 type QuestionRepositoryMockAddOptionsParamPtrs struct {
-	ctx        *context.Context
-	questionID *int64
-	options    *[]*model.NewQuestionOption
+	ctx     *context.Context
+	id      *int64
+	options *[]*model.NewQuestionOption
 }
 
 // QuestionRepositoryMockAddOptionsResults contains results of the QuestionRepository.AddOptions
@@ -138,10 +138,10 @@ type QuestionRepositoryMockAddOptionsResults struct {
 
 // QuestionRepositoryMockAddOptionsOrigins contains origins of expectations of the QuestionRepository.AddOptions
 type QuestionRepositoryMockAddOptionsExpectationOrigins struct {
-	origin           string
-	originCtx        string
-	originQuestionID string
-	originOptions    string
+	origin        string
+	originCtx     string
+	originId      string
+	originOptions string
 }
 
 // Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
@@ -155,7 +155,7 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) Optional() *mQuestionRepo
 }
 
 // Expect sets up expected params for QuestionRepository.AddOptions
-func (mmAddOptions *mQuestionRepositoryMockAddOptions) Expect(ctx context.Context, questionID int64, options []*model.NewQuestionOption) *mQuestionRepositoryMockAddOptions {
+func (mmAddOptions *mQuestionRepositoryMockAddOptions) Expect(ctx context.Context, id int64, options []*model.NewQuestionOption) *mQuestionRepositoryMockAddOptions {
 	if mmAddOptions.mock.funcAddOptions != nil {
 		mmAddOptions.mock.t.Fatalf("QuestionRepositoryMock.AddOptions mock is already set by Set")
 	}
@@ -168,7 +168,7 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) Expect(ctx context.Contex
 		mmAddOptions.mock.t.Fatalf("QuestionRepositoryMock.AddOptions mock is already set by ExpectParams functions")
 	}
 
-	mmAddOptions.defaultExpectation.params = &QuestionRepositoryMockAddOptionsParams{ctx, questionID, options}
+	mmAddOptions.defaultExpectation.params = &QuestionRepositoryMockAddOptionsParams{ctx, id, options}
 	mmAddOptions.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
 	for _, e := range mmAddOptions.expectations {
 		if minimock.Equal(e.params, mmAddOptions.defaultExpectation.params) {
@@ -202,8 +202,8 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) ExpectCtxParam1(ctx conte
 	return mmAddOptions
 }
 
-// ExpectQuestionIDParam2 sets up expected param questionID for QuestionRepository.AddOptions
-func (mmAddOptions *mQuestionRepositoryMockAddOptions) ExpectQuestionIDParam2(questionID int64) *mQuestionRepositoryMockAddOptions {
+// ExpectIdParam2 sets up expected param id for QuestionRepository.AddOptions
+func (mmAddOptions *mQuestionRepositoryMockAddOptions) ExpectIdParam2(id int64) *mQuestionRepositoryMockAddOptions {
 	if mmAddOptions.mock.funcAddOptions != nil {
 		mmAddOptions.mock.t.Fatalf("QuestionRepositoryMock.AddOptions mock is already set by Set")
 	}
@@ -219,8 +219,8 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) ExpectQuestionIDParam2(qu
 	if mmAddOptions.defaultExpectation.paramPtrs == nil {
 		mmAddOptions.defaultExpectation.paramPtrs = &QuestionRepositoryMockAddOptionsParamPtrs{}
 	}
-	mmAddOptions.defaultExpectation.paramPtrs.questionID = &questionID
-	mmAddOptions.defaultExpectation.expectationOrigins.originQuestionID = minimock.CallerInfo(1)
+	mmAddOptions.defaultExpectation.paramPtrs.id = &id
+	mmAddOptions.defaultExpectation.expectationOrigins.originId = minimock.CallerInfo(1)
 
 	return mmAddOptions
 }
@@ -249,7 +249,7 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) ExpectOptionsParam3(optio
 }
 
 // Inspect accepts an inspector function that has same arguments as the QuestionRepository.AddOptions
-func (mmAddOptions *mQuestionRepositoryMockAddOptions) Inspect(f func(ctx context.Context, questionID int64, options []*model.NewQuestionOption)) *mQuestionRepositoryMockAddOptions {
+func (mmAddOptions *mQuestionRepositoryMockAddOptions) Inspect(f func(ctx context.Context, id int64, options []*model.NewQuestionOption)) *mQuestionRepositoryMockAddOptions {
 	if mmAddOptions.mock.inspectFuncAddOptions != nil {
 		mmAddOptions.mock.t.Fatalf("Inspect function is already set for QuestionRepositoryMock.AddOptions")
 	}
@@ -274,7 +274,7 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) Return(err error) *Questi
 }
 
 // Set uses given function f to mock the QuestionRepository.AddOptions method
-func (mmAddOptions *mQuestionRepositoryMockAddOptions) Set(f func(ctx context.Context, questionID int64, options []*model.NewQuestionOption) (err error)) *QuestionRepositoryMock {
+func (mmAddOptions *mQuestionRepositoryMockAddOptions) Set(f func(ctx context.Context, id int64, options []*model.NewQuestionOption) (err error)) *QuestionRepositoryMock {
 	if mmAddOptions.defaultExpectation != nil {
 		mmAddOptions.mock.t.Fatalf("Default expectation is already set for the QuestionRepository.AddOptions method")
 	}
@@ -290,14 +290,14 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) Set(f func(ctx context.Co
 
 // When sets expectation for the QuestionRepository.AddOptions which will trigger the result defined by the following
 // Then helper
-func (mmAddOptions *mQuestionRepositoryMockAddOptions) When(ctx context.Context, questionID int64, options []*model.NewQuestionOption) *QuestionRepositoryMockAddOptionsExpectation {
+func (mmAddOptions *mQuestionRepositoryMockAddOptions) When(ctx context.Context, id int64, options []*model.NewQuestionOption) *QuestionRepositoryMockAddOptionsExpectation {
 	if mmAddOptions.mock.funcAddOptions != nil {
 		mmAddOptions.mock.t.Fatalf("QuestionRepositoryMock.AddOptions mock is already set by Set")
 	}
 
 	expectation := &QuestionRepositoryMockAddOptionsExpectation{
 		mock:               mmAddOptions.mock,
-		params:             &QuestionRepositoryMockAddOptionsParams{ctx, questionID, options},
+		params:             &QuestionRepositoryMockAddOptionsParams{ctx, id, options},
 		expectationOrigins: QuestionRepositoryMockAddOptionsExpectationOrigins{origin: minimock.CallerInfo(1)},
 	}
 	mmAddOptions.expectations = append(mmAddOptions.expectations, expectation)
@@ -332,17 +332,17 @@ func (mmAddOptions *mQuestionRepositoryMockAddOptions) invocationsDone() bool {
 }
 
 // AddOptions implements mm_repository.QuestionRepository
-func (mmAddOptions *QuestionRepositoryMock) AddOptions(ctx context.Context, questionID int64, options []*model.NewQuestionOption) (err error) {
+func (mmAddOptions *QuestionRepositoryMock) AddOptions(ctx context.Context, id int64, options []*model.NewQuestionOption) (err error) {
 	mm_atomic.AddUint64(&mmAddOptions.beforeAddOptionsCounter, 1)
 	defer mm_atomic.AddUint64(&mmAddOptions.afterAddOptionsCounter, 1)
 
 	mmAddOptions.t.Helper()
 
 	if mmAddOptions.inspectFuncAddOptions != nil {
-		mmAddOptions.inspectFuncAddOptions(ctx, questionID, options)
+		mmAddOptions.inspectFuncAddOptions(ctx, id, options)
 	}
 
-	mm_params := QuestionRepositoryMockAddOptionsParams{ctx, questionID, options}
+	mm_params := QuestionRepositoryMockAddOptionsParams{ctx, id, options}
 
 	// Record call args
 	mmAddOptions.AddOptionsMock.mutex.Lock()
@@ -361,7 +361,7 @@ func (mmAddOptions *QuestionRepositoryMock) AddOptions(ctx context.Context, ques
 		mm_want := mmAddOptions.AddOptionsMock.defaultExpectation.params
 		mm_want_ptrs := mmAddOptions.AddOptionsMock.defaultExpectation.paramPtrs
 
-		mm_got := QuestionRepositoryMockAddOptionsParams{ctx, questionID, options}
+		mm_got := QuestionRepositoryMockAddOptionsParams{ctx, id, options}
 
 		if mm_want_ptrs != nil {
 
@@ -370,9 +370,9 @@ func (mmAddOptions *QuestionRepositoryMock) AddOptions(ctx context.Context, ques
 					mmAddOptions.AddOptionsMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
-			if mm_want_ptrs.questionID != nil && !minimock.Equal(*mm_want_ptrs.questionID, mm_got.questionID) {
-				mmAddOptions.t.Errorf("QuestionRepositoryMock.AddOptions got unexpected parameter questionID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
-					mmAddOptions.AddOptionsMock.defaultExpectation.expectationOrigins.originQuestionID, *mm_want_ptrs.questionID, mm_got.questionID, minimock.Diff(*mm_want_ptrs.questionID, mm_got.questionID))
+			if mm_want_ptrs.id != nil && !minimock.Equal(*mm_want_ptrs.id, mm_got.id) {
+				mmAddOptions.t.Errorf("QuestionRepositoryMock.AddOptions got unexpected parameter id, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmAddOptions.AddOptionsMock.defaultExpectation.expectationOrigins.originId, *mm_want_ptrs.id, mm_got.id, minimock.Diff(*mm_want_ptrs.id, mm_got.id))
 			}
 
 			if mm_want_ptrs.options != nil && !minimock.Equal(*mm_want_ptrs.options, mm_got.options) {
@@ -392,9 +392,9 @@ func (mmAddOptions *QuestionRepositoryMock) AddOptions(ctx context.Context, ques
 		return (*mm_results).err
 	}
 	if mmAddOptions.funcAddOptions != nil {
-		return mmAddOptions.funcAddOptions(ctx, questionID, options)
+		return mmAddOptions.funcAddOptions(ctx, id, options)
 	}
-	mmAddOptions.t.Fatalf("Unexpected call to QuestionRepositoryMock.AddOptions. %v %v %v", ctx, questionID, options)
+	mmAddOptions.t.Fatalf("Unexpected call to QuestionRepositoryMock.AddOptions. %v %v %v", ctx, id, options)
 	return
 }
 

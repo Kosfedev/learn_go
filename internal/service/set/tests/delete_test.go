@@ -16,7 +16,7 @@ func TestDelete(t *testing.T) {
 	ctx := context.Background()
 	id := gofakeit.Int64()
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionSetRepositoryMock(mc)
+	mockRepo := mocks.NewSetRepositoryMock(mc)
 	mockRepo.DeleteMock.Expect(ctx, id).Return(nil)
 	setService := set.NewService(mockRepo)
 

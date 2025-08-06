@@ -21,7 +21,7 @@ func TestUpdate(t *testing.T) {
 		Name: &name,
 	}
 	mc := minimock.NewController(t)
-	mockRepo := mocks.NewQuestionSetRepositoryMock(mc)
+	mockRepo := mocks.NewSetRepositoryMock(mc)
 	mockRepo.UpdateMock.Expect(ctx, id, req).Return(nil)
 	setService := set.NewService(mockRepo)
 

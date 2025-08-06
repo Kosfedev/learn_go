@@ -7,3 +7,4 @@ package repository
 //go:generate minimock -i DomainRepository -o ./mocks -s "_minimock.go"
 //go:generate minimock -i CategoryRepository -o ./mocks -s "_minimock.go"
 //go:generate minimock -i SubcategoryRepository -o ./mocks -s "_minimock.go"
+//go:generate minimock -i SetRepository -o ./mocks -s "_minimock.go"
