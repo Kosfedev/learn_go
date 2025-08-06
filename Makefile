@@ -29,13 +29,13 @@ generate-question-api:
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/question_v1/question.proto
 generate-question-set-api:
-	mkdir -p pkg/questionset_v1
-	protoc --proto_path api/questionset_v1 \
-	--go_out=pkg/questionset_v1 --go_opt=paths=source_relative \
+	mkdir -p pkg/set_v1
+	protoc --proto_path api/set_v1 \
+	--go_out=pkg/set_v1 --go_opt=paths=source_relative \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/questionset_v1 --go-grpc_opt=paths=source_relative \
+	--go-grpc_out=pkg/set_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
-	api/questionset_v1/questionset.proto
+	api/set_v1/set.proto
 generate-domain-api:
 	mkdir -p pkg/domain_v1
 	protoc --proto_path api/domain_v1 \
@@ -73,7 +73,7 @@ lint:
 
 test-service:
 	go test ./internal/service/question/... -coverpkg=./internal/service/question... -count 5
-	go test ./internal/service/questionset/... -coverpkg=./internal/service/questionset... -count 5
+	go test ./internal/service/set/... -coverpkg=./internal/service/set... -count 5
 	go test ./internal/service/domain/... -coverpkg=./internal/service/domain... -count 5
 	go test ./internal/service/category/... -coverpkg=./internal/service/category... -count 5
 	go test ./internal/service/subcategory/... -coverpkg=./internal/service/subcategory... -count 5

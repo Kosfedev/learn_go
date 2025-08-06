@@ -7,7 +7,7 @@ import (
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
-	quesionSetImplementation "github.com/Kosfedev/learn_go/internal/api/questionset"
+	setImplementation "github.com/Kosfedev/learn_go/internal/api/set"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/client/db/pg"
@@ -18,8 +18,8 @@ import (
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
 	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
-	questionQuestionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
-	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
+	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
+	setPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
 	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
@@ -36,21 +36,21 @@ type serviceProvider struct {
 	dbClient db.Client
 
 	questionRepo            repository.QuestionRepository
-	questionSetRepo         repository.SetRepository
+	setRepo                 repository.SetRepository
+	questionSetRepo         repository.QuestionSetRepository
 	questionSubcategoryRepo repository.QuestionSubcategoryRepository
-	questionQuestionSetRepo repository.QuestionSetRepository
 	domainRepo              repository.DomainRepository
 	categoryRepo            repository.CategoryRepository
 	subcategoryRepo         repository.SubcategoryRepository
 
 	questionServ    service.QuestionService
-	questionSetServ service.SetService
+	setServ         service.SetService
 	domainServ      service.DomainService
 	categoryServ    service.CategoryService
 	subcategoryServ service.SubcategoryService
 
 	questionImpl    *quesionImplementation.Implementation
-	questionSetImpl *quesionSetImplementation.Implementation
+	setImpl         *setImplementation.Implementation
 	domainImpl      *domainImplementation.Implementation
 	categoryImpl    *categoryImplementation.Implementation
 	subcategoryImpl *subcategoryImplementation.Implementation
@@ -114,12 +114,12 @@ func (sp *serviceProvider) QuestionRepository(ctx context.Context) repository.Qu
 	return sp.questionRepo
 }
 
-func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository.SetRepository {
-	if sp.questionSetRepo == nil {
-		sp.questionSetRepo = questionSetPGRepository.NewRepository(sp.DBClient(ctx))
+func (sp *serviceProvider) SetRepository(ctx context.Context) repository.SetRepository {
+	if sp.setRepo == nil {
+		sp.setRepo = setPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
-	return sp.questionSetRepo
+	return sp.setRepo
 }
 
 func (sp *serviceProvider) QuestionSubcategoryRepository(ctx context.Context) repository.QuestionSubcategoryRepository {
@@ -130,12 +130,12 @@ func (sp *serviceProvider) QuestionSubcategoryRepository(ctx context.Context) re
 	return sp.questionSubcategoryRepo
 }
 
-func (sp *serviceProvider) QuestionQuestionSetRepository(ctx context.Context) repository.QuestionSetRepository {
-	if sp.questionQuestionSetRepo == nil {
-		sp.questionQuestionSetRepo = questionQuestionSetPGRepository.NewRepository(sp.DBClient(ctx))
+func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository.QuestionSetRepository {
+	if sp.questionSetRepo == nil {
+		sp.questionSetRepo = questionSetPGRepository.NewRepository(sp.DBClient(ctx))
 	}
 
-	return sp.questionQuestionSetRepo
+	return sp.questionSetRepo
 }
 
 func (sp *serviceProvider) DomainRepository(ctx context.Context) repository.DomainRepository {
@@ -171,11 +171,11 @@ func (sp *serviceProvider) QuestionService(ctx context.Context) service.Question
 }
 
 func (sp *serviceProvider) QuestionSetService(ctx context.Context) service.SetService {
-	if sp.questionSetServ == nil {
-		sp.questionSetServ = questionSetService.NewService(sp.QuestionSetRepository(ctx))
+	if sp.setServ == nil {
+		sp.setServ = questionSetService.NewService(sp.SetRepository(ctx))
 	}
 
-	return sp.questionSetServ
+	return sp.setServ
 }
 
 func (sp *serviceProvider) DomainService(ctx context.Context) service.DomainService {
@@ -210,12 +210,12 @@ func (sp *serviceProvider) QuestionImplementation(ctx context.Context) *quesionI
 	return sp.questionImpl
 }
 
-func (sp *serviceProvider) QuestionSetImplementation(ctx context.Context) *quesionSetImplementation.Implementation {
-	if sp.questionSetImpl == nil {
-		sp.questionSetImpl = quesionSetImplementation.NewImplementation(sp.QuestionSetService(ctx))
+func (sp *serviceProvider) QuestionSetImplementation(ctx context.Context) *setImplementation.Implementation {
+	if sp.setImpl == nil {
+		sp.setImpl = setImplementation.NewImplementation(sp.QuestionSetService(ctx))
 	}
 
-	return sp.questionSetImpl
+	return sp.setImpl
 }
 
 func (sp *serviceProvider) DomainImplementation(ctx context.Context) *domainImplementation.Implementation {

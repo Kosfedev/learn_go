@@ -1,13 +1,13 @@
-package questionset
+package set
 
 import (
 	"context"
 
-	desc "github.com/Kosfedev/learn_go/pkg/questionset_v1"
+	desc "github.com/Kosfedev/learn_go/pkg/set_v1"
 )
 
 func (questionSetImpl *Implementation) Delete(ctx context.Context, req *desc.DeleteRequest) (*desc.DeleteResponse, error) {
-	err := questionSetImpl.questionSetService.Delete(ctx, req.Id)
+	err := questionSetImpl.setService.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

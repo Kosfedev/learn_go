@@ -1,15 +1,16 @@
-package questionset
+package set
 
 import (
 	"context"
 
+	desc "github.com/Kosfedev/learn_go/pkg/set_v1"
+
 	"github.com/Kosfedev/learn_go/internal/api/converter"
-	desc "github.com/Kosfedev/learn_go/pkg/questionset_v1"
 )
 
 func (questionSetImpl *Implementation) Update(ctx context.Context, req *desc.UpdateRequest) (*desc.UpdateResponse, error) {
-	questionSet := converter.UpdatedQuestionSetFromGRPC(req)
-	err := questionSetImpl.questionSetService.Update(ctx, req.Id, questionSet)
+	updatedSet := converter.UpdatedSetFromGRPC(req)
+	err := questionSetImpl.setService.Update(ctx, req.Id, updatedSet)
 	if err != nil {
 		return nil, err
 	}

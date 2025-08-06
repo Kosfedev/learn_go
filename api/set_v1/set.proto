@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package questionset_v1;
+package set_v1;
 
-option go_package = "github.com/Kosfedev/learn_go/questionset_v1;questionset_v1";
+option go_package = "github.com/Kosfedev/learn_go/set_v1;set_v1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
-service QuestionSetV1 {
+service SetV1 {
   rpc Create(CreateRequest) returns (CreateResponse);
   rpc Get(GetRequest) returns (GetResponse);
   rpc Update(UpdateRequest) returns (UpdateResponse);
