@@ -20,17 +20,24 @@ type QuestionSetRepository interface {
 	Get(ctx context.Context, id int64) (*model.QuestionSet, error)
 	Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestionSet) error
 	Delete(ctx context.Context, id int64) error
-	// AddQuestions(ctx context.Context, questionSetID int64, questionIDs []int64) error
-	// RemoveQuestions(ctx context.Context, ids []int64) error
+}
+
+type QuestionQuestionSetRepository interface {
+	AddQuestionsToSet(ctx context.Context, questionSetID int64, questionIDs []int64) error
+	RemoveQuestionsFromSet(ctx context.Context, questionSetID int64, questionIDs []int64) error
+	ListQuestionsBySetID(ctx context.Context, questionSetID int64) ([]int64, error)
+	AddQuestionToSets(ctx context.Context, questionID int64, questionSetIDs []int64) error
+	RemoveQuestionFromSets(ctx context.Context, questionID int64, questionSetIDs []int64) error
+	ListSetsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
 }
 
 type QuestionSubcategoryRepository interface {
 	AddSubcategoriesToQuestion(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	RemoveSubcategoriesFromQuestion(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	ListSubcategoriesByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
-	// AddQuestionsToSubcategory(ctx context.Context, subcategoryID int64, questionIDs []int64) error
-	// RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryID int64, questionIDs []int64) error
-	// ListQuestionsBySubcategoryID(ctx context.Context, subcategoryID int64) ([]int64, error)
+	// TODO: AddQuestionsToSubcategory(ctx context.Context, subcategoryID int64, questionIDs []int64) error
+	// TODO: RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryID int64, questionIDs []int64) error
+	// TODO: ListQuestionsBySubcategoryID(ctx context.Context, subcategoryID int64) ([]int64, error)
 }
 
 type DomainRepository interface {

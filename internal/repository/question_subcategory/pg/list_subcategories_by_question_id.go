@@ -9,19 +9,18 @@ import (
 )
 
 func (r *repo) ListSubcategoriesByQuestionID(ctx context.Context, questionID int64) ([]int64, error) {
-	idRepo := questionID
 	query := db.Query{
 		Name:     "question_subcategory_repository.list_subcategories_by_question_id",
 		QueryRaw: `SELECT * FROM question_subcategory WHERE question_id = $1`,
 	}
 
 	questionSubcategories := make([]*modelRepo.QuestionSubcategory, 0)
-	err := r.db.DB().ScanAll(ctx, &questionSubcategories, query, idRepo)
+	err := r.db.DB().ScanAll(ctx, &questionSubcategories, query, questionID)
 	if err != nil {
 		return nil, err
 	}
 
-	subcategories := converter.QuestionSubcategoriesIDsFromPGSQL(questionSubcategories)
+	subcategoryIDs := converter.QuestionSubcategoriesIDsFromPGSQL(questionSubcategories)
 
-	return subcategories, nil
+	return subcategoryIDs, nil
 }

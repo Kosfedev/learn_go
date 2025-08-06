@@ -28,8 +28,7 @@ func (r *repo) RemoveSubcategoriesFromQuestion(ctx context.Context, questionID i
 			strings.Join(placeholders, ", "),
 		),
 	}
-	fmt.Printf("%s\n", query.QueryRaw)
-	fmt.Printf("%+v\n", values)
+
 	_, err := r.db.DB().ExecContext(ctx, query, values...)
 	if err != nil {
 		return err
