@@ -1,18 +1,18 @@
 -- +goose Up
 -- +goose StatementBegin
 SELECT 'up SQL query';
-CREATE TABLE question_set_question(
+CREATE TABLE question_set(
     question_id BIGINT NOT NULL,
-    question_set_id BIGINT NOT NULL,
+    set_id BIGINT NOT NULL,
 
-    PRIMARY KEY (question_id, question_set_id),
+    PRIMARY KEY (question_id, set_id),
     FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE,
-    FOREIGN KEY (question_set_id) REFERENCES question_set(id) ON DELETE CASCADE
+    FOREIGN KEY (set_id) REFERENCES set(id) ON DELETE CASCADE
 );
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
 SELECT 'down SQL query';
-DROP TABLE question_set_question;
+DROP TABLE question_set;
 -- +goose StatementEnd

@@ -1,11 +1,11 @@
 -- +goose Up
 -- +goose StatementBegin
 SELECT 'up SQL query';
-INSERT INTO question_set_question(question_id, question_set_id)
+INSERT INTO set(name, created_at)
 SELECT
-    question_id,
-    (random() * 9)::int + 1 AS question_set_id
-FROM generate_series(1, 100) AS question_id;
+    md5(random()::text) AS name,
+    now() - (random() * INTERVAL '365 days') AS created_at
+FROM generate_series(1, 10);
 -- +goose StatementEnd
 
 -- +goose Down
