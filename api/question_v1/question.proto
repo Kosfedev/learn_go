@@ -40,6 +40,14 @@ message Subcategory {
   google.protobuf.Timestamp updated_at = 5;
 }
 
+// TODO: настроить импорт
+message Set {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
 message NewQuestionOption {
   string text = 1;
   bool is_correct = 2;
@@ -67,8 +75,9 @@ message GetResponse {
   repeated QuestionOption options = 4;
   google.protobuf.StringValue reference_answer = 5;
   repeated Subcategory subcategories = 6;
-  google.protobuf.Timestamp created_at = 7;
-  google.protobuf.Timestamp updated_at = 8;
+  repeated Set sets = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
 }
 
 message UpdateRequest {

@@ -21,6 +21,15 @@ func SetFromPGSQL(questionSetRepo *modelRepo.Set) *model.Set {
 	return questionSetServ
 }
 
+func SetsFromPGSQL(subcategoryRepo []*modelRepo.Set) []*model.Set {
+	sets := make([]*model.Set, len(subcategoryRepo))
+	for i, subcategory := range subcategoryRepo {
+		sets[i] = SetFromPGSQL(subcategory)
+	}
+
+	return sets
+}
+
 func NewSetToPGSQL(questionSetServ *model.NewSet) *modelRepo.NewSet {
 	questionSetRepo := &modelRepo.NewSet{
 		Name: questionSetServ.Name,

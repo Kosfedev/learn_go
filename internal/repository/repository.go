@@ -20,15 +20,28 @@ type SetRepository interface {
 	Get(ctx context.Context, id int64) (*model.Set, error)
 	Update(ctx context.Context, id int64, updatedSet *model.UpdatedSet) error
 	Delete(ctx context.Context, id int64) error
+	ListByIDs(ctx context.Context, ids []int64) ([]*model.Set, error)
 }
 
 type QuestionSetRepository interface {
-	AddQuestionsToSet(ctx context.Context, setID int64, questionIDs []int64) error
-	RemoveQuestionsFromSet(ctx context.Context, setID int64, questionIDs []int64) error
-	ListQuestionsBySetID(ctx context.Context, setID int64) ([]int64, error)
 	AddQuestionToSets(ctx context.Context, questionID int64, setIDs []int64) error
 	RemoveQuestionFromSets(ctx context.Context, questionID int64, setIDs []int64) error
 	ListSetsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
+	AddQuestionsToSet(ctx context.Context, setID int64, questionIDs []int64) error
+	RemoveQuestionsFromSet(ctx context.Context, setID int64, questionIDs []int64) error
+	ListQuestionsBySetID(ctx context.Context, setID int64) ([]int64, error)
+}
+
+type QuestionSetForQuestionRepository interface {
+	AddQuestionToSets(ctx context.Context, questionID int64, setIDs []int64) error
+	RemoveQuestionFromSets(ctx context.Context, questionID int64, setIDs []int64) error
+	ListSetsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
+}
+
+type QuestionSetForSetRepository interface {
+	AddQuestionsToSet(ctx context.Context, setID int64, questionIDs []int64) error
+	RemoveQuestionsFromSet(ctx context.Context, setID int64, questionIDs []int64) error
+	ListQuestionsBySetID(ctx context.Context, setID int64) ([]int64, error)
 }
 
 type QuestionSubcategoryRepository interface {

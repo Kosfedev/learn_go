@@ -17,8 +17,8 @@ import (
 	categoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/category/pg"
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
+	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_set/pg"
 	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
-	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/questionset/pg"
 	setPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
 	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 	"github.com/Kosfedev/learn_go/internal/service"
@@ -164,7 +164,13 @@ func (sp *serviceProvider) SubcategoryRepository(ctx context.Context) repository
 
 func (sp *serviceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
-		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx), sp.QuestionSubcategoryRepository(ctx), sp.SubcategoryRepository(ctx))
+		sp.questionServ = questionService.NewService(
+			sp.QuestionRepository(ctx),
+			sp.QuestionSetRepository(ctx),
+			sp.QuestionSubcategoryRepository(ctx),
+			sp.SetRepository(ctx),
+			sp.SubcategoryRepository(ctx),
+		)
 	}
 
 	return sp.questionServ

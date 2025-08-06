@@ -1,7 +1,7 @@
 package converter
 
 import (
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/questionset/pg/model"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_set/pg/model"
 )
 
 func QuestionIDsFromPGSQL(questionQuestionSetsRepo []*modelRepo.QuestionSet) []int64 {
@@ -18,7 +18,7 @@ func QuestionSetsIDsFromPGSQL(questionQuestionSetsRepo []*modelRepo.QuestionSet)
 	questionSetIDs := make([]int64, len(questionQuestionSetsRepo))
 
 	for i, questionQuestionSetRepo := range questionQuestionSetsRepo {
-		questionSetIDs[i] = questionQuestionSetRepo.QuestionSetID
+		questionSetIDs[i] = questionQuestionSetRepo.SetID
 	}
 
 	return questionSetIDs

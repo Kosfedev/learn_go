@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/Kosfedev/learn_go/internal/client/db"
-	"github.com/Kosfedev/learn_go/internal/repository/questionset/pg/converter"
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/questionset/pg/model"
+	"github.com/Kosfedev/learn_go/internal/repository/question_set/pg/converter"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_set/pg/model"
 )
 
 func (r *repo) ListQuestionsBySetID(ctx context.Context, setID int64) ([]int64, error) {
