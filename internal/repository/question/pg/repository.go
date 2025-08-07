@@ -98,7 +98,7 @@ func (r *repo) Get(ctx context.Context, id int64) (*model.Question, error) {
 	}
 
 	questionServ := converter.QuestionFromPGSQL(questionRepo)
-	questionOptionsServ, err := r.ListOptionsByQuestionId(ctx, id)
+	questionOptionsServ, err := r.ListOptionsByQuestionID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 	return nil
 }
 
-func (r *repo) ListOptionsByQuestionId(ctx context.Context, questionID int64) ([]*model.QuestionOption, error) {
+func (r *repo) ListOptionsByQuestionID(ctx context.Context, questionID int64) ([]*model.QuestionOption, error) {
 	questionOptionsRepo := make([]*modelRepo.QuestionOption, 0)
 	builderSelect := sq.Select(columnID, columnQuestionID, columnText, columnIsCorrect).
 		From(tableQuestionOption).
@@ -183,7 +183,7 @@ func (r *repo) ListOptionsByQuestionId(ctx context.Context, questionID int64) ([
 		Name:     "question_repository.list_options",
 		QueryRaw: queryRaw,
 	}
-	
+
 	err = r.db.DB().ScanAll(ctx, &questionOptionsRepo, query, args...)
 	if err != nil {
 		return nil, err
