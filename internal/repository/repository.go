@@ -26,10 +26,10 @@ type SetRepository interface {
 type QuestionSetRepository interface {
 	AddQuestionToSets(ctx context.Context, questionID int64, setIDs []int64) error
 	RemoveQuestionFromSets(ctx context.Context, questionID int64, setIDs []int64) error
-	ListSetsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
+	ListSetIDsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
 	AddQuestionsToSet(ctx context.Context, setID int64, questionIDs []int64) error
 	RemoveQuestionsFromSet(ctx context.Context, setID int64, questionIDs []int64) error
-	ListQuestionsBySetID(ctx context.Context, setID int64) ([]int64, error)
+	ListQuestionIDsBySetID(ctx context.Context, setID int64) ([]int64, error)
 }
 
 type QuestionSetForQuestionRepository interface {
@@ -47,7 +47,7 @@ type QuestionSetForSetRepository interface {
 type QuestionSubcategoryRepository interface {
 	AddSubcategoriesToQuestion(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	RemoveSubcategoriesFromQuestion(ctx context.Context, questionID int64, subcategoryIDs []int64) error
-	ListSubcategoriesByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
+	ListSubcategoryIDsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
 	// TODO: AddQuestionsToSubcategory(ctx context.Context, subcategoryID int64, questionIDs []int64) error
 	// TODO: RemoveQuestionsFromSubcategory(ctx context.Context, subcategoryID int64, questionIDs []int64) error
 	// TODO: ListQuestionsBySubcategoryID(ctx context.Context, subcategoryID int64) ([]int64, error)

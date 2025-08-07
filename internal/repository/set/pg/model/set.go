@@ -19,8 +19,3 @@ type NewSet struct {
 type UpdatedSet struct {
 	Name sql.NullString
 }
-
-type QuestionSet struct {
-	QuestionID int64
-	SetID      int64
-}
