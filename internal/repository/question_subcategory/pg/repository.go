@@ -7,8 +7,6 @@ import (
 
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/repository"
-	"github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg/converter"
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg/model"
 )
 
 const (
@@ -43,13 +41,11 @@ func (r *repo) ListSubcategoryIDsByQuestionID(ctx context.Context, questionID in
 		QueryRaw: queryRaw,
 	}
 
-	questionSubcategories := make([]*modelRepo.QuestionSubcategory, 0)
-	err = r.db.DB().ScanAll(ctx, &questionSubcategories, query, args...)
+	subcategoryIDs := make([]int64, 0)
+	err = r.db.DB().ScanAll(ctx, &subcategoryIDs, query, args...)
 	if err != nil {
 		return nil, err
 	}
-
-	subcategoryIDs := converter.QuestionSubcategoriesIDsFromPGSQL(questionSubcategories)
 
 	return subcategoryIDs, nil
 }
