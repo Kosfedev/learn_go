@@ -14,10 +14,12 @@ import (
 )
 
 const (
-	tableCategory  = "category"
-	columnID       = "id"
-	columnName     = "name"
-	columnDomainID = "domain_id"
+	tableCategory   = "category"
+	columnID        = "id"
+	columnName      = "name"
+	columnDomainID  = "domain_id"
+	columnCreatedAt = "created_at"
+	columnUpdatedAt = "updated_at"
 )
 
 type repo struct {
@@ -56,7 +58,7 @@ func (r *repo) Create(ctx context.Context, category *model.NewCategory) (int64, 
 }
 
 func (r *repo) Get(ctx context.Context, id int64) (*model.Category, error) {
-	builderSelect := sq.Select(columnName, columnDomainID).
+	builderSelect := sq.Select(columnID, columnName, columnDomainID, columnCreatedAt, columnUpdatedAt).
 		From(tableCategory).
 		PlaceholderFormat(sq.Dollar).
 		Where(sq.Eq{columnID: id})

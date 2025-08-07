@@ -14,9 +14,11 @@ import (
 )
 
 const (
-	tableDomain = "domain"
-	columnID    = "id"
-	columnName  = "name"
+	tableDomain     = "domain"
+	columnID        = "id"
+	columnName      = "name"
+	columnCreatedAt = "created_at"
+	columnUpdatedAt = "updated_at"
 )
 
 type repo struct {
@@ -56,7 +58,7 @@ func (r *repo) Create(ctx context.Context, domain *model.NewDomain) (int64, erro
 }
 
 func (r *repo) Get(ctx context.Context, id int64) (*model.Domain, error) {
-	builderSelect := sq.Select(columnName).
+	builderSelect := sq.Select(columnID, columnName, columnCreatedAt, columnUpdatedAt).
 		From(tableDomain).
 		PlaceholderFormat(sq.Dollar).
 		Where(sq.Eq{columnID: id})
