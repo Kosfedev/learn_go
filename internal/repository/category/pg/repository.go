@@ -33,7 +33,7 @@ func (r *repo) Create(ctx context.Context, category *model.NewCategory) (int64, 
 	builderInsert := sq.Insert(tableCategory).
 		PlaceholderFormat(sq.Dollar).
 		Columns(columnName, columnDomainID).
-		Values(categoryRepo.Name, category.DomainID).
+		Values(categoryRepo.Name, categoryRepo.DomainID).
 		Suffix(fmt.Sprintf("RETURNING %v", columnID))
 
 	queryRaw, args, err := builderInsert.ToSql()
@@ -82,29 +82,6 @@ func (r *repo) Get(ctx context.Context, id int64) (*model.Category, error) {
 	return category, nil
 }
 
-func (r *repo) Delete(ctx context.Context, id int64) error {
-	builderDelete := sq.Delete(tableCategory).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnID: id})
-
-	queryRaw, args, err := builderDelete.ToSql()
-	if err != nil {
-		return err
-	}
-
-	query := db.Query{
-		Name:     "category_repository.delete",
-		QueryRaw: queryRaw,
-	}
-
-	_, err = r.db.DB().ExecContext(ctx, query, args...)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (r *repo) Update(ctx context.Context, id int64, category *model.UpdatedCategory) error {
 	categoryRepo := converter.UpdatedCategoryToPGSQL(category)
 	builderUpdate := sq.Update(tableCategory).
@@ -126,6 +103,29 @@ func (r *repo) Update(ctx context.Context, id int64, category *model.UpdatedCate
 
 	query := db.Query{
 		Name:     "category_repository.update",
+		QueryRaw: queryRaw,
+	}
+
+	_, err = r.db.DB().ExecContext(ctx, query, args...)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *repo) Delete(ctx context.Context, id int64) error {
+	builderDelete := sq.Delete(tableCategory).
+		PlaceholderFormat(sq.Dollar).
+		Where(sq.Eq{columnID: id})
+
+	queryRaw, args, err := builderDelete.ToSql()
+	if err != nil {
+		return err
+	}
+
+	query := db.Query{
+		Name:     "category_repository.delete",
 		QueryRaw: queryRaw,
 	}
 
