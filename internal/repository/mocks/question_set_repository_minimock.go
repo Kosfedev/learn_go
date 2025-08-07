@@ -851,7 +851,7 @@ type mQuestionSetRepositoryMockListQuestionsBySetID struct {
 	expectedInvocationsOrigin string
 }
 
-// QuestionSetRepositoryMockListQuestionsBySetIDExpectation specifies expectation struct of the QuestionSetRepository.ListQuestionsBySetID
+// QuestionSetRepositoryMockListQuestionsBySetIDExpectation specifies expectation struct of the QuestionSetRepository.ListQuestionIDsBySetID
 type QuestionSetRepositoryMockListQuestionsBySetIDExpectation struct {
 	mock               *QuestionSetRepositoryMock
 	params             *QuestionSetRepositoryMockListQuestionsBySetIDParams
@@ -862,25 +862,25 @@ type QuestionSetRepositoryMockListQuestionsBySetIDExpectation struct {
 	Counter            uint64
 }
 
-// QuestionSetRepositoryMockListQuestionsBySetIDParams contains parameters of the QuestionSetRepository.ListQuestionsBySetID
+// QuestionSetRepositoryMockListQuestionsBySetIDParams contains parameters of the QuestionSetRepository.ListQuestionIDsBySetID
 type QuestionSetRepositoryMockListQuestionsBySetIDParams struct {
 	ctx   context.Context
 	setID int64
 }
 
-// QuestionSetRepositoryMockListQuestionsBySetIDParamPtrs contains pointers to parameters of the QuestionSetRepository.ListQuestionsBySetID
+// QuestionSetRepositoryMockListQuestionsBySetIDParamPtrs contains pointers to parameters of the QuestionSetRepository.ListQuestionIDsBySetID
 type QuestionSetRepositoryMockListQuestionsBySetIDParamPtrs struct {
 	ctx   *context.Context
 	setID *int64
 }
 
-// QuestionSetRepositoryMockListQuestionsBySetIDResults contains results of the QuestionSetRepository.ListQuestionsBySetID
+// QuestionSetRepositoryMockListQuestionsBySetIDResults contains results of the QuestionSetRepository.ListQuestionIDsBySetID
 type QuestionSetRepositoryMockListQuestionsBySetIDResults struct {
 	ia1 []int64
 	err error
 }
 
-// QuestionSetRepositoryMockListQuestionsBySetIDOrigins contains origins of expectations of the QuestionSetRepository.ListQuestionsBySetID
+// QuestionSetRepositoryMockListQuestionsBySetIDOrigins contains origins of expectations of the QuestionSetRepository.ListQuestionIDsBySetID
 type QuestionSetRepositoryMockListQuestionsBySetIDExpectationOrigins struct {
 	origin      string
 	originCtx   string
@@ -897,10 +897,10 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Op
 	return mmListQuestionsBySetID
 }
 
-// Expect sets up expected params for QuestionSetRepository.ListQuestionsBySetID
+// Expect sets up expected params for QuestionSetRepository.ListQuestionIDsBySetID
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Expect(ctx context.Context, setID int64) *mQuestionSetRepositoryMockListQuestionsBySetID {
 	if mmListQuestionsBySetID.mock.funcListQuestionsBySetID != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Set")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Set")
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation == nil {
@@ -908,7 +908,7 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Ex
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation.paramPtrs != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by ExpectParams functions")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by ExpectParams functions")
 	}
 
 	mmListQuestionsBySetID.defaultExpectation.params = &QuestionSetRepositoryMockListQuestionsBySetIDParams{ctx, setID}
@@ -922,10 +922,10 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Ex
 	return mmListQuestionsBySetID
 }
 
-// ExpectCtxParam1 sets up expected param ctx for QuestionSetRepository.ListQuestionsBySetID
+// ExpectCtxParam1 sets up expected param ctx for QuestionSetRepository.ListQuestionIDsBySetID
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) ExpectCtxParam1(ctx context.Context) *mQuestionSetRepositoryMockListQuestionsBySetID {
 	if mmListQuestionsBySetID.mock.funcListQuestionsBySetID != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Set")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Set")
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation == nil {
@@ -933,7 +933,7 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Ex
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation.params != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Expect")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Expect")
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation.paramPtrs == nil {
@@ -945,10 +945,10 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Ex
 	return mmListQuestionsBySetID
 }
 
-// ExpectSetIDParam2 sets up expected param setID for QuestionSetRepository.ListQuestionsBySetID
+// ExpectSetIDParam2 sets up expected param setID for QuestionSetRepository.ListQuestionIDsBySetID
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) ExpectSetIDParam2(setID int64) *mQuestionSetRepositoryMockListQuestionsBySetID {
 	if mmListQuestionsBySetID.mock.funcListQuestionsBySetID != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Set")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Set")
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation == nil {
@@ -956,7 +956,7 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Ex
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation.params != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Expect")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Expect")
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation.paramPtrs == nil {
@@ -968,10 +968,10 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Ex
 	return mmListQuestionsBySetID
 }
 
-// Inspect accepts an inspector function that has same arguments as the QuestionSetRepository.ListQuestionsBySetID
+// Inspect accepts an inspector function that has same arguments as the QuestionSetRepository.ListQuestionIDsBySetID
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Inspect(f func(ctx context.Context, setID int64)) *mQuestionSetRepositoryMockListQuestionsBySetID {
 	if mmListQuestionsBySetID.mock.inspectFuncListQuestionsBySetID != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("Inspect function is already set for QuestionSetRepositoryMock.ListQuestionsBySetID")
+		mmListQuestionsBySetID.mock.t.Fatalf("Inspect function is already set for QuestionSetRepositoryMock.ListQuestionIDsBySetID")
 	}
 
 	mmListQuestionsBySetID.mock.inspectFuncListQuestionsBySetID = f
@@ -979,10 +979,10 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) In
 	return mmListQuestionsBySetID
 }
 
-// Return sets up results that will be returned by QuestionSetRepository.ListQuestionsBySetID
+// Return sets up results that will be returned by QuestionSetRepository.ListQuestionIDsBySetID
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Return(ia1 []int64, err error) *QuestionSetRepositoryMock {
 	if mmListQuestionsBySetID.mock.funcListQuestionsBySetID != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Set")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Set")
 	}
 
 	if mmListQuestionsBySetID.defaultExpectation == nil {
@@ -993,14 +993,14 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Re
 	return mmListQuestionsBySetID.mock
 }
 
-// Set uses given function f to mock the QuestionSetRepository.ListQuestionsBySetID method
+// Set uses given function f to mock the QuestionSetRepository.ListQuestionIDsBySetID method
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Set(f func(ctx context.Context, setID int64) (ia1 []int64, err error)) *QuestionSetRepositoryMock {
 	if mmListQuestionsBySetID.defaultExpectation != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.ListQuestionsBySetID method")
+		mmListQuestionsBySetID.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.ListQuestionIDsBySetID method")
 	}
 
 	if len(mmListQuestionsBySetID.expectations) > 0 {
-		mmListQuestionsBySetID.mock.t.Fatalf("Some expectations are already set for the QuestionSetRepository.ListQuestionsBySetID method")
+		mmListQuestionsBySetID.mock.t.Fatalf("Some expectations are already set for the QuestionSetRepository.ListQuestionIDsBySetID method")
 	}
 
 	mmListQuestionsBySetID.mock.funcListQuestionsBySetID = f
@@ -1008,11 +1008,11 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Se
 	return mmListQuestionsBySetID.mock
 }
 
-// When sets expectation for the QuestionSetRepository.ListQuestionsBySetID which will trigger the result defined by the following
+// When sets expectation for the QuestionSetRepository.ListQuestionIDsBySetID which will trigger the result defined by the following
 // Then helper
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) When(ctx context.Context, setID int64) *QuestionSetRepositoryMockListQuestionsBySetIDExpectation {
 	if mmListQuestionsBySetID.mock.funcListQuestionsBySetID != nil {
-		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionsBySetID mock is already set by Set")
+		mmListQuestionsBySetID.mock.t.Fatalf("QuestionSetRepositoryMock.ListQuestionIDsBySetID mock is already set by Set")
 	}
 
 	expectation := &QuestionSetRepositoryMockListQuestionsBySetIDExpectation{
@@ -1024,16 +1024,16 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Wh
 	return expectation
 }
 
-// Then sets up QuestionSetRepository.ListQuestionsBySetID return parameters for the expectation previously defined by the When method
+// Then sets up QuestionSetRepository.ListQuestionIDsBySetID return parameters for the expectation previously defined by the When method
 func (e *QuestionSetRepositoryMockListQuestionsBySetIDExpectation) Then(ia1 []int64, err error) *QuestionSetRepositoryMock {
 	e.results = &QuestionSetRepositoryMockListQuestionsBySetIDResults{ia1, err}
 	return e.mock
 }
 
-// Times sets number of times QuestionSetRepository.ListQuestionsBySetID should be invoked
+// Times sets number of times QuestionSetRepository.ListQuestionIDsBySetID should be invoked
 func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) Times(n uint64) *mQuestionSetRepositoryMockListQuestionsBySetID {
 	if n == 0 {
-		mmListQuestionsBySetID.mock.t.Fatalf("Times of QuestionSetRepositoryMock.ListQuestionsBySetID mock can not be zero")
+		mmListQuestionsBySetID.mock.t.Fatalf("Times of QuestionSetRepositoryMock.ListQuestionIDsBySetID mock can not be zero")
 	}
 	mm_atomic.StoreUint64(&mmListQuestionsBySetID.expectedInvocations, n)
 	mmListQuestionsBySetID.expectedInvocationsOrigin = minimock.CallerInfo(1)
@@ -1052,7 +1052,7 @@ func (mmListQuestionsBySetID *mQuestionSetRepositoryMockListQuestionsBySetID) in
 }
 
 // ListQuestionsBySetID implements mm_repository.QuestionSetRepository
-func (mmListQuestionsBySetID *QuestionSetRepositoryMock) ListQuestionsBySetID(ctx context.Context, setID int64) (ia1 []int64, err error) {
+func (mmListQuestionsBySetID *QuestionSetRepositoryMock) ListQuestionIDsBySetID(ctx context.Context, setID int64) (ia1 []int64, err error) {
 	mm_atomic.AddUint64(&mmListQuestionsBySetID.beforeListQuestionsBySetIDCounter, 1)
 	defer mm_atomic.AddUint64(&mmListQuestionsBySetID.afterListQuestionsBySetIDCounter, 1)
 
@@ -1086,30 +1086,30 @@ func (mmListQuestionsBySetID *QuestionSetRepositoryMock) ListQuestionsBySetID(ct
 		if mm_want_ptrs != nil {
 
 			if mm_want_ptrs.ctx != nil && !minimock.Equal(*mm_want_ptrs.ctx, mm_got.ctx) {
-				mmListQuestionsBySetID.t.Errorf("QuestionSetRepositoryMock.ListQuestionsBySetID got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListQuestionsBySetID.t.Errorf("QuestionSetRepositoryMock.ListQuestionIDsBySetID got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
 					mmListQuestionsBySetID.ListQuestionsBySetIDMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
 			if mm_want_ptrs.setID != nil && !minimock.Equal(*mm_want_ptrs.setID, mm_got.setID) {
-				mmListQuestionsBySetID.t.Errorf("QuestionSetRepositoryMock.ListQuestionsBySetID got unexpected parameter setID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListQuestionsBySetID.t.Errorf("QuestionSetRepositoryMock.ListQuestionIDsBySetID got unexpected parameter setID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
 					mmListQuestionsBySetID.ListQuestionsBySetIDMock.defaultExpectation.expectationOrigins.originSetID, *mm_want_ptrs.setID, mm_got.setID, minimock.Diff(*mm_want_ptrs.setID, mm_got.setID))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
-			mmListQuestionsBySetID.t.Errorf("QuestionSetRepositoryMock.ListQuestionsBySetID got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+			mmListQuestionsBySetID.t.Errorf("QuestionSetRepositoryMock.ListQuestionIDsBySetID got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
 				mmListQuestionsBySetID.ListQuestionsBySetIDMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
 		}
 
 		mm_results := mmListQuestionsBySetID.ListQuestionsBySetIDMock.defaultExpectation.results
 		if mm_results == nil {
-			mmListQuestionsBySetID.t.Fatal("No results are set for the QuestionSetRepositoryMock.ListQuestionsBySetID")
+			mmListQuestionsBySetID.t.Fatal("No results are set for the QuestionSetRepositoryMock.ListQuestionIDsBySetID")
 		}
 		return (*mm_results).ia1, (*mm_results).err
 	}
 	if mmListQuestionsBySetID.funcListQuestionsBySetID != nil {
 		return mmListQuestionsBySetID.funcListQuestionsBySetID(ctx, setID)
 	}
-	mmListQuestionsBySetID.t.Fatalf("Unexpected call to QuestionSetRepositoryMock.ListQuestionsBySetID. %v %v", ctx, setID)
+	mmListQuestionsBySetID.t.Fatalf("Unexpected call to QuestionSetRepositoryMock.ListQuestionIDsBySetID. %v %v", ctx, setID)
 	return
 }
 
@@ -1157,7 +1157,7 @@ func (m *QuestionSetRepositoryMock) MinimockListQuestionsBySetIDDone() bool {
 func (m *QuestionSetRepositoryMock) MinimockListQuestionsBySetIDInspect() {
 	for _, e := range m.ListQuestionsBySetIDMock.expectations {
 		if mm_atomic.LoadUint64(&e.Counter) < 1 {
-			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionsBySetID at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
+			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionIDsBySetID at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
 		}
 	}
 
@@ -1165,18 +1165,18 @@ func (m *QuestionSetRepositoryMock) MinimockListQuestionsBySetIDInspect() {
 	// if default expectation was set then invocations count should be greater than zero
 	if m.ListQuestionsBySetIDMock.defaultExpectation != nil && afterListQuestionsBySetIDCounter < 1 {
 		if m.ListQuestionsBySetIDMock.defaultExpectation.params == nil {
-			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionsBySetID at\n%s", m.ListQuestionsBySetIDMock.defaultExpectation.returnOrigin)
+			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionIDsBySetID at\n%s", m.ListQuestionsBySetIDMock.defaultExpectation.returnOrigin)
 		} else {
-			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionsBySetID at\n%s with params: %#v", m.ListQuestionsBySetIDMock.defaultExpectation.expectationOrigins.origin, *m.ListQuestionsBySetIDMock.defaultExpectation.params)
+			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionIDsBySetID at\n%s with params: %#v", m.ListQuestionsBySetIDMock.defaultExpectation.expectationOrigins.origin, *m.ListQuestionsBySetIDMock.defaultExpectation.params)
 		}
 	}
 	// if func was set then invocations count should be greater than zero
 	if m.funcListQuestionsBySetID != nil && afterListQuestionsBySetIDCounter < 1 {
-		m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionsBySetID at\n%s", m.funcListQuestionsBySetIDOrigin)
+		m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListQuestionIDsBySetID at\n%s", m.funcListQuestionsBySetIDOrigin)
 	}
 
 	if !m.ListQuestionsBySetIDMock.invocationsDone() && afterListQuestionsBySetIDCounter > 0 {
-		m.t.Errorf("Expected %d calls to QuestionSetRepositoryMock.ListQuestionsBySetID at\n%s but found %d calls",
+		m.t.Errorf("Expected %d calls to QuestionSetRepositoryMock.ListQuestionIDsBySetID at\n%s but found %d calls",
 			mm_atomic.LoadUint64(&m.ListQuestionsBySetIDMock.expectedInvocations), m.ListQuestionsBySetIDMock.expectedInvocationsOrigin, afterListQuestionsBySetIDCounter)
 	}
 }
@@ -1194,7 +1194,7 @@ type mQuestionSetRepositoryMockListSetsByQuestionID struct {
 	expectedInvocationsOrigin string
 }
 
-// QuestionSetRepositoryMockListSetsByQuestionIDExpectation specifies expectation struct of the QuestionSetRepository.ListSetsByQuestionID
+// QuestionSetRepositoryMockListSetsByQuestionIDExpectation specifies expectation struct of the QuestionSetRepository.ListSetIDsByQuestionID
 type QuestionSetRepositoryMockListSetsByQuestionIDExpectation struct {
 	mock               *QuestionSetRepositoryMock
 	params             *QuestionSetRepositoryMockListSetsByQuestionIDParams
@@ -1205,25 +1205,25 @@ type QuestionSetRepositoryMockListSetsByQuestionIDExpectation struct {
 	Counter            uint64
 }
 
-// QuestionSetRepositoryMockListSetsByQuestionIDParams contains parameters of the QuestionSetRepository.ListSetsByQuestionID
+// QuestionSetRepositoryMockListSetsByQuestionIDParams contains parameters of the QuestionSetRepository.ListSetIDsByQuestionID
 type QuestionSetRepositoryMockListSetsByQuestionIDParams struct {
 	ctx        context.Context
 	questionID int64
 }
 
-// QuestionSetRepositoryMockListSetsByQuestionIDParamPtrs contains pointers to parameters of the QuestionSetRepository.ListSetsByQuestionID
+// QuestionSetRepositoryMockListSetsByQuestionIDParamPtrs contains pointers to parameters of the QuestionSetRepository.ListSetIDsByQuestionID
 type QuestionSetRepositoryMockListSetsByQuestionIDParamPtrs struct {
 	ctx        *context.Context
 	questionID *int64
 }
 
-// QuestionSetRepositoryMockListSetsByQuestionIDResults contains results of the QuestionSetRepository.ListSetsByQuestionID
+// QuestionSetRepositoryMockListSetsByQuestionIDResults contains results of the QuestionSetRepository.ListSetIDsByQuestionID
 type QuestionSetRepositoryMockListSetsByQuestionIDResults struct {
 	ia1 []int64
 	err error
 }
 
-// QuestionSetRepositoryMockListSetsByQuestionIDOrigins contains origins of expectations of the QuestionSetRepository.ListSetsByQuestionID
+// QuestionSetRepositoryMockListSetsByQuestionIDOrigins contains origins of expectations of the QuestionSetRepository.ListSetIDsByQuestionID
 type QuestionSetRepositoryMockListSetsByQuestionIDExpectationOrigins struct {
 	origin           string
 	originCtx        string
@@ -1240,10 +1240,10 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Op
 	return mmListSetsByQuestionID
 }
 
-// Expect sets up expected params for QuestionSetRepository.ListSetsByQuestionID
+// Expect sets up expected params for QuestionSetRepository.ListSetIDsByQuestionID
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Expect(ctx context.Context, questionID int64) *mQuestionSetRepositoryMockListSetsByQuestionID {
 	if mmListSetsByQuestionID.mock.funcListSetsByQuestionID != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Set")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Set")
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation == nil {
@@ -1251,7 +1251,7 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Ex
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation.paramPtrs != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by ExpectParams functions")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by ExpectParams functions")
 	}
 
 	mmListSetsByQuestionID.defaultExpectation.params = &QuestionSetRepositoryMockListSetsByQuestionIDParams{ctx, questionID}
@@ -1265,10 +1265,10 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Ex
 	return mmListSetsByQuestionID
 }
 
-// ExpectCtxParam1 sets up expected param ctx for QuestionSetRepository.ListSetsByQuestionID
+// ExpectCtxParam1 sets up expected param ctx for QuestionSetRepository.ListSetIDsByQuestionID
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) ExpectCtxParam1(ctx context.Context) *mQuestionSetRepositoryMockListSetsByQuestionID {
 	if mmListSetsByQuestionID.mock.funcListSetsByQuestionID != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Set")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Set")
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation == nil {
@@ -1276,7 +1276,7 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Ex
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation.params != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Expect")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Expect")
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation.paramPtrs == nil {
@@ -1288,10 +1288,10 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Ex
 	return mmListSetsByQuestionID
 }
 
-// ExpectQuestionIDParam2 sets up expected param questionID for QuestionSetRepository.ListSetsByQuestionID
+// ExpectQuestionIDParam2 sets up expected param questionID for QuestionSetRepository.ListSetIDsByQuestionID
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) ExpectQuestionIDParam2(questionID int64) *mQuestionSetRepositoryMockListSetsByQuestionID {
 	if mmListSetsByQuestionID.mock.funcListSetsByQuestionID != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Set")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Set")
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation == nil {
@@ -1299,7 +1299,7 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Ex
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation.params != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Expect")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Expect")
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation.paramPtrs == nil {
@@ -1311,10 +1311,10 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Ex
 	return mmListSetsByQuestionID
 }
 
-// Inspect accepts an inspector function that has same arguments as the QuestionSetRepository.ListSetsByQuestionID
+// Inspect accepts an inspector function that has same arguments as the QuestionSetRepository.ListSetIDsByQuestionID
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Inspect(f func(ctx context.Context, questionID int64)) *mQuestionSetRepositoryMockListSetsByQuestionID {
 	if mmListSetsByQuestionID.mock.inspectFuncListSetsByQuestionID != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("Inspect function is already set for QuestionSetRepositoryMock.ListSetsByQuestionID")
+		mmListSetsByQuestionID.mock.t.Fatalf("Inspect function is already set for QuestionSetRepositoryMock.ListSetIDsByQuestionID")
 	}
 
 	mmListSetsByQuestionID.mock.inspectFuncListSetsByQuestionID = f
@@ -1322,10 +1322,10 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) In
 	return mmListSetsByQuestionID
 }
 
-// Return sets up results that will be returned by QuestionSetRepository.ListSetsByQuestionID
+// Return sets up results that will be returned by QuestionSetRepository.ListSetIDsByQuestionID
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Return(ia1 []int64, err error) *QuestionSetRepositoryMock {
 	if mmListSetsByQuestionID.mock.funcListSetsByQuestionID != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Set")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Set")
 	}
 
 	if mmListSetsByQuestionID.defaultExpectation == nil {
@@ -1336,14 +1336,14 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Re
 	return mmListSetsByQuestionID.mock
 }
 
-// Set uses given function f to mock the QuestionSetRepository.ListSetsByQuestionID method
+// Set uses given function f to mock the QuestionSetRepository.ListSetIDsByQuestionID method
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Set(f func(ctx context.Context, questionID int64) (ia1 []int64, err error)) *QuestionSetRepositoryMock {
 	if mmListSetsByQuestionID.defaultExpectation != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.ListSetsByQuestionID method")
+		mmListSetsByQuestionID.mock.t.Fatalf("Default expectation is already set for the QuestionSetRepository.ListSetIDsByQuestionID method")
 	}
 
 	if len(mmListSetsByQuestionID.expectations) > 0 {
-		mmListSetsByQuestionID.mock.t.Fatalf("Some expectations are already set for the QuestionSetRepository.ListSetsByQuestionID method")
+		mmListSetsByQuestionID.mock.t.Fatalf("Some expectations are already set for the QuestionSetRepository.ListSetIDsByQuestionID method")
 	}
 
 	mmListSetsByQuestionID.mock.funcListSetsByQuestionID = f
@@ -1351,11 +1351,11 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Se
 	return mmListSetsByQuestionID.mock
 }
 
-// When sets expectation for the QuestionSetRepository.ListSetsByQuestionID which will trigger the result defined by the following
+// When sets expectation for the QuestionSetRepository.ListSetIDsByQuestionID which will trigger the result defined by the following
 // Then helper
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) When(ctx context.Context, questionID int64) *QuestionSetRepositoryMockListSetsByQuestionIDExpectation {
 	if mmListSetsByQuestionID.mock.funcListSetsByQuestionID != nil {
-		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetsByQuestionID mock is already set by Set")
+		mmListSetsByQuestionID.mock.t.Fatalf("QuestionSetRepositoryMock.ListSetIDsByQuestionID mock is already set by Set")
 	}
 
 	expectation := &QuestionSetRepositoryMockListSetsByQuestionIDExpectation{
@@ -1367,16 +1367,16 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Wh
 	return expectation
 }
 
-// Then sets up QuestionSetRepository.ListSetsByQuestionID return parameters for the expectation previously defined by the When method
+// Then sets up QuestionSetRepository.ListSetIDsByQuestionID return parameters for the expectation previously defined by the When method
 func (e *QuestionSetRepositoryMockListSetsByQuestionIDExpectation) Then(ia1 []int64, err error) *QuestionSetRepositoryMock {
 	e.results = &QuestionSetRepositoryMockListSetsByQuestionIDResults{ia1, err}
 	return e.mock
 }
 
-// Times sets number of times QuestionSetRepository.ListSetsByQuestionID should be invoked
+// Times sets number of times QuestionSetRepository.ListSetIDsByQuestionID should be invoked
 func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) Times(n uint64) *mQuestionSetRepositoryMockListSetsByQuestionID {
 	if n == 0 {
-		mmListSetsByQuestionID.mock.t.Fatalf("Times of QuestionSetRepositoryMock.ListSetsByQuestionID mock can not be zero")
+		mmListSetsByQuestionID.mock.t.Fatalf("Times of QuestionSetRepositoryMock.ListSetIDsByQuestionID mock can not be zero")
 	}
 	mm_atomic.StoreUint64(&mmListSetsByQuestionID.expectedInvocations, n)
 	mmListSetsByQuestionID.expectedInvocationsOrigin = minimock.CallerInfo(1)
@@ -1395,7 +1395,7 @@ func (mmListSetsByQuestionID *mQuestionSetRepositoryMockListSetsByQuestionID) in
 }
 
 // ListSetsByQuestionID implements mm_repository.QuestionSetRepository
-func (mmListSetsByQuestionID *QuestionSetRepositoryMock) ListSetsByQuestionID(ctx context.Context, questionID int64) (ia1 []int64, err error) {
+func (mmListSetsByQuestionID *QuestionSetRepositoryMock) ListSetIDsByQuestionID(ctx context.Context, questionID int64) (ia1 []int64, err error) {
 	mm_atomic.AddUint64(&mmListSetsByQuestionID.beforeListSetsByQuestionIDCounter, 1)
 	defer mm_atomic.AddUint64(&mmListSetsByQuestionID.afterListSetsByQuestionIDCounter, 1)
 
@@ -1429,30 +1429,30 @@ func (mmListSetsByQuestionID *QuestionSetRepositoryMock) ListSetsByQuestionID(ct
 		if mm_want_ptrs != nil {
 
 			if mm_want_ptrs.ctx != nil && !minimock.Equal(*mm_want_ptrs.ctx, mm_got.ctx) {
-				mmListSetsByQuestionID.t.Errorf("QuestionSetRepositoryMock.ListSetsByQuestionID got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListSetsByQuestionID.t.Errorf("QuestionSetRepositoryMock.ListSetIDsByQuestionID got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
 					mmListSetsByQuestionID.ListSetsByQuestionIDMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
 			}
 
 			if mm_want_ptrs.questionID != nil && !minimock.Equal(*mm_want_ptrs.questionID, mm_got.questionID) {
-				mmListSetsByQuestionID.t.Errorf("QuestionSetRepositoryMock.ListSetsByQuestionID got unexpected parameter questionID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListSetsByQuestionID.t.Errorf("QuestionSetRepositoryMock.ListSetIDsByQuestionID got unexpected parameter questionID, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
 					mmListSetsByQuestionID.ListSetsByQuestionIDMock.defaultExpectation.expectationOrigins.originQuestionID, *mm_want_ptrs.questionID, mm_got.questionID, minimock.Diff(*mm_want_ptrs.questionID, mm_got.questionID))
 			}
 
 		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
-			mmListSetsByQuestionID.t.Errorf("QuestionSetRepositoryMock.ListSetsByQuestionID got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+			mmListSetsByQuestionID.t.Errorf("QuestionSetRepositoryMock.ListSetIDsByQuestionID got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
 				mmListSetsByQuestionID.ListSetsByQuestionIDMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
 		}
 
 		mm_results := mmListSetsByQuestionID.ListSetsByQuestionIDMock.defaultExpectation.results
 		if mm_results == nil {
-			mmListSetsByQuestionID.t.Fatal("No results are set for the QuestionSetRepositoryMock.ListSetsByQuestionID")
+			mmListSetsByQuestionID.t.Fatal("No results are set for the QuestionSetRepositoryMock.ListSetIDsByQuestionID")
 		}
 		return (*mm_results).ia1, (*mm_results).err
 	}
 	if mmListSetsByQuestionID.funcListSetsByQuestionID != nil {
 		return mmListSetsByQuestionID.funcListSetsByQuestionID(ctx, questionID)
 	}
-	mmListSetsByQuestionID.t.Fatalf("Unexpected call to QuestionSetRepositoryMock.ListSetsByQuestionID. %v %v", ctx, questionID)
+	mmListSetsByQuestionID.t.Fatalf("Unexpected call to QuestionSetRepositoryMock.ListSetIDsByQuestionID. %v %v", ctx, questionID)
 	return
 }
 
@@ -1500,7 +1500,7 @@ func (m *QuestionSetRepositoryMock) MinimockListSetsByQuestionIDDone() bool {
 func (m *QuestionSetRepositoryMock) MinimockListSetsByQuestionIDInspect() {
 	for _, e := range m.ListSetsByQuestionIDMock.expectations {
 		if mm_atomic.LoadUint64(&e.Counter) < 1 {
-			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetsByQuestionID at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
+			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetIDsByQuestionID at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
 		}
 	}
 
@@ -1508,18 +1508,18 @@ func (m *QuestionSetRepositoryMock) MinimockListSetsByQuestionIDInspect() {
 	// if default expectation was set then invocations count should be greater than zero
 	if m.ListSetsByQuestionIDMock.defaultExpectation != nil && afterListSetsByQuestionIDCounter < 1 {
 		if m.ListSetsByQuestionIDMock.defaultExpectation.params == nil {
-			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetsByQuestionID at\n%s", m.ListSetsByQuestionIDMock.defaultExpectation.returnOrigin)
+			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetIDsByQuestionID at\n%s", m.ListSetsByQuestionIDMock.defaultExpectation.returnOrigin)
 		} else {
-			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetsByQuestionID at\n%s with params: %#v", m.ListSetsByQuestionIDMock.defaultExpectation.expectationOrigins.origin, *m.ListSetsByQuestionIDMock.defaultExpectation.params)
+			m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetIDsByQuestionID at\n%s with params: %#v", m.ListSetsByQuestionIDMock.defaultExpectation.expectationOrigins.origin, *m.ListSetsByQuestionIDMock.defaultExpectation.params)
 		}
 	}
 	// if func was set then invocations count should be greater than zero
 	if m.funcListSetsByQuestionID != nil && afterListSetsByQuestionIDCounter < 1 {
-		m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetsByQuestionID at\n%s", m.funcListSetsByQuestionIDOrigin)
+		m.t.Errorf("Expected call to QuestionSetRepositoryMock.ListSetIDsByQuestionID at\n%s", m.funcListSetsByQuestionIDOrigin)
 	}
 
 	if !m.ListSetsByQuestionIDMock.invocationsDone() && afterListSetsByQuestionIDCounter > 0 {
-		m.t.Errorf("Expected %d calls to QuestionSetRepositoryMock.ListSetsByQuestionID at\n%s but found %d calls",
+		m.t.Errorf("Expected %d calls to QuestionSetRepositoryMock.ListSetIDsByQuestionID at\n%s but found %d calls",
 			mm_atomic.LoadUint64(&m.ListSetsByQuestionIDMock.expectedInvocations), m.ListSetsByQuestionIDMock.expectedInvocationsOrigin, afterListSetsByQuestionIDCounter)
 	}
 }

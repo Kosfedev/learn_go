@@ -26,10 +26,10 @@ type SetRepository interface {
 type QuestionSetRepository interface {
 	AddQuestionToSets(ctx context.Context, questionID int64, setIDs []int64) error
 	RemoveQuestionFromSets(ctx context.Context, questionID int64, setIDs []int64) error
-	ListSetsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
+	ListSetIDsByQuestionID(ctx context.Context, questionID int64) ([]int64, error)
 	AddQuestionsToSet(ctx context.Context, setID int64, questionIDs []int64) error
 	RemoveQuestionsFromSet(ctx context.Context, setID int64, questionIDs []int64) error
-	ListQuestionsBySetID(ctx context.Context, setID int64) ([]int64, error)
+	ListQuestionIDsBySetID(ctx context.Context, setID int64) ([]int64, error)
 }
 
 type QuestionSetForQuestionRepository interface {
