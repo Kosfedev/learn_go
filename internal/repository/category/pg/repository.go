@@ -107,19 +107,19 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 
 func (r *repo) Update(ctx context.Context, id int64, category *model.UpdatedCategory) error {
 	categoryRepo := converter.UpdatedCategoryToPGSQL(category)
-	builderDelete := sq.Update(tableCategory).
-		PlaceholderFormat(sq.Dollar)
+	builderUpdate := sq.Update(tableCategory).
+		PlaceholderFormat(sq.Dollar).
+		Where(sq.Eq{columnID: id})
 
 	if categoryRepo.Name.Valid {
-		builderDelete = builderDelete.Set(columnName, categoryRepo.Name)
+		builderUpdate = builderUpdate.Set(columnName, categoryRepo.Name)
 	}
 
 	if categoryRepo.DomainID.Valid {
-		builderDelete = builderDelete.Set(columnDomainID, categoryRepo.DomainID)
+		builderUpdate = builderUpdate.Set(columnDomainID, categoryRepo.DomainID)
 	}
 
-	builderDelete = builderDelete.Where(sq.Eq{columnID: id})
-	queryRaw, args, err := builderDelete.ToSql()
+	queryRaw, args, err := builderUpdate.ToSql()
 	if err != nil {
 		return err
 	}
