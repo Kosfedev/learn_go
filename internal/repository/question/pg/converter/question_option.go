@@ -5,6 +5,16 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
 )
 
+func QuestionOptionsFromPGSQL(questionOptionsRepo []*modelRepo.QuestionOption) []*model.QuestionOption {
+	questionOptionsServ := make([]*model.QuestionOption, len(questionOptionsRepo))
+
+	for i, questionOption := range questionOptionsRepo {
+		questionOptionsServ[i] = QuestionOptionFromPGSQL(questionOption)
+	}
+
+	return questionOptionsServ
+}
+
 func QuestionOptionFromPGSQL(questionOptionRepo *modelRepo.QuestionOption) *model.QuestionOption {
 	questionOptionServ := &model.QuestionOption{
 		ID:        questionOptionRepo.ID,

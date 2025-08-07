@@ -161,7 +161,6 @@ func (r *repo) ListByIDs(ctx context.Context, ids []int64) ([]*model.Subcategory
 		return nil, err
 	}
 
-	fmt.Printf("%+v\n", *subcategoriesRepo[1])
 	subcategory := converter.SubcategoriesFromPGSQL(subcategoriesRepo)
 
 	return subcategory, nil
