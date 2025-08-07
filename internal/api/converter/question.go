@@ -18,6 +18,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 		}
 	}
 
+	// TODO: унифицировать с конвертером subcategory
 	subcategories := make([]*desc.Subcategory, len(question.Subcategories))
 	for i, subcategory := range question.Subcategories {
 		subcategories[i] = &desc.Subcategory{
@@ -25,11 +26,24 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 			Name:       subcategory.Name,
 			CategoryId: subcategory.CategoryID,
 			CreatedAt:  timestamppb.New(subcategory.CreatedAt),
-			UpdatedAt:  nil,
 		}
 
 		if subcategory.UpdatedAt != nil {
 			subcategories[i].UpdatedAt = timestamppb.New(*subcategory.UpdatedAt)
+		}
+	}
+
+	// TODO: унифицировать с конвертером set
+	sets := make([]*desc.Set, len(question.Sets))
+	for i, set := range question.Sets {
+		sets[i] = &desc.Set{
+			Id:        set.ID,
+			Name:      set.Name,
+			CreatedAt: timestamppb.New(set.CreatedAt),
+		}
+
+		if set.UpdatedAt != nil {
+			subcategories[i].UpdatedAt = timestamppb.New(*set.UpdatedAt)
 		}
 	}
 
@@ -39,6 +53,7 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 		QuestionType:  desc.QuestionType(question.Type),
 		Options:       options,
 		Subcategories: subcategories,
+		Sets:          sets,
 		CreatedAt:     timestamppb.New(question.CreatedAt),
 	}
 

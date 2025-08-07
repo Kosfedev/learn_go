@@ -15,12 +15,11 @@ func (r *repo) AddSubcategoriesToQuestion(ctx context.Context, questionID int64,
 
 	var values []interface{}
 	nArgs := 2
-	questionIDRepo := questionID
 	queryRaw := `INSERT INTO question_subcategory (question_id, subcategory_id) VALUES`
 
 	for i, subcategoryID := range subcategoryIDs {
 		queryRaw += fmt.Sprintf(" ($%d, $%d),", i*nArgs+1, i*nArgs+2)
-		values = append(values, questionIDRepo, subcategoryID)
+		values = append(values, questionID, subcategoryID)
 	}
 
 	queryRaw = strings.TrimSuffix(queryRaw, ",")

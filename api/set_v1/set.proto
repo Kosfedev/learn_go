@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package set_v1;
+
+option go_package = "github.com/Kosfedev/learn_go/set_v1;set_v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service SetV1 {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message CreateRequest {
+  string name = 1;
+  repeated int64 question_ids = 2;
+}
+
+message CreateResponse {
+  int64 id = 1;
+}
+
+message GetRequest {
+  int64 id = 1;
+}
+
+message GetResponse {
+  int64 id = 1;
+  string name = 2;
+  repeated int64 question_ids = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message UpdateRequest {
+  int64 id = 1;
+  google.protobuf.StringValue name = 2;
+}
+
+message UpdateResponse {
+}
+
+message DeleteRequest {
+  int64 id = 1;
+}
+
+message DeleteResponse {
+}

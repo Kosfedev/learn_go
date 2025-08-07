@@ -35,6 +35,7 @@ type Question struct {
 	Type            QuestionType
 	Options         []*QuestionOption
 	Subcategories   []*Subcategory
+	Sets            []*Set
 	ReferenceAnswer *string
 	CreatedAt       time.Time
 	UpdatedAt       *time.Time
