@@ -26,6 +26,7 @@ import (
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
 	questionService "github.com/Kosfedev/learn_go/internal/service/question"
+	questionFormService "github.com/Kosfedev/learn_go/internal/service/questionform"
 	questionSetService "github.com/Kosfedev/learn_go/internal/service/set"
 	subcategoryService "github.com/Kosfedev/learn_go/internal/service/subcategory"
 )
@@ -45,11 +46,12 @@ type serviceProvider struct {
 	categoryRepo            repository.CategoryRepository
 	subcategoryRepo         repository.SubcategoryRepository
 
-	questionServ    service.QuestionService
-	setServ         service.SetService
-	domainServ      service.DomainService
-	categoryServ    service.CategoryService
-	subcategoryServ service.SubcategoryService
+	questionServ     service.QuestionService
+	questionFormServ service.QuestionFormService
+	setServ          service.SetService
+	domainServ       service.DomainService
+	categoryServ     service.CategoryService
+	subcategoryServ  service.SubcategoryService
 
 	questionImpl    *quesionImplementation.Implementation
 	setImpl         *setImplementation.Implementation
@@ -216,6 +218,16 @@ func (sp *serviceProvider) SubcategoryService(ctx context.Context) service.Subca
 	}
 
 	return sp.subcategoryServ
+}
+
+func (sp *serviceProvider) QuestionFormService(ctx context.Context) service.QuestionFormService {
+	if sp.questionFormServ == nil {
+		sp.questionFormServ = questionFormService.NewService(
+			sp.QuestionFormRepository(ctx),
+		)
+	}
+
+	return sp.questionFormServ
 }
 
 func (sp *serviceProvider) QuestionImplementation(ctx context.Context) *quesionImplementation.Implementation {
