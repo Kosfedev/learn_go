@@ -9,15 +9,6 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_form/pg/model"
 )
 
-const (
-	tableQuestion            = "question"
-	tableQuestionOption      = "question_option"
-	tableQuestionSet         = "question_set"
-	tableQuestionSubcategory = "question_subcategory"
-	tableSet                 = "set"
-	tableSubcategory         = "subcategory"
-)
-
 type repo struct {
 	db db.Client
 }
