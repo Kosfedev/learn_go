@@ -6,19 +6,19 @@ import (
 )
 
 type Subcategory struct {
-	ID         int64
-	Name       string
-	CategoryID int64
-	CreatedAt  time.Time
-	UpdatedAt  sql.NullTime
+	ID         int64        `db:"id" json:"id"`
+	Name       string       `db:"name" json:"name"`
+	CategoryID int64        `db:"category_id" json:"category_id"`
+	CreatedAt  time.Time    `db:"created_at" json:"created_at"`
+	UpdatedAt  sql.NullTime `db:"updated_at" json:"updated_at"`
 }
 
 type NewSubcategory struct {
-	Name       string
-	CategoryID int64
+	Name       string `db:"name" json:"name"`
+	CategoryID int64  `db:"category_id" json:"category_id"`
 }
 
 type UpdatedSubcategory struct {
-	Name       sql.NullString
-	CategoryID sql.NullInt64
+	Name       sql.NullString `db:"name" json:"name"`
+	CategoryID sql.NullInt64  `db:"category_id" json:"category_id"`
 }

@@ -6,16 +6,16 @@ import (
 )
 
 type Set struct {
-	ID        int64
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt sql.NullTime
+	ID        int64        `db:"id" json:"id"`
+	Name      string       `db:"name" json:"name"`
+	CreatedAt time.Time    `db:"created_at" json:"created_at"`
+	UpdatedAt sql.NullTime `db:"updated_at" json:"updated_at"`
 }
 
 type NewSet struct {
-	Name string
+	Name string `db:"name" json:"name"`
 }
 
 type UpdatedSet struct {
-	Name sql.NullString
+	Name sql.NullString `db:"name" json:"name"`
 }

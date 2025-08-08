@@ -1,0 +1,66 @@
+package pg
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/Kosfedev/learn_go/internal/client/db"
+	"github.com/Kosfedev/learn_go/internal/model"
+	"github.com/Kosfedev/learn_go/internal/repository/question_form/pg/converter"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_form/pg/model"
+)
+
+const (
+	tableQuestion            = "question"
+	tableQuestionOption      = "question_option"
+	tableQuestionSet         = "question_set"
+	tableQuestionSubcategory = "question_subcategory"
+	tableSet                 = "set"
+	tableSubcategory         = "subcategory"
+)
+
+type repo struct {
+	db db.Client
+}
+
+func NewRepository(db db.Client) *repo {
+	return &repo{
+		db: db,
+	}
+}
+
+func (r *repo) GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error) {
+	questionFormRepo := &modelRepo.QuestionForm{}
+	queryRaw := `SELECT q.id AS "question.id", q.text AS "question.text", q.type AS "question.type", q.type AS "question.reference_answer", q.created_at AS "question.created_at", q.updated_at AS "question.updated_at", 
+		 (SELECT json_agg(qo) FROM question_option AS qo WHERE qo.question_id = q.id) AS question_options,
+		 (SELECT json_agg(json_build_object(
+      'id', s.id,
+      'name', s.name,
+      'created_at', to_char(s.created_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
+      'updated_at', to_char(s.updated_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"')
+    )) FROM set AS s JOIN question_set AS q_set ON q_set.question_id = q.id WHERE q_set.set_id = s.id) AS sets,
+		 (SELECT json_agg(json_build_object(
+      'id', sub.id,
+      'name', sub.name,
+      'category_id', sub.category_id,
+      'created_at', to_char(sub.created_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
+      'updated_at', to_char(sub.updated_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"')
+    )) FROM subcategory AS sub JOIN question_subcategory AS q_sub ON q_sub.question_id = q.id WHERE q_sub.subcategory_id = sub.id) AS subcategories
+		FROM question AS q
+		WHERE q.id = $1`
+
+	query := db.Query{
+		Name:     "question_form.get_with_options_sets_subcategories",
+		QueryRaw: queryRaw,
+	}
+
+	fmt.Println(queryRaw)
+	err := r.db.DB().ScanOne(ctx, questionFormRepo, query, questionID)
+	if err != nil {
+		return nil, err
+	}
+
+	questionForm := converter.QuestionFormFromPGSQL(questionFormRepo)
+
+	return questionForm, nil
+}
