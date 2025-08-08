@@ -36,6 +36,14 @@ generate-question-set-api:
 	--go-grpc_out=pkg/set_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/set_v1/set.proto
+generate-question-form-api:
+	mkdir -p pkg/question_form_v1
+	protoc --proto_path api/question_form_v1 \
+	--go_out=pkg/question_form_v1 --go_opt=paths=source_relative \
+	--plugin=protoc-gen-go=bin/protoc-gen-go \
+	--go-grpc_out=pkg/question_form_v1 --go-grpc_opt=paths=source_relative \
+	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	api/question_form_v1/question_form.proto
 generate-domain-api:
 	mkdir -p pkg/domain_v1
 	protoc --proto_path api/domain_v1 \
@@ -64,6 +72,7 @@ generate-subcategory-api:
 generate:
 	make generate-question-api
 	make generate-question-set-api
+	make generate-question-form-api
 	make generate-domain-api
 	make generate-category-api
 	make generate-subcategory-api

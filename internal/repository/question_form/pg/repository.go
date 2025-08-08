@@ -2,7 +2,6 @@ package pg
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/model"
@@ -54,7 +53,6 @@ func (r *repo) GetWithOptionsSetsSubcategories(ctx context.Context, questionID i
 		QueryRaw: queryRaw,
 	}
 
-	fmt.Println(queryRaw)
 	err := r.db.DB().ScanOne(ctx, questionFormRepo, query, questionID)
 	if err != nil {
 		return nil, err
