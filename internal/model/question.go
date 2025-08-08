@@ -33,9 +33,6 @@ type Question struct {
 	ID              int64
 	Text            string
 	Type            QuestionType
-	Options         []*QuestionOption
-	Subcategories   []*Subcategory
-	Sets            []*Set
 	ReferenceAnswer *string
 	CreatedAt       time.Time
 	UpdatedAt       *time.Time

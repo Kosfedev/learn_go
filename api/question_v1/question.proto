@@ -25,27 +25,13 @@ enum QuestionType {
   QUESTION_TYPE_OPEN = 3;
 }
 
-message QuestionOption {
+message Question {
   int64 id = 1;
   string text = 2;
-  bool is_correct = 3;
-}
-
-// TODO: настроить импорт
-message Subcategory {
-  int64 id = 1;
-  string name = 2;
-  int64 categoryId = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
-}
-
-// TODO: настроить импорт
-message Set {
-  int64 id = 1;
-  string name = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
+  QuestionType question_type = 3;
+  google.protobuf.StringValue reference_answer = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
 
 message NewQuestionOption {
@@ -69,15 +55,11 @@ message GetRequest {
 }
 
 message GetResponse {
-  int64 id = 1;
-  string text = 2;
-  QuestionType question_type = 3;
-  repeated QuestionOption options = 4;
-  google.protobuf.StringValue reference_answer = 5;
-  repeated Subcategory subcategories = 6;
-  repeated Set sets = 7;
-  google.protobuf.Timestamp created_at = 8;
-  google.protobuf.Timestamp updated_at = 9;
+  message Data {
+    Question question = 1;
+  }
+
+  Data data = 1;
 }
 
 message UpdateRequest {

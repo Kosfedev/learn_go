@@ -9,60 +9,23 @@ import (
 )
 
 func QuestionToGRPC(question *model.Question) *desc.GetResponse {
-	options := make([]*desc.QuestionOption, len(question.Options))
-	for i, option := range question.Options {
-		options[i] = &desc.QuestionOption{
-			Id:        option.ID,
-			Text:      option.Text,
-			IsCorrect: option.IsCorrect,
-		}
-	}
-
-	// TODO: унифицировать с конвертером subcategory
-	subcategories := make([]*desc.Subcategory, len(question.Subcategories))
-	for i, subcategory := range question.Subcategories {
-		subcategories[i] = &desc.Subcategory{
-			Id:         subcategory.ID,
-			Name:       subcategory.Name,
-			CategoryId: subcategory.CategoryID,
-			CreatedAt:  timestamppb.New(subcategory.CreatedAt),
-		}
-
-		if subcategory.UpdatedAt != nil {
-			subcategories[i].UpdatedAt = timestamppb.New(*subcategory.UpdatedAt)
-		}
-	}
-
-	// TODO: унифицировать с конвертером set
-	sets := make([]*desc.Set, len(question.Sets))
-	for i, set := range question.Sets {
-		sets[i] = &desc.Set{
-			Id:        set.ID,
-			Name:      set.Name,
-			CreatedAt: timestamppb.New(set.CreatedAt),
-		}
-
-		if set.UpdatedAt != nil {
-			subcategories[i].UpdatedAt = timestamppb.New(*set.UpdatedAt)
-		}
-	}
-
-	res := &desc.GetResponse{
-		Id:            question.ID,
-		Text:          question.Text,
-		QuestionType:  desc.QuestionType(question.Type),
-		Options:       options,
-		Subcategories: subcategories,
-		Sets:          sets,
-		CreatedAt:     timestamppb.New(question.CreatedAt),
+	questionGRPC := &desc.Question{
+		Id:           question.ID,
+		Text:         question.Text,
+		QuestionType: desc.QuestionType(question.Type),
+		CreatedAt:    timestamppb.New(question.CreatedAt),
 	}
 
 	if question.ReferenceAnswer != nil {
-		res.ReferenceAnswer = wrapperspb.String(*question.ReferenceAnswer)
+		questionGRPC.ReferenceAnswer = wrapperspb.String(*question.ReferenceAnswer)
 	}
 
 	if question.UpdatedAt != nil {
-		res.UpdatedAt = timestamppb.New(*question.UpdatedAt)
+		questionGRPC.UpdatedAt = timestamppb.New(*question.UpdatedAt)
+	}
+
+	res := &desc.GetResponse{
+		Data: &desc.GetResponse_Data{Question: questionGRPC},
 	}
 
 	return res

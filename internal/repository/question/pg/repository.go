@@ -98,12 +98,6 @@ func (r *repo) Get(ctx context.Context, id int64) (*model.Question, error) {
 	}
 
 	questionServ := converter.QuestionFromPGSQL(questionRepo)
-	questionOptionsServ, err := r.ListOptionsByQuestionID(ctx, id)
-	if err != nil {
-		return nil, err
-	}
-
-	questionServ.Options = questionOptionsServ
 
 	return questionServ, nil
 }
