@@ -7,6 +7,7 @@ import (
 	categoryImplementation "github.com/Kosfedev/learn_go/internal/api/category"
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
+	quesionFormImplementation "github.com/Kosfedev/learn_go/internal/api/questionform"
 	setImplementation "github.com/Kosfedev/learn_go/internal/api/set"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/client/db"
@@ -17,6 +18,7 @@ import (
 	categoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/category/pg"
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
+	questionFormPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_form/pg"
 	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_set/pg"
 	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
 	setPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
@@ -25,6 +27,7 @@ import (
 	categoryService "github.com/Kosfedev/learn_go/internal/service/category"
 	domainService "github.com/Kosfedev/learn_go/internal/service/domain"
 	questionService "github.com/Kosfedev/learn_go/internal/service/question"
+	questionFormService "github.com/Kosfedev/learn_go/internal/service/questionform"
 	questionSetService "github.com/Kosfedev/learn_go/internal/service/set"
 	subcategoryService "github.com/Kosfedev/learn_go/internal/service/subcategory"
 )
@@ -39,21 +42,24 @@ type serviceProvider struct {
 	setRepo                 repository.SetRepository
 	questionSetRepo         repository.QuestionSetRepository
 	questionSubcategoryRepo repository.QuestionSubcategoryRepository
+	questionFormRepo        repository.QuestionFormRepository
 	domainRepo              repository.DomainRepository
 	categoryRepo            repository.CategoryRepository
 	subcategoryRepo         repository.SubcategoryRepository
 
-	questionServ    service.QuestionService
-	setServ         service.SetService
-	domainServ      service.DomainService
-	categoryServ    service.CategoryService
-	subcategoryServ service.SubcategoryService
+	questionServ     service.QuestionService
+	questionFormServ service.QuestionFormService
+	setServ          service.SetService
+	domainServ       service.DomainService
+	categoryServ     service.CategoryService
+	subcategoryServ  service.SubcategoryService
 
-	questionImpl    *quesionImplementation.Implementation
-	setImpl         *setImplementation.Implementation
-	domainImpl      *domainImplementation.Implementation
-	categoryImpl    *categoryImplementation.Implementation
-	subcategoryImpl *subcategoryImplementation.Implementation
+	questionImpl     *quesionImplementation.Implementation
+	questionFormImpl *quesionFormImplementation.Implementation
+	setImpl          *setImplementation.Implementation
+	domainImpl       *domainImplementation.Implementation
+	categoryImpl     *categoryImplementation.Implementation
+	subcategoryImpl  *subcategoryImplementation.Implementation
 }
 
 func newServiceProvider() *serviceProvider {
@@ -138,6 +144,14 @@ func (sp *serviceProvider) QuestionSetRepository(ctx context.Context) repository
 	return sp.questionSetRepo
 }
 
+func (sp *serviceProvider) QuestionFormRepository(ctx context.Context) repository.QuestionFormRepository {
+	if sp.questionFormRepo == nil {
+		sp.questionFormRepo = questionFormPGRepository.NewRepository(sp.DBClient(ctx))
+	}
+
+	return sp.questionFormRepo
+}
+
 func (sp *serviceProvider) DomainRepository(ctx context.Context) repository.DomainRepository {
 	if sp.domainRepo == nil {
 		sp.domainRepo = domainPGRepository.NewRepository(sp.DBClient(ctx))
@@ -208,6 +222,16 @@ func (sp *serviceProvider) SubcategoryService(ctx context.Context) service.Subca
 	return sp.subcategoryServ
 }
 
+func (sp *serviceProvider) QuestionFormService(ctx context.Context) service.QuestionFormService {
+	if sp.questionFormServ == nil {
+		sp.questionFormServ = questionFormService.NewService(
+			sp.QuestionFormRepository(ctx),
+		)
+	}
+
+	return sp.questionFormServ
+}
+
 func (sp *serviceProvider) QuestionImplementation(ctx context.Context) *quesionImplementation.Implementation {
 	if sp.questionImpl == nil {
 		sp.questionImpl = quesionImplementation.NewImplementation(sp.QuestionService(ctx))
@@ -246,4 +270,12 @@ func (sp *serviceProvider) SubcategoryImplementation(ctx context.Context) *subca
 	}
 
 	return sp.subcategoryImpl
+}
+
+func (sp *serviceProvider) QuestionFormImplementation(ctx context.Context) *quesionFormImplementation.Implementation {
+	if sp.questionFormImpl == nil {
+		sp.questionFormImpl = quesionFormImplementation.NewImplementation(sp.QuestionFormService(ctx))
+	}
+
+	return sp.questionFormImpl
 }

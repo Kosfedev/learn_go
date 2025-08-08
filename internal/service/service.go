@@ -44,3 +44,7 @@ type SubcategoryService interface {
 	Update(ctx context.Context, id int64, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int64) error
 }
+
+type QuestionFormService interface {
+	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
+}
