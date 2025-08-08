@@ -138,30 +138,3 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
-
-func (r *repo) ListByIDs(ctx context.Context, ids []int64) ([]*model.Subcategory, error) {
-	builderSelect := sq.Select(columnID, columnName, columnCategoryID, columnCreatedAt, columnUpdatedAt).
-		From(tableSubcategory).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnID: ids})
-
-	queryRaw, args, err := builderSelect.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	query := db.Query{
-		Name:     "subcategory_repository.list_by_ids",
-		QueryRaw: queryRaw,
-	}
-
-	subcategoriesRepo := make([]*modelRepo.Subcategory, len(ids))
-	err = r.db.DB().ScanAll(ctx, &subcategoriesRepo, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	subcategory := converter.SubcategoriesFromPGSQL(subcategoriesRepo)
-
-	return subcategory, nil
-}

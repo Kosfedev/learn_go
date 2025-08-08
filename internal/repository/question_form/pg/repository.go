@@ -5,6 +5,7 @@ import (
 
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/model"
+	"github.com/Kosfedev/learn_go/internal/repository"
 	"github.com/Kosfedev/learn_go/internal/repository/question_form/pg/converter"
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_form/pg/model"
 )
@@ -13,7 +14,7 @@ type repo struct {
 	db db.Client
 }
 
-func NewRepository(db db.Client) *repo {
+func NewRepository(db db.Client) repository.QuestionFormRepository {
 	return &repo{
 		db: db,
 	}

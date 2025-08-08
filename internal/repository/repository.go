@@ -20,7 +20,6 @@ type SetRepository interface {
 	Get(ctx context.Context, id int64) (*model.Set, error)
 	Update(ctx context.Context, id int64, updatedSet *model.UpdatedSet) error
 	Delete(ctx context.Context, id int64) error
-	ListByIDs(ctx context.Context, ids []int64) ([]*model.Set, error)
 }
 
 type QuestionSetRepository interface {
@@ -72,7 +71,6 @@ type SubcategoryRepository interface {
 	Get(ctx context.Context, id int64) (*model.Subcategory, error)
 	Update(ctx context.Context, id int64, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int64) error
-	ListByIDs(ctx context.Context, ids []int64) ([]*model.Subcategory, error)
 }
 
 type QuestionFormRepository interface {

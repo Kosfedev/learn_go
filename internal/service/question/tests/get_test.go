@@ -21,7 +21,6 @@ func TestGet(t *testing.T) {
 		ID:              id,
 		Text:            gofakeit.Question(),
 		Type:            3,
-		Options:         nil,
 		ReferenceAnswer: nil,
 		CreatedAt:       time.Time{},
 		UpdatedAt:       nil,
@@ -29,11 +28,9 @@ func TestGet(t *testing.T) {
 	mc := minimock.NewController(t)
 	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
 	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
-	mockQuestionSetRepo := mocks.NewQuestionSetRepositoryMock(mc)
-	mockSetRepo := mocks.NewSetRepositoryMock(mc)
 	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
 	mockQuestionRepo.GetMock.Expect(ctx, id).Return(res, nil)
-	questionService := question.NewService(mockQuestionRepo, mockQuestionSetRepo, mockQuestionSubcategoryRepo, mockSetRepo, mockSubcategoryRepo)
+	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Get placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Get(ctx, id)

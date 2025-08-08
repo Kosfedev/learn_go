@@ -157,33 +157,6 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 	return nil
 }
 
-func (r *repo) ListByIDs(ctx context.Context, ids []int64) ([]*model.Set, error) {
-	builderSelect := sq.Select(columnID, columnName, columnCreatedAt, columnUpdatedAt).
-		From(tableSet).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnID: ids})
-
-	queryRaw, args, err := builderSelect.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	query := db.Query{
-		Name:     "set_repository.list_by_ids",
-		QueryRaw: queryRaw,
-	}
-
-	setsRepo := make([]*modelRepo.Set, len(ids))
-	err = r.db.DB().ScanAll(ctx, &setsRepo, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	set := converter.SetsFromPGSQL(setsRepo)
-
-	return set, nil
-}
-
 func (r *repo) addQuestions(ctx context.Context, setID int64, questionIDs []int64) error {
 	if len(questionIDs) == 0 {
 		return nil

@@ -19,11 +19,9 @@ func TestDeleteOptions(t *testing.T) {
 	mc := minimock.NewController(t)
 	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
 	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
-	mockQuestionSetRepo := mocks.NewQuestionSetRepositoryMock(mc)
-	mockSetRepo := mocks.NewSetRepositoryMock(mc)
 	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
 	mockQuestionRepo.DeleteOptionsMock.Expect(ctx, optionIDs).Return(nil)
-	questionService := question.NewService(mockQuestionRepo, mockQuestionSetRepo, mockQuestionSubcategoryRepo, mockSetRepo, mockSubcategoryRepo)
+	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Delete options placeholder implementation test", func(t *testing.T) {
 		err := questionService.DeleteOptions(context.Background(), optionIDs)

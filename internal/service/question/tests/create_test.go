@@ -26,10 +26,8 @@ func TestCreate(t *testing.T) {
 	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
 	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
 	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
-	mockQuestionSetRepo := mocks.NewQuestionSetRepositoryMock(mc)
-	mockSetRepo := mocks.NewSetRepositoryMock(mc)
 	mockQuestionRepo.CreateMock.Expect(ctx, req).Return(id, nil)
-	questionService := question.NewService(mockQuestionRepo, mockQuestionSetRepo, mockQuestionSubcategoryRepo, mockSetRepo, mockSubcategoryRepo)
+	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
 
 	t.Run("Create placeholder implementation test", func(t *testing.T) {
 		_, err := questionService.Create(context.Background(), req)
