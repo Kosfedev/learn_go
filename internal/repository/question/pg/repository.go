@@ -13,6 +13,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/repository"
 	"github.com/Kosfedev/learn_go/internal/repository/question/pg/converter"
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
+	converter2 "github.com/Kosfedev/learn_go/internal/repository/question_option/pg/converter"
 )
 
 const (
@@ -183,7 +184,7 @@ func (r *repo) ListOptionsByQuestionID(ctx context.Context, questionID int64) ([
 		return nil, err
 	}
 
-	questionOptions := converter.QuestionOptionsFromPGSQL(questionOptionsRepo)
+	questionOptions := converter2.QuestionOptionsFromPGSQL(questionOptionsRepo)
 
 	return questionOptions, nil
 }

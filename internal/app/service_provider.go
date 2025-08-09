@@ -19,6 +19,7 @@ import (
 	domainPGRepository "github.com/Kosfedev/learn_go/internal/repository/domain/pg"
 	questionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question/pg"
 	questionFormPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_form/pg"
+	questionOptionPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_option/pg"
 	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_set/pg"
 	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
 	setPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
@@ -43,6 +44,7 @@ type serviceProvider struct {
 	questionSetRepo         repository.QuestionSetRepository
 	questionSubcategoryRepo repository.QuestionSubcategoryRepository
 	questionFormRepo        repository.QuestionFormRepository
+	questionOptionRepo      repository.QuestionOptionRepository
 	domainRepo              repository.DomainRepository
 	categoryRepo            repository.CategoryRepository
 	subcategoryRepo         repository.SubcategoryRepository
@@ -118,6 +120,14 @@ func (sp *serviceProvider) QuestionRepository(ctx context.Context) repository.Qu
 	}
 
 	return sp.questionRepo
+}
+
+func (sp *serviceProvider) QuestionOptionRepository(ctx context.Context) repository.QuestionOptionRepository {
+	if sp.questionOptionRepo == nil {
+		sp.questionOptionRepo = questionOptionPGRepository.NewRepository(sp.DBClient(ctx))
+	}
+
+	return sp.questionOptionRepo
 }
 
 func (sp *serviceProvider) SetRepository(ctx context.Context) repository.SetRepository {

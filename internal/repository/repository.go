@@ -15,6 +15,11 @@ type QuestionRepository interface {
 	DeleteOptions(ctx context.Context, ids []int64) error
 }
 
+type QuestionOptionRepository interface {
+	CreateList(ctx context.Context, questionID int64, options []*model.NewQuestionOption) error
+	DeleteList(ctx context.Context, ids []int64) error
+}
+
 type SetRepository interface {
 	Create(ctx context.Context, newSet *model.NewSet) (int64, error)
 	Get(ctx context.Context, id int64) (*model.Set, error)
