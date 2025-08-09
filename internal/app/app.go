@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 
+	"github.com/Kosfedev/learn_go/internal/app/serviceprovider"
 	"github.com/Kosfedev/learn_go/internal/config"
 	categoryDesc "github.com/Kosfedev/learn_go/pkg/category_v1"
 	domainDesc "github.com/Kosfedev/learn_go/pkg/domain_v1"
@@ -20,7 +21,7 @@ import (
 )
 
 type App struct {
-	serviceProvider *serviceProvider
+	serviceProvider *serviceprovider.ServiceProvider
 	grpcServer      *grpc.Server
 }
 
@@ -62,7 +63,7 @@ func (app *App) initConfig(_ context.Context) error {
 }
 
 func (app *App) initServiceProvider(_ context.Context) error {
-	app.serviceProvider = newServiceProvider()
+	app.serviceProvider = serviceprovider.NewServiceProvider()
 	return nil
 }
 
