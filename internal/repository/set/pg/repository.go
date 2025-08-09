@@ -60,12 +60,6 @@ func (r *repo) Create(ctx context.Context, newSet *model.NewSet) (int64, error) 
 		return 0, err
 	}
 
-	// TODO: нужна транзакция
-	err = r.addQuestions(ctx, setID, newSet.QuestionIDs)
-	if err != nil {
-		return 0, err
-	}
-
 	return setID, nil
 }
 
@@ -96,12 +90,6 @@ func (r *repo) Get(ctx context.Context, id int64) (*model.Set, error) {
 	}
 
 	set := converter.SetFromPGSQL(setRepo)
-	questionIDs, err := r.getQuestionsIDs(ctx, id)
-	if err != nil {
-		return nil, err
-	}
-
-	set.QuestionIDs = questionIDs
 
 	return set, nil
 }
@@ -155,60 +143,4 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 	}
 
 	return nil
-}
-
-func (r *repo) addQuestions(ctx context.Context, setID int64, questionIDs []int64) error {
-	if len(questionIDs) == 0 {
-		return nil
-	}
-
-	builderInsert := sq.Insert(tableQuestionSet).
-		PlaceholderFormat(sq.Dollar).
-		Columns(columnSetID, columnQuestionID)
-
-	for _, questionID := range questionIDs {
-		builderInsert = builderInsert.Values(setID, questionID)
-	}
-
-	queryRaw, args, err := builderInsert.ToSql()
-	if err != nil {
-		return err
-	}
-
-	query := db.Query{
-		Name:     "set_repository.add_questions",
-		QueryRaw: queryRaw,
-	}
-
-	_, err = r.db.DB().ExecContext(ctx, query, args...)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (r *repo) getQuestionsIDs(ctx context.Context, id int64) ([]int64, error) {
-	questionIDs := make([]int64, 0)
-	builderSelect := sq.Select(columnQuestionID).
-		From(tableQuestionSet).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnSetID: id})
-
-	queryRaw, args, err := builderSelect.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	query := db.Query{
-		Name:     "set_repository.get_questions",
-		QueryRaw: queryRaw,
-	}
-
-	err = r.db.DB().ScanAll(ctx, &questionIDs, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return questionIDs, nil
 }
