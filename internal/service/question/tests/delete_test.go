@@ -16,11 +16,9 @@ func TestDelete(t *testing.T) {
 	ctx := context.Background()
 	id := gofakeit.Int64()
 	mc := minimock.NewController(t)
-	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
-	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
 	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
 	mockQuestionRepo.DeleteMock.Expect(ctx, id).Return(nil)
-	questionService := question.NewService(mockQuestionRepo, mockQuestionSubcategoryRepo, mockSubcategoryRepo)
+	questionService := question.NewService(mockQuestionRepo)
 
 	t.Run("Delete placeholder implementation test", func(t *testing.T) {
 		err := questionService.Delete(context.Background(), id)

@@ -18,10 +18,9 @@ func TestGet(t *testing.T) {
 	ctx := context.Background()
 	id := gofakeit.Int64()
 	res := &model.Set{
-		ID:          id,
-		Name:        gofakeit.Question(),
-		QuestionIDs: []int64{1, 2, 3, 4, 5},
-		CreatedAt:   time.Time{},
+		ID:        id,
+		Name:      gofakeit.Question(),
+		CreatedAt: time.Time{},
 	}
 	mc := minimock.NewController(t)
 	mockRepo := mocks.NewSetRepositoryMock(mc)
