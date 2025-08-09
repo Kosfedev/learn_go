@@ -11,8 +11,6 @@ type QuestionRepository interface {
 	Get(ctx context.Context, id int64) (*model.Question, error)
 	Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, id int64) error
-	AddOptions(ctx context.Context, id int64, options []*model.NewQuestionOption) error
-	DeleteOptions(ctx context.Context, ids []int64) error
 }
 
 type QuestionOptionRepository interface {

@@ -190,6 +190,7 @@ func (sp *serviceProvider) QuestionService(ctx context.Context) service.Question
 	if sp.questionServ == nil {
 		sp.questionServ = questionService.NewService(
 			sp.QuestionRepository(ctx),
+			sp.QuestionOptionRepository(ctx),
 			sp.QuestionSubcategoryRepository(ctx),
 			sp.SubcategoryRepository(ctx),
 		)
