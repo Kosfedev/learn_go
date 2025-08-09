@@ -48,7 +48,7 @@ type QuestionFormService interface {
 }
 
 type QuestionFormUpdaterService interface {
-	CreateWithOptions(ctx context.Context, newQuestion *model.NewQuestion) (int64, error)
+	CreateWithOptions(ctx context.Context, newQuestion *model.NewQuestionWithOptions) (int64, error)
 	AddSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	RemoveSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	AddSets(ctx context.Context, questionID int64, setIDs []int64) error
