@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package set_v1;
 
-option go_package = "github.com/Kosfedev/learn_go/set_v1;set_v1";
+option go_package = "github.com/Kosfedev/learn_go/pkg/set_v1;set_v1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -14,9 +14,15 @@ service SetV1 {
   rpc Delete(DeleteRequest) returns (DeleteResponse);
 }
 
+message Set {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
 message CreateRequest {
   string name = 1;
-  repeated int64 question_ids = 2;
 }
 
 message CreateResponse {
@@ -28,11 +34,7 @@ message GetRequest {
 }
 
 message GetResponse {
-  int64 id = 1;
-  string name = 2;
-  repeated int64 question_ids = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
+  Set data = 1;
 }
 
 message UpdateRequest {

@@ -17,15 +17,12 @@ import (
 
 const (
 	tableQuestion         = "question"
-	tableQuestionOption   = "question_option"
 	columnID              = "id"
 	columnText            = "text"
 	columnType            = "type"
 	columnReferenceAnswer = "reference_answer"
 	columnCreatedAt       = "created_at"
 	columnUpdatedAt       = "updated_at"
-	columnQuestionID      = "question_id"
-	columnIsCorrect       = "is_correct"
 )
 
 type repo struct {
@@ -62,12 +59,6 @@ func (r *repo) Create(ctx context.Context, newQuestion *model.NewQuestion) (int6
 		return 0, err
 	}
 
-	// TODO: нужна транзакция
-	err = r.AddOptions(ctx, questionID, newQuestion.Options)
-	if err != nil {
-		return 0, err
-	}
-
 	return questionID, nil
 }
 
@@ -97,15 +88,9 @@ func (r *repo) Get(ctx context.Context, id int64) (*model.Question, error) {
 		return nil, err
 	}
 
-	questionServ := converter.QuestionFromPGSQL(questionRepo)
-	questionOptionsServ, err := r.ListOptionsByQuestionID(ctx, id)
-	if err != nil {
-		return nil, err
-	}
+	question := converter.QuestionFromPGSQL(questionRepo)
 
-	questionServ.Options = questionOptionsServ
-
-	return questionServ, nil
+	return question, nil
 }
 
 func (r *repo) Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestion) error {
@@ -159,90 +144,6 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 		QueryRaw: queryRaw,
 	}
 
-	_, err = r.db.DB().ExecContext(ctx, query, args...)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (r *repo) ListOptionsByQuestionID(ctx context.Context, questionID int64) ([]*model.QuestionOption, error) {
-	questionOptionsRepo := make([]*modelRepo.QuestionOption, 0)
-	builderSelect := sq.Select(columnID, columnQuestionID, columnText, columnIsCorrect).
-		From(tableQuestionOption).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnQuestionID: questionID})
-
-	queryRaw, args, err := builderSelect.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	query := db.Query{
-		Name:     "question_repository.list_options",
-		QueryRaw: queryRaw,
-	}
-
-	err = r.db.DB().ScanAll(ctx, &questionOptionsRepo, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	questionOptions := converter.QuestionOptionsFromPGSQL(questionOptionsRepo)
-
-	return questionOptions, nil
-}
-
-func (r *repo) AddOptions(ctx context.Context, questionID int64, options []*model.NewQuestionOption) error {
-	if len(options) == 0 {
-		return nil
-	}
-
-	builderInsert := sq.Insert(tableQuestionOption).
-		PlaceholderFormat(sq.Dollar).
-		Columns(columnQuestionID, columnText, columnIsCorrect)
-
-	for _, option := range options {
-		builderInsert = builderInsert.Values(questionID, option.Text, option.IsCorrect)
-	}
-
-	queryRaw, args, err := builderInsert.ToSql()
-	if err != nil {
-		return err
-	}
-
-	query := db.Query{
-		Name:     "question_repository.add_options",
-		QueryRaw: queryRaw,
-	}
-
-	_, err = r.db.DB().ExecContext(ctx, query, args...)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (r *repo) DeleteOptions(ctx context.Context, ids []int64) error {
-	if len(ids) == 0 {
-		return nil
-	}
-
-	builderDelete := sq.Delete(tableQuestionOption).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnID: ids})
-
-	queryRaw, args, err := builderDelete.ToSql()
-	if err != nil {
-		return err
-	}
-
-	query := db.Query{
-		Name:     "question_repository.delete_options",
-		QueryRaw: queryRaw,
-	}
 	_, err = r.db.DB().ExecContext(ctx, query, args...)
 	if err != nil {
 		return err

@@ -2,7 +2,7 @@ package converter
 
 import (
 	"github.com/Kosfedev/learn_go/internal/model"
-	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
+	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question_option/pg/model"
 )
 
 func QuestionOptionsFromPGSQL(questionOptionsRepo []*modelRepo.QuestionOption) []*model.QuestionOption {
@@ -23,6 +23,16 @@ func QuestionOptionFromPGSQL(questionOptionRepo *modelRepo.QuestionOption) *mode
 	}
 
 	return questionOptionServ
+}
+
+func NewQuestionOptionsToPGSQL(questionID int64, questionOptions []*model.NewQuestionOption) []*modelRepo.NewQuestionOption {
+	questionOptionsRepo := make([]*modelRepo.NewQuestionOption, len(questionOptions))
+
+	for i, questionOption := range questionOptions {
+		questionOptionsRepo[i] = NewQuestionOptionToPGSQL(questionID, questionOption)
+	}
+
+	return questionOptionsRepo
 }
 
 func NewQuestionOptionToPGSQL(questionID int64, questionOptionServ *model.NewQuestionOption) *modelRepo.NewQuestionOption {

@@ -18,24 +18,10 @@ func (qt QuestionType) IsValid() bool {
 	return false
 }
 
-type QuestionOption struct {
-	ID        int64
-	Text      string
-	IsCorrect bool
-}
-
-type NewQuestionOption struct {
-	Text      string
-	IsCorrect bool
-}
-
 type Question struct {
 	ID              int64
 	Text            string
 	Type            QuestionType
-	Options         []*QuestionOption
-	Subcategories   []*Subcategory
-	Sets            []*Set
 	ReferenceAnswer *string
 	CreatedAt       time.Time
 	UpdatedAt       *time.Time
@@ -45,7 +31,6 @@ type NewQuestion struct {
 	Text            string
 	Type            QuestionType
 	ReferenceAnswer *string
-	Options         []*NewQuestionOption
 }
 
 type UpdatedQuestion struct {

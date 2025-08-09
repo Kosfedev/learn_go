@@ -21,13 +21,9 @@ func TestUpdate(t *testing.T) {
 		ReferenceAnswer: &refAnswer,
 	}
 	mc := minimock.NewController(t)
-	mockQuestionSubcategoryRepo := mocks.NewQuestionSubcategoryRepositoryMock(mc)
-	mockSubcategoryRepo := mocks.NewSubcategoryRepositoryMock(mc)
-	mockQuestionSetRepo := mocks.NewQuestionSetRepositoryMock(mc)
-	mockSetRepo := mocks.NewSetRepositoryMock(mc)
 	mockQuestionRepo := mocks.NewQuestionRepositoryMock(mc)
 	mockQuestionRepo.UpdateMock.Expect(ctx, id, req).Return(nil)
-	questionService := question.NewService(mockQuestionRepo, mockQuestionSetRepo, mockQuestionSubcategoryRepo, mockSetRepo, mockSubcategoryRepo)
+	questionService := question.NewService(mockQuestionRepo)
 
 	t.Run("Update placeholder implementation test", func(t *testing.T) {
 		err := questionService.Update(context.Background(), id, req)

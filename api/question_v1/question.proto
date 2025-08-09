@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package question_v1;
 
-option go_package = "github.com/Kosfedev/learn_go/question_v1;question_v1";
+option go_package = "github.com/Kosfedev/learn_go/pkg/question_v1;question_v1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -12,10 +12,6 @@ service QuestionV1 {
   rpc Get(GetRequest) returns (GetResponse);
   rpc Update(UpdateRequest) returns (UpdateResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
-  rpc AddOptions(AddOptionsRequest) returns (AddOptionsResponse);
-  rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse);
-  rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse);
-  rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse);
 }
 
 enum QuestionType {
@@ -25,39 +21,23 @@ enum QuestionType {
   QUESTION_TYPE_OPEN = 3;
 }
 
-message QuestionOption {
+message Question {
   int64 id = 1;
   string text = 2;
-  bool is_correct = 3;
+  QuestionType question_type = 3;
+  google.protobuf.StringValue reference_answer = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
 
-// TODO: настроить импорт
-message Subcategory {
-  int64 id = 1;
-  string name = 2;
-  int64 categoryId = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
-}
-
-// TODO: настроить импорт
-message Set {
-  int64 id = 1;
-  string name = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
-}
-
-message NewQuestionOption {
+message NewQuestion {
   string text = 1;
-  bool is_correct = 2;
+  QuestionType question_type = 2;
+  google.protobuf.StringValue reference_answer = 4;
 }
 
 message CreateRequest {
-  string text = 1;
-  QuestionType question_type = 2;
-  repeated NewQuestionOption options = 3;
-  google.protobuf.StringValue reference_answer = 4;
+  NewQuestion data = 1;
 }
 
 message CreateResponse {
@@ -69,15 +49,7 @@ message GetRequest {
 }
 
 message GetResponse {
-  int64 id = 1;
-  string text = 2;
-  QuestionType question_type = 3;
-  repeated QuestionOption options = 4;
-  google.protobuf.StringValue reference_answer = 5;
-  repeated Subcategory subcategories = 6;
-  repeated Set sets = 7;
-  google.protobuf.Timestamp created_at = 8;
-  google.protobuf.Timestamp updated_at = 9;
+  Question data = 1;
 }
 
 message UpdateRequest {
@@ -96,35 +68,4 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
-}
-
-message AddOptionsRequest {
-  int64 question_id = 1;
-  repeated NewQuestionOption options = 2;
-}
-
-message AddOptionsResponse{
-}
-
-message DeleteOptionsRequest {
-  repeated int64 ids = 1;
-}
-
-message DeleteOptionsResponse{
-}
-
-message AddSubcategoriesRequest {
-  int64 question_id = 1;
-  repeated int64 subcategory_ids = 2;
-}
-
-message AddSubcategoriesResponse{
-}
-
-message RemoveSubcategoriesRequest {
-  int64 question_id = 1;
-  repeated int64 subcategory_ids = 2;
-}
-
-message RemoveSubcategoriesResponse{
 }

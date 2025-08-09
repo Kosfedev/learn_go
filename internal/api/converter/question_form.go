@@ -5,13 +5,16 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/Kosfedev/learn_go/internal/model"
-	desc "github.com/Kosfedev/learn_go/pkg/question_form_v1"
+	descQuestionForm "github.com/Kosfedev/learn_go/pkg/question_form_v1"
+	descQuestion "github.com/Kosfedev/learn_go/pkg/question_v1"
+	descSet "github.com/Kosfedev/learn_go/pkg/set_v1"
+	descSubcategory "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
 )
 
 // TODO: переработать к хуям
-func QuestionFormToGRPC(questionForm *model.QuestionForm) *desc.GetResponse {
-	res := &desc.GetResponse{
-		Data: &desc.GetResponse_Data{
+func QuestionFormToGRPC(questionForm *model.QuestionForm) *descQuestionForm.GetResponse {
+	res := &descQuestionForm.GetResponse{
+		Data: &descQuestionForm.GetResponse_Data{
 			Question:      QuestionToGRPCTemp(questionForm.Question),
 			Options:       QuestionOptionsToGRPCTemp(questionForm.Options),
 			Sets:          SetsToGRPC(questionForm.Sets),
@@ -22,11 +25,11 @@ func QuestionFormToGRPC(questionForm *model.QuestionForm) *desc.GetResponse {
 	return res
 }
 
-func QuestionToGRPCTemp(question *model.Question) *desc.Question {
-	res := &desc.Question{
+func QuestionToGRPCTemp(question *model.Question) *descQuestion.Question {
+	res := &descQuestion.Question{
 		Id:           question.ID,
 		Text:         question.Text,
-		QuestionType: desc.QuestionType(question.Type),
+		QuestionType: descQuestion.QuestionType(question.Type),
 		CreatedAt:    timestamppb.New(question.CreatedAt),
 	}
 
@@ -41,10 +44,10 @@ func QuestionToGRPCTemp(question *model.Question) *desc.Question {
 	return res
 }
 
-func QuestionOptionsToGRPCTemp(options []*model.QuestionOption) []*desc.QuestionOption {
-	optionsGRPC := make([]*desc.QuestionOption, len(options))
+func QuestionOptionsToGRPCTemp(options []*model.QuestionOption) []*descQuestionForm.QuestionOption {
+	optionsGRPC := make([]*descQuestionForm.QuestionOption, len(options))
 	for i, option := range options {
-		optionsGRPC[i] = &desc.QuestionOption{
+		optionsGRPC[i] = &descQuestionForm.QuestionOption{
 			Id:        option.ID,
 			Text:      option.Text,
 			IsCorrect: option.IsCorrect,
@@ -54,10 +57,10 @@ func QuestionOptionsToGRPCTemp(options []*model.QuestionOption) []*desc.Question
 	return optionsGRPC
 }
 
-func SetsToGRPC(sets []*model.Set) []*desc.Set {
-	setsGRPC := make([]*desc.Set, len(sets))
+func SetsToGRPC(sets []*model.Set) []*descSet.Set {
+	setsGRPC := make([]*descSet.Set, len(sets))
 	for i, set := range sets {
-		setGRPC := &desc.Set{
+		setGRPC := &descSet.Set{
 			Id:        set.ID,
 			Name:      set.Name,
 			CreatedAt: timestamppb.New(set.CreatedAt),
@@ -73,10 +76,10 @@ func SetsToGRPC(sets []*model.Set) []*desc.Set {
 	return setsGRPC
 }
 
-func SubcategoriesToGRPC(subcategories []*model.Subcategory) []*desc.Subcategory {
-	subcategoriesGRPC := make([]*desc.Subcategory, len(subcategories))
+func SubcategoriesToGRPC(subcategories []*model.Subcategory) []*descSubcategory.Subcategory {
+	subcategoriesGRPC := make([]*descSubcategory.Subcategory, len(subcategories))
 	for i, subcategory := range subcategories {
-		subcategoryGRPC := &desc.Subcategory{
+		subcategoryGRPC := &descSubcategory.Subcategory{
 			Id:         subcategory.ID,
 			Name:       subcategory.Name,
 			CategoryId: subcategory.CategoryID,

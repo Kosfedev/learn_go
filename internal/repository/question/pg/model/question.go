@@ -6,22 +6,22 @@ import (
 )
 
 type Question struct {
-	ID              int64
-	Text            string
-	Type            int64
-	ReferenceAnswer sql.NullString
-	CreatedAt       time.Time
-	UpdatedAt       sql.NullTime
+	ID              int64          `db:"id" json:"id"`
+	Text            string         `db:"text" json:"text"`
+	Type            int64          `db:"type" json:"type"`
+	ReferenceAnswer sql.NullString `db:"reference_answer" json:"reference_answer"`
+	CreatedAt       time.Time      `db:"created_at" json:"created_at"`
+	UpdatedAt       sql.NullTime   `db:"updated_at" json:"updated_at"`
 }
 
 type NewQuestion struct {
-	Text            string
-	Type            int64
-	ReferenceAnswer sql.NullString
+	Text            string         `db:"text" json:"text"`
+	Type            int64          `db:"type" json:"type"`
+	ReferenceAnswer sql.NullString `db:"reference_answer" json:"reference_answer"`
 }
 
 type UpdatedQuestion struct {
-	Text            sql.NullString
-	Type            sql.NullInt64
-	ReferenceAnswer sql.NullString
+	Text            sql.NullString `db:"text" json:"text"`
+	Type            sql.NullInt64  `db:"type" json:"type"`
+	ReferenceAnswer sql.NullString `db:"reference_answer" json:"reference_answer"`
 }

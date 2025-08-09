@@ -9,9 +9,11 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 
+	"github.com/Kosfedev/learn_go/internal/app/serviceprovider"
 	"github.com/Kosfedev/learn_go/internal/config"
 	categoryDesc "github.com/Kosfedev/learn_go/pkg/category_v1"
 	domainDesc "github.com/Kosfedev/learn_go/pkg/domain_v1"
+	questionFormUpdaterDesc "github.com/Kosfedev/learn_go/pkg/question_form_updater_v1"
 	questionFormDesc "github.com/Kosfedev/learn_go/pkg/question_form_v1"
 	questionDesc "github.com/Kosfedev/learn_go/pkg/question_v1"
 	setDesc "github.com/Kosfedev/learn_go/pkg/set_v1"
@@ -19,7 +21,7 @@ import (
 )
 
 type App struct {
-	serviceProvider *serviceProvider
+	serviceProvider *serviceprovider.ServiceProvider
 	grpcServer      *grpc.Server
 }
 
@@ -61,7 +63,7 @@ func (app *App) initConfig(_ context.Context) error {
 }
 
 func (app *App) initServiceProvider(_ context.Context) error {
-	app.serviceProvider = newServiceProvider()
+	app.serviceProvider = serviceprovider.NewServiceProvider()
 	return nil
 }
 
@@ -71,6 +73,7 @@ func (app *App) initGRPCServer(ctx context.Context) error {
 	reflection.Register(app.grpcServer)
 	questionDesc.RegisterQuestionV1Server(app.grpcServer, app.serviceProvider.QuestionImplementation(ctx))
 	questionFormDesc.RegisterQuestionFormV1Server(app.grpcServer, app.serviceProvider.QuestionFormImplementation(ctx))
+	questionFormUpdaterDesc.RegisterQuestionFormUpdaterV1Server(app.grpcServer, app.serviceProvider.QuestionFormUpdaterImplementation(ctx))
 	setDesc.RegisterSetV1Server(app.grpcServer, app.serviceProvider.QuestionSetImplementation(ctx))
 	domainDesc.RegisterDomainV1Server(app.grpcServer, app.serviceProvider.DomainImplementation(ctx))
 	categoryDesc.RegisterCategoryV1Server(app.grpcServer, app.serviceProvider.CategoryImplementation(ctx))

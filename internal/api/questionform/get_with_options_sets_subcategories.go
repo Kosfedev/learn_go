@@ -7,8 +7,8 @@ import (
 	desc "github.com/Kosfedev/learn_go/pkg/question_form_v1"
 )
 
-func (i *Implementation) GetWithOptionsSetsSubcategories(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
-	questionForm, err := i.questionFormService.GetWithOptionsSetsSubcategories(ctx, req.Id)
+func (impl *Implementation) GetWithOptionsSetsSubcategories(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
+	questionForm, err := impl.questionFormService.GetWithOptionsSetsSubcategories(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

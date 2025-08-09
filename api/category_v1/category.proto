@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package category_v1;
 
-option go_package = "github.com/Kosfedev/learn_go/category_v1;category_v1";
+option go_package = "github.com/Kosfedev/learn_go/pkg/category_v1;category_v1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";

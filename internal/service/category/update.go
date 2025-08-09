@@ -6,8 +6,8 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qcs *serv) Update(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) error {
-	err := qcs.repo.Update(ctx, id, updatedCategory)
+func (s *serv) Update(ctx context.Context, id int64, updatedCategory *model.UpdatedCategory) error {
+	err := s.repo.Update(ctx, id, updatedCategory)
 	if err != nil {
 		return err
 	}

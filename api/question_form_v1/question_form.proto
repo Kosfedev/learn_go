@@ -2,30 +2,16 @@ syntax = "proto3";
 
 package question_form_v1;
 
-option go_package = "github.com/Kosfedev/learn_go/question_form_v1;question_form_v1";
+option go_package = "github.com/Kosfedev/learn_go/pkg/question_form_v1;question_form_v1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "question.proto";
+import "set.proto";
+import "subcategory.proto";
 
 service QuestionFormV1 {
   rpc GetWithOptionsSetsSubcategories(GetRequest) returns (GetResponse);
-}
-
-enum QuestionType {
-  QUESTION_TYPE_UNSPECIFIED = 0;
-  QUESTION_TYPE_SINGLE = 1;
-  QUESTION_TYPE_MULTI = 2;
-  QUESTION_TYPE_OPEN = 3;
-}
-
-// TODO: настроить импорт
-message Question {
-  int64 id = 1;
-  string text = 2;
-  QuestionType question_type = 3;
-  google.protobuf.StringValue reference_answer = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
 }
 
 // TODO: настроить импорт
@@ -35,33 +21,16 @@ message QuestionOption {
   bool is_correct = 3;
 }
 
-// TODO: настроить импорт
-message Subcategory {
-  int64 id = 1;
-  string name = 2;
-  int64 categoryId = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
-}
-
-// TODO: настроить импорт
-message Set {
-  int64 id = 1;
-  string name = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
-}
-
 message GetRequest {
   int64 id = 1;
 }
 
 message GetResponse {
   message Data {
-      Question question = 1;
+      question_v1.Question question = 1;
       repeated QuestionOption options = 2;
-      repeated Set sets = 3;
-      repeated Subcategory subcategories = 4;
+      repeated set_v1.Set sets = 3;
+      repeated subcategory_v1.Subcategory subcategories = 4;
   }
 
   Data data = 1;

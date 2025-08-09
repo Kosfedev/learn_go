@@ -8,15 +8,18 @@ import (
 )
 
 func SetToGRPC(set *model.Set) *desc.GetResponse {
-	res := &desc.GetResponse{
-		Id:          set.ID,
-		Name:        set.Name,
-		QuestionIds: set.QuestionIDs,
-		CreatedAt:   timestamppb.New(set.CreatedAt),
+	setGRPC := &desc.Set{
+		Id:        set.ID,
+		Name:      set.Name,
+		CreatedAt: timestamppb.New(set.CreatedAt),
 	}
 
 	if set.UpdatedAt != nil {
-		res.UpdatedAt = timestamppb.New(*set.UpdatedAt)
+		setGRPC.UpdatedAt = timestamppb.New(*set.UpdatedAt)
+	}
+
+	res := &desc.GetResponse{
+		Data: setGRPC,
 	}
 
 	return res
@@ -24,8 +27,7 @@ func SetToGRPC(set *model.Set) *desc.GetResponse {
 
 func NewSetFromGRPC(req *desc.CreateRequest) *model.NewSet {
 	newSet := &model.NewSet{
-		Name:        req.Name,
-		QuestionIDs: req.QuestionIds,
+		Name: req.Name,
 	}
 
 	return newSet
