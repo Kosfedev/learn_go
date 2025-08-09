@@ -48,3 +48,7 @@ type SubcategoryService interface {
 type QuestionFormService interface {
 	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
 }
+
+type QuestionFormUpdaterService interface {
+	CreateWithOptions(ctx context.Context, newQuestion *model.NewQuestion) (int64, error)
+}
