@@ -21,11 +21,5 @@ func (qs *serv) Create(ctx context.Context, newQuestion *model.NewQuestion) (int
 		return 0, err
 	}
 
-	// TODO: нужна трансакция
-	err = qs.questionOptionRepo.CreateList(ctx, id, newQuestion.Options)
-	if err != nil {
-		return 0, err
-	}
-
 	return id, nil
 }

@@ -18,8 +18,6 @@ func (sp *ServiceProvider) QuestionService(ctx context.Context) service.Question
 		sp.questionServ = questionService.NewService(
 			sp.QuestionRepository(ctx),
 			sp.QuestionOptionRepository(ctx),
-			sp.QuestionSubcategoryRepository(ctx),
-			sp.SubcategoryRepository(ctx),
 		)
 	}
 

@@ -88,9 +88,9 @@ func (r *repo) Get(ctx context.Context, id int64) (*model.Question, error) {
 		return nil, err
 	}
 
-	questionServ := converter.QuestionFromPGSQL(questionRepo)
+	question := converter.QuestionFromPGSQL(questionRepo)
 
-	return questionServ, nil
+	return question, nil
 }
 
 func (r *repo) Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestion) error {

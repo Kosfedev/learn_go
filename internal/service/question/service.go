@@ -5,24 +5,17 @@ import (
 	"github.com/Kosfedev/learn_go/internal/service"
 )
 
-// TODO: вынести в агрегирующий сервис?
 type serv struct {
-	questionRepo            repository.QuestionRepository
-	questionOptionRepo      repository.QuestionOptionRepository
-	questionSubcategoryRepo repository.QuestionSubcategoryRepository
-	subcategoryRepo         repository.SubcategoryRepository
+	questionRepo       repository.QuestionRepository
+	questionOptionRepo repository.QuestionOptionRepository
 }
 
 func NewService(
 	questionRepo repository.QuestionRepository,
 	questionOptionRepo repository.QuestionOptionRepository,
-	questionSubcategoryRepo repository.QuestionSubcategoryRepository,
-	subcategoryRepo repository.SubcategoryRepository,
 ) service.QuestionService {
 	return &serv{
-		questionRepo:            questionRepo,
-		questionOptionRepo:      questionOptionRepo,
-		questionSubcategoryRepo: questionSubcategoryRepo,
-		subcategoryRepo:         subcategoryRepo,
+		questionRepo:       questionRepo,
+		questionOptionRepo: questionOptionRepo,
 	}
 }
