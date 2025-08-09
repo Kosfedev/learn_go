@@ -6,16 +6,13 @@ import (
 )
 
 type serv struct {
-	questionRepo       repository.QuestionRepository
-	questionOptionRepo repository.QuestionOptionRepository
+	questionRepo repository.QuestionRepository
 }
 
 func NewService(
 	questionRepo repository.QuestionRepository,
-	questionOptionRepo repository.QuestionOptionRepository,
 ) service.QuestionService {
 	return &serv{
-		questionRepo:       questionRepo,
-		questionOptionRepo: questionOptionRepo,
+		questionRepo: questionRepo,
 	}
 }

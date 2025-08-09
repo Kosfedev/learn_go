@@ -11,8 +11,6 @@ type QuestionService interface {
 	Get(ctx context.Context, id int64) (*model.Question, error)
 	Update(ctx context.Context, id int64, updatedQuestion *model.UpdatedQuestion) error
 	Delete(ctx context.Context, id int64) error
-	AddOptions(ctx context.Context, questionID int64, newQuestionOptions []*model.NewQuestionOption) error
-	DeleteOptions(ctx context.Context, ids []int64) error
 }
 
 type SetService interface {
@@ -49,6 +47,8 @@ type QuestionFormService interface {
 
 type QuestionFormUpdaterService interface {
 	CreateWithOptions(ctx context.Context, newQuestion *model.NewQuestionWithOptions) (int64, error)
+	CreateOptions(ctx context.Context, questionID int64, newQuestionOptions []*model.NewQuestionOption) error
+	DeleteOptions(ctx context.Context, optionIDs []int64) error
 	AddSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	RemoveSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
 	AddSets(ctx context.Context, questionID int64, setIDs []int64) error

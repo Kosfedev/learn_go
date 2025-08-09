@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QuestionFormUpdaterV1Client interface {
 	CreateWithOptions(ctx context.Context, in *CreateWithOptionsRequest, opts ...grpc.CallOption) (*CreateWithOptionsResponse, error)
+	AddOptions(ctx context.Context, in *CreateOptionsRequest, opts ...grpc.CallOption) (*CreateOptionsResponse, error)
+	DeleteOptions(ctx context.Context, in *DeleteOptionsRequest, opts ...grpc.CallOption) (*DeleteOptionsResponse, error)
 	AddSubcategories(ctx context.Context, in *AddSubcategoriesRequest, opts ...grpc.CallOption) (*AddSubcategoriesResponse, error)
 	RemoveSubcategories(ctx context.Context, in *RemoveSubcategoriesRequest, opts ...grpc.CallOption) (*RemoveSubcategoriesResponse, error)
 	AddSets(ctx context.Context, in *AddSetsRequest, opts ...grpc.CallOption) (*AddSetsResponse, error)
@@ -40,6 +42,24 @@ func NewQuestionFormUpdaterV1Client(cc grpc.ClientConnInterface) QuestionFormUpd
 func (c *questionFormUpdaterV1Client) CreateWithOptions(ctx context.Context, in *CreateWithOptionsRequest, opts ...grpc.CallOption) (*CreateWithOptionsResponse, error) {
 	out := new(CreateWithOptionsResponse)
 	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/CreateWithOptions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionFormUpdaterV1Client) AddOptions(ctx context.Context, in *CreateOptionsRequest, opts ...grpc.CallOption) (*CreateOptionsResponse, error) {
+	out := new(CreateOptionsResponse)
+	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/AddOptions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionFormUpdaterV1Client) DeleteOptions(ctx context.Context, in *DeleteOptionsRequest, opts ...grpc.CallOption) (*DeleteOptionsResponse, error) {
+	out := new(DeleteOptionsResponse)
+	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/DeleteOptions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,6 +107,8 @@ func (c *questionFormUpdaterV1Client) RemoveSets(ctx context.Context, in *Remove
 // for forward compatibility
 type QuestionFormUpdaterV1Server interface {
 	CreateWithOptions(context.Context, *CreateWithOptionsRequest) (*CreateWithOptionsResponse, error)
+	AddOptions(context.Context, *CreateOptionsRequest) (*CreateOptionsResponse, error)
+	DeleteOptions(context.Context, *DeleteOptionsRequest) (*DeleteOptionsResponse, error)
 	AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error)
 	RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error)
 	AddSets(context.Context, *AddSetsRequest) (*AddSetsResponse, error)
@@ -100,6 +122,12 @@ type UnimplementedQuestionFormUpdaterV1Server struct {
 
 func (UnimplementedQuestionFormUpdaterV1Server) CreateWithOptions(context.Context, *CreateWithOptionsRequest) (*CreateWithOptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateWithOptions not implemented")
+}
+func (UnimplementedQuestionFormUpdaterV1Server) AddOptions(context.Context, *CreateOptionsRequest) (*CreateOptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddOptions not implemented")
+}
+func (UnimplementedQuestionFormUpdaterV1Server) DeleteOptions(context.Context, *DeleteOptionsRequest) (*DeleteOptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOptions not implemented")
 }
 func (UnimplementedQuestionFormUpdaterV1Server) AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddSubcategories not implemented")
@@ -140,6 +168,42 @@ func _QuestionFormUpdaterV1_CreateWithOptions_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QuestionFormUpdaterV1Server).CreateWithOptions(ctx, req.(*CreateWithOptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionFormUpdaterV1_AddOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormUpdaterV1Server).AddOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_updater_v1.QuestionFormUpdaterV1/AddOptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormUpdaterV1Server).AddOptions(ctx, req.(*CreateOptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionFormUpdaterV1_DeleteOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormUpdaterV1Server).DeleteOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_updater_v1.QuestionFormUpdaterV1/DeleteOptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormUpdaterV1Server).DeleteOptions(ctx, req.(*DeleteOptionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -226,6 +290,14 @@ var QuestionFormUpdaterV1_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateWithOptions",
 			Handler:    _QuestionFormUpdaterV1_CreateWithOptions_Handler,
+		},
+		{
+			MethodName: "AddOptions",
+			Handler:    _QuestionFormUpdaterV1_AddOptions_Handler,
+		},
+		{
+			MethodName: "DeleteOptions",
+			Handler:    _QuestionFormUpdaterV1_DeleteOptions_Handler,
 		},
 		{
 			MethodName: "AddSubcategories",

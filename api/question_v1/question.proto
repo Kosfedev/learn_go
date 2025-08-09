@@ -12,8 +12,6 @@ service QuestionV1 {
   rpc Get(GetRequest) returns (GetResponse);
   rpc Update(UpdateRequest) returns (UpdateResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
-  rpc AddOptions(AddOptionsRequest) returns (AddOptionsResponse);
-  rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse);
 }
 
 enum QuestionType {
@@ -36,11 +34,6 @@ message NewQuestion {
   string text = 1;
   QuestionType question_type = 2;
   google.protobuf.StringValue reference_answer = 4;
-}
-
-message NewQuestionOption {
-  string text = 1;
-  bool is_correct = 2;
 }
 
 message CreateRequest {
@@ -75,19 +68,4 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
-}
-
-message AddOptionsRequest {
-  int64 question_id = 1;
-  repeated NewQuestionOption options = 2;
-}
-
-message AddOptionsResponse{
-}
-
-message DeleteOptionsRequest {
-  repeated int64 ids = 1;
-}
-
-message DeleteOptionsResponse{
 }

@@ -234,7 +234,6 @@ func (x *GetRequest) GetId() int64 {
 	return 0
 }
 
-// TODO: replace
 type GetResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

@@ -65,15 +65,3 @@ func UpdatedQuestionFromGRPC(req *desc.UpdateRequest) *model.UpdatedQuestion {
 
 	return updatedQuestion
 }
-
-func NewQuestionOptionsFromGRPC(req *desc.AddOptionsRequest) []*model.NewQuestionOption {
-	newOptions := make([]*model.NewQuestionOption, len(req.Options))
-	for i, option := range req.Options {
-		newOptions[i] = &model.NewQuestionOption{
-			Text:      option.Text,
-			IsCorrect: option.IsCorrect,
-		}
-	}
-
-	return newOptions
-}

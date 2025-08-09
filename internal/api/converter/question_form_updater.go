@@ -6,20 +6,22 @@ import (
 )
 
 func NewQuestionWithOptionsFromGRPC(req *desc.CreateWithOptionsRequest) *model.NewQuestionWithOptions {
-	newOptions := make([]*model.NewQuestionOption, len(req.Data.Options))
-	for i, optionGRPC := range req.Data.Options {
-		optionServ := &model.NewQuestionOption{
-			Text:      optionGRPC.Text,
-			IsCorrect: optionGRPC.IsCorrect,
-		}
-
-		newOptions[i] = optionServ
-	}
-
 	newQuestionWithOptions := &model.NewQuestionWithOptions{
 		Question: NewQuestionFromGRPC(req.Data.Question),
-		Options:  newOptions,
+		Options:  NewQuestionOptionsFromGRPC(req.Data.Options),
 	}
 
 	return newQuestionWithOptions
+}
+
+func NewQuestionOptionsFromGRPC(newOptionsGRPC []*desc.NewQuestionOption) []*model.NewQuestionOption {
+	newOptions := make([]*model.NewQuestionOption, len(newOptionsGRPC))
+	for i, option := range newOptionsGRPC {
+		newOptions[i] = &model.NewQuestionOption{
+			Text:      option.Text,
+			IsCorrect: option.IsCorrect,
+		}
+	}
+
+	return newOptions
 }

@@ -8,16 +8,23 @@ import "question.proto";
 
 service QuestionFormUpdaterV1 {
   rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse);
+  rpc AddOptions(CreateOptionsRequest) returns (CreateOptionsResponse);
+  rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse);
   rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse);
   rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse);
   rpc AddSets(AddSetsRequest) returns (AddSetsResponse);
   rpc RemoveSets(RemoveSetsRequest) returns (RemoveSetsResponse);
 }
 
+message NewQuestionOption {
+  string text = 1;
+  bool is_correct = 2;
+}
+
 message CreateWithOptionsRequest {
   message Data {
     question_v1.NewQuestion question = 1;
-    repeated question_v1.NewQuestionOption options = 2;
+    repeated NewQuestionOption options = 2;
   }
 
   Data data = 1;
@@ -25,6 +32,21 @@ message CreateWithOptionsRequest {
 
 message CreateWithOptionsResponse {
   int64 id = 1;
+}
+
+message CreateOptionsRequest {
+  int64 question_id = 1;
+  repeated NewQuestionOption options = 2;
+}
+
+message CreateOptionsResponse{
+}
+
+message DeleteOptionsRequest {
+  repeated int64 ids = 1;
+}
+
+message DeleteOptionsResponse{
 }
 
 message AddSubcategoriesRequest {

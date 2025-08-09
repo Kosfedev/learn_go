@@ -36,7 +36,7 @@ func TestAddOptions(t *testing.T) {
 	t.Run("Add options placeholder implementation test", func(t *testing.T) {
 		err := questionService.AddOptions(context.Background(), id, req)
 		if err != nil {
-			t.Errorf("QuestionService.AddOptions() error = %v\n", err)
+			t.Errorf("QuestionService.CreateOptions() error = %v\n", err)
 		}
 	})
 }

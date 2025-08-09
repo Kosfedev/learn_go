@@ -15,10 +15,7 @@ import (
 
 func (sp *ServiceProvider) QuestionService(ctx context.Context) service.QuestionService {
 	if sp.questionServ == nil {
-		sp.questionServ = questionService.NewService(
-			sp.QuestionRepository(ctx),
-			sp.QuestionOptionRepository(ctx),
-		)
+		sp.questionServ = questionService.NewService(sp.QuestionRepository(ctx))
 	}
 
 	return sp.questionServ
@@ -58,9 +55,7 @@ func (sp *ServiceProvider) SubcategoryService(ctx context.Context) service.Subca
 
 func (sp *ServiceProvider) QuestionFormService(ctx context.Context) service.QuestionFormService {
 	if sp.questionFormServ == nil {
-		sp.questionFormServ = questionFormService.NewService(
-			sp.QuestionFormRepository(ctx),
-		)
+		sp.questionFormServ = questionFormService.NewService(sp.QuestionFormRepository(ctx))
 	}
 
 	return sp.questionFormServ
