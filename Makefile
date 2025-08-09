@@ -38,7 +38,7 @@ generate-question-set-api:
 	api/set_v1/set.proto
 generate-question-form-api:
 	mkdir -p pkg/question_form_v1
-	protoc --proto_path api/question_form_v1 \
+	protoc --proto_path api/question_form_v1 --proto_path api/question_v1 --proto_path api/set_v1 --proto_path api/subcategory_v1 \
 	--go_out=pkg/question_form_v1 --go_opt=paths=source_relative \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
 	--go-grpc_out=pkg/question_form_v1 --go-grpc_opt=paths=source_relative \
