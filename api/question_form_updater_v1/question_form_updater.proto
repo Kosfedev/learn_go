@@ -10,6 +10,8 @@ service QuestionFormUpdaterV1 {
   rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse);
   rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse);
   rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse);
+  rpc AddSets(AddSetsRequest) returns (AddSetsResponse);
+  rpc RemoveSets(RemoveSetsRequest) returns (RemoveSetsResponse);
 }
 
 message CreateWithOptionsRequest {
@@ -39,6 +41,22 @@ message RemoveSubcategoriesRequest {
 }
 
 message RemoveSubcategoriesResponse {
+}
+
+message AddSetsRequest {
+  int64 question_id = 1;
+  repeated int64 set_ids = 2;
+}
+
+message AddSetsResponse {
+}
+
+message RemoveSetsRequest {
+  int64 question_id = 1;
+  repeated int64 set_ids = 2;
+}
+
+message RemoveSetsResponse {
 }
 
 

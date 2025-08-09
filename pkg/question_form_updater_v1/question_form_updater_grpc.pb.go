@@ -25,6 +25,8 @@ type QuestionFormUpdaterV1Client interface {
 	CreateWithOptions(ctx context.Context, in *CreateWithOptionsRequest, opts ...grpc.CallOption) (*CreateWithOptionsResponse, error)
 	AddSubcategories(ctx context.Context, in *AddSubcategoriesRequest, opts ...grpc.CallOption) (*AddSubcategoriesResponse, error)
 	RemoveSubcategories(ctx context.Context, in *RemoveSubcategoriesRequest, opts ...grpc.CallOption) (*RemoveSubcategoriesResponse, error)
+	AddSets(ctx context.Context, in *AddSetsRequest, opts ...grpc.CallOption) (*AddSetsResponse, error)
+	RemoveSets(ctx context.Context, in *RemoveSetsRequest, opts ...grpc.CallOption) (*RemoveSetsResponse, error)
 }
 
 type questionFormUpdaterV1Client struct {
@@ -62,6 +64,24 @@ func (c *questionFormUpdaterV1Client) RemoveSubcategories(ctx context.Context, i
 	return out, nil
 }
 
+func (c *questionFormUpdaterV1Client) AddSets(ctx context.Context, in *AddSetsRequest, opts ...grpc.CallOption) (*AddSetsResponse, error) {
+	out := new(AddSetsResponse)
+	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/AddSets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionFormUpdaterV1Client) RemoveSets(ctx context.Context, in *RemoveSetsRequest, opts ...grpc.CallOption) (*RemoveSetsResponse, error) {
+	out := new(RemoveSetsResponse)
+	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/RemoveSets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QuestionFormUpdaterV1Server is the server API for QuestionFormUpdaterV1 service.
 // All implementations must embed UnimplementedQuestionFormUpdaterV1Server
 // for forward compatibility
@@ -69,6 +89,8 @@ type QuestionFormUpdaterV1Server interface {
 	CreateWithOptions(context.Context, *CreateWithOptionsRequest) (*CreateWithOptionsResponse, error)
 	AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error)
 	RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error)
+	AddSets(context.Context, *AddSetsRequest) (*AddSetsResponse, error)
+	RemoveSets(context.Context, *RemoveSetsRequest) (*RemoveSetsResponse, error)
 	mustEmbedUnimplementedQuestionFormUpdaterV1Server()
 }
 
@@ -84,6 +106,12 @@ func (UnimplementedQuestionFormUpdaterV1Server) AddSubcategories(context.Context
 }
 func (UnimplementedQuestionFormUpdaterV1Server) RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveSubcategories not implemented")
+}
+func (UnimplementedQuestionFormUpdaterV1Server) AddSets(context.Context, *AddSetsRequest) (*AddSetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddSets not implemented")
+}
+func (UnimplementedQuestionFormUpdaterV1Server) RemoveSets(context.Context, *RemoveSetsRequest) (*RemoveSetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveSets not implemented")
 }
 func (UnimplementedQuestionFormUpdaterV1Server) mustEmbedUnimplementedQuestionFormUpdaterV1Server() {}
 
@@ -152,6 +180,42 @@ func _QuestionFormUpdaterV1_RemoveSubcategories_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QuestionFormUpdaterV1_AddSets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddSetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormUpdaterV1Server).AddSets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_updater_v1.QuestionFormUpdaterV1/AddSets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormUpdaterV1Server).AddSets(ctx, req.(*AddSetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionFormUpdaterV1_RemoveSets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormUpdaterV1Server).RemoveSets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_updater_v1.QuestionFormUpdaterV1/RemoveSets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormUpdaterV1Server).RemoveSets(ctx, req.(*RemoveSetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QuestionFormUpdaterV1_ServiceDesc is the grpc.ServiceDesc for QuestionFormUpdaterV1 service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +234,14 @@ var QuestionFormUpdaterV1_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveSubcategories",
 			Handler:    _QuestionFormUpdaterV1_RemoveSubcategories_Handler,
+		},
+		{
+			MethodName: "AddSets",
+			Handler:    _QuestionFormUpdaterV1_AddSets_Handler,
+		},
+		{
+			MethodName: "RemoveSets",
+			Handler:    _QuestionFormUpdaterV1_RemoveSets_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
