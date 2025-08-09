@@ -25,56 +25,6 @@ func NewRepository(db db.Client) repository.QuestionSetRepository {
 	}
 }
 
-func (r *repo) ListQuestionIDsBySetID(ctx context.Context, setID int64) ([]int64, error) {
-	builderSelect := sq.Select(columnQuestionID).
-		From(tableQuestionSet).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnSetID: setID})
-
-	queryRaw, args, err := builderSelect.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	query := db.Query{
-		Name:     "question_set_repository.list_question_ids_by_set_id",
-		QueryRaw: queryRaw,
-	}
-
-	questionIDs := make([]int64, 0)
-	err = r.db.DB().ScanAll(ctx, &questionIDs, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return questionIDs, nil
-}
-
-func (r *repo) ListSetIDsByQuestionID(ctx context.Context, questionID int64) ([]int64, error) {
-	builderSelect := sq.Select(columnSetID).
-		From(tableQuestionSet).
-		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{columnQuestionID: questionID})
-
-	queryRaw, args, err := builderSelect.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	query := db.Query{
-		Name:     "question_set_repository.list_set_ids_by_question_id",
-		QueryRaw: queryRaw,
-	}
-
-	setIDs := make([]int64, 0)
-	err = r.db.DB().ScanAll(ctx, &setIDs, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return setIDs, nil
-}
-
 func (r *repo) AddQuestionToSets(ctx context.Context, questionID int64, setIDs []int64) error {
 	if len(setIDs) == 0 {
 		return nil
