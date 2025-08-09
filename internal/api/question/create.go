@@ -8,7 +8,7 @@ import (
 )
 
 func (questionImpl *Implementation) Create(ctx context.Context, req *desc.CreateRequest) (*desc.CreateResponse, error) {
-	question := converter.NewQuestionFromGRPC(req)
+	question := converter.NewQuestionFromGRPC(req.Data)
 	id, err := questionImpl.questionService.Create(ctx, question)
 	if err != nil {
 		return nil, err

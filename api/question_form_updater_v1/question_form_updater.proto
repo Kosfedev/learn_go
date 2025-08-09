@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package question_form_updater_v1;
+
+option go_package = "github.com/Kosfedev/learn_go/pkg/question_form_updater_v1;question_form_updater_v1";
+
+import "question.proto";
+
+service QuestionFormUpdaterV1 {
+  rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse);
+}
+
+message CreateWithOptionsRequest {
+  message Data {
+    question_v1.NewQuestion question = 1;
+    repeated question_v1.NewQuestionOption options = 2;
+  }
+
+  Data data = 1;
+}
+
+message CreateWithOptionsResponse {
+  int64 id = 1;
+}
+
+
+

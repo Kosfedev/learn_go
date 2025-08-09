@@ -8,6 +8,7 @@ import (
 	domainImplementation "github.com/Kosfedev/learn_go/internal/api/domain"
 	quesionImplementation "github.com/Kosfedev/learn_go/internal/api/question"
 	quesionFormImplementation "github.com/Kosfedev/learn_go/internal/api/questionform"
+	quesionFormUpdaterImplementation "github.com/Kosfedev/learn_go/internal/api/questionformupdater"
 	setImplementation "github.com/Kosfedev/learn_go/internal/api/set"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/client/db"
@@ -58,12 +59,13 @@ type serviceProvider struct {
 	categoryServ            service.CategoryService
 	subcategoryServ         service.SubcategoryService
 
-	questionImpl     *quesionImplementation.Implementation
-	questionFormImpl *quesionFormImplementation.Implementation
-	setImpl          *setImplementation.Implementation
-	domainImpl       *domainImplementation.Implementation
-	categoryImpl     *categoryImplementation.Implementation
-	subcategoryImpl  *subcategoryImplementation.Implementation
+	questionImpl            *quesionImplementation.Implementation
+	questionFormImpl        *quesionFormImplementation.Implementation
+	questionFormUpdaterImpl *quesionFormUpdaterImplementation.Implementation
+	setImpl                 *setImplementation.Implementation
+	domainImpl              *domainImplementation.Implementation
+	categoryImpl            *categoryImplementation.Implementation
+	subcategoryImpl         *subcategoryImplementation.Implementation
 }
 
 func newServiceProvider() *serviceProvider {
@@ -300,4 +302,12 @@ func (sp *serviceProvider) QuestionFormImplementation(ctx context.Context) *ques
 	}
 
 	return sp.questionFormImpl
+}
+
+func (sp *serviceProvider) QuestionFormUpdaterImplementation(ctx context.Context) *quesionFormUpdaterImplementation.Implementation {
+	if sp.questionFormUpdaterImpl == nil {
+		sp.questionFormUpdaterImpl = quesionFormUpdaterImplementation.NewImplementation(sp.QuestionFormUpdaterService(ctx))
+	}
+
+	return sp.questionFormUpdaterImpl
 }

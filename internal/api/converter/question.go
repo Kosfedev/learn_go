@@ -25,27 +25,16 @@ func QuestionToGRPC(question *model.Question) *desc.GetResponse {
 	}
 
 	res := &desc.GetResponse{
-		Data: &desc.GetResponse_Data{Question: questionGRPC},
+		Data: questionGRPC,
 	}
 
 	return res
 }
 
-func NewQuestionFromGRPC(req *desc.CreateRequest) *model.NewQuestion {
-	newOptions := make([]*model.NewQuestionOption, len(req.Options))
-	for i, optionGRPC := range req.Options {
-		optionServ := &model.NewQuestionOption{
-			Text:      optionGRPC.Text,
-			IsCorrect: optionGRPC.IsCorrect,
-		}
-
-		newOptions[i] = optionServ
-	}
-
+func NewQuestionFromGRPC(req *desc.NewQuestion) *model.NewQuestion {
 	newQuestion := &model.NewQuestion{
-		Text:    req.Text,
-		Type:    model.QuestionType(req.QuestionType),
-		Options: newOptions,
+		Text: req.Text,
+		Type: model.QuestionType(req.QuestionType),
 	}
 
 	if req.ReferenceAnswer != nil {

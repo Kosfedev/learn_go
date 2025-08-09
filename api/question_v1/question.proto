@@ -34,16 +34,19 @@ message Question {
   google.protobuf.Timestamp updated_at = 6;
 }
 
+message NewQuestion {
+  string text = 1;
+  QuestionType question_type = 2;
+  google.protobuf.StringValue reference_answer = 4;
+}
+
 message NewQuestionOption {
   string text = 1;
   bool is_correct = 2;
 }
 
 message CreateRequest {
-  string text = 1;
-  QuestionType question_type = 2;
-  repeated NewQuestionOption options = 3;
-  google.protobuf.StringValue reference_answer = 4;
+  NewQuestion data = 1;
 }
 
 message CreateResponse {
@@ -55,11 +58,7 @@ message GetRequest {
 }
 
 message GetResponse {
-  message Data {
-    Question question = 1;
-  }
-
-  Data data = 1;
+  Question data = 1;
 }
 
 message UpdateRequest {
