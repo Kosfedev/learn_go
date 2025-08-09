@@ -8,6 +8,8 @@ import "question.proto";
 
 service QuestionFormUpdaterV1 {
   rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse);
+  rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse);
+  rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse);
 }
 
 message CreateWithOptionsRequest {
@@ -21,6 +23,22 @@ message CreateWithOptionsRequest {
 
 message CreateWithOptionsResponse {
   int64 id = 1;
+}
+
+message AddSubcategoriesRequest {
+  int64 question_id = 1;
+  repeated int64 subcategory_ids = 2;
+}
+
+message AddSubcategoriesResponse {
+}
+
+message RemoveSubcategoriesRequest {
+  int64 question_id = 1;
+  repeated int64 subcategory_ids = 2;
+}
+
+message RemoveSubcategoriesResponse {
 }
 
 

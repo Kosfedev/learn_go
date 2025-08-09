@@ -73,6 +73,7 @@ func (sp *ServiceProvider) QuestionFormUpdaterService(ctx context.Context) servi
 		sp.questionFormUpdaterServ = questionFormUpdaterService.NewService(
 			sp.QuestionRepository(ctx),
 			sp.QuestionOptionRepository(ctx),
+			sp.QuestionSubcategoryRepository(ctx),
 		)
 	}
 

@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QuestionFormUpdaterV1Client interface {
 	CreateWithOptions(ctx context.Context, in *CreateWithOptionsRequest, opts ...grpc.CallOption) (*CreateWithOptionsResponse, error)
+	AddSubcategories(ctx context.Context, in *AddSubcategoriesRequest, opts ...grpc.CallOption) (*AddSubcategoriesResponse, error)
+	RemoveSubcategories(ctx context.Context, in *RemoveSubcategoriesRequest, opts ...grpc.CallOption) (*RemoveSubcategoriesResponse, error)
 }
 
 type questionFormUpdaterV1Client struct {
@@ -42,11 +44,31 @@ func (c *questionFormUpdaterV1Client) CreateWithOptions(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *questionFormUpdaterV1Client) AddSubcategories(ctx context.Context, in *AddSubcategoriesRequest, opts ...grpc.CallOption) (*AddSubcategoriesResponse, error) {
+	out := new(AddSubcategoriesResponse)
+	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/AddSubcategories", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionFormUpdaterV1Client) RemoveSubcategories(ctx context.Context, in *RemoveSubcategoriesRequest, opts ...grpc.CallOption) (*RemoveSubcategoriesResponse, error) {
+	out := new(RemoveSubcategoriesResponse)
+	err := c.cc.Invoke(ctx, "/question_form_updater_v1.QuestionFormUpdaterV1/RemoveSubcategories", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QuestionFormUpdaterV1Server is the server API for QuestionFormUpdaterV1 service.
 // All implementations must embed UnimplementedQuestionFormUpdaterV1Server
 // for forward compatibility
 type QuestionFormUpdaterV1Server interface {
 	CreateWithOptions(context.Context, *CreateWithOptionsRequest) (*CreateWithOptionsResponse, error)
+	AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error)
+	RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error)
 	mustEmbedUnimplementedQuestionFormUpdaterV1Server()
 }
 
@@ -56,6 +78,12 @@ type UnimplementedQuestionFormUpdaterV1Server struct {
 
 func (UnimplementedQuestionFormUpdaterV1Server) CreateWithOptions(context.Context, *CreateWithOptionsRequest) (*CreateWithOptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateWithOptions not implemented")
+}
+func (UnimplementedQuestionFormUpdaterV1Server) AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddSubcategories not implemented")
+}
+func (UnimplementedQuestionFormUpdaterV1Server) RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveSubcategories not implemented")
 }
 func (UnimplementedQuestionFormUpdaterV1Server) mustEmbedUnimplementedQuestionFormUpdaterV1Server() {}
 
@@ -88,6 +116,42 @@ func _QuestionFormUpdaterV1_CreateWithOptions_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QuestionFormUpdaterV1_AddSubcategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddSubcategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormUpdaterV1Server).AddSubcategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_updater_v1.QuestionFormUpdaterV1/AddSubcategories",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormUpdaterV1Server).AddSubcategories(ctx, req.(*AddSubcategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionFormUpdaterV1_RemoveSubcategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSubcategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormUpdaterV1Server).RemoveSubcategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_updater_v1.QuestionFormUpdaterV1/RemoveSubcategories",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormUpdaterV1Server).RemoveSubcategories(ctx, req.(*RemoveSubcategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QuestionFormUpdaterV1_ServiceDesc is the grpc.ServiceDesc for QuestionFormUpdaterV1 service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +162,14 @@ var QuestionFormUpdaterV1_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateWithOptions",
 			Handler:    _QuestionFormUpdaterV1_CreateWithOptions_Handler,
+		},
+		{
+			MethodName: "AddSubcategories",
+			Handler:    _QuestionFormUpdaterV1_AddSubcategories_Handler,
+		},
+		{
+			MethodName: "RemoveSubcategories",
+			Handler:    _QuestionFormUpdaterV1_RemoveSubcategories_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

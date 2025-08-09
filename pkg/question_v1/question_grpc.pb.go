@@ -28,8 +28,6 @@ type QuestionV1Client interface {
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 	AddOptions(ctx context.Context, in *AddOptionsRequest, opts ...grpc.CallOption) (*AddOptionsResponse, error)
 	DeleteOptions(ctx context.Context, in *DeleteOptionsRequest, opts ...grpc.CallOption) (*DeleteOptionsResponse, error)
-	AddSubcategories(ctx context.Context, in *AddSubcategoriesRequest, opts ...grpc.CallOption) (*AddSubcategoriesResponse, error)
-	RemoveSubcategories(ctx context.Context, in *RemoveSubcategoriesRequest, opts ...grpc.CallOption) (*RemoveSubcategoriesResponse, error)
 }
 
 type questionV1Client struct {
@@ -94,24 +92,6 @@ func (c *questionV1Client) DeleteOptions(ctx context.Context, in *DeleteOptionsR
 	return out, nil
 }
 
-func (c *questionV1Client) AddSubcategories(ctx context.Context, in *AddSubcategoriesRequest, opts ...grpc.CallOption) (*AddSubcategoriesResponse, error) {
-	out := new(AddSubcategoriesResponse)
-	err := c.cc.Invoke(ctx, "/question_v1.QuestionV1/AddSubcategories", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *questionV1Client) RemoveSubcategories(ctx context.Context, in *RemoveSubcategoriesRequest, opts ...grpc.CallOption) (*RemoveSubcategoriesResponse, error) {
-	out := new(RemoveSubcategoriesResponse)
-	err := c.cc.Invoke(ctx, "/question_v1.QuestionV1/RemoveSubcategories", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // QuestionV1Server is the server API for QuestionV1 service.
 // All implementations must embed UnimplementedQuestionV1Server
 // for forward compatibility
@@ -122,8 +102,6 @@ type QuestionV1Server interface {
 	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
 	AddOptions(context.Context, *AddOptionsRequest) (*AddOptionsResponse, error)
 	DeleteOptions(context.Context, *DeleteOptionsRequest) (*DeleteOptionsResponse, error)
-	AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error)
-	RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error)
 	mustEmbedUnimplementedQuestionV1Server()
 }
 
@@ -148,12 +126,6 @@ func (UnimplementedQuestionV1Server) AddOptions(context.Context, *AddOptionsRequ
 }
 func (UnimplementedQuestionV1Server) DeleteOptions(context.Context, *DeleteOptionsRequest) (*DeleteOptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOptions not implemented")
-}
-func (UnimplementedQuestionV1Server) AddSubcategories(context.Context, *AddSubcategoriesRequest) (*AddSubcategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddSubcategories not implemented")
-}
-func (UnimplementedQuestionV1Server) RemoveSubcategories(context.Context, *RemoveSubcategoriesRequest) (*RemoveSubcategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveSubcategories not implemented")
 }
 func (UnimplementedQuestionV1Server) mustEmbedUnimplementedQuestionV1Server() {}
 
@@ -276,42 +248,6 @@ func _QuestionV1_DeleteOptions_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _QuestionV1_AddSubcategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddSubcategoriesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QuestionV1Server).AddSubcategories(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/question_v1.QuestionV1/AddSubcategories",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QuestionV1Server).AddSubcategories(ctx, req.(*AddSubcategoriesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _QuestionV1_RemoveSubcategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveSubcategoriesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QuestionV1Server).RemoveSubcategories(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/question_v1.QuestionV1/RemoveSubcategories",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QuestionV1Server).RemoveSubcategories(ctx, req.(*RemoveSubcategoriesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // QuestionV1_ServiceDesc is the grpc.ServiceDesc for QuestionV1 service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,14 +278,6 @@ var QuestionV1_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteOptions",
 			Handler:    _QuestionV1_DeleteOptions_Handler,
-		},
-		{
-			MethodName: "AddSubcategories",
-			Handler:    _QuestionV1_AddSubcategories_Handler,
-		},
-		{
-			MethodName: "RemoveSubcategories",
-			Handler:    _QuestionV1_RemoveSubcategories_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

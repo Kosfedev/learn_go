@@ -6,16 +6,19 @@ import (
 )
 
 type serv struct {
-	questionRepo       repository.QuestionRepository
-	questionOptionRepo repository.QuestionOptionRepository
+	questionRepo            repository.QuestionRepository
+	questionOptionRepo      repository.QuestionOptionRepository
+	questionSubcategoryRepo repository.QuestionSubcategoryRepository
 }
 
 func NewService(
 	questionRepo repository.QuestionRepository,
 	questionOptionRepo repository.QuestionOptionRepository,
+	questionSubcategoryRepo repository.QuestionSubcategoryRepository,
 ) service.QuestionFormUpdaterService {
 	return &serv{
-		questionRepo:       questionRepo,
-		questionOptionRepo: questionOptionRepo,
+		questionRepo:            questionRepo,
+		questionOptionRepo:      questionOptionRepo,
+		questionSubcategoryRepo: questionSubcategoryRepo,
 	}
 }
