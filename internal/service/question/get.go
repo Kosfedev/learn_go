@@ -6,8 +6,8 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qs *serv) Get(ctx context.Context, questionID int64) (*model.Question, error) {
-	question, err := qs.questionRepo.Get(ctx, questionID)
+func (s *serv) Get(ctx context.Context, questionID int64) (*model.Question, error) {
+	question, err := s.questionRepo.Get(ctx, questionID)
 	if err != nil {
 		return nil, err
 	}

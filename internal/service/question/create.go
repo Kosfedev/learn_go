@@ -7,7 +7,7 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qs *serv) Create(ctx context.Context, newQuestion *model.NewQuestion) (int64, error) {
+func (s *serv) Create(ctx context.Context, newQuestion *model.NewQuestion) (int64, error) {
 	if newQuestion == nil {
 		return 0, errors.New("newQuestion cannot be nil")
 	}
@@ -16,7 +16,7 @@ func (qs *serv) Create(ctx context.Context, newQuestion *model.NewQuestion) (int
 		return 0, errors.New("invalid question type")
 	}
 
-	id, err := qs.questionRepo.Create(ctx, newQuestion)
+	id, err := s.questionRepo.Create(ctx, newQuestion)
 	if err != nil {
 		return 0, err
 	}

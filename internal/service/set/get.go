@@ -6,8 +6,8 @@ import (
 	"github.com/Kosfedev/learn_go/internal/model"
 )
 
-func (qss *serv) Get(ctx context.Context, id int64) (*model.Set, error) {
-	set, err := qss.repo.Get(ctx, id)
+func (s *serv) Get(ctx context.Context, id int64) (*model.Set, error) {
+	set, err := s.repo.Get(ctx, id)
 	if err != nil {
 		return nil, err
 	}
