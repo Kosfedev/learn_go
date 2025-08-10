@@ -4,7 +4,9 @@ import (
 	"context"
 	"log"
 	"net"
+	"net/http"
 
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
@@ -23,6 +25,7 @@ import (
 type App struct {
 	serviceProvider *serviceprovider.ServiceProvider
 	grpcServer      *grpc.Server
+	grpcGateway     *http.Server
 }
 
 func NewApp(ctx context.Context) (*App, error) {
@@ -41,6 +44,7 @@ func (app *App) initDeps(ctx context.Context) error {
 		app.initConfig,
 		app.initServiceProvider,
 		app.initGRPCServer,
+		app.initGRPCGWServer,
 	}
 
 	for _, init := range inits {
@@ -64,6 +68,29 @@ func (app *App) initConfig(_ context.Context) error {
 
 func (app *App) initServiceProvider(_ context.Context) error {
 	app.serviceProvider = serviceprovider.NewServiceProvider()
+	return nil
+}
+
+func (app *App) initGRPCGWServer(ctx context.Context) error {
+	mux := runtime.NewServeMux()
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	handlers := []func(context.Context, *runtime.ServeMux, string, []grpc.DialOption) error{
+		domainDesc.RegisterDomainV1HandlerFromEndpoint,
+	}
+
+	for _, handler := range handlers {
+		if err := handler(ctx, mux, app.serviceProvider.GRPCConfig().Address(), opts); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	app.grpcGateway = &http.Server{
+		Addr:    ":8080",
+		Handler: mux,
+	}
+
 	return nil
 }
 
@@ -91,6 +118,16 @@ func (app *App) RunGRPCServer() error {
 	}
 
 	err = app.grpcServer.Serve(lis)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (app *App) RunGRPCGWServer() error {
+	log.Printf("Starting HTTP gRPC-Gateway on %s", "8080")
+	err := app.grpcGateway.ListenAndServe()
 	if err != nil {
 		return err
 	}

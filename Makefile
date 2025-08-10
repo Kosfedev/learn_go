@@ -5,11 +5,15 @@ get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
+get-special:
+	git clone https://github.com/googleapis/googleapis.git third_party/googleapis
+
 install-grpc:
 	GOBIN=$(LOCAL_BIN) go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1
 	GOBIN=$(LOCAL_BIN) go install -mod=mod google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 	GOBIN=$(LOCAL_BIN) go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v2.27.1
 	GOBIN=$(LOCAL_BIN) go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@v2.27.1
+
 install-golangci-lint:
 	GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.5
 install-minimock:
@@ -56,11 +60,13 @@ generate-question-form-updater-api:
 	api/question_form_updater_v1/question_form_updater.proto
 generate-domain-api:
 	mkdir -p pkg/domain_v1
-	protoc --proto_path api/domain_v1 \
+	protoc --proto_path api/domain_v1 --proto_path third_party/googleapis \
 	--go_out=pkg/domain_v1 --go_opt=paths=source_relative \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
 	--go-grpc_out=pkg/domain_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--grpc-gateway_out=pkg/domain_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
 	api/domain_v1/domain.proto
 generate-category-api:
 	mkdir -p pkg/category_v1
