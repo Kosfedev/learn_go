@@ -12,9 +12,11 @@ type Client interface {
 	Closer() error
 }
 
-type Query struct {
-	Name     string
-	QueryRaw string
+type DB interface {
+	SQLExecer
+	Transactor
+	Pinger
+	Close()
 }
 
 type SQLExecer interface {
@@ -37,8 +39,17 @@ type Pinger interface {
 	Ping(ctx context.Context) error
 }
 
-type DB interface {
-	SQLExecer
-	Pinger
-	Close()
+type Query struct {
+	Name     string
+	QueryRaw string
 }
+
+type Transactor interface {
+	BeginTx(ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, error)
+}
+
+type TxManager interface {
+	ReadCommited(ctx context.Context, f Handler) error
+}
+
+type Handler func(ctx context.Context) error
