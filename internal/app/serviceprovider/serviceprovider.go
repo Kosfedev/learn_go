@@ -13,6 +13,7 @@ import (
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/client/db/pg"
+	"github.com/Kosfedev/learn_go/internal/client/db/transactor"
 	"github.com/Kosfedev/learn_go/internal/config"
 	"github.com/Kosfedev/learn_go/internal/config/env"
 	"github.com/Kosfedev/learn_go/internal/repository"
@@ -23,7 +24,8 @@ type ServiceProvider struct {
 	pgConfig   config.PGConfig
 	grpcConfig config.GRPCConfig
 
-	dbClient db.Client
+	dbClient  db.Client
+	txManager db.TxManager
 
 	questionRepo            repository.QuestionRepository
 	setRepo                 repository.SetRepository
@@ -100,4 +102,12 @@ func (sp *ServiceProvider) DBClient(ctx context.Context) db.Client {
 	}
 
 	return sp.dbClient
+}
+
+func (sp *ServiceProvider) TxManager(ctx context.Context) db.TxManager {
+	if sp.txManager == nil {
+		sp.txManager = transactor.NewManager(sp.DBClient(ctx).DB())
+	}
+
+	return sp.txManager
 }

@@ -16,13 +16,22 @@ func (s *serv) CreateWithOptions(ctx context.Context, newQuestion *model.NewQues
 		return 0, errors.New("invalid question type")
 	}
 
-	id, err := s.questionRepo.Create(ctx, newQuestion.Question)
-	if err != nil {
-		return 0, err
-	}
+	var id int64
+	err := s.txManager.ReadCommited(ctx, func(ctx context.Context) error {
+		var err error
+		id, err = s.questionRepo.Create(ctx, newQuestion.Question)
+		if err != nil {
+			return err
+		}
 
-	// TODO: нужна трансакция
-	err = s.questionOptionRepo.CreateList(ctx, id, newQuestion.Options)
+		err = s.questionOptionRepo.CreateList(ctx, id, newQuestion.Options)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return 0, err
 	}

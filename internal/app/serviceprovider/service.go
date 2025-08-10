@@ -64,6 +64,7 @@ func (sp *ServiceProvider) QuestionFormService(ctx context.Context) service.Ques
 func (sp *ServiceProvider) QuestionFormUpdaterService(ctx context.Context) service.QuestionFormUpdaterService {
 	if sp.questionFormUpdaterServ == nil {
 		sp.questionFormUpdaterServ = questionFormUpdaterService.NewService(
+			sp.TxManager(ctx),
 			sp.QuestionRepository(ctx),
 			sp.QuestionOptionRepository(ctx),
 			sp.QuestionSubcategoryRepository(ctx),
