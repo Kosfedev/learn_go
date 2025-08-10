@@ -5,8 +5,8 @@ get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
-get-special:
-	git clone https://github.com/googleapis/googleapis.git third_party/googleapis
+
+# TODO: добавить клонирование google api && protoc-gen-openapiv2
 
 install-grpc:
 	GOBIN=$(LOCAL_BIN) go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1
@@ -60,13 +60,15 @@ generate-question-form-updater-api:
 	api/question_form_updater_v1/question_form_updater.proto
 generate-domain-api:
 	mkdir -p pkg/domain_v1
-	protoc --proto_path api/domain_v1 --proto_path third_party/googleapis \
-	--go_out=pkg/domain_v1 --go_opt=paths=source_relative \
+	protoc --proto_path api/domain_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/domain_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
-	--grpc-gateway_out=pkg/domain_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
 	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--plugin=protoc-gen-openapiv2=bin/protoc-gen-openapiv2 \
+	--go_out=pkg/domain_v1 --go_opt=paths=source_relative \
+	--go-grpc_out=pkg/domain_v1 --go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/domain_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
+	--openapiv2_out=api/docs --openapiv2_opt=logtostderr=true --openapiv2_opt=allow_merge=true --openapiv2_opt=merge_file_name=service-api \
 	api/domain_v1/domain.proto
 generate-category-api:
 	mkdir -p pkg/category_v1
@@ -86,6 +88,7 @@ generate-subcategory-api:
 	api/subcategory_v1/subcategory.proto
 
 generate:
+	mkdir -p api/docs
 	make generate-question-api
 	make generate-question-set-api
 	make generate-question-form-api

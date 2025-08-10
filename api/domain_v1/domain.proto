@@ -7,6 +7,18 @@ option go_package = "github.com/Kosfedev/learn_go/pkg/domain_v1;domain_v1";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Domain Service API";
+    version: "1.0";
+  };
+  schemes: HTTP;
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+};
 
 service DomainV1 {
   rpc Create(CreateRequest) returns (CreateResponse) {
