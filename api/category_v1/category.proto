@@ -38,13 +38,13 @@ service CategoryV1 {
   };
   rpc Update(UpdateRequest) returns (UpdateResponse) {
     option(google.api.http) = {
-      post: "/v1/category/{id}"
+      patch: "/v1/category/{id}"
       body: "*"
     };
   };
   rpc Delete(DeleteRequest) returns (DeleteResponse) {
     option(google.api.http) = {
-      patch: "/v1/category/{id}"
+      delete: "/v1/category/{id}"
     };
   };
 }

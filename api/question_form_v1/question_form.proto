@@ -4,14 +4,33 @@ package question_form_v1;
 
 option go_package = "github.com/Kosfedev/learn_go/pkg/question_form_v1;question_form_v1";
 
-import "google/protobuf/timestamp.proto";
-import "google/protobuf/wrappers.proto";
 import "question.proto";
 import "set.proto";
 import "subcategory.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Service Api"
+    version: "1.0"
+  }
+  tags: {
+    name: "Question Form"
+    description: "Операции по получению агрегированых данных по вопросам и связанным сущностям"
+  }
+  schemes: HTTP;
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+};
 
 service QuestionFormV1 {
-  rpc GetWithOptionsSetsSubcategories(GetRequest) returns (GetResponse);
+  rpc GetWithOptionsSetsSubcategories(GetRequest) returns (GetResponse) {
+    option (google.api.http) = {
+      get: "/v1/question_form/{id}"
+    };
+  };
 }
 
 // TODO: настроить импорт

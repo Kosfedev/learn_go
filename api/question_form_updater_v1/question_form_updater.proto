@@ -5,15 +5,64 @@ package question_form_updater_v1;
 option go_package = "github.com/Kosfedev/learn_go/pkg/question_form_updater_v1;question_form_updater_v1";
 
 import "question.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Service Api"
+    version: "1.0"
+  }
+  tags: {
+    name: "Question Form Updater"
+    description: "Операции по созданию и обновлению вопросов со связанными сущностями, а также по созданию и удалению связей между вопросами и относящимся к ним сущностям"
+  }
+  schemes: HTTP;
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+};
+
 
 service QuestionFormUpdaterV1 {
-  rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse);
-  rpc AddOptions(CreateOptionsRequest) returns (CreateOptionsResponse);
-  rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse);
-  rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse);
-  rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse);
-  rpc AddSets(AddSetsRequest) returns (AddSetsResponse);
-  rpc RemoveSets(RemoveSetsRequest) returns (RemoveSetsResponse);
+  rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse) {
+    option (google.api.http) = {
+      post: "/v1/question_form_updater"
+      body: "*"
+    };
+  };
+  rpc AddOptions(CreateOptionsRequest) returns (CreateOptionsResponse) {
+    option (google.api.http) = {
+      post: "/v1/question_form_updater/options"
+      body: "*"
+    };
+  };
+  rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse) {
+    option (google.api.http) = {
+      delete: "/v1/question_form_updater/options"
+    };
+  };
+  rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse) {
+    option (google.api.http) = {
+      post: "/v1/question_form_updater/subcategories"
+    };
+  };
+  rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse) {
+    option (google.api.http) = {
+      delete: "/v1/question_form_updater/subcategories"
+    };
+  };
+  rpc AddSets(AddSetsRequest) returns (AddSetsResponse) {
+    option (google.api.http) = {
+      post: "/v1/question_form_updater/sets"
+      body: "*"
+    };
+  };
+  rpc RemoveSets(RemoveSetsRequest) returns (RemoveSetsResponse) {
+    option (google.api.http) = {
+      delete: "/v1/question_form_updater/sets"
+    };
+  };
 }
 
 message NewQuestionOption {

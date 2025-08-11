@@ -27,7 +27,7 @@ import (
 const (
 	swaggerFilePath = "./api/docs/service-api.swagger.json"
 	swaggerFileURL  = "/api/docs/service-api.swagger.json"
-	swaggerUIURL    = "/api/swagger"
+	swaggerUIURL    = "/api/swagger/"
 )
 
 type App struct {
@@ -108,7 +108,7 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 	mainMux.Handle("/api/", http.StripPrefix("/api", gwMux))
 	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
-			http.Redirect(w, r, fmt.Sprintf("%s/index.html", swaggerUIURL), http.StatusFound)
+			http.Redirect(w, r, fmt.Sprintf("%sindex.html", swaggerUIURL), http.StatusFound)
 			return
 		}
 		http.NotFound(w, r)
