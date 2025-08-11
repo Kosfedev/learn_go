@@ -5,7 +5,6 @@ get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
-
 # TODO: добавить клонирование google api && protoc-gen-openapiv2
 
 install-grpc:
@@ -64,19 +63,19 @@ generate-domain-api:
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
-	--plugin=protoc-gen-openapiv2=bin/protoc-gen-openapiv2 \
 	--go_out=pkg/domain_v1 --go_opt=paths=source_relative \
 	--go-grpc_out=pkg/domain_v1 --go-grpc_opt=paths=source_relative \
 	--grpc-gateway_out=pkg/domain_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
-	--openapiv2_out=api/docs --openapiv2_opt=logtostderr=true --openapiv2_opt=allow_merge=true --openapiv2_opt=merge_file_name=service-api \
 	api/domain_v1/domain.proto
 generate-category-api:
 	mkdir -p pkg/category_v1
-	protoc --proto_path api/category_v1 \
-	--go_out=pkg/category_v1 --go_opt=paths=source_relative \
+	protoc --proto_path api/category_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/category_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/category_v1 --go_opt=paths=source_relative \
+	--go-grpc_out=pkg/category_v1 --go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/category_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
 	api/category_v1/category.proto
 generate-subcategory-api:
 	mkdir -p pkg/subcategory_v1
@@ -86,9 +85,14 @@ generate-subcategory-api:
 	--go-grpc_out=pkg/subcategory_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/subcategory_v1/subcategory.proto
+generate-openapi:
+	mkdir -p pkg/docs
+	protoc --proto_path third_party/googleapis --proto_path third_party/grpc-gateway --proto_path api/domain_v1 --proto_path api/category_v1 \
+	--plugin=protoc-gen-openapiv2=bin/protoc-gen-openapiv2 \
+	--openapiv2_out=api/docs --openapiv2_opt=logtostderr=true --openapiv2_opt=allow_merge=true --openapiv2_opt=merge_file_name=service-api \
+	api/domain_v1/domain.proto api/category_v1/category.proto
 
 generate:
-	mkdir -p api/docs
 	make generate-question-api
 	make generate-question-set-api
 	make generate-question-form-api
@@ -96,6 +100,7 @@ generate:
 	make generate-domain-api
 	make generate-category-api
 	make generate-subcategory-api
+	make generate-openapi
 
 lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config .golangci.pipeline.yaml

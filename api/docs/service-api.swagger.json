@@ -1,12 +1,19 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Domain Service API",
+    "title": "Service API",
     "version": "1.0"
   },
   "tags": [
     {
+      "name": "Domain",
+      "description": "Операции с доменами"
+    },
+    {
       "name": "DomainV1"
+    },
+    {
+      "name": "CategoryV1"
     }
   ],
   "schemes": [
@@ -20,6 +27,135 @@
     "application/json"
   ],
   "paths": {
+    "/v1/category": {
+      "post": {
+        "operationId": "CategoryV1_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1CreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/category_v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      }
+    },
+    "/v1/category/{id}": {
+      "get": {
+        "operationId": "CategoryV1_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      },
+      "post": {
+        "operationId": "CategoryV1_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1UpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/category_v1CategoryV1UpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      },
+      "patch": {
+        "operationId": "CategoryV1_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      }
+    },
     "/v1/domain": {
       "post": {
         "operationId": "DomainV1_Create",
@@ -140,7 +276,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DomainV1UpdateBody"
+              "$ref": "#/definitions/domain_v1DomainV1UpdateBody"
             }
           }
         ],
@@ -151,13 +287,68 @@
     }
   },
   "definitions": {
-    "DomainV1UpdateBody": {
+    "category_v1CategoryV1UpdateBody": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string"
+        },
+        "domainId": {
+          "type": "string",
+          "format": "int64"
         }
       }
+    },
+    "category_v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "domainId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "category_v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "category_v1DeleteResponse": {
+      "type": "object"
+    },
+    "category_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "domainId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "category_v1UpdateResponse": {
+      "type": "object"
     },
     "domain_v1CreateRequest": {
       "type": "object",
@@ -178,6 +369,14 @@
     },
     "domain_v1DeleteResponse": {
       "type": "object"
+    },
+    "domain_v1DomainV1UpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
     },
     "domain_v1GetResponse": {
       "type": "object",

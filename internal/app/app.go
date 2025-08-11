@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/swaggo/http-swagger"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
@@ -71,24 +72,45 @@ func (app *App) initServiceProvider(_ context.Context) error {
 	return nil
 }
 
+// TODO: настроить конфиг
 func (app *App) initGRPCGWServer(ctx context.Context) error {
-	mux := runtime.NewServeMux()
+	mainMux := http.NewServeMux()
+
+	gwMux := runtime.NewServeMux()
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	}
 	handlers := []func(context.Context, *runtime.ServeMux, string, []grpc.DialOption) error{
 		domainDesc.RegisterDomainV1HandlerFromEndpoint,
+		categoryDesc.RegisterCategoryV1HandlerFromEndpoint,
 	}
 
 	for _, handler := range handlers {
-		if err := handler(ctx, mux, app.serviceProvider.GRPCConfig().Address(), opts); err != nil {
+		if err := handler(ctx, gwMux, app.serviceProvider.GRPCConfig().Address(), opts); err != nil {
 			log.Fatal(err)
 		}
 	}
 
+	mainMux.HandleFunc("/api/docs/service-api.swagger.json", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./api/docs/service-api.swagger.json")
+	})
+
+	mainMux.Handle("/api/swagger/", httpSwagger.Handler(
+		httpSwagger.URL("/api/docs/service-api.swagger.json"),
+	))
+
+	mainMux.Handle("/api/", http.StripPrefix("/api", gwMux))
+	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/" {
+			http.Redirect(w, r, "/api/swagger/index.html", http.StatusFound)
+			return
+		}
+		http.NotFound(w, r)
+	})
+
 	app.grpcGateway = &http.Server{
 		Addr:    ":8080",
-		Handler: mux,
+		Handler: mainMux,
 	}
 
 	return nil
