@@ -21,8 +21,9 @@ import (
 )
 
 type ServiceProvider struct {
-	pgConfig   config.PGConfig
-	grpcConfig config.GRPCConfig
+	pgConfig     config.PGConfig
+	grpcConfig   config.GRPCConfig
+	grpcGWConfig config.GRPCGWConfig
 
 	dbClient  db.Client
 	txManager db.TxManager
@@ -82,6 +83,19 @@ func (sp *ServiceProvider) GRPCConfig() config.GRPCConfig {
 	}
 
 	return sp.grpcConfig
+}
+
+func (sp *ServiceProvider) GRPCGWConfig() config.GRPCGWConfig {
+	if sp.grpcGWConfig == nil {
+		cfg, err := env.NewGRPCGWConfig()
+		if err != nil {
+			log.Fatalf("failed to get grpc-gw config: %s", err.Error())
+		}
+
+		sp.grpcGWConfig = cfg
+	}
+
+	return sp.grpcGWConfig
 }
 
 func (sp *ServiceProvider) DBClient(ctx context.Context) db.Client {

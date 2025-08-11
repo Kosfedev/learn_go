@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -21,6 +22,12 @@ import (
 	questionDesc "github.com/Kosfedev/learn_go/pkg/question_v1"
 	setDesc "github.com/Kosfedev/learn_go/pkg/set_v1"
 	subcategoryDesc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
+)
+
+const (
+	swaggerFilePath = "./api/docs/service-api.swagger.json"
+	swaggerFileURL  = "/api/docs/service-api.swagger.json"
+	swaggerUIURL    = "/api/swagger"
 )
 
 type App struct {
@@ -72,7 +79,6 @@ func (app *App) initServiceProvider(_ context.Context) error {
 	return nil
 }
 
-// TODO: настроить конфиг
 func (app *App) initGRPCGWServer(ctx context.Context) error {
 	mainMux := http.NewServeMux()
 
@@ -91,25 +97,25 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 		}
 	}
 
-	mainMux.HandleFunc("/api/docs/service-api.swagger.json", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./api/docs/service-api.swagger.json")
+	mainMux.HandleFunc(swaggerFileURL, func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, swaggerFilePath)
 	})
 
-	mainMux.Handle("/api/swagger/", httpSwagger.Handler(
-		httpSwagger.URL("/api/docs/service-api.swagger.json"),
+	mainMux.Handle(swaggerUIURL, httpSwagger.Handler(
+		httpSwagger.URL(swaggerFileURL),
 	))
 
 	mainMux.Handle("/api/", http.StripPrefix("/api", gwMux))
 	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
-			http.Redirect(w, r, "/api/swagger/index.html", http.StatusFound)
+			http.Redirect(w, r, fmt.Sprintf("%s/index.html", swaggerUIURL), http.StatusFound)
 			return
 		}
 		http.NotFound(w, r)
 	})
 
 	app.grpcGateway = &http.Server{
-		Addr:    ":8080",
+		Addr:    app.serviceProvider.GRPCGWConfig().Address(),
 		Handler: mainMux,
 	}
 
@@ -148,7 +154,7 @@ func (app *App) RunGRPCServer() error {
 }
 
 func (app *App) RunGRPCGWServer() error {
-	log.Printf("Starting HTTP gRPC-Gateway on %s", "8080")
+	log.Printf("Starting HTTP gRPC-Gateway on %s", app.serviceProvider.GRPCGWConfig().Address())
 	err := app.grpcGateway.ListenAndServe()
 	if err != nil {
 		return err
