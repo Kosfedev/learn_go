@@ -1,0 +1,1506 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Service API",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Domain",
+      "description": "Операции с доменами"
+    },
+    {
+      "name": "DomainV1"
+    },
+    {
+      "name": "CategoryV1"
+    },
+    {
+      "name": "SubcategoryV1"
+    },
+    {
+      "name": "QuestionV1"
+    },
+    {
+      "name": "QuestionFormV1"
+    },
+    {
+      "name": "QuestionFormUpdaterV1"
+    },
+    {
+      "name": "SetV1"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/category": {
+      "post": {
+        "operationId": "CategoryV1_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1CreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/category_v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      }
+    },
+    "/v1/category/{id}": {
+      "get": {
+        "operationId": "CategoryV1_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      },
+      "delete": {
+        "operationId": "CategoryV1_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      },
+      "patch": {
+        "operationId": "CategoryV1_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/category_v1UpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/category_v1CategoryV1UpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "CategoryV1"
+        ]
+      }
+    },
+    "/v1/domain": {
+      "post": {
+        "operationId": "DomainV1_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/domain_v1CreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/domain_v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DomainV1"
+        ]
+      }
+    },
+    "/v1/domain/{id}": {
+      "get": {
+        "operationId": "DomainV1_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/domain_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "DomainV1"
+        ]
+      },
+      "delete": {
+        "operationId": "DomainV1_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/domain_v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "DomainV1"
+        ]
+      },
+      "patch": {
+        "operationId": "DomainV1_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/domain_v1UpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/domain_v1DomainV1UpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "DomainV1"
+        ]
+      }
+    },
+    "/v1/question": {
+      "post": {
+        "operationId": "QuestionV1_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_v1CreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/question_v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "QuestionV1"
+        ]
+      }
+    },
+    "/v1/question/{id}": {
+      "get": {
+        "operationId": "QuestionV1_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "QuestionV1"
+        ]
+      },
+      "delete": {
+        "operationId": "QuestionV1_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "QuestionV1"
+        ]
+      },
+      "patch": {
+        "operationId": "QuestionV1_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_v1UpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/question_v1QuestionV1UpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "QuestionV1"
+        ]
+      }
+    },
+    "/v1/question_form/{id}": {
+      "get": {
+        "operationId": "QuestionFormV1_GetWithOptionsSetsSubcategories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "QuestionFormV1"
+        ]
+      }
+    },
+    "/v1/question_form_updater": {
+      "post": {
+        "operationId": "QuestionFormUpdaterV1_CreateWithOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1CreateWithOptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1CreateWithOptionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      }
+    },
+    "/v1/question_form_updater/options": {
+      "delete": {
+        "operationId": "QuestionFormUpdaterV1_DeleteOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1DeleteOptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionFormUpdaterV1_AddOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1CreateOptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1CreateOptionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      }
+    },
+    "/v1/question_form_updater/sets": {
+      "delete": {
+        "operationId": "QuestionFormUpdaterV1_RemoveSets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1RemoveSetsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "setIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionFormUpdaterV1_AddSets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1AddSetsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1AddSetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      }
+    },
+    "/v1/question_form_updater/subcategories": {
+      "delete": {
+        "operationId": "QuestionFormUpdaterV1_RemoveSubcategories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1RemoveSubcategoriesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "subcategoryIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionFormUpdaterV1_AddSubcategories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_updater_v1AddSubcategoriesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "subcategoryIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "QuestionFormUpdaterV1"
+        ]
+      }
+    },
+    "/v1/set": {
+      "post": {
+        "operationId": "SetV1_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/set_v1CreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/set_v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SetV1"
+        ]
+      }
+    },
+    "/v1/set/{id}": {
+      "get": {
+        "operationId": "SetV1_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/set_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "SetV1"
+        ]
+      },
+      "delete": {
+        "operationId": "SetV1_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/set_v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "SetV1"
+        ]
+      },
+      "patch": {
+        "operationId": "SetV1_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/set_v1UpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/set_v1SetV1UpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "SetV1"
+        ]
+      }
+    },
+    "/v1/subcategory": {
+      "post": {
+        "operationId": "SubcategoryV1_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/subcategory_v1CreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/subcategory_v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SubcategoryV1"
+        ]
+      }
+    },
+    "/v1/subcategory/{id}": {
+      "get": {
+        "operationId": "SubcategoryV1_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/subcategory_v1GetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "SubcategoryV1"
+        ]
+      },
+      "delete": {
+        "operationId": "SubcategoryV1_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/subcategory_v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "SubcategoryV1"
+        ]
+      },
+      "patch": {
+        "operationId": "SubcategoryV1_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/subcategory_v1UpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/subcategory_v1SubcategoryV1UpdateBody"
+            }
+          }
+        ],
+        "tags": [
+          "SubcategoryV1"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "category_v1CategoryV1UpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "domainId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "category_v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "domainId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "category_v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "category_v1DeleteResponse": {
+      "type": "object"
+    },
+    "category_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "domainId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "category_v1UpdateResponse": {
+      "type": "object"
+    },
+    "domain_v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "domain_v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "domain_v1DeleteResponse": {
+      "type": "object"
+    },
+    "domain_v1DomainV1UpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "domain_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "domain_v1UpdateResponse": {
+      "type": "object"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "question_form_updater_v1AddSetsRequest": {
+      "type": "object",
+      "properties": {
+        "questionId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "setIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "question_form_updater_v1AddSetsResponse": {
+      "type": "object"
+    },
+    "question_form_updater_v1AddSubcategoriesResponse": {
+      "type": "object"
+    },
+    "question_form_updater_v1CreateOptionsRequest": {
+      "type": "object",
+      "properties": {
+        "questionId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/question_form_updater_v1NewQuestionOption"
+          }
+        }
+      }
+    },
+    "question_form_updater_v1CreateOptionsResponse": {
+      "type": "object"
+    },
+    "question_form_updater_v1CreateWithOptionsRequest": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/question_form_updater_v1CreateWithOptionsRequestData"
+        }
+      }
+    },
+    "question_form_updater_v1CreateWithOptionsRequestData": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "$ref": "#/definitions/question_v1NewQuestion"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/question_form_updater_v1NewQuestionOption"
+          }
+        }
+      }
+    },
+    "question_form_updater_v1CreateWithOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "question_form_updater_v1DeleteOptionsResponse": {
+      "type": "object"
+    },
+    "question_form_updater_v1NewQuestionOption": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "isCorrect": {
+          "type": "boolean"
+        }
+      }
+    },
+    "question_form_updater_v1RemoveSetsResponse": {
+      "type": "object"
+    },
+    "question_form_updater_v1RemoveSubcategoriesResponse": {
+      "type": "object"
+    },
+    "question_form_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/question_form_v1GetResponseData"
+        }
+      }
+    },
+    "question_form_v1GetResponseData": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "$ref": "#/definitions/question_v1Question"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/question_form_v1QuestionOption"
+          }
+        },
+        "sets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/set_v1Set"
+          }
+        },
+        "subcategories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/subcategory_v1Subcategory"
+          }
+        }
+      }
+    },
+    "question_form_v1QuestionOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "text": {
+          "type": "string"
+        },
+        "isCorrect": {
+          "type": "boolean"
+        }
+      },
+      "title": "TODO: настроить импорт"
+    },
+    "question_v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/question_v1NewQuestion"
+        }
+      }
+    },
+    "question_v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "question_v1DeleteResponse": {
+      "type": "object"
+    },
+    "question_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/question_v1Question"
+        }
+      }
+    },
+    "question_v1NewQuestion": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "questionType": {
+          "$ref": "#/definitions/question_v1QuestionType"
+        },
+        "referenceAnswer": {
+          "type": "string"
+        }
+      }
+    },
+    "question_v1Question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "text": {
+          "type": "string"
+        },
+        "questionType": {
+          "$ref": "#/definitions/question_v1QuestionType"
+        },
+        "referenceAnswer": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "question_v1QuestionType": {
+      "type": "string",
+      "enum": [
+        "QUESTION_TYPE_UNSPECIFIED",
+        "QUESTION_TYPE_SINGLE",
+        "QUESTION_TYPE_MULTI",
+        "QUESTION_TYPE_OPEN"
+      ],
+      "default": "QUESTION_TYPE_UNSPECIFIED"
+    },
+    "question_v1QuestionV1UpdateBody": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "questionType": {
+          "$ref": "#/definitions/question_v1QuestionType",
+          "title": "TODO: заменить для обратной совместимости?"
+        },
+        "referenceAnswer": {
+          "type": "string"
+        }
+      }
+    },
+    "question_v1UpdateResponse": {
+      "type": "object"
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "set_v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "set_v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "set_v1DeleteResponse": {
+      "type": "object"
+    },
+    "set_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/set_v1Set"
+        }
+      }
+    },
+    "set_v1Set": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "set_v1SetV1UpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "set_v1UpdateResponse": {
+      "type": "object"
+    },
+    "subcategory_v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "subcategory_v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "subcategory_v1DeleteResponse": {
+      "type": "object"
+    },
+    "subcategory_v1GetResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "TODO: replace"
+    },
+    "subcategory_v1Subcategory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "subcategory_v1SubcategoryV1UpdateBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "subcategory_v1UpdateResponse": {
+      "type": "object"
+    }
+  }
+}

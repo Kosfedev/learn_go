@@ -15,7 +15,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = a.RunGRPCServer()
+	go func() {
+		err = a.RunGRPCServer()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	err = a.RunGRPCGWServer()
 	if err != nil {
 		log.Fatal(err)
 	}

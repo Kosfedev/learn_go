@@ -38,7 +38,7 @@ func NewCategoryV1Client(cc grpc.ClientConnInterface) CategoryV1Client {
 
 func (c *categoryV1Client) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
 	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, "/category_v1.categoryV1/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/category_v1.CategoryV1/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *categoryV1Client) Create(ctx context.Context, in *CreateRequest, opts .
 
 func (c *categoryV1Client) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
 	out := new(GetResponse)
-	err := c.cc.Invoke(ctx, "/category_v1.categoryV1/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/category_v1.CategoryV1/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *categoryV1Client) Get(ctx context.Context, in *GetRequest, opts ...grpc
 
 func (c *categoryV1Client) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error) {
 	out := new(UpdateResponse)
-	err := c.cc.Invoke(ctx, "/category_v1.categoryV1/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/category_v1.CategoryV1/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *categoryV1Client) Update(ctx context.Context, in *UpdateRequest, opts .
 
 func (c *categoryV1Client) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
 	out := new(DeleteResponse)
-	err := c.cc.Invoke(ctx, "/category_v1.categoryV1/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/category_v1.CategoryV1/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _CategoryV1_Create_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/category_v1.categoryV1/Create",
+		FullMethod: "/category_v1.CategoryV1/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoryV1Server).Create(ctx, req.(*CreateRequest))
@@ -140,7 +140,7 @@ func _CategoryV1_Get_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/category_v1.categoryV1/Get",
+		FullMethod: "/category_v1.CategoryV1/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoryV1Server).Get(ctx, req.(*GetRequest))
@@ -158,7 +158,7 @@ func _CategoryV1_Update_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/category_v1.categoryV1/Update",
+		FullMethod: "/category_v1.CategoryV1/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoryV1Server).Update(ctx, req.(*UpdateRequest))
@@ -176,7 +176,7 @@ func _CategoryV1_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/category_v1.categoryV1/Delete",
+		FullMethod: "/category_v1.CategoryV1/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoryV1Server).Delete(ctx, req.(*DeleteRequest))
@@ -188,7 +188,7 @@ func _CategoryV1_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CategoryV1_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "category_v1.categoryV1",
+	ServiceName: "category_v1.CategoryV1",
 	HandlerType: (*CategoryV1Server)(nil),
 	Methods: []grpc.MethodDesc{
 		{
