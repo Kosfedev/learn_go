@@ -25,7 +25,7 @@ import (
 )
 
 const (
-	swaggerFilePath = "./api/docs/service-api.swagger.json"
+	swaggerFilePath = "./pkg/docs/service-api.swagger.json"
 	swaggerFileURL  = "/api/docs/service-api.swagger.json"
 	swaggerUIURL    = "/api/swagger/"
 )
@@ -79,6 +79,21 @@ func (app *App) initServiceProvider(_ context.Context) error {
 	return nil
 }
 
+func (app *App) initGRPCServer(ctx context.Context) error {
+	app.grpcServer = grpc.NewServer(grpc.Creds(insecure.NewCredentials()))
+
+	reflection.Register(app.grpcServer)
+	questionDesc.RegisterQuestionV1Server(app.grpcServer, app.serviceProvider.QuestionImplementation(ctx))
+	questionFormDesc.RegisterQuestionFormV1Server(app.grpcServer, app.serviceProvider.QuestionFormImplementation(ctx))
+	questionFormUpdaterDesc.RegisterQuestionFormUpdaterV1Server(app.grpcServer, app.serviceProvider.QuestionFormUpdaterImplementation(ctx))
+	setDesc.RegisterSetV1Server(app.grpcServer, app.serviceProvider.QuestionSetImplementation(ctx))
+	domainDesc.RegisterDomainV1Server(app.grpcServer, app.serviceProvider.DomainImplementation(ctx))
+	categoryDesc.RegisterCategoryV1Server(app.grpcServer, app.serviceProvider.CategoryImplementation(ctx))
+	subcategoryDesc.RegisterSubcategoryV1Server(app.grpcServer, app.serviceProvider.SubcategoryImplementation(ctx))
+
+	return nil
+}
+
 func (app *App) initGRPCGWServer(ctx context.Context) error {
 	mainMux := http.NewServeMux()
 
@@ -89,6 +104,11 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 	handlers := []func(context.Context, *runtime.ServeMux, string, []grpc.DialOption) error{
 		domainDesc.RegisterDomainV1HandlerFromEndpoint,
 		categoryDesc.RegisterCategoryV1HandlerFromEndpoint,
+		questionDesc.RegisterQuestionV1HandlerFromEndpoint,
+		questionFormDesc.RegisterQuestionFormV1HandlerFromEndpoint,
+		questionFormUpdaterDesc.RegisterQuestionFormUpdaterV1HandlerFromEndpoint,
+		setDesc.RegisterSetV1HandlerFromEndpoint,
+		subcategoryDesc.RegisterSubcategoryV1HandlerFromEndpoint,
 	}
 
 	for _, handler := range handlers {
@@ -105,7 +125,7 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 		httpSwagger.URL(swaggerFileURL),
 	))
 
-	mainMux.Handle("/api/", http.StripPrefix("/api", gwMux))
+	mainMux.Handle("/api/", gwMux)
 	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
 			http.Redirect(w, r, fmt.Sprintf("%sindex.html", swaggerUIURL), http.StatusFound)
@@ -118,21 +138,6 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 		Addr:    app.serviceProvider.GRPCGWConfig().Address(),
 		Handler: mainMux,
 	}
-
-	return nil
-}
-
-func (app *App) initGRPCServer(ctx context.Context) error {
-	app.grpcServer = grpc.NewServer(grpc.Creds(insecure.NewCredentials()))
-
-	reflection.Register(app.grpcServer)
-	questionDesc.RegisterQuestionV1Server(app.grpcServer, app.serviceProvider.QuestionImplementation(ctx))
-	questionFormDesc.RegisterQuestionFormV1Server(app.grpcServer, app.serviceProvider.QuestionFormImplementation(ctx))
-	questionFormUpdaterDesc.RegisterQuestionFormUpdaterV1Server(app.grpcServer, app.serviceProvider.QuestionFormUpdaterImplementation(ctx))
-	setDesc.RegisterSetV1Server(app.grpcServer, app.serviceProvider.QuestionSetImplementation(ctx))
-	domainDesc.RegisterDomainV1Server(app.grpcServer, app.serviceProvider.DomainImplementation(ctx))
-	categoryDesc.RegisterCategoryV1Server(app.grpcServer, app.serviceProvider.CategoryImplementation(ctx))
-	subcategoryDesc.RegisterSubcategoryV1Server(app.grpcServer, app.serviceProvider.SubcategoryImplementation(ctx))
 
 	return nil
 }

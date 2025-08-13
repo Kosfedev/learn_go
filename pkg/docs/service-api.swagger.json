@@ -42,7 +42,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/category": {
+    "/api/v1/category": {
       "post": {
         "operationId": "CategoryV1_Create",
         "responses": {
@@ -74,7 +74,7 @@
         ]
       }
     },
-    "/v1/category/{id}": {
+    "/api/v1/category/{id}": {
       "get": {
         "operationId": "CategoryV1_Get",
         "responses": {
@@ -171,7 +171,7 @@
         ]
       }
     },
-    "/v1/domain": {
+    "/api/v1/domain": {
       "post": {
         "operationId": "DomainV1_Create",
         "responses": {
@@ -203,7 +203,7 @@
         ]
       }
     },
-    "/v1/domain/{id}": {
+    "/api/v1/domain/{id}": {
       "get": {
         "operationId": "DomainV1_Get",
         "responses": {
@@ -300,7 +300,7 @@
         ]
       }
     },
-    "/v1/question": {
+    "/api/v1/question": {
       "post": {
         "operationId": "QuestionV1_Create",
         "responses": {
@@ -332,7 +332,7 @@
         ]
       }
     },
-    "/v1/question/{id}": {
+    "/api/v1/question/{id}": {
       "get": {
         "operationId": "QuestionV1_Get",
         "responses": {
@@ -429,7 +429,7 @@
         ]
       }
     },
-    "/v1/question_form/{id}": {
+    "/api/v1/question_form/{id}": {
       "get": {
         "operationId": "QuestionFormV1_GetWithOptionsSetsSubcategories",
         "responses": {
@@ -460,7 +460,7 @@
         ]
       }
     },
-    "/v1/question_form_updater": {
+    "/api/v1/question_form_updater": {
       "post": {
         "operationId": "QuestionFormUpdaterV1_CreateWithOptions",
         "responses": {
@@ -492,7 +492,7 @@
         ]
       }
     },
-    "/v1/question_form_updater/options": {
+    "/api/v1/question_form_updater/options": {
       "delete": {
         "operationId": "QuestionFormUpdaterV1_DeleteOptions",
         "responses": {
@@ -557,7 +557,7 @@
         ]
       }
     },
-    "/v1/question_form_updater/sets": {
+    "/api/v1/question_form_updater/sets": {
       "delete": {
         "operationId": "QuestionFormUpdaterV1_RemoveSets",
         "responses": {
@@ -629,7 +629,7 @@
         ]
       }
     },
-    "/v1/question_form_updater/subcategories": {
+    "/api/v1/question_form_updater/subcategories": {
       "delete": {
         "operationId": "QuestionFormUpdaterV1_RemoveSubcategories",
         "responses": {
@@ -711,7 +711,7 @@
         ]
       }
     },
-    "/v1/set": {
+    "/api/v1/set": {
       "post": {
         "operationId": "SetV1_Create",
         "responses": {
@@ -743,7 +743,7 @@
         ]
       }
     },
-    "/v1/set/{id}": {
+    "/api/v1/set/{id}": {
       "get": {
         "operationId": "SetV1_Get",
         "responses": {
@@ -840,7 +840,7 @@
         ]
       }
     },
-    "/v1/subcategory": {
+    "/api/v1/subcategory": {
       "post": {
         "operationId": "SubcategoryV1_Create",
         "responses": {
@@ -872,7 +872,7 @@
         ]
       }
     },
-    "/v1/subcategory/{id}": {
+    "/api/v1/subcategory/{id}": {
       "get": {
         "operationId": "SubcategoryV1_Get",
         "responses": {

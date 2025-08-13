@@ -197,7 +197,7 @@ func RegisterDomainV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Create", runtime.WithHTTPPathPattern("/v1/domain"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Create", runtime.WithHTTPPathPattern("/api/v1/domain"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -217,7 +217,7 @@ func RegisterDomainV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Get", runtime.WithHTTPPathPattern("/v1/domain/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Get", runtime.WithHTTPPathPattern("/api/v1/domain/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -237,7 +237,7 @@ func RegisterDomainV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Update", runtime.WithHTTPPathPattern("/v1/domain/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Update", runtime.WithHTTPPathPattern("/api/v1/domain/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -257,7 +257,7 @@ func RegisterDomainV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Delete", runtime.WithHTTPPathPattern("/v1/domain/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/domain_v1.DomainV1/Delete", runtime.WithHTTPPathPattern("/api/v1/domain/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -315,7 +315,7 @@ func RegisterDomainV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Create", runtime.WithHTTPPathPattern("/v1/domain"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Create", runtime.WithHTTPPathPattern("/api/v1/domain"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -332,7 +332,7 @@ func RegisterDomainV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Get", runtime.WithHTTPPathPattern("/v1/domain/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Get", runtime.WithHTTPPathPattern("/api/v1/domain/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -349,7 +349,7 @@ func RegisterDomainV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Update", runtime.WithHTTPPathPattern("/v1/domain/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Update", runtime.WithHTTPPathPattern("/api/v1/domain/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -366,7 +366,7 @@ func RegisterDomainV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Delete", runtime.WithHTTPPathPattern("/v1/domain/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/domain_v1.DomainV1/Delete", runtime.WithHTTPPathPattern("/api/v1/domain/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -383,10 +383,10 @@ func RegisterDomainV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 }
 
 var (
-	pattern_DomainV1_Create_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "domain"}, ""))
-	pattern_DomainV1_Get_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "domain", "id"}, ""))
-	pattern_DomainV1_Update_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "domain", "id"}, ""))
-	pattern_DomainV1_Delete_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "domain", "id"}, ""))
+	pattern_DomainV1_Create_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "domain"}, ""))
+	pattern_DomainV1_Get_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "domain", "id"}, ""))
+	pattern_DomainV1_Update_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "domain", "id"}, ""))
+	pattern_DomainV1_Delete_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "domain", "id"}, ""))
 )
 
 var (

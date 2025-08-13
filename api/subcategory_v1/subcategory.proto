@@ -27,24 +27,24 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 service SubcategoryV1 {
   rpc Create(CreateRequest) returns (CreateResponse) {
     option (google.api.http) = {
-      post: "/v1/subcategory"
+      post: "/api/v1/subcategory"
       body: "*"
     };
   };
   rpc Get(GetRequest) returns (GetResponse) {
     option (google.api.http) = {
-      get: "/v1/subcategory/{id}"
+      get: "/api/v1/subcategory/{id}"
     };
   };
   rpc Update(UpdateRequest) returns (UpdateResponse) {
     option (google.api.http) = {
-      patch: "/v1/subcategory/{id}"
+      patch: "/api/v1/subcategory/{id}"
       body: "*"
     };
   };
   rpc Delete(DeleteRequest) returns (DeleteResponse) {
     option (google.api.http) = {
-      delete: "/v1/subcategory/{id}"
+      delete: "/api/v1/subcategory/{id}"
     };
   };
 }

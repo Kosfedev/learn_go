@@ -27,24 +27,24 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 service QuestionV1 {
   rpc Create(CreateRequest) returns (CreateResponse) {
     option (google.api.http) = {
-      post: "/v1/question"
+      post: "/api/v1/question"
       body: "*"
     };
   };
   rpc Get(GetRequest) returns (GetResponse) {
     option (google.api.http) = {
-      get: "/v1/question/{id}"
+      get: "/api/v1/question/{id}"
     };
   };
   rpc Update(UpdateRequest) returns (UpdateResponse) {
     option (google.api.http) = {
-      patch: "/v1/question/{id}"
+      patch: "/api/v1/question/{id}"
       body: "*"
     };
   };
   rpc Delete(DeleteRequest) returns (DeleteResponse) {
     option (google.api.http) = {
-      delete: "/v1/question/{id}"
+      delete: "/api/v1/question/{id}"
     };
   };
 }

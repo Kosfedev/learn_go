@@ -5,10 +5,25 @@ volumes:
 
 services:
   pg-local:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d question -U question-user"] # TODO: импортировать из .env
+      interval: 5s
+      timeout: 5s
+      retries: 5
     image: postgres:16-alpine3.17
     env_file:
       - .env
     ports:
-      - "54321:5432"
+      - "54321:5432" # TODO: импортировать из .env
     volumes:
       - pg_volume:/var/lib/postgresql/data
+  service:
+    depends_on:
+      pg-local:
+        condition: service_healthy
+    image: kostrovf/learn_go_be:0.1.2
+    env_file:
+      - .env
+    ports:
+      - "50051:50051" # TODO: импортировать из .env
+      - "8080:8080" # TODO: импортировать из .env
