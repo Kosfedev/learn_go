@@ -14,7 +14,7 @@ type pgConfig struct {
 }
 
 func NewPgConfig() (*pgConfig, error) {
-	dsn := os.Getenv("PG_DSN")
+	dsn := os.Getenv(dsnEnvName)
 	if len(dsn) == 0 {
 		return nil, fmt.Errorf("environment variable %s must be set", dsnEnvName)
 	}

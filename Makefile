@@ -1,5 +1,8 @@
-include .env
+include .env.dev
 LOCAL_BIN:=$(CURDIR)/bin
+# TODO: refactor
+MIGRATIONS_DSN="host=193.37.68.113 port=54321 dbname=question user=question-user password=question-password sslmode=disable"
+MIGRATION_DIR=./migrations
 
 get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
@@ -28,63 +31,126 @@ install-deps:
 # TODO: перейти на buf и избавиться от этого всего
 generate-question-api:
 	mkdir -p pkg/question_v1
-	protoc --proto_path api/question_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
-	--go_out=pkg/question_v1 --go_opt=paths=source_relative \
+	protoc \
+	--proto_path api/question_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/question_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/question_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/question_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/question_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/question_v1/question.proto
 generate-question-set-api:
 	mkdir -p pkg/set_v1
-	protoc --proto_path api/set_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
-	--go_out=pkg/set_v1 --go_opt=paths=source_relative \
+	protoc \
+	--proto_path api/set_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/set_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/set_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/set_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/set_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/set_v1/set.proto
 generate-question-form-api:
 	mkdir -p pkg/question_form_v1
-	protoc --proto_path api/question_form_v1 --proto_path api/question_v1 --proto_path api/set_v1 --proto_path api/subcategory_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
-	--go_out=pkg/question_form_v1 --go_opt=paths=source_relative \
+	protoc \
+	--proto_path api/question_form_v1 \
+	--proto_path api/question_v1 \
+	--proto_path api/set_v1 \
+	--proto_path api/subcategory_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/question_form_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/question_form_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/question_form_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/question_form_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/question_form_v1/question_form.proto
 generate-question-form-updater-api:
 	mkdir -p pkg/question_form_updater_v1
-	protoc --proto_path api/question_form_updater_v1 --proto_path api/question_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
-	--go_out=pkg/question_form_updater_v1 --go_opt=paths=source_relative \
+	protoc \
+	--proto_path api/question_form_updater_v1 \
+	--proto_path api/question_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/question_form_updater_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/question_form_updater_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/question_form_updater_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/question_form_updater_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/question_form_updater_v1/question_form_updater.proto
 generate-domain-api:
 	mkdir -p pkg/domain_v1
-	protoc --proto_path api/domain_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
+	protoc \
+	--proto_path api/domain_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
-	--go_out=pkg/domain_v1 --go_opt=paths=source_relative \
-	--go-grpc_out=pkg/domain_v1 --go-grpc_opt=paths=source_relative \
-	--grpc-gateway_out=pkg/domain_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
+	--go_out=pkg/domain_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/domain_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/domain_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/domain_v1/domain.proto
 generate-category-api:
 	mkdir -p pkg/category_v1
-	protoc --proto_path api/category_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
+	protoc \
+	--proto_path api/category_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
-	--go_out=pkg/category_v1 --go_opt=paths=source_relative \
-	--go-grpc_out=pkg/category_v1 --go-grpc_opt=paths=source_relative \
-	--grpc-gateway_out=pkg/category_v1 --grpc-gateway_opt=paths=source_relative --grpc-gateway_opt=generate_unbound_methods=true \
+	--go_out=pkg/category_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/category_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/category_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/category_v1/category.proto
 generate-subcategory-api:
 	mkdir -p pkg/subcategory_v1
-	protoc --proto_path api/subcategory_v1 --proto_path third_party/googleapis --proto_path third_party/grpc-gateway \
-	--go_out=pkg/subcategory_v1 --go_opt=paths=source_relative \
+	protoc \
+	--proto_path api/subcategory_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg/subcategory_v1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/subcategory_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/subcategory_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/subcategory_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/subcategory_v1/subcategory.proto
 generate-openapi:
 	mkdir -p pkg/docs
@@ -99,7 +165,10 @@ generate-openapi:
 	--proto_path api/question_form_updater_v1 \
 	--proto_path api/set_v1 \
 	--plugin=protoc-gen-openapiv2=bin/protoc-gen-openapiv2 \
-	--openapiv2_out=api/docs --openapiv2_opt=logtostderr=true --openapiv2_opt=allow_merge=true --openapiv2_opt=merge_file_name=service-api \
+	--openapiv2_out=pkg/docs \
+	--openapiv2_opt=logtostderr=true \
+	--openapiv2_opt=allow_merge=true \
+	--openapiv2_opt=merge_file_name=service-api \
 	api/domain_v1/domain.proto \
 	api/category_v1/category.proto \
 	api/subcategory_v1/subcategory.proto \
@@ -139,3 +208,11 @@ local-migration-up:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} up -v
 local-migration-down:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} down -v
+
+remote-migration-status:
+	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${MIGRATIONS_DSN} status -v
+remote-migration-up:
+	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${MIGRATIONS_DSN} up -v
+remote-migration-down:
+	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${MIGRATIONS_DSN} down -v
+

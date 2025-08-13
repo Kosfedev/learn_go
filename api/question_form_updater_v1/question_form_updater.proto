@@ -27,40 +27,40 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 service QuestionFormUpdaterV1 {
   rpc CreateWithOptions(CreateWithOptionsRequest) returns(CreateWithOptionsResponse) {
     option (google.api.http) = {
-      post: "/v1/question_form_updater"
+      post: "/api/v1/question_form_updater"
       body: "*"
     };
   };
   rpc AddOptions(CreateOptionsRequest) returns (CreateOptionsResponse) {
     option (google.api.http) = {
-      post: "/v1/question_form_updater/options"
+      post: "/api/v1/question_form_updater/options"
       body: "*"
     };
   };
   rpc DeleteOptions(DeleteOptionsRequest) returns (DeleteOptionsResponse) {
     option (google.api.http) = {
-      delete: "/v1/question_form_updater/options"
+      delete: "/api/v1/question_form_updater/options"
     };
   };
   rpc AddSubcategories(AddSubcategoriesRequest) returns (AddSubcategoriesResponse) {
     option (google.api.http) = {
-      post: "/v1/question_form_updater/subcategories"
+      post: "/api/v1/question_form_updater/subcategories"
     };
   };
   rpc RemoveSubcategories(RemoveSubcategoriesRequest) returns (RemoveSubcategoriesResponse) {
     option (google.api.http) = {
-      delete: "/v1/question_form_updater/subcategories"
+      delete: "/api/v1/question_form_updater/subcategories"
     };
   };
   rpc AddSets(AddSetsRequest) returns (AddSetsResponse) {
     option (google.api.http) = {
-      post: "/v1/question_form_updater/sets"
+      post: "/api/v1/question_form_updater/sets"
       body: "*"
     };
   };
   rpc RemoveSets(RemoveSetsRequest) returns (RemoveSetsResponse) {
     option (google.api.http) = {
-      delete: "/v1/question_form_updater/sets"
+      delete: "/api/v1/question_form_updater/sets"
     };
   };
 }

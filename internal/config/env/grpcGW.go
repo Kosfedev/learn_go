@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	grpcGWHostEnvName = "GRPC_GW_HOST"
+	grpcGWHostEnvName = "HOST"
 	grpcGWPortEnvName = "GRPC_GW_PORT"
 )
 
