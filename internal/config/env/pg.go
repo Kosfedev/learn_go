@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	dsnEnvName = "PG_DSN_CROSS_CONTAINER"
+	dsnEnvName = "PG_DSN"
 )
 
 type pgConfig struct {

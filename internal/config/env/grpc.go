@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	grpcHostEnvName = "GRPC_HOST"
+	grpcHostEnvName = "HOST"
 	grpcPortEnvName = "GRPC_PORT"
 )
 

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -66,7 +67,12 @@ func (app *App) initDeps(ctx context.Context) error {
 
 func (app *App) initConfig(_ context.Context) error {
 	// TODO: добавить ввод с консоли
-	err := config.Load(".env")
+	mode := "dev"
+	if os.Getenv("MODE") == "prod" {
+		mode = "prod"
+	}
+
+	err := config.Load(fmt.Sprintf(".env.%s", mode))
 	if err != nil {
 		return err
 	}
