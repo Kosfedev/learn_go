@@ -131,7 +131,7 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 		httpSwagger.URL(swaggerFileURL),
 	))
 
-	mainMux.Handle("/api/", gwMux)
+	mainMux.Handle("/api/", cors(gwMux))
 	mainMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
 			http.Redirect(w, r, fmt.Sprintf("%sindex.html", swaggerUIURL), http.StatusFound)
@@ -172,4 +172,22 @@ func (app *App) RunGRPCGWServer() error {
 	}
 
 	return nil
+}
+
+// CORS middleware
+func cors(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Grpc-Web")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+
+		// Обработка предварительных запросов OPTIONS
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+
+		h.ServeHTTP(w, r)
+	})
 }
