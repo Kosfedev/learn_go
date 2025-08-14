@@ -3,15 +3,17 @@ package model
 import (
 	"database/sql"
 	"time"
+
+	"github.com/Kosfedev/learn_go/pkg/customtype"
 )
 
 type Question struct {
-	ID              int64          `db:"id" json:"id"`
-	Text            string         `db:"text" json:"text"`
-	Type            int64          `db:"type" json:"type"`
-	ReferenceAnswer sql.NullString `db:"reference_answer" json:"reference_answer"`
-	CreatedAt       time.Time      `db:"created_at" json:"created_at"`
-	UpdatedAt       sql.NullTime   `db:"updated_at" json:"updated_at"`
+	ID              int64               `db:"id" json:"id"`
+	Text            string              `db:"text" json:"text"`
+	Type            int64               `db:"type" json:"type"`
+	ReferenceAnswer *string             `db:"reference_answer" json:"reference_answer"`
+	CreatedAt       time.Time           `db:"created_at" json:"created_at"`
+	UpdatedAt       customtype.NullTime `db:"updated_at" json:"updated_at"`
 }
 
 type NewQuestion struct {

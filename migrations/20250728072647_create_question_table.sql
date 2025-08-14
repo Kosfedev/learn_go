@@ -6,8 +6,8 @@ CREATE TABLE question (
     text TEXT NOT NULL,
     type INTEGER,
     reference_answer TEXT,
-    created_at TIMESTAMP NOT NULL DEFAULT now(),
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ
 );
 -- +goose StatementEnd
 

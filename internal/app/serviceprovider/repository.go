@@ -12,6 +12,7 @@ import (
 	questionSetPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_set/pg"
 	questionSubcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/question_subcategory/pg"
 	setPGRepository "github.com/Kosfedev/learn_go/internal/repository/set/pg"
+	setFormPGRepository "github.com/Kosfedev/learn_go/internal/repository/set_form/pg"
 	subcategoryPGRepository "github.com/Kosfedev/learn_go/internal/repository/subcategory/pg"
 )
 
@@ -37,6 +38,14 @@ func (sp *ServiceProvider) SetRepository(ctx context.Context) repository.SetRepo
 	}
 
 	return sp.setRepo
+}
+
+func (sp *ServiceProvider) SetFormRepository(ctx context.Context) repository.SetFormRepository {
+	if sp.setFormRepo == nil {
+		sp.setFormRepo = setFormPGRepository.NewRepository(sp.DBClient(ctx))
+	}
+
+	return sp.setFormRepo
 }
 
 func (sp *ServiceProvider) QuestionSubcategoryRepository(ctx context.Context) repository.QuestionSubcategoryRepository {

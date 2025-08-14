@@ -13,11 +13,29 @@ type QuestionService interface {
 	Delete(ctx context.Context, id int64) error
 }
 
+type QuestionFormService interface {
+	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
+}
+
+type QuestionFormUpdaterService interface {
+	CreateWithOptions(ctx context.Context, newQuestion *model.NewQuestionWithOptions) (int64, error)
+	CreateOptions(ctx context.Context, questionID int64, newQuestionOptions []*model.NewQuestionOption) error
+	DeleteOptions(ctx context.Context, optionIDs []int64) error
+	AddSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
+	RemoveSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
+	AddSets(ctx context.Context, questionID int64, setIDs []int64) error
+	RemoveSets(ctx context.Context, questionID int64, setIDs []int64) error
+}
+
 type SetService interface {
 	Create(ctx context.Context, newSet *model.NewSet) (int64, error)
 	Get(ctx context.Context, id int64) (*model.Set, error)
 	Update(ctx context.Context, id int64, updatedSet *model.UpdatedSet) error
 	Delete(ctx context.Context, id int64) error
+}
+
+type SetFormService interface {
+	GetWithQuestions(ctx context.Context, setID int64) (*model.SetForm, error)
 }
 
 type DomainService interface {
@@ -39,18 +57,4 @@ type SubcategoryService interface {
 	Get(ctx context.Context, id int64) (*model.Subcategory, error)
 	Update(ctx context.Context, id int64, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int64) error
-}
-
-type QuestionFormService interface {
-	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
-}
-
-type QuestionFormUpdaterService interface {
-	CreateWithOptions(ctx context.Context, newQuestion *model.NewQuestionWithOptions) (int64, error)
-	CreateOptions(ctx context.Context, questionID int64, newQuestionOptions []*model.NewQuestionOption) error
-	DeleteOptions(ctx context.Context, optionIDs []int64) error
-	AddSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
-	RemoveSubcategories(ctx context.Context, questionID int64, subcategoryIDs []int64) error
-	AddSets(ctx context.Context, questionID int64, setIDs []int64) error
-	RemoveSets(ctx context.Context, questionID int64, setIDs []int64) error
 }

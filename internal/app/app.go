@@ -21,6 +21,7 @@ import (
 	questionFormUpdaterDesc "github.com/Kosfedev/learn_go/pkg/question_form_updater_v1"
 	questionFormDesc "github.com/Kosfedev/learn_go/pkg/question_form_v1"
 	questionDesc "github.com/Kosfedev/learn_go/pkg/question_v1"
+	setFormDesc "github.com/Kosfedev/learn_go/pkg/set_form_v1"
 	setDesc "github.com/Kosfedev/learn_go/pkg/set_v1"
 	subcategoryDesc "github.com/Kosfedev/learn_go/pkg/subcategory_v1"
 )
@@ -92,7 +93,8 @@ func (app *App) initGRPCServer(ctx context.Context) error {
 	questionDesc.RegisterQuestionV1Server(app.grpcServer, app.serviceProvider.QuestionImplementation(ctx))
 	questionFormDesc.RegisterQuestionFormV1Server(app.grpcServer, app.serviceProvider.QuestionFormImplementation(ctx))
 	questionFormUpdaterDesc.RegisterQuestionFormUpdaterV1Server(app.grpcServer, app.serviceProvider.QuestionFormUpdaterImplementation(ctx))
-	setDesc.RegisterSetV1Server(app.grpcServer, app.serviceProvider.QuestionSetImplementation(ctx))
+	setDesc.RegisterSetV1Server(app.grpcServer, app.serviceProvider.SetImplementation(ctx))
+	setFormDesc.RegisterSetFormV1Server(app.grpcServer, app.serviceProvider.SetFormImplementation(ctx))
 	domainDesc.RegisterDomainV1Server(app.grpcServer, app.serviceProvider.DomainImplementation(ctx))
 	categoryDesc.RegisterCategoryV1Server(app.grpcServer, app.serviceProvider.CategoryImplementation(ctx))
 	subcategoryDesc.RegisterSubcategoryV1Server(app.grpcServer, app.serviceProvider.SubcategoryImplementation(ctx))
@@ -114,6 +116,7 @@ func (app *App) initGRPCGWServer(ctx context.Context) error {
 		questionFormDesc.RegisterQuestionFormV1HandlerFromEndpoint,
 		questionFormUpdaterDesc.RegisterQuestionFormUpdaterV1HandlerFromEndpoint,
 		setDesc.RegisterSetV1HandlerFromEndpoint,
+		setFormDesc.RegisterSetFormV1HandlerFromEndpoint,
 		subcategoryDesc.RegisterSubcategoryV1HandlerFromEndpoint,
 	}
 

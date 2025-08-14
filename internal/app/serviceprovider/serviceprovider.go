@@ -10,6 +10,7 @@ import (
 	quesionFormImplementation "github.com/Kosfedev/learn_go/internal/api/questionform"
 	quesionFormUpdaterImplementation "github.com/Kosfedev/learn_go/internal/api/questionformupdater"
 	setImplementation "github.com/Kosfedev/learn_go/internal/api/set"
+	setFormImplementation "github.com/Kosfedev/learn_go/internal/api/setform"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/client/db/pg"
@@ -29,11 +30,12 @@ type ServiceProvider struct {
 	txManager db.TxManager
 
 	questionRepo            repository.QuestionRepository
-	setRepo                 repository.SetRepository
 	questionSetRepo         repository.QuestionSetRepository
 	questionSubcategoryRepo repository.QuestionSubcategoryRepository
 	questionFormRepo        repository.QuestionFormRepository
 	questionOptionRepo      repository.QuestionOptionRepository
+	setRepo                 repository.SetRepository
+	setFormRepo             repository.SetFormRepository
 	domainRepo              repository.DomainRepository
 	categoryRepo            repository.CategoryRepository
 	subcategoryRepo         repository.SubcategoryRepository
@@ -42,6 +44,7 @@ type ServiceProvider struct {
 	questionFormServ        service.QuestionFormService
 	questionFormUpdaterServ service.QuestionFormUpdaterService
 	setServ                 service.SetService
+	setFormServ             service.SetFormService
 	domainServ              service.DomainService
 	categoryServ            service.CategoryService
 	subcategoryServ         service.SubcategoryService
@@ -50,6 +53,7 @@ type ServiceProvider struct {
 	questionFormImpl        *quesionFormImplementation.Implementation
 	questionFormUpdaterImpl *quesionFormUpdaterImplementation.Implementation
 	setImpl                 *setImplementation.Implementation
+	setFormImpl             *setFormImplementation.Implementation
 	domainImpl              *domainImplementation.Implementation
 	categoryImpl            *categoryImplementation.Implementation
 	subcategoryImpl         *subcategoryImplementation.Implementation
