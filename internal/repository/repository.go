@@ -18,11 +18,19 @@ type QuestionOptionRepository interface {
 	DeleteList(ctx context.Context, ids []int64) error
 }
 
+type QuestionFormRepository interface {
+	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
+}
+
 type SetRepository interface {
 	Create(ctx context.Context, newSet *model.NewSet) (int64, error)
 	Get(ctx context.Context, id int64) (*model.Set, error)
 	Update(ctx context.Context, id int64, updatedSet *model.UpdatedSet) error
 	Delete(ctx context.Context, id int64) error
+}
+
+type SetFormRepository interface {
+	GetWithQuestions(ctx context.Context, setID int64) (*model.SetForm, error)
 }
 
 type QuestionSetRepository interface {
@@ -68,8 +76,4 @@ type SubcategoryRepository interface {
 	Get(ctx context.Context, id int64) (*model.Subcategory, error)
 	Update(ctx context.Context, id int64, updatedSubcategory *model.UpdatedSubcategory) error
 	Delete(ctx context.Context, id int64) error
-}
-
-type QuestionFormRepository interface {
-	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
 }

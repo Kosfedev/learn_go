@@ -7,8 +7,17 @@ import (
 	modelRepo "github.com/Kosfedev/learn_go/internal/repository/question/pg/model"
 )
 
+func QuestionsFromPGSQL(questionRepo []*modelRepo.Question) []*model.Question {
+	questions := make([]*model.Question, len(questionRepo))
+	for i, question := range questionRepo {
+		questions[i] = QuestionFromPGSQL(question)
+	}
+
+	return questions
+}
+
 func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
-	questionServ := &model.Question{
+	question := &model.Question{
 		ID:        questionRepo.ID,
 		Text:      questionRepo.Text,
 		Type:      model.QuestionType(questionRepo.Type),
@@ -16,14 +25,14 @@ func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
 	}
 
 	if questionRepo.ReferenceAnswer.Valid {
-		questionServ.ReferenceAnswer = &questionRepo.ReferenceAnswer.String
+		question.ReferenceAnswer = &questionRepo.ReferenceAnswer.String
 	}
 
 	if questionRepo.UpdatedAt.Valid {
-		questionServ.UpdatedAt = &questionRepo.UpdatedAt.Time
+		question.UpdatedAt = &questionRepo.UpdatedAt.Time
 	}
 
-	return questionServ
+	return question
 }
 
 func NewQuestionToPGSQL(questionServ *model.NewQuestion) *modelRepo.NewQuestion {
@@ -42,26 +51,26 @@ func NewQuestionToPGSQL(questionServ *model.NewQuestion) *modelRepo.NewQuestion 
 	return questionRepo
 }
 
-func UpdatedQuestionToPGSQL(questionServ *model.UpdatedQuestion) *modelRepo.UpdatedQuestion {
+func UpdatedQuestionToPGSQL(question *model.UpdatedQuestion) *modelRepo.UpdatedQuestion {
 	questionRepo := &modelRepo.UpdatedQuestion{}
 
-	if questionServ.Text != nil {
+	if question.Text != nil {
 		questionRepo.Text = sql.NullString{
-			String: *questionServ.Text,
+			String: *question.Text,
 			Valid:  true,
 		}
 	}
 
-	if questionServ.Type != nil {
+	if question.Type != nil {
 		questionRepo.Type = sql.NullInt64{
-			Int64: int64(*questionServ.Type),
+			Int64: int64(*question.Type),
 			Valid: true,
 		}
 	}
 
-	if questionServ.ReferenceAnswer != nil {
+	if question.ReferenceAnswer != nil {
 		questionRepo.ReferenceAnswer = sql.NullString{
-			String: *questionServ.ReferenceAnswer,
+			String: *question.ReferenceAnswer,
 			Valid:  true,
 		}
 	}

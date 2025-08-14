@@ -8,7 +8,7 @@ import (
 )
 
 type QuestionForm struct {
-	Question      *modelQuestionRepo.Question               `db:"question"`
+	Question      *modelQuestionRepo.Question               `db:"question" json:"question"`
 	Options       []*modelQuestionOptionRepo.QuestionOption `db:"question_options" json:"question_options"`
 	Sets          []*modelSetRepo.Set                       `db:"sets" json:"sets"`
 	Subcategories []*modelSubcategoryRepo.Subcategory       `db:"subcategories" json:"subcategories"`

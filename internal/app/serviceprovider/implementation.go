@@ -22,7 +22,7 @@ func (sp *ServiceProvider) QuestionImplementation(ctx context.Context) *quesionI
 
 func (sp *ServiceProvider) QuestionSetImplementation(ctx context.Context) *setImplementation.Implementation {
 	if sp.setImpl == nil {
-		sp.setImpl = setImplementation.NewImplementation(sp.QuestionSetService(ctx))
+		sp.setImpl = setImplementation.NewImplementation(sp.SetService(ctx))
 	}
 
 	return sp.setImpl
