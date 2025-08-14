@@ -28,8 +28,8 @@ func (r *repo) GetWithQuestions(ctx context.Context, setID int64) (*model.SetFor
       'text', q.text,
       'type', q.type,
       'reference_answer', q.reference_answer,
-      'created_at', to_char(q.created_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
-      'updated_at', to_char(q.updated_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"')
+      'created_at', q.created_at,
+      'updated_at', q.updated_at
     )) FROM question AS q JOIN question_set AS q_set ON q_set.question_id = q.id WHERE q_set.set_id = set.id) AS questions
 		FROM set
 		WHERE set.id = $1`

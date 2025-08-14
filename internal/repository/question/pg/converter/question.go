@@ -24,10 +24,6 @@ func QuestionFromPGSQL(questionRepo *modelRepo.Question) *model.Question {
 		CreatedAt: questionRepo.CreatedAt,
 	}
 
-	if questionRepo.ReferenceAnswer.Valid {
-		question.ReferenceAnswer = &questionRepo.ReferenceAnswer.String
-	}
-
 	if questionRepo.UpdatedAt.Valid {
 		question.UpdatedAt = &questionRepo.UpdatedAt.Time
 	}

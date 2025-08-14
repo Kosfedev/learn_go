@@ -27,15 +27,15 @@ func (r *repo) GetWithOptionsSetsSubcategories(ctx context.Context, questionID i
 		 (SELECT json_agg(json_build_object(
       'id', s.id,
       'name', s.name,
-      'created_at', to_char(s.created_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
-      'updated_at', to_char(s.updated_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"')
+      'created_at', s.created_at,
+      'updated_at', s.updated_at
     )) FROM set AS s JOIN question_set AS q_set ON q_set.question_id = q.id WHERE q_set.set_id = s.id) AS sets,
 		 (SELECT json_agg(json_build_object(
       'id', sub.id,
       'name', sub.name,
       'category_id', sub.category_id,
-      'created_at', to_char(sub.created_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
-      'updated_at', to_char(sub.updated_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"')
+      'created_at', sub.created_at,
+      'updated_at', sub.updated_at
     )) FROM subcategory AS sub JOIN question_subcategory AS q_sub ON q_sub.question_id = q.id WHERE q_sub.subcategory_id = sub.id) AS subcategories
 		FROM question AS q
 		WHERE q.id = $1`
