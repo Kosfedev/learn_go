@@ -49,6 +49,14 @@ service CategoryV1 {
   };
 }
 
+message Category {
+  int64 id = 1;
+  string name = 2;
+  int64 domainId = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
 message CreateRequest {
   string name = 1;
   int64 domainId = 2;
@@ -63,11 +71,7 @@ message GetRequest {
 }
 
 message GetResponse {
-  int64 id = 1;
-  string name = 2;
-  int64 domainId = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
+  Category data = 1;
 }
 
 message UpdateRequest {

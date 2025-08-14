@@ -9,14 +9,16 @@ import (
 
 func DomainToGRPC(domain *model.Domain) *desc.GetResponse {
 	res := &desc.GetResponse{
-		Id:        domain.ID,
-		Name:      domain.Name,
-		CreatedAt: timestamppb.New(domain.CreatedAt),
-		UpdatedAt: nil,
+		Data: &desc.Domain{
+			Id:        domain.ID,
+			Name:      domain.Name,
+			CreatedAt: timestamppb.New(domain.CreatedAt),
+			UpdatedAt: nil,
+		},
 	}
 
 	if domain.UpdatedAt != nil {
-		res.UpdatedAt = timestamppb.New(*domain.UpdatedAt)
+		res.Data.UpdatedAt = timestamppb.New(*domain.UpdatedAt)
 	}
 
 	return res

@@ -49,6 +49,13 @@ service DomainV1 {
   };
 }
 
+message Domain {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
 message CreateRequest {
   string name = 1;
 }
@@ -62,10 +69,7 @@ message GetRequest {
 }
 
 message GetResponse {
-  int64 id = 1;
-  string name = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
+  Domain data = 1;
 }
 
 message UpdateRequest {

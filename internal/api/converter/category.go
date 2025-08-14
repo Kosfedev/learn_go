@@ -9,15 +9,17 @@ import (
 
 func CategoryToGRPC(category *model.Category) *desc.GetResponse {
 	res := &desc.GetResponse{
-		Id:        category.ID,
-		Name:      category.Name,
-		DomainId:  category.DomainID,
-		CreatedAt: timestamppb.New(category.CreatedAt),
-		UpdatedAt: nil,
+		Data: &desc.Category{
+			Id:        category.ID,
+			Name:      category.Name,
+			DomainId:  category.DomainID,
+			CreatedAt: timestamppb.New(category.CreatedAt),
+			UpdatedAt: nil,
+		},
 	}
 
 	if category.UpdatedAt != nil {
-		res.UpdatedAt = timestamppb.New(*category.UpdatedAt)
+		res.Data.UpdatedAt = timestamppb.New(*category.UpdatedAt)
 	}
 
 	return res
