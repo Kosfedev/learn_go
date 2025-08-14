@@ -46,23 +46,6 @@ generate-question-api:
 	--grpc-gateway_opt=paths=source_relative \
 	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/question_v1/question.proto
-generate-question-set-api:
-	mkdir -p pkg/set_v1
-	protoc \
-	--proto_path api/set_v1 \
-	--proto_path third_party/googleapis \
-	--proto_path third_party/grpc-gateway \
-	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
-	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
-	--go_out=pkg/set_v1 \
-	--go_opt=paths=source_relative \
-	--go-grpc_out=pkg/set_v1 \
-	--go-grpc_opt=paths=source_relative \
-	--grpc-gateway_out=pkg/set_v1 \
-	--grpc-gateway_opt=paths=source_relative \
-	--grpc-gateway_opt=generate_unbound_methods=true \
-	api/set_v1/set.proto
 generate-question-form-api:
 	mkdir -p pkg/question_form_v1
 	protoc \
@@ -101,6 +84,42 @@ generate-question-form-updater-api:
 	--grpc-gateway_opt=paths=source_relative \
 	--grpc-gateway_opt=generate_unbound_methods=true \
 	api/question_form_updater_v1/question_form_updater.proto
+generate-set-api:
+	mkdir -p pkg/set_v1
+	protoc \
+	--proto_path api/set_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
+	--plugin=protoc-gen-go=bin/protoc-gen-go \
+	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/set_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/set_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/set_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
+	api/set_v1/set.proto
+generate-set-form-api:
+	mkdir -p pkg/set_form_v1
+	protoc \
+	--proto_path api/set_form_v1 \
+	--proto_path api/question_v1 \
+	--proto_path api/set_v1 \
+	--proto_path third_party/googleapis \
+	--proto_path third_party/grpc-gateway \
+	--plugin=protoc-gen-go=bin/protoc-gen-go \
+	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
+	--plugin=protoc-gen-grpc-gateway=bin/protoc-gen-grpc-gateway \
+	--go_out=pkg/set_form_v1 \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pkg/set_form_v1 \
+	--go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pkg/set_form_v1 \
+	--grpc-gateway_opt=paths=source_relative \
+	--grpc-gateway_opt=generate_unbound_methods=true \
+	api/set_form_v1/set_form.proto
 generate-domain-api:
 	mkdir -p pkg/domain_v1
 	protoc \
@@ -164,6 +183,7 @@ generate-openapi:
 	--proto_path api/question_form_v1 \
 	--proto_path api/question_form_updater_v1 \
 	--proto_path api/set_v1 \
+	--proto_path api/set_form_v1 \
 	--plugin=protoc-gen-openapiv2=bin/protoc-gen-openapiv2 \
 	--openapiv2_out=pkg/docs \
 	--openapiv2_opt=logtostderr=true \
@@ -175,13 +195,15 @@ generate-openapi:
 	api/question_v1/question.proto \
 	api/question_form_v1/question_form.proto \
 	api/question_form_updater_v1/question_form_updater.proto \
-	api/set_v1/set.proto
+	api/set_v1/set.proto \
+	api/set_form_v1/set_form.proto
 
 generate:
 	make generate-question-api
-	make generate-question-set-api
 	make generate-question-form-api
 	make generate-question-form-updater-api
+	make generate-set-api
+	make generate-set-form-api
 	make generate-domain-api
 	make generate-category-api
 	make generate-subcategory-api

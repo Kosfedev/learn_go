@@ -26,8 +26,8 @@ func (r *repo) GetWithQuestions(ctx context.Context, setID int64) (*model.SetFor
 		 (SELECT json_agg(json_build_object(
       'id', q.id,
       'text', q.text,
-      'type', q.text,
-      'reference_answer', q.text,
+      'type', q.type,
+      'reference_answer', q.reference_answer,
       'created_at', to_char(q.created_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
       'updated_at', to_char(q.updated_at, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"')
     )) FROM question AS q JOIN question_set AS q_set ON q_set.question_id = q.id WHERE q_set.set_id = set.id) AS questions

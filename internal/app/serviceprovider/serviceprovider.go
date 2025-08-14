@@ -10,6 +10,7 @@ import (
 	quesionFormImplementation "github.com/Kosfedev/learn_go/internal/api/questionform"
 	quesionFormUpdaterImplementation "github.com/Kosfedev/learn_go/internal/api/questionformupdater"
 	setImplementation "github.com/Kosfedev/learn_go/internal/api/set"
+	setFormImplementation "github.com/Kosfedev/learn_go/internal/api/setform"
 	subcategoryImplementation "github.com/Kosfedev/learn_go/internal/api/subcategory"
 	"github.com/Kosfedev/learn_go/internal/client/db"
 	"github.com/Kosfedev/learn_go/internal/client/db/pg"
@@ -52,6 +53,7 @@ type ServiceProvider struct {
 	questionFormImpl        *quesionFormImplementation.Implementation
 	questionFormUpdaterImpl *quesionFormUpdaterImplementation.Implementation
 	setImpl                 *setImplementation.Implementation
+	setFormImpl             *setFormImplementation.Implementation
 	domainImpl              *domainImplementation.Implementation
 	categoryImpl            *categoryImplementation.Implementation
 	subcategoryImpl         *subcategoryImplementation.Implementation
