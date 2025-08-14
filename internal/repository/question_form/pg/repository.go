@@ -22,7 +22,7 @@ func NewRepository(db db.Client) repository.QuestionFormRepository {
 
 func (r *repo) GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error) {
 	questionFormRepo := &modelRepo.QuestionForm{}
-	queryRaw := `SELECT q.id AS "question.id", q.text AS "question.text", q.type AS "question.type", q.type AS "question.reference_answer", q.created_at AS "question.created_at", q.updated_at AS "question.updated_at", 
+	queryRaw := `SELECT q.id AS "question.id", q.text AS "question.text", q.type AS "question.type", q.reference_answer AS "question.reference_answer", q.created_at AS "question.created_at", q.updated_at AS "question.updated_at", 
 		 (SELECT json_agg(qo) FROM question_option AS qo WHERE qo.question_id = q.id) AS question_options,
 		 (SELECT json_agg(json_build_object(
       'id', s.id,
@@ -51,6 +51,28 @@ func (r *repo) GetWithOptionsSetsSubcategories(ctx context.Context, questionID i
 	}
 
 	questionForm := converter.QuestionFormFromPGSQL(questionFormRepo)
+
+	return questionForm, nil
+}
+
+func (r *repo) GetWithOptions(ctx context.Context, questionID int64) (*model.QuestionWithOptions, error) {
+	questionWithOptionsRepo := &modelRepo.QuestionWithOptions{}
+	queryRaw := `SELECT q.id AS "question.id", q.text AS "question.text", q.type AS "question.type", q.reference_answer AS "question.reference_answer", q.created_at AS "question.created_at", q.updated_at AS "question.updated_at", 
+		 (SELECT json_agg(qo) FROM question_option AS qo WHERE qo.question_id = q.id) AS question_options
+		FROM question AS q
+		WHERE q.id = $1`
+
+	query := db.Query{
+		Name:     "question_form.get_with_options",
+		QueryRaw: queryRaw,
+	}
+
+	err := r.db.DB().ScanOne(ctx, questionWithOptionsRepo, query, questionID)
+	if err != nil {
+		return nil, err
+	}
+
+	questionForm := converter.QuestionWithOptionsFromPGSQL(questionWithOptionsRepo)
 
 	return questionForm, nil
 }

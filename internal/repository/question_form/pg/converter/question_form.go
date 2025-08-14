@@ -19,3 +19,12 @@ func QuestionFormFromPGSQL(questionFormRepo *modelRepo.QuestionForm) *model.Ques
 
 	return questionForm
 }
+
+func QuestionWithOptionsFromPGSQL(questionFormRepo *modelRepo.QuestionWithOptions) *model.QuestionWithOptions {
+	questionWithOptions := &model.QuestionWithOptions{
+		Question: converterQuestion.QuestionFromPGSQL(questionFormRepo.Question),
+		Options:  converter.QuestionOptionsFromPGSQL(questionFormRepo.Options),
+	}
+
+	return questionWithOptions
+}

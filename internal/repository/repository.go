@@ -20,6 +20,7 @@ type QuestionOptionRepository interface {
 
 type QuestionFormRepository interface {
 	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
+	GetWithOptions(ctx context.Context, questionID int64) (*model.QuestionWithOptions, error)
 }
 
 type SetRepository interface {

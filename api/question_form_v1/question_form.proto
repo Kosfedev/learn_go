@@ -26,9 +26,14 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service QuestionFormV1 {
-  rpc GetWithOptionsSetsSubcategories(GetRequest) returns (GetResponse) {
+  rpc GetWithOptionsSetsSubcategories(GetFormRequest) returns (GetFormResponse) {
     option (google.api.http) = {
       get: "/api/v1/question_form/{id}"
+    };
+  };
+  rpc GetWithOptions(GetWithOptionsRequest) returns (GetWithOptionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/question_with_options/{id}"
     };
   };
 }
@@ -40,16 +45,29 @@ message QuestionOption {
   bool is_correct = 3;
 }
 
-message GetRequest {
+message GetFormRequest {
   int64 id = 1;
 }
 
-message GetResponse {
+message GetFormResponse {
   message Data {
-      question_v1.Question question = 1;
-      repeated QuestionOption options = 2;
-      repeated set_v1.Set sets = 3;
-      repeated subcategory_v1.Subcategory subcategories = 4;
+    question_v1.Question question = 1;
+    repeated QuestionOption options = 2;
+    repeated set_v1.Set sets = 3;
+    repeated subcategory_v1.Subcategory subcategories = 4;
+  }
+
+  Data data = 1;
+}
+
+message GetWithOptionsRequest {
+  int64 id = 1;
+}
+
+message GetWithOptionsResponse {
+  message Data {
+    question_v1.Question question = 1;
+    repeated QuestionOption options = 2;
   }
 
   Data data = 1;

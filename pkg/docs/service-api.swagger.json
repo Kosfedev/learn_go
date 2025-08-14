@@ -439,7 +439,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/question_form_v1GetResponse"
+              "$ref": "#/definitions/question_form_v1GetFormResponse"
             }
           },
           "default": {
@@ -711,6 +711,37 @@
         ],
         "tags": [
           "QuestionFormUpdaterV1"
+        ]
+      }
+    },
+    "/api/v1/question_with_options/{id}": {
+      "get": {
+        "operationId": "QuestionFormV1_GetWithOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_v1GetWithOptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "QuestionFormV1"
         ]
       }
     },
@@ -1237,15 +1268,15 @@
     "question_form_updater_v1RemoveSubcategoriesResponse": {
       "type": "object"
     },
-    "question_form_v1GetResponse": {
+    "question_form_v1GetFormResponse": {
       "type": "object",
       "properties": {
         "data": {
-          "$ref": "#/definitions/question_form_v1GetResponseData"
+          "$ref": "#/definitions/question_form_v1GetFormResponseData"
         }
       }
     },
-    "question_form_v1GetResponseData": {
+    "question_form_v1GetFormResponseData": {
       "type": "object",
       "properties": {
         "question": {
@@ -1270,6 +1301,29 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/subcategory_v1Subcategory"
+          }
+        }
+      }
+    },
+    "question_form_v1GetWithOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/question_form_v1GetWithOptionsResponseData"
+        }
+      }
+    },
+    "question_form_v1GetWithOptionsResponseData": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "$ref": "#/definitions/question_v1Question"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/question_form_v1QuestionOption"
           }
         }
       }

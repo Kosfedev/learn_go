@@ -6,3 +6,8 @@ type QuestionForm struct {
 	Sets          []*Set
 	Subcategories []*Subcategory
 }
+
+type QuestionWithOptions struct {
+	Question *Question
+	Options  []*QuestionOption
+}

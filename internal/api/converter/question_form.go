@@ -12,13 +12,24 @@ import (
 )
 
 // TODO: переработать к хуям
-func QuestionFormToGRPC(questionForm *model.QuestionForm) *descQuestionForm.GetResponse {
-	res := &descQuestionForm.GetResponse{
-		Data: &descQuestionForm.GetResponse_Data{
+func QuestionFormToGRPC(questionForm *model.QuestionForm) *descQuestionForm.GetFormResponse {
+	res := &descQuestionForm.GetFormResponse{
+		Data: &descQuestionForm.GetFormResponse_Data{
 			Question:      QuestionToGRPCTemp(questionForm.Question),
 			Options:       QuestionOptionsToGRPCTemp(questionForm.Options),
 			Sets:          SetsToGRPC(questionForm.Sets),
 			Subcategories: SubcategoriesToGRPC(questionForm.Subcategories),
+		},
+	}
+
+	return res
+}
+
+func QuestionWithOptionsToGRPC(questionForm *model.QuestionWithOptions) *descQuestionForm.GetWithOptionsResponse {
+	res := &descQuestionForm.GetWithOptionsResponse{
+		Data: &descQuestionForm.GetWithOptionsResponse_Data{
+			Question: QuestionToGRPCTemp(questionForm.Question),
+			Options:  QuestionOptionsToGRPCTemp(questionForm.Options),
 		},
 	}
 
