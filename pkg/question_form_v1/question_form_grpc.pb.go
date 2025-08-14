@@ -22,7 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QuestionFormV1Client interface {
-	GetWithOptionsSetsSubcategories(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	GetWithOptionsSetsSubcategories(ctx context.Context, in *GetFormRequest, opts ...grpc.CallOption) (*GetFormResponse, error)
+	GetWithOptions(ctx context.Context, in *GetWithOptionsRequest, opts ...grpc.CallOption) (*GetWithOptionsResponse, error)
 }
 
 type questionFormV1Client struct {
@@ -33,9 +34,18 @@ func NewQuestionFormV1Client(cc grpc.ClientConnInterface) QuestionFormV1Client {
 	return &questionFormV1Client{cc}
 }
 
-func (c *questionFormV1Client) GetWithOptionsSetsSubcategories(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
-	out := new(GetResponse)
+func (c *questionFormV1Client) GetWithOptionsSetsSubcategories(ctx context.Context, in *GetFormRequest, opts ...grpc.CallOption) (*GetFormResponse, error) {
+	out := new(GetFormResponse)
 	err := c.cc.Invoke(ctx, "/question_form_v1.QuestionFormV1/GetWithOptionsSetsSubcategories", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionFormV1Client) GetWithOptions(ctx context.Context, in *GetWithOptionsRequest, opts ...grpc.CallOption) (*GetWithOptionsResponse, error) {
+	out := new(GetWithOptionsResponse)
+	err := c.cc.Invoke(ctx, "/question_form_v1.QuestionFormV1/GetWithOptions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +56,8 @@ func (c *questionFormV1Client) GetWithOptionsSetsSubcategories(ctx context.Conte
 // All implementations must embed UnimplementedQuestionFormV1Server
 // for forward compatibility
 type QuestionFormV1Server interface {
-	GetWithOptionsSetsSubcategories(context.Context, *GetRequest) (*GetResponse, error)
+	GetWithOptionsSetsSubcategories(context.Context, *GetFormRequest) (*GetFormResponse, error)
+	GetWithOptions(context.Context, *GetWithOptionsRequest) (*GetWithOptionsResponse, error)
 	mustEmbedUnimplementedQuestionFormV1Server()
 }
 
@@ -54,8 +65,11 @@ type QuestionFormV1Server interface {
 type UnimplementedQuestionFormV1Server struct {
 }
 
-func (UnimplementedQuestionFormV1Server) GetWithOptionsSetsSubcategories(context.Context, *GetRequest) (*GetResponse, error) {
+func (UnimplementedQuestionFormV1Server) GetWithOptionsSetsSubcategories(context.Context, *GetFormRequest) (*GetFormResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWithOptionsSetsSubcategories not implemented")
+}
+func (UnimplementedQuestionFormV1Server) GetWithOptions(context.Context, *GetWithOptionsRequest) (*GetWithOptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWithOptions not implemented")
 }
 func (UnimplementedQuestionFormV1Server) mustEmbedUnimplementedQuestionFormV1Server() {}
 
@@ -71,7 +85,7 @@ func RegisterQuestionFormV1Server(s grpc.ServiceRegistrar, srv QuestionFormV1Ser
 }
 
 func _QuestionFormV1_GetWithOptionsSetsSubcategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRequest)
+	in := new(GetFormRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -83,7 +97,25 @@ func _QuestionFormV1_GetWithOptionsSetsSubcategories_Handler(srv interface{}, ct
 		FullMethod: "/question_form_v1.QuestionFormV1/GetWithOptionsSetsSubcategories",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QuestionFormV1Server).GetWithOptionsSetsSubcategories(ctx, req.(*GetRequest))
+		return srv.(QuestionFormV1Server).GetWithOptionsSetsSubcategories(ctx, req.(*GetFormRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionFormV1_GetWithOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWithOptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionFormV1Server).GetWithOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/question_form_v1.QuestionFormV1/GetWithOptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionFormV1Server).GetWithOptions(ctx, req.(*GetWithOptionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -98,6 +130,10 @@ var QuestionFormV1_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWithOptionsSetsSubcategories",
 			Handler:    _QuestionFormV1_GetWithOptionsSetsSubcategories_Handler,
+		},
+		{
+			MethodName: "GetWithOptions",
+			Handler:    _QuestionFormV1_GetWithOptions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -15,6 +15,7 @@ type QuestionService interface {
 
 type QuestionFormService interface {
 	GetWithOptionsSetsSubcategories(ctx context.Context, questionID int64) (*model.QuestionForm, error)
+	GetWithOptions(ctx context.Context, questionID int64) (*model.QuestionWithOptions, error)
 }
 
 type QuestionFormUpdaterService interface {
