@@ -33,7 +33,7 @@ service QuestionFormV1 {
   };
   rpc GetWithOptions(GetWithOptionsRequest) returns (GetWithOptionsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/question_with_options/{id}"
+      get: "/api/v1/question_form/with_options/{id}"
     };
   };
 }

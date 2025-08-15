@@ -86,7 +86,7 @@ func RegisterSetFormV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/set_form_v1.SetFormV1/GetWithQuestions", runtime.WithHTTPPathPattern("/api/v1/set_form_v1/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/set_form_v1.SetFormV1/GetWithQuestions", runtime.WithHTTPPathPattern("/api/v1/set_form/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -144,7 +144,7 @@ func RegisterSetFormV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/set_form_v1.SetFormV1/GetWithQuestions", runtime.WithHTTPPathPattern("/api/v1/set_form_v1/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/set_form_v1.SetFormV1/GetWithQuestions", runtime.WithHTTPPathPattern("/api/v1/set_form/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -161,7 +161,7 @@ func RegisterSetFormV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 }
 
 var (
-	pattern_SetFormV1_GetWithQuestions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "set_form_v1", "id"}, ""))
+	pattern_SetFormV1_GetWithQuestions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "set_form", "id"}, ""))
 )
 
 var (
