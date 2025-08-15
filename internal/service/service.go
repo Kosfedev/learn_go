@@ -33,6 +33,7 @@ type SetService interface {
 	Get(ctx context.Context, id int64) (*model.Set, error)
 	Update(ctx context.Context, id int64, updatedSet *model.UpdatedSet) error
 	Delete(ctx context.Context, id int64) error
+	ListSearch(ctx context.Context, listSearchOptions *model.SetListSearchOptions) (*model.SetListWithTotal, error)
 }
 
 type SetFormService interface {

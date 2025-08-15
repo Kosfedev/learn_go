@@ -64,7 +64,7 @@ message PaginationRequest {
 message PaginationResponse {
   int64 limit = 1;
   int64 offset = 2;
-  int64 total_count = 3;
+  int64 total = 3;
 }
 
 // TODO: вынести
