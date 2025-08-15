@@ -432,6 +432,37 @@
         ]
       }
     },
+    "/api/v1/question_form/with_options/{id}": {
+      "get": {
+        "operationId": "QuestionFormV1_GetWithOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/question_form_v1GetWithOptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "QuestionFormV1"
+        ]
+      }
+    },
     "/api/v1/question_form/{id}": {
       "get": {
         "operationId": "QuestionFormV1_GetWithOptionsSetsSubcategories",
@@ -714,37 +745,6 @@
         ]
       }
     },
-    "/api/v1/question_with_options/{id}": {
-      "get": {
-        "operationId": "QuestionFormV1_GetWithOptions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/question_form_v1GetWithOptionsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "QuestionFormV1"
-        ]
-      }
-    },
     "/api/v1/set": {
       "post": {
         "operationId": "SetV1_Create",
@@ -874,7 +874,7 @@
         ]
       }
     },
-    "/api/v1/set_form_v1/{id}": {
+    "/api/v1/set_form/{id}": {
       "get": {
         "operationId": "SetFormV1_GetWithQuestions",
         "responses": {

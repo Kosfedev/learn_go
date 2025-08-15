@@ -27,7 +27,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 service SetFormV1 {
   rpc GetWithQuestions(GetRequest) returns (GetResponse) {
     option (google.api.http) = {
-      get: "/api/v1/set_form_v1/{id}"
+      get: "/api/v1/set_form/{id}"
     };
   };
 }

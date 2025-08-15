@@ -22,7 +22,7 @@ func NewRepository(db db.Client) repository.SetFormRepository {
 
 func (r *repo) GetWithQuestions(ctx context.Context, setID int64) (*model.SetForm, error) {
 	setFormRepo := &modelRepo.SetForm{}
-	queryRaw := `SELECT set.id AS "set.id", set.created_at AS "set.created_at", set.updated_at AS "set.updated_at",
+	queryRaw := `SELECT set.id AS "set.id", set.name AS "set.name", set.created_at AS "set.created_at", set.updated_at AS "set.updated_at",
 		 (SELECT json_agg(json_build_object(
       'id', q.id,
       'text', q.text,

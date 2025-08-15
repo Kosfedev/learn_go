@@ -145,7 +145,7 @@ func RegisterQuestionFormV1HandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/question_form_v1.QuestionFormV1/GetWithOptions", runtime.WithHTTPPathPattern("/api/v1/question_with_options/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/question_form_v1.QuestionFormV1/GetWithOptions", runtime.WithHTTPPathPattern("/api/v1/question_form/with_options/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -220,7 +220,7 @@ func RegisterQuestionFormV1HandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/question_form_v1.QuestionFormV1/GetWithOptions", runtime.WithHTTPPathPattern("/api/v1/question_with_options/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/question_form_v1.QuestionFormV1/GetWithOptions", runtime.WithHTTPPathPattern("/api/v1/question_form/with_options/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -238,7 +238,7 @@ func RegisterQuestionFormV1HandlerClient(ctx context.Context, mux *runtime.Serve
 
 var (
 	pattern_QuestionFormV1_GetWithOptionsSetsSubcategories_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "question_form", "id"}, ""))
-	pattern_QuestionFormV1_GetWithOptions_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "question_with_options", "id"}, ""))
+	pattern_QuestionFormV1_GetWithOptions_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "question_form", "with_options", "id"}, ""))
 )
 
 var (
