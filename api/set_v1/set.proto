@@ -129,7 +129,6 @@ message ListSearchRequest {
 message ListSearchResponse {
   message Data {
     repeated Set sets = 1;
-    Filters filters = 2;
   }
 
   message Meta {
@@ -139,4 +138,5 @@ message ListSearchResponse {
   }
 
   Data data = 1;
+  Meta meta = 2;
 }

@@ -1097,6 +1097,20 @@
     }
   },
   "definitions": {
+    "ListSearchResponseMeta": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "$ref": "#/definitions/set_v1Filters"
+        },
+        "pagination": {
+          "$ref": "#/definitions/set_v1PaginationResponse"
+        },
+        "sort": {
+          "$ref": "#/definitions/set_v1Sort"
+        }
+      }
+    },
     "category_v1Category": {
       "type": "object",
       "properties": {
@@ -1584,6 +1598,9 @@
       "properties": {
         "data": {
           "$ref": "#/definitions/set_v1ListSearchResponseData"
+        },
+        "meta": {
+          "$ref": "#/definitions/ListSearchResponseMeta"
         }
       }
     },
@@ -1596,9 +1613,6 @@
             "type": "object",
             "$ref": "#/definitions/set_v1Set"
           }
-        },
-        "filters": {
-          "$ref": "#/definitions/set_v1Filters"
         }
       }
     },
@@ -1610,6 +1624,24 @@
           "format": "int64"
         },
         "offset": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "TODO: вынести"
+    },
+    "set_v1PaginationResponse": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        },
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        },
+        "total": {
           "type": "string",
           "format": "int64"
         }

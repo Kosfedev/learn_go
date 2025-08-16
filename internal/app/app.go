@@ -16,7 +16,6 @@ import (
 
 	"github.com/Kosfedev/learn_go/internal/app/serviceprovider"
 	"github.com/Kosfedev/learn_go/internal/config"
-	"github.com/Kosfedev/learn_go/internal/model"
 	categoryDesc "github.com/Kosfedev/learn_go/pkg/category_v1"
 	domainDesc "github.com/Kosfedev/learn_go/pkg/domain_v1"
 	questionFormUpdaterDesc "github.com/Kosfedev/learn_go/pkg/question_form_updater_v1"
@@ -159,27 +158,6 @@ func (app *App) RunGRPCServer() error {
 	if err != nil {
 		return err
 	}
-
-	listSearchOptions := &model.SetListSearchOptions{
-		Filters: &struct {
-			Name string
-		}{
-			Name: "03",
-		},
-		Pagination: &model.Pagination{
-			Offset: 1,
-			Limit:  5,
-		},
-		Sort: &model.Sort{
-			SortBy:    "name",
-			SortOrder: 0,
-		},
-	}
-	list, err := app.serviceProvider.SetService(context.Background()).ListSearch(context.Background(), listSearchOptions)
-	if err != nil {
-		return err
-	}
-	log.Printf("%+v", list)
 
 	err = app.grpcServer.Serve(lis)
 	if err != nil {

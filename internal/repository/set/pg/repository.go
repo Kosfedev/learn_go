@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 
 	sq "github.com/Masterminds/squirrel"
 
@@ -143,6 +142,7 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 	return nil
 }
 
+// TODO: подчистить
 func (r *repo) ListSearch(ctx context.Context, listSearchOptions *model.SetListSearchOptions) (*model.SetListWithTotal, error) {
 	if listSearchOptions == nil {
 		return nil, errors.New("listSearchOptions cannot be nil")
@@ -155,20 +155,10 @@ func (r *repo) ListSearch(ctx context.Context, listSearchOptions *model.SetListS
 
 	setListRepo := &modelRepo.SetListWithTotal{}
 
-	/*	builderSelect := sq.Select(columnID, columnName, columnCreatedAt, columnUpdatedAt, "count(*) as total").
-			From(tableSet).
-			PlaceholderFormat(sq.Dollar).
-			OrderBy(fmt.Sprintf("%s %s", listSearchOptions.Sort.SortBy, sortOrder)).
-			Offset(uint64(listSearchOptions.Pagination.Offset)).
-			Limit(uint64(listSearchOptions.Pagination.Limit))
-
-		if len(listSearchOptions.Filters.Name) > 0 {
-			builderSelect = builderSelect.Where(sq.ILike{columnName: listSearchOptions.Filters.Name})
-		}*/
-
+	nameFilter := "%" + listSearchOptions.Filters.Name + "%"
 	subquery := `SELECT * FROM set`
 	if len(listSearchOptions.Filters.Name) > 0 {
-		subquery = fmt.Sprintf("%s WHERE name ILIKE '%s'", subquery, "%"+listSearchOptions.Filters.Name+"%")
+		subquery = fmt.Sprintf("%s WHERE name ILIKE '%s'", subquery, nameFilter)
 	}
 
 	subquery = fmt.Sprintf(
@@ -180,17 +170,12 @@ func (r *repo) ListSearch(ctx context.Context, listSearchOptions *model.SetListS
 		uint64(listSearchOptions.Pagination.Limit),
 	)
 
-	queryRaw := fmt.Sprintf("SELECT (SELECT json_agg(set) FROM (%s) AS set) AS sets, count(*) as total FROM set", subquery)
+	queryRaw := fmt.Sprintf("SELECT (SELECT json_agg(set) FROM (%s) AS set) AS sets, count(*) as total FROM set WHERE name ILIKE '%s'", subquery, nameFilter)
 
 	query := db.Query{
 		Name:     "set_repository.list_search",
 		QueryRaw: queryRaw,
 	}
-
-	log.Printf("%s", query.QueryRaw)
-	log.Printf("%+v", listSearchOptions.Sort)
-	log.Printf("%+v", listSearchOptions.Filters)
-	log.Printf("%+v", listSearchOptions.Pagination)
 
 	err := r.db.DB().ScanOne(ctx, setListRepo, query)
 	if err != nil {

@@ -43,3 +43,38 @@ func UpdatedSetFromGRPC(req *desc.UpdateRequest) *model.UpdatedSet {
 
 	return updatedSet
 }
+
+func SetListSearchOptionsFromGRPC(req *desc.ListSearchRequest) *model.SetListSearchOptions {
+	setListSearchOptions := &model.SetListSearchOptions{
+		Filters: &model.SetListSearchFilters{Name: req.Filters.Name},
+		Pagination: &model.Pagination{
+			Offset: req.Pagination.Offset,
+			Limit:  req.Pagination.Limit,
+		},
+		Sort: &model.Sort{
+			SortBy:    req.Sort.SortBy,
+			SortOrder: model.SortOrder(req.Sort.SortOrder),
+		},
+	}
+
+	return setListSearchOptions
+}
+
+func SetListResultsToGRPC(req *desc.ListSearchRequest, setListWithTotal *model.SetListWithTotal) *desc.ListSearchResponse {
+	res := &desc.ListSearchResponse{
+		Data: &desc.ListSearchResponse_Data{
+			Sets: SetsToGRPC(setListWithTotal.Sets),
+		},
+		Meta: &desc.ListSearchResponse_Meta{
+			Filters: req.Filters,
+			Pagination: &desc.PaginationResponse{
+				Limit:  req.Pagination.Limit,
+				Offset: req.Pagination.Offset,
+				Total:  setListWithTotal.Total,
+			},
+			Sort: req.Sort,
+		},
+	}
+
+	return res
+}

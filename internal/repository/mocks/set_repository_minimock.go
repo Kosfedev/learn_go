@@ -40,6 +40,13 @@ type SetRepositoryMock struct {
 	beforeGetCounter uint64
 	GetMock          mSetRepositoryMockGet
 
+	funcListSearch          func(ctx context.Context, listSearchOptions *model.SetListSearchOptions) (sp1 *model.SetListWithTotal, err error)
+	funcListSearchOrigin    string
+	inspectFuncListSearch   func(ctx context.Context, listSearchOptions *model.SetListSearchOptions)
+	afterListSearchCounter  uint64
+	beforeListSearchCounter uint64
+	ListSearchMock          mSetRepositoryMockListSearch
+
 	funcUpdate          func(ctx context.Context, id int64, updatedSet *model.UpdatedSet) (err error)
 	funcUpdateOrigin    string
 	inspectFuncUpdate   func(ctx context.Context, id int64, updatedSet *model.UpdatedSet)
@@ -64,6 +71,9 @@ func NewSetRepositoryMock(t minimock.Tester) *SetRepositoryMock {
 
 	m.GetMock = mSetRepositoryMockGet{mock: m}
 	m.GetMock.callArgs = []*SetRepositoryMockGetParams{}
+
+	m.ListSearchMock = mSetRepositoryMockListSearch{mock: m}
+	m.ListSearchMock.callArgs = []*SetRepositoryMockListSearchParams{}
 
 	m.UpdateMock = mSetRepositoryMockUpdate{mock: m}
 	m.UpdateMock.callArgs = []*SetRepositoryMockUpdateParams{}
@@ -1101,6 +1111,349 @@ func (m *SetRepositoryMock) MinimockGetInspect() {
 	}
 }
 
+type mSetRepositoryMockListSearch struct {
+	optional           bool
+	mock               *SetRepositoryMock
+	defaultExpectation *SetRepositoryMockListSearchExpectation
+	expectations       []*SetRepositoryMockListSearchExpectation
+
+	callArgs []*SetRepositoryMockListSearchParams
+	mutex    sync.RWMutex
+
+	expectedInvocations       uint64
+	expectedInvocationsOrigin string
+}
+
+// SetRepositoryMockListSearchExpectation specifies expectation struct of the SetRepository.ListSearch
+type SetRepositoryMockListSearchExpectation struct {
+	mock               *SetRepositoryMock
+	params             *SetRepositoryMockListSearchParams
+	paramPtrs          *SetRepositoryMockListSearchParamPtrs
+	expectationOrigins SetRepositoryMockListSearchExpectationOrigins
+	results            *SetRepositoryMockListSearchResults
+	returnOrigin       string
+	Counter            uint64
+}
+
+// SetRepositoryMockListSearchParams contains parameters of the SetRepository.ListSearch
+type SetRepositoryMockListSearchParams struct {
+	ctx               context.Context
+	listSearchOptions *model.SetListSearchOptions
+}
+
+// SetRepositoryMockListSearchParamPtrs contains pointers to parameters of the SetRepository.ListSearch
+type SetRepositoryMockListSearchParamPtrs struct {
+	ctx               *context.Context
+	listSearchOptions **model.SetListSearchOptions
+}
+
+// SetRepositoryMockListSearchResults contains results of the SetRepository.ListSearch
+type SetRepositoryMockListSearchResults struct {
+	sp1 *model.SetListWithTotal
+	err error
+}
+
+// SetRepositoryMockListSearchOrigins contains origins of expectations of the SetRepository.ListSearch
+type SetRepositoryMockListSearchExpectationOrigins struct {
+	origin                  string
+	originCtx               string
+	originListSearchOptions string
+}
+
+// Marks this method to be optional. The default behavior of any method with Return() is '1 or more', meaning
+// the test will fail minimock's automatic final call check if the mocked method was not called at least once.
+// Optional() makes method check to work in '0 or more' mode.
+// It is NOT RECOMMENDED to use this option unless you really need it, as default behaviour helps to
+// catch the problems when the expected method call is totally skipped during test run.
+func (mmListSearch *mSetRepositoryMockListSearch) Optional() *mSetRepositoryMockListSearch {
+	mmListSearch.optional = true
+	return mmListSearch
+}
+
+// Expect sets up expected params for SetRepository.ListSearch
+func (mmListSearch *mSetRepositoryMockListSearch) Expect(ctx context.Context, listSearchOptions *model.SetListSearchOptions) *mSetRepositoryMockListSearch {
+	if mmListSearch.mock.funcListSearch != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Set")
+	}
+
+	if mmListSearch.defaultExpectation == nil {
+		mmListSearch.defaultExpectation = &SetRepositoryMockListSearchExpectation{}
+	}
+
+	if mmListSearch.defaultExpectation.paramPtrs != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by ExpectParams functions")
+	}
+
+	mmListSearch.defaultExpectation.params = &SetRepositoryMockListSearchParams{ctx, listSearchOptions}
+	mmListSearch.defaultExpectation.expectationOrigins.origin = minimock.CallerInfo(1)
+	for _, e := range mmListSearch.expectations {
+		if minimock.Equal(e.params, mmListSearch.defaultExpectation.params) {
+			mmListSearch.mock.t.Fatalf("Expectation set by When has same params: %#v", *mmListSearch.defaultExpectation.params)
+		}
+	}
+
+	return mmListSearch
+}
+
+// ExpectCtxParam1 sets up expected param ctx for SetRepository.ListSearch
+func (mmListSearch *mSetRepositoryMockListSearch) ExpectCtxParam1(ctx context.Context) *mSetRepositoryMockListSearch {
+	if mmListSearch.mock.funcListSearch != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Set")
+	}
+
+	if mmListSearch.defaultExpectation == nil {
+		mmListSearch.defaultExpectation = &SetRepositoryMockListSearchExpectation{}
+	}
+
+	if mmListSearch.defaultExpectation.params != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Expect")
+	}
+
+	if mmListSearch.defaultExpectation.paramPtrs == nil {
+		mmListSearch.defaultExpectation.paramPtrs = &SetRepositoryMockListSearchParamPtrs{}
+	}
+	mmListSearch.defaultExpectation.paramPtrs.ctx = &ctx
+	mmListSearch.defaultExpectation.expectationOrigins.originCtx = minimock.CallerInfo(1)
+
+	return mmListSearch
+}
+
+// ExpectListSearchOptionsParam2 sets up expected param listSearchOptions for SetRepository.ListSearch
+func (mmListSearch *mSetRepositoryMockListSearch) ExpectListSearchOptionsParam2(listSearchOptions *model.SetListSearchOptions) *mSetRepositoryMockListSearch {
+	if mmListSearch.mock.funcListSearch != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Set")
+	}
+
+	if mmListSearch.defaultExpectation == nil {
+		mmListSearch.defaultExpectation = &SetRepositoryMockListSearchExpectation{}
+	}
+
+	if mmListSearch.defaultExpectation.params != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Expect")
+	}
+
+	if mmListSearch.defaultExpectation.paramPtrs == nil {
+		mmListSearch.defaultExpectation.paramPtrs = &SetRepositoryMockListSearchParamPtrs{}
+	}
+	mmListSearch.defaultExpectation.paramPtrs.listSearchOptions = &listSearchOptions
+	mmListSearch.defaultExpectation.expectationOrigins.originListSearchOptions = minimock.CallerInfo(1)
+
+	return mmListSearch
+}
+
+// Inspect accepts an inspector function that has same arguments as the SetRepository.ListSearch
+func (mmListSearch *mSetRepositoryMockListSearch) Inspect(f func(ctx context.Context, listSearchOptions *model.SetListSearchOptions)) *mSetRepositoryMockListSearch {
+	if mmListSearch.mock.inspectFuncListSearch != nil {
+		mmListSearch.mock.t.Fatalf("Inspect function is already set for SetRepositoryMock.ListSearch")
+	}
+
+	mmListSearch.mock.inspectFuncListSearch = f
+
+	return mmListSearch
+}
+
+// Return sets up results that will be returned by SetRepository.ListSearch
+func (mmListSearch *mSetRepositoryMockListSearch) Return(sp1 *model.SetListWithTotal, err error) *SetRepositoryMock {
+	if mmListSearch.mock.funcListSearch != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Set")
+	}
+
+	if mmListSearch.defaultExpectation == nil {
+		mmListSearch.defaultExpectation = &SetRepositoryMockListSearchExpectation{mock: mmListSearch.mock}
+	}
+	mmListSearch.defaultExpectation.results = &SetRepositoryMockListSearchResults{sp1, err}
+	mmListSearch.defaultExpectation.returnOrigin = minimock.CallerInfo(1)
+	return mmListSearch.mock
+}
+
+// Set uses given function f to mock the SetRepository.ListSearch method
+func (mmListSearch *mSetRepositoryMockListSearch) Set(f func(ctx context.Context, listSearchOptions *model.SetListSearchOptions) (sp1 *model.SetListWithTotal, err error)) *SetRepositoryMock {
+	if mmListSearch.defaultExpectation != nil {
+		mmListSearch.mock.t.Fatalf("Default expectation is already set for the SetRepository.ListSearch method")
+	}
+
+	if len(mmListSearch.expectations) > 0 {
+		mmListSearch.mock.t.Fatalf("Some expectations are already set for the SetRepository.ListSearch method")
+	}
+
+	mmListSearch.mock.funcListSearch = f
+	mmListSearch.mock.funcListSearchOrigin = minimock.CallerInfo(1)
+	return mmListSearch.mock
+}
+
+// When sets expectation for the SetRepository.ListSearch which will trigger the result defined by the following
+// Then helper
+func (mmListSearch *mSetRepositoryMockListSearch) When(ctx context.Context, listSearchOptions *model.SetListSearchOptions) *SetRepositoryMockListSearchExpectation {
+	if mmListSearch.mock.funcListSearch != nil {
+		mmListSearch.mock.t.Fatalf("SetRepositoryMock.ListSearch mock is already set by Set")
+	}
+
+	expectation := &SetRepositoryMockListSearchExpectation{
+		mock:               mmListSearch.mock,
+		params:             &SetRepositoryMockListSearchParams{ctx, listSearchOptions},
+		expectationOrigins: SetRepositoryMockListSearchExpectationOrigins{origin: minimock.CallerInfo(1)},
+	}
+	mmListSearch.expectations = append(mmListSearch.expectations, expectation)
+	return expectation
+}
+
+// Then sets up SetRepository.ListSearch return parameters for the expectation previously defined by the When method
+func (e *SetRepositoryMockListSearchExpectation) Then(sp1 *model.SetListWithTotal, err error) *SetRepositoryMock {
+	e.results = &SetRepositoryMockListSearchResults{sp1, err}
+	return e.mock
+}
+
+// Times sets number of times SetRepository.ListSearch should be invoked
+func (mmListSearch *mSetRepositoryMockListSearch) Times(n uint64) *mSetRepositoryMockListSearch {
+	if n == 0 {
+		mmListSearch.mock.t.Fatalf("Times of SetRepositoryMock.ListSearch mock can not be zero")
+	}
+	mm_atomic.StoreUint64(&mmListSearch.expectedInvocations, n)
+	mmListSearch.expectedInvocationsOrigin = minimock.CallerInfo(1)
+	return mmListSearch
+}
+
+func (mmListSearch *mSetRepositoryMockListSearch) invocationsDone() bool {
+	if len(mmListSearch.expectations) == 0 && mmListSearch.defaultExpectation == nil && mmListSearch.mock.funcListSearch == nil {
+		return true
+	}
+
+	totalInvocations := mm_atomic.LoadUint64(&mmListSearch.mock.afterListSearchCounter)
+	expectedInvocations := mm_atomic.LoadUint64(&mmListSearch.expectedInvocations)
+
+	return totalInvocations > 0 && (expectedInvocations == 0 || expectedInvocations == totalInvocations)
+}
+
+// ListSearch implements mm_repository.SetRepository
+func (mmListSearch *SetRepositoryMock) ListSearch(ctx context.Context, listSearchOptions *model.SetListSearchOptions) (sp1 *model.SetListWithTotal, err error) {
+	mm_atomic.AddUint64(&mmListSearch.beforeListSearchCounter, 1)
+	defer mm_atomic.AddUint64(&mmListSearch.afterListSearchCounter, 1)
+
+	mmListSearch.t.Helper()
+
+	if mmListSearch.inspectFuncListSearch != nil {
+		mmListSearch.inspectFuncListSearch(ctx, listSearchOptions)
+	}
+
+	mm_params := SetRepositoryMockListSearchParams{ctx, listSearchOptions}
+
+	// Record call args
+	mmListSearch.ListSearchMock.mutex.Lock()
+	mmListSearch.ListSearchMock.callArgs = append(mmListSearch.ListSearchMock.callArgs, &mm_params)
+	mmListSearch.ListSearchMock.mutex.Unlock()
+
+	for _, e := range mmListSearch.ListSearchMock.expectations {
+		if minimock.Equal(*e.params, mm_params) {
+			mm_atomic.AddUint64(&e.Counter, 1)
+			return e.results.sp1, e.results.err
+		}
+	}
+
+	if mmListSearch.ListSearchMock.defaultExpectation != nil {
+		mm_atomic.AddUint64(&mmListSearch.ListSearchMock.defaultExpectation.Counter, 1)
+		mm_want := mmListSearch.ListSearchMock.defaultExpectation.params
+		mm_want_ptrs := mmListSearch.ListSearchMock.defaultExpectation.paramPtrs
+
+		mm_got := SetRepositoryMockListSearchParams{ctx, listSearchOptions}
+
+		if mm_want_ptrs != nil {
+
+			if mm_want_ptrs.ctx != nil && !minimock.Equal(*mm_want_ptrs.ctx, mm_got.ctx) {
+				mmListSearch.t.Errorf("SetRepositoryMock.ListSearch got unexpected parameter ctx, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmListSearch.ListSearchMock.defaultExpectation.expectationOrigins.originCtx, *mm_want_ptrs.ctx, mm_got.ctx, minimock.Diff(*mm_want_ptrs.ctx, mm_got.ctx))
+			}
+
+			if mm_want_ptrs.listSearchOptions != nil && !minimock.Equal(*mm_want_ptrs.listSearchOptions, mm_got.listSearchOptions) {
+				mmListSearch.t.Errorf("SetRepositoryMock.ListSearch got unexpected parameter listSearchOptions, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+					mmListSearch.ListSearchMock.defaultExpectation.expectationOrigins.originListSearchOptions, *mm_want_ptrs.listSearchOptions, mm_got.listSearchOptions, minimock.Diff(*mm_want_ptrs.listSearchOptions, mm_got.listSearchOptions))
+			}
+
+		} else if mm_want != nil && !minimock.Equal(*mm_want, mm_got) {
+			mmListSearch.t.Errorf("SetRepositoryMock.ListSearch got unexpected parameters, expected at\n%s:\nwant: %#v\n got: %#v%s\n",
+				mmListSearch.ListSearchMock.defaultExpectation.expectationOrigins.origin, *mm_want, mm_got, minimock.Diff(*mm_want, mm_got))
+		}
+
+		mm_results := mmListSearch.ListSearchMock.defaultExpectation.results
+		if mm_results == nil {
+			mmListSearch.t.Fatal("No results are set for the SetRepositoryMock.ListSearch")
+		}
+		return (*mm_results).sp1, (*mm_results).err
+	}
+	if mmListSearch.funcListSearch != nil {
+		return mmListSearch.funcListSearch(ctx, listSearchOptions)
+	}
+	mmListSearch.t.Fatalf("Unexpected call to SetRepositoryMock.ListSearch. %v %v", ctx, listSearchOptions)
+	return
+}
+
+// ListSearchAfterCounter returns a count of finished SetRepositoryMock.ListSearch invocations
+func (mmListSearch *SetRepositoryMock) ListSearchAfterCounter() uint64 {
+	return mm_atomic.LoadUint64(&mmListSearch.afterListSearchCounter)
+}
+
+// ListSearchBeforeCounter returns a count of SetRepositoryMock.ListSearch invocations
+func (mmListSearch *SetRepositoryMock) ListSearchBeforeCounter() uint64 {
+	return mm_atomic.LoadUint64(&mmListSearch.beforeListSearchCounter)
+}
+
+// Calls returns a list of arguments used in each call to SetRepositoryMock.ListSearch.
+// The list is in the same order as the calls were made (i.e. recent calls have a higher index)
+func (mmListSearch *mSetRepositoryMockListSearch) Calls() []*SetRepositoryMockListSearchParams {
+	mmListSearch.mutex.RLock()
+
+	argCopy := make([]*SetRepositoryMockListSearchParams, len(mmListSearch.callArgs))
+	copy(argCopy, mmListSearch.callArgs)
+
+	mmListSearch.mutex.RUnlock()
+
+	return argCopy
+}
+
+// MinimockListSearchDone returns true if the count of the ListSearch invocations corresponds
+// the number of defined expectations
+func (m *SetRepositoryMock) MinimockListSearchDone() bool {
+	if m.ListSearchMock.optional {
+		// Optional methods provide '0 or more' call count restriction.
+		return true
+	}
+
+	for _, e := range m.ListSearchMock.expectations {
+		if mm_atomic.LoadUint64(&e.Counter) < 1 {
+			return false
+		}
+	}
+
+	return m.ListSearchMock.invocationsDone()
+}
+
+// MinimockListSearchInspect logs each unmet expectation
+func (m *SetRepositoryMock) MinimockListSearchInspect() {
+	for _, e := range m.ListSearchMock.expectations {
+		if mm_atomic.LoadUint64(&e.Counter) < 1 {
+			m.t.Errorf("Expected call to SetRepositoryMock.ListSearch at\n%s with params: %#v", e.expectationOrigins.origin, *e.params)
+		}
+	}
+
+	afterListSearchCounter := mm_atomic.LoadUint64(&m.afterListSearchCounter)
+	// if default expectation was set then invocations count should be greater than zero
+	if m.ListSearchMock.defaultExpectation != nil && afterListSearchCounter < 1 {
+		if m.ListSearchMock.defaultExpectation.params == nil {
+			m.t.Errorf("Expected call to SetRepositoryMock.ListSearch at\n%s", m.ListSearchMock.defaultExpectation.returnOrigin)
+		} else {
+			m.t.Errorf("Expected call to SetRepositoryMock.ListSearch at\n%s with params: %#v", m.ListSearchMock.defaultExpectation.expectationOrigins.origin, *m.ListSearchMock.defaultExpectation.params)
+		}
+	}
+	// if func was set then invocations count should be greater than zero
+	if m.funcListSearch != nil && afterListSearchCounter < 1 {
+		m.t.Errorf("Expected call to SetRepositoryMock.ListSearch at\n%s", m.funcListSearchOrigin)
+	}
+
+	if !m.ListSearchMock.invocationsDone() && afterListSearchCounter > 0 {
+		m.t.Errorf("Expected %d calls to SetRepositoryMock.ListSearch at\n%s but found %d calls",
+			mm_atomic.LoadUint64(&m.ListSearchMock.expectedInvocations), m.ListSearchMock.expectedInvocationsOrigin, afterListSearchCounter)
+	}
+}
+
 type mSetRepositoryMockUpdate struct {
 	optional           bool
 	mock               *SetRepositoryMock
@@ -1484,6 +1837,8 @@ func (m *SetRepositoryMock) MinimockFinish() {
 
 			m.MinimockGetInspect()
 
+			m.MinimockListSearchInspect()
+
 			m.MinimockUpdateInspect()
 		}
 	})
@@ -1511,5 +1866,6 @@ func (m *SetRepositoryMock) minimockDone() bool {
 		m.MinimockCreateDone() &&
 		m.MinimockDeleteDone() &&
 		m.MinimockGetDone() &&
+		m.MinimockListSearchDone() &&
 		m.MinimockUpdateDone()
 }

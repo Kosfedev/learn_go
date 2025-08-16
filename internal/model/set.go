@@ -18,11 +18,13 @@ type UpdatedSet struct {
 }
 
 type SetListSearchOptions struct {
-	Filters *struct {
-		Name string
-	}
+	Filters    *SetListSearchFilters
 	Pagination *Pagination
 	Sort       *Sort
+}
+
+type SetListSearchFilters struct {
+	Name string
 }
 
 type SetListWithTotal struct {
