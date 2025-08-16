@@ -777,6 +777,67 @@
         ]
       }
     },
+    "/api/v1/set/search": {
+      "get": {
+        "operationId": "SetV1_ListSearch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/set_v1ListSearchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filters.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pagination.offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "sort.sortBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort.sortOrder",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "default": "ASC"
+          }
+        ],
+        "tags": [
+          "SetV1"
+        ]
+      }
+    },
     "/api/v1/set/{id}": {
       "get": {
         "operationId": "SetV1_Get",
@@ -1036,6 +1097,20 @@
     }
   },
   "definitions": {
+    "ListSearchResponseMeta": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "$ref": "#/definitions/set_v1Filters"
+        },
+        "pagination": {
+          "$ref": "#/definitions/set_v1PaginationResponse"
+        },
+        "sort": {
+          "$ref": "#/definitions/set_v1Sort"
+        }
+      }
+    },
     "category_v1Category": {
       "type": "object",
       "properties": {
@@ -1502,6 +1577,14 @@
     "set_v1DeleteResponse": {
       "type": "object"
     },
+    "set_v1Filters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "set_v1GetResponse": {
       "type": "object",
       "properties": {
@@ -1509,6 +1592,61 @@
           "$ref": "#/definitions/set_v1Set"
         }
       }
+    },
+    "set_v1ListSearchResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/set_v1ListSearchResponseData"
+        },
+        "meta": {
+          "$ref": "#/definitions/ListSearchResponseMeta"
+        }
+      }
+    },
+    "set_v1ListSearchResponseData": {
+      "type": "object",
+      "properties": {
+        "sets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/set_v1Set"
+          }
+        }
+      }
+    },
+    "set_v1PaginationRequest": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        },
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "TODO: вынести"
+    },
+    "set_v1PaginationResponse": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        },
+        "offset": {
+          "type": "string",
+          "format": "int64"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "TODO: вынести"
     },
     "set_v1Set": {
       "type": "object",
@@ -1537,6 +1675,26 @@
           "type": "string"
         }
       }
+    },
+    "set_v1Sort": {
+      "type": "object",
+      "properties": {
+        "sortBy": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "$ref": "#/definitions/set_v1SortDirection"
+        }
+      }
+    },
+    "set_v1SortDirection": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "default": "ASC",
+      "title": "TODO: вынести"
     },
     "set_v1UpdateResponse": {
       "type": "object"

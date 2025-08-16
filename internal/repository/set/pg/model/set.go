@@ -19,3 +19,8 @@ type NewSet struct {
 type UpdatedSet struct {
 	Name sql.NullString `db:"name" json:"name"`
 }
+
+type SetListWithTotal struct {
+	Sets  []*Set `json:"sets"`
+	Total int64  `db:"total" json:"total"`
+}

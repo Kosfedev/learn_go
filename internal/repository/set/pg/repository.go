@@ -16,14 +16,11 @@ import (
 )
 
 const (
-	tableSet         = "set"
-	tableQuestionSet = "question_set"
-	columnID         = "id"
-	columnName       = "name"
-	columnCreatedAt  = "created_at"
-	columnUpdatedAt  = "updated_at"
-	columnSetID      = "set_id"
-	columnQuestionID = "question_id"
+	tableSet        = "set"
+	columnID        = "id"
+	columnName      = "name"
+	columnCreatedAt = "created_at"
+	columnUpdatedAt = "updated_at"
 )
 
 type repo struct {
@@ -143,4 +140,56 @@ func (r *repo) Delete(ctx context.Context, id int64) error {
 	}
 
 	return nil
+}
+
+// TODO: подчистить
+func (r *repo) ListSearch(ctx context.Context, listSearchOptions *model.SetListSearchOptions) (*model.SetListWithTotal, error) {
+	if listSearchOptions == nil {
+		return nil, errors.New("listSearchOptions cannot be nil")
+	}
+	// TODO:вынести
+	sortOrder := "ASC"
+	if listSearchOptions.Sort.SortOrder == 1 {
+		sortOrder = "DESC"
+	}
+
+	setListRepo := &modelRepo.SetListWithTotal{}
+
+	nameFilter := "%" + listSearchOptions.Filters.Name + "%"
+	subquery := `SELECT * FROM set`
+	if len(listSearchOptions.Filters.Name) > 0 {
+		subquery = fmt.Sprintf("%s WHERE name ILIKE '%s'", subquery, nameFilter)
+	}
+
+	subquery = fmt.Sprintf(
+		"%s ORDER BY %s %s OFFSET %d LIMIT %d",
+		subquery,
+		listSearchOptions.Sort.SortBy,
+		sortOrder,
+		uint64(listSearchOptions.Pagination.Offset),
+		uint64(listSearchOptions.Pagination.Limit),
+	)
+
+	queryRaw := fmt.Sprintf("SELECT (SELECT json_agg(set) FROM (%s) AS set) AS sets, count(*) as total FROM set WHERE name ILIKE '%s'", subquery, nameFilter)
+
+	query := db.Query{
+		Name:     "set_repository.list_search",
+		QueryRaw: queryRaw,
+	}
+
+	err := r.db.DB().ScanOne(ctx, setListRepo, query)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	setList := &model.SetListWithTotal{
+		Sets:  converter.SetsFromPGSQL(setListRepo.Sets),
+		Total: setListRepo.Total,
+	}
+
+	return setList, nil
 }

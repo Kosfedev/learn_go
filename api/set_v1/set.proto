@@ -47,6 +47,39 @@ service SetV1 {
       delete: "/api/v1/set/{id}"
     };
   };
+  rpc ListSearch(ListSearchRequest) returns (ListSearchResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/set/search"
+    };
+  };
+}
+
+// TODO: вынести
+message PaginationRequest {
+  int64 limit = 1;
+  int64 offset = 2;
+}
+
+// TODO: вынести
+message PaginationResponse {
+  int64 limit = 1;
+  int64 offset = 2;
+  int64 total = 3;
+}
+
+// TODO: вынести
+enum SortDirection {
+  ASC = 0;
+  DESC = 1;
+}
+
+message Sort {
+   string sort_by = 1;
+   SortDirection sort_order = 2;
+}
+
+message Filters {
+  string name = 1;
 }
 
 message Set {
@@ -85,4 +118,25 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
+}
+
+message ListSearchRequest {
+  Filters filters = 1;
+  PaginationRequest pagination = 2;
+  Sort sort = 3;
+}
+
+message ListSearchResponse {
+  message Data {
+    repeated Set sets = 1;
+  }
+
+  message Meta {
+    Filters filters = 1;
+    PaginationResponse pagination = 2;
+    Sort sort = 3;
+  }
+
+  Data data = 1;
+  Meta meta = 2;
 }

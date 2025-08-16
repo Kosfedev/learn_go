@@ -16,3 +16,18 @@ type NewSet struct {
 type UpdatedSet struct {
 	Name *string
 }
+
+type SetListSearchOptions struct {
+	Filters    *SetListSearchFilters
+	Pagination *Pagination
+	Sort       *Sort
+}
+
+type SetListSearchFilters struct {
+	Name string
+}
+
+type SetListWithTotal struct {
+	Sets  []*Set
+	Total int64
+}
