@@ -2,7 +2,8 @@ include .env.dev
 LOCAL_BIN:=$(CURDIR)/bin
 # TODO: refactor
 MIGRATIONS_DSN="host=193.37.68.113 port=54321 dbname=question user=question-user password=question-password sslmode=disable"
-MIGRATION_DIR=./migrations
+MIGRATION_DIR=./db/migrations
+BACKUP_DIR=./db/backups
 
 get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
@@ -230,6 +231,9 @@ local-migration-up:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} up -v
 local-migration-down:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${PG_DSN} down -v
+
+local-backup:
+	psql -h localhost -p 54321 -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f ${BACKUP_DIR}/backup_20250818_164146.sql
 
 remote-migration-status:
 	$(LOCAL_BIN)/goose -dir ${MIGRATION_DIR} postgres ${MIGRATIONS_DSN} status -v
