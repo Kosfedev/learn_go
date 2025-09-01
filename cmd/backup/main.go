@@ -2,25 +2,22 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"time"
+
+	"github.com/Kosfedev/learn_go/internal/config"
 )
 
-func backupPostgres(dbConfig map[string]string) error {
-	backupFile := fmt.Sprintf("backup_%s.sql", time.Now().Format("20060102_150405"))
+const (
+	backupPath = "db/backups/"
+)
 
-	// Формируем команду pg_dump
-	cmd := exec.Command(
-		"pg_dump",
-		"-h", dbConfig["host"],
-		"-p", dbConfig["port"],
-		"-U", dbConfig["username"],
-		"-d", dbConfig["dbname"],
-		"-f", backupFile,
-	)
+func backupPostgres() error {
+	backupFile := fmt.Sprintf("%sbackup_%s.sql", backupPath, time.Now().Format("20060102_150405"))
 
-	cmd.Env = append(os.Environ(), fmt.Sprintf("PGPASSWORD=%s", dbConfig["password"]))
+	cmd := exec.Command("pg_dump", "-f", backupFile)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
@@ -32,16 +29,32 @@ func backupPostgres(dbConfig map[string]string) error {
 	return nil
 }
 
-func main() {
-	dbConfig := map[string]string{
-		"host":     "localhost",
-		"port":     "54321",
-		"username": "question-user",
-		"password": "question-password",
-		"dbname":   "question",
+// TODO: дублирует app.go
+func initConfig() error {
+	mode := "dev"
+	if os.Getenv("MODE") == "prod" {
+		mode = "prod"
 	}
 
-	if err := backupPostgres(dbConfig); err != nil {
-		panic(err)
+	err := config.Load(fmt.Sprintf(".env.%s", mode))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func main() {
+	err := initConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for {
+		if err = backupPostgres(); err != nil {
+			log.Fatal(err)
+		}
+
+		time.Sleep(1 * time.Minute)
 	}
 }
