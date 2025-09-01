@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   pg_dev_volume:
+  backup_dev_volume:
 
 services:
   pg-local:
@@ -12,3 +13,12 @@ services:
       - "54321:5432" # TODO: импортировать из .env
     volumes:
       - pg_dev_volume:/var/lib/postgresql/data
+  backup-local:
+    depends_on:
+      pg:
+        condition: service_healthy
+    image: postgres:16-alpine3.17
+    env_file:
+      - .env.dev
+    volumes:
+      - backup_dev_volume:/var/lib/backup/data

@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   pg_volume:
+  backup_volume:
 
 services:
   pg:
@@ -27,3 +28,12 @@ services:
     ports:
       - "50051:50051" # TODO: импортировать из .env
       - "8080:8080" # TODO: импортировать из .env
+  backup:
+    depends_on:
+      pg:
+        condition: service_healthy
+    image: kostrovf/learn_go_backup:0.1.1
+    env_file:
+      - .env.prod
+    volumes:
+      - backup_volume:/var/lib/backup/data

@@ -11,10 +11,15 @@ import (
 )
 
 const (
-	backupPath = "db/backups/"
+	backupPathDev  = "db/backups/"
+	backupPathProd = "backups/"
 )
 
 func backupPostgres() error {
+	backupPath := backupPathDev
+	if os.Getenv("MODE") == "prod" {
+		backupPath = backupPathProd
+	}
 	backupFile := fmt.Sprintf("%sbackup_%s.sql", backupPath, time.Now().Format("20060102_150405"))
 
 	cmd := exec.Command("pg_dump", "-f", backupFile)
@@ -55,6 +60,6 @@ func main() {
 			log.Fatal(err)
 		}
 
-		time.Sleep(1 * time.Minute)
+		time.Sleep(12 * time.Hour)
 	}
 }

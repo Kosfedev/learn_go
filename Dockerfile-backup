@@ -1,0 +1,25 @@
+FROM golang:1.24.5-alpine AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 go build -ldflags="-w -s" -o learn_go_backup ./cmd/backup/main.go
+
+FROM alpine:latest
+
+RUN apk add --no-cache postgresql-client
+
+WORKDIR /app/
+
+RUN mkdir backups
+
+COPY --from=builder /app/learn_go_backup .
+COPY --from=builder /app/.env.prod ./
+
+ENV MODE="prod"
+
+CMD ["./learn_go_backup"]
